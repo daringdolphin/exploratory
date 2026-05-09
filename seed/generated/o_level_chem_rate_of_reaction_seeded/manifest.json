@@ -1,0 +1,788 @@
+{
+  "notes": {
+    "id": "o_level_chem_rate_of_reaction",
+    "title": "O Level Chemistry: Rate of Reaction",
+    "subject": "O Level Chemistry",
+    "source_file": "source/[O LEVEL CHEMISTRY] Rate of Reaction - demo.pdf",
+    "total_pages": 16,
+    "total_artifacts": 10
+  },
+  "pages": [
+    {
+      "page_number": 1,
+      "title": "Topic 6.1: Rate of Reaction",
+      "kind": "title",
+      "has_artifacts": false,
+      "artifact_ids": [],
+      "notes": "Title page; no mechanism or worked method to visualize."
+    },
+    {
+      "page_number": 2,
+      "title": "Chapter Analysis",
+      "kind": "admin",
+      "has_artifacts": false,
+      "artifact_ids": [],
+      "notes": "Exam-weightage and chapter overview only."
+    },
+    {
+      "page_number": 3,
+      "title": "Measuring Rate of Reaction",
+      "kind": "overview",
+      "has_artifacts": false,
+      "artifact_ids": [],
+      "notes": "Lists measurement approaches but does not yet explain a mechanism."
+    },
+    {
+      "page_number": 4,
+      "title": "Calculating Rate of Reaction: Volume of Gas",
+      "kind": "process",
+      "has_artifacts": true,
+      "artifact_ids": [
+        "rate-reaction-gas-volume-gradient"
+      ],
+      "notes": "Shows how gas production over time maps to graph gradient and reaction completion."
+    },
+    {
+      "page_number": 5,
+      "title": "Calculating Rate of Reaction: Change in Mass",
+      "kind": "process",
+      "has_artifacts": true,
+      "artifact_ids": [
+        "rate-reaction-mass-loss-gradient"
+      ],
+      "notes": "Shows escaping gas causing mass loss and a changing graph gradient."
+    },
+    {
+      "page_number": 6,
+      "title": "Conditions for Successful Reaction",
+      "kind": "overview",
+      "has_artifacts": false,
+      "artifact_ids": [],
+      "notes": "Section divider listing factors; detailed mechanisms appear on later pages."
+    },
+    {
+      "page_number": 7,
+      "title": "Conditions for Effective Collision",
+      "kind": "process",
+      "has_artifacts": true,
+      "artifact_ids": [
+        "rate-reaction-effective-collision"
+      ],
+      "notes": "Introduces the two necessary collision conditions: sufficient energy and correct orientation."
+    },
+    {
+      "page_number": 8,
+      "title": "Five Factors That Affect Rate of Reaction",
+      "kind": "overview",
+      "has_artifacts": true,
+      "artifact_ids": [
+        "rate-reaction-factor-explorer"
+      ],
+      "notes": "High-level explorer linking all five rate factors to effective-collision frequency or the fraction of collisions with sufficient energy."
+    },
+    {
+      "page_number": 9,
+      "title": "Size of Reactant Particles",
+      "kind": "process",
+      "has_artifacts": true,
+      "artifact_ids": [
+        "rate-reaction-particle-size-surface-area"
+      ],
+      "notes": "Compares large and small particles through exposed surface area and effective-collision frequency."
+    },
+    {
+      "page_number": 10,
+      "title": "Concentration of Reactants",
+      "kind": "process",
+      "has_artifacts": true,
+      "artifact_ids": [
+        "rate-reaction-concentration-collision-frequency"
+      ],
+      "notes": "Links more particles per same volume to higher collision frequency, steeper initial gradient, and unchanged final gas volume when limiting reagent is unchanged."
+    },
+    {
+      "page_number": 11,
+      "title": "Pressure Applied",
+      "kind": "process",
+      "has_artifacts": true,
+      "artifact_ids": [
+        "rate-reaction-pressure-particle-density"
+      ],
+      "notes": "Explains higher gas pressure as decreased volume, closer particles, and more frequent effective collisions."
+    },
+    {
+      "page_number": 12,
+      "title": "Temperature of System",
+      "kind": "process",
+      "has_artifacts": true,
+      "artifact_ids": [
+        "rate-reaction-temperature-kinetic-energy"
+      ],
+      "notes": "Shows the two temperature effects from the notes: faster particles and a larger fraction meeting activation energy."
+    },
+    {
+      "page_number": 13,
+      "title": "Use of Catalysts",
+      "kind": "process",
+      "has_artifacts": true,
+      "artifact_ids": [
+        "rate-reaction-catalyst-lower-activation-energy"
+      ],
+      "notes": "Explains alternative pathway, lower activation energy, and more particles having enough energy for effective collision."
+    },
+    {
+      "page_number": 14,
+      "title": "Biological Catalyst: Enzymes",
+      "kind": "reference",
+      "has_artifacts": false,
+      "artifact_ids": [],
+      "notes": "Definitions and characteristics only; source does not explain denaturation or binding mechanism."
+    },
+    {
+      "page_number": 15,
+      "title": "TYS Question: Activation Energy",
+      "kind": "tys",
+      "has_artifacts": false,
+      "artifact_ids": [],
+      "notes": "Short recall question; catalyst and temperature mechanisms are already represented without adding a duplicate artifact."
+    },
+    {
+      "page_number": 16,
+      "title": "TYS Question: Concentration Graph",
+      "kind": "tys",
+      "has_artifacts": true,
+      "artifact_ids": [
+        "rate-reaction-tys-concentration-graph-choice"
+      ],
+      "notes": "Worked graph-choice method benefits from visual comparison of initial gradient and final gas volume."
+    }
+  ],
+  "artifacts": [
+    {
+      "id": "rate-reaction-factor-explorer",
+      "source_ref": "page 8",
+      "subject": "O Level Chemistry",
+      "topic": "Rate factor explorer",
+      "medium": "interactive_html",
+      "mechanism": "Particle size, concentration, pressure, temperature, and catalysts increase reaction rate by increasing effective-collision frequency or by increasing the fraction of collisions with enough energy.",
+      "transferable_principle": "Every rate factor should be traced back to effective collisions: either collisions happen more often, or a larger fraction of collisions has sufficient energy.",
+      "steps": [
+        {
+          "name": "Start with collisions",
+          "beat": "A reaction speeds up only when effective collisions become more frequent."
+        },
+        {
+          "name": "Change contact chances",
+          "beat": "Smaller particles, higher concentration, and higher pressure make successful contact more likely by increasing exposed surface area or particles per unit volume."
+        },
+        {
+          "name": "Change particle energy",
+          "beat": "Higher temperature makes particles move faster and increases the fraction with energy greater than or equal to activation energy."
+        },
+        {
+          "name": "Lower the barrier",
+          "beat": "A catalyst provides an alternative pathway with lower activation energy, so more particles have sufficient energy to react."
+        },
+        {
+          "name": "Compare outcomes",
+          "beat": "Each factor raises rate through one or both collision levers: collision frequency and enough-energy fraction."
+        }
+      ],
+      "key_symbols": [
+        {
+          "symbol": "effective collision counter",
+          "role": "resolution",
+          "meaning": "The rate-linked output that increases when collisions are more often successful."
+        },
+        {
+          "symbol": "particle size control",
+          "role": "agent",
+          "meaning": "The factor that changes exposed surface area."
+        },
+        {
+          "symbol": "concentration control",
+          "role": "agent",
+          "meaning": "The factor that changes number of particles in the same volume."
+        },
+        {
+          "symbol": "pressure control",
+          "role": "agent",
+          "meaning": "The factor that changes gas particle density by changing volume."
+        },
+        {
+          "symbol": "temperature control",
+          "role": "agent",
+          "meaning": "The factor that changes particle speed and enough-energy fraction."
+        },
+        {
+          "symbol": "activation energy barrier",
+          "role": "highlight",
+          "meaning": "The energy threshold lowered by a catalyst."
+        },
+        {
+          "symbol": "ineffective collisions",
+          "role": "problem",
+          "meaning": "Collisions that fail because they lack sufficient energy or the right orientation."
+        }
+      ],
+      "interactivity_hooks": [
+        "Particle size / surface area control: slide from large pieces to small pieces and watch exposed surface area and effective-collision frequency change.",
+        "Concentration control: increase particles in the same volume and watch collision frequency and initial rate rise.",
+        "Pressure control: compress gaseous reactants into a smaller volume and watch particles per unit volume and collision frequency rise.",
+        "Temperature control: raise temperature and watch particle speed plus the fraction above activation energy increase.",
+        "Catalyst / activation energy control: toggle catalyst on to lower the activation energy barrier and increase the fraction of particles with enough energy.",
+        "Compare mode: turn factors on one at a time to classify whether each mainly changes collision frequency, enough-energy fraction, or both."
+      ],
+      "output_filename": "rate-reaction-factor-explorer.html",
+      "file_path": "artifacts/rate-reaction-factor-explorer.html"
+    },
+    {
+      "id": "rate-reaction-gas-volume-gradient",
+      "source_ref": "page 4",
+      "subject": "O Level Chemistry",
+      "topic": "Gas volume gradient",
+      "medium": "interactive_html",
+      "mechanism": "As reactants are used up, gas is produced more slowly, so the volume-time graph gradient becomes gentler and finally reaches zero when no more gas is formed.",
+      "transferable_principle": "On a product-time graph, the gradient at a point represents reaction rate, and a zero gradient means the reaction has stopped.",
+      "steps": [
+        {
+          "name": "Fast start",
+          "beat": "Many reactant particles are available, so effective collisions are frequent and gas volume rises steeply."
+        },
+        {
+          "name": "Reactants fall",
+          "beat": "As reactants are consumed, fewer effective collisions happen per unit time and gas is produced more slowly."
+        },
+        {
+          "name": "Gentler gradient",
+          "beat": "The graph still rises, but the gradient becomes gentler because each time interval adds less gas."
+        },
+        {
+          "name": "Reaction complete",
+          "beat": "When no more gas is produced, the graph becomes horizontal and the reaction rate is zero."
+        }
+      ],
+      "key_symbols": [
+        {
+          "symbol": "reactant particles",
+          "role": "problem",
+          "meaning": "The starting particles being used up during the reaction."
+        },
+        {
+          "symbol": "gas bubbles",
+          "role": "resolution",
+          "meaning": "The product measured as volume of gas collected."
+        },
+        {
+          "symbol": "volume-time curve",
+          "role": "neutral",
+          "meaning": "The graph that records accumulated gas volume over time."
+        },
+        {
+          "symbol": "gradient marker",
+          "role": "highlight",
+          "meaning": "The local slope that represents rate of reaction."
+        }
+      ],
+      "interactivity_hooks": [
+        "Toggle between early, middle, and final time points to compare the graph gradient.",
+        "Drag a time marker along the curve to see the corresponding gas production rate."
+      ],
+      "output_filename": "rate-reaction-gas-volume-gradient.html",
+      "file_path": "artifacts/rate-reaction-gas-volume-gradient.html"
+    },
+    {
+      "id": "rate-reaction-mass-loss-gradient",
+      "source_ref": "page 5",
+      "subject": "O Level Chemistry",
+      "topic": "Mass loss gradient",
+      "medium": "interactive_html",
+      "mechanism": "Hydrogen gas escapes from the flask as the reaction proceeds, so the measured mass decreases quickly at first, then more slowly, and finally stops changing when the reaction is complete.",
+      "transferable_principle": "When a gaseous product escapes, the rate of mass decrease shows the reaction rate and the gradient becomes zero at completion.",
+      "steps": [
+        {
+          "name": "Gas escapes",
+          "beat": "The reaction produces hydrogen gas, and the gas leaves the flask instead of staying on the balance."
+        },
+        {
+          "name": "Mass drops fast",
+          "beat": "At the start, effective collisions are frequent, so gas escapes rapidly and the mass-time graph is steep."
+        },
+        {
+          "name": "Mass drops slower",
+          "beat": "As reactants are used up, fewer effective collisions occur and the graph becomes gentler."
+        },
+        {
+          "name": "Mass levels off",
+          "beat": "When the reaction is complete, no more gas escapes and the measured mass stops decreasing."
+        }
+      ],
+      "key_symbols": [
+        {
+          "symbol": "flask on balance",
+          "role": "neutral",
+          "meaning": "The experimental setup whose mass is being measured."
+        },
+        {
+          "symbol": "escaping hydrogen gas",
+          "role": "resolution",
+          "meaning": "The product leaving the setup and reducing measured mass."
+        },
+        {
+          "symbol": "remaining reactants",
+          "role": "problem",
+          "meaning": "The particles being consumed as the reaction proceeds."
+        },
+        {
+          "symbol": "falling mass curve",
+          "role": "neutral",
+          "meaning": "The graph showing total mass decreasing over time."
+        },
+        {
+          "symbol": "gradient marker",
+          "role": "highlight",
+          "meaning": "The slope that shows how quickly mass is changing."
+        }
+      ],
+      "interactivity_hooks": [
+        "Toggle whether gas is trapped or allowed to escape to see why the mass change depends on gas leaving.",
+        "Click graph regions to compare steep, gentle, and zero gradients."
+      ],
+      "output_filename": "rate-reaction-mass-loss-gradient.html",
+      "file_path": "artifacts/rate-reaction-mass-loss-gradient.html"
+    },
+    {
+      "id": "rate-reaction-effective-collision",
+      "source_ref": "page 7",
+      "subject": "O Level Chemistry",
+      "topic": "Effective collision",
+      "medium": "interactive_html",
+      "mechanism": "Reactant particles form products only when they collide with both sufficient energy and the right orientation; missing either condition makes the collision ineffective.",
+      "transferable_principle": "Reaction rate depends on the frequency of effective collisions, not just the number of collisions.",
+      "steps": [
+        {
+          "name": "Collision happens",
+          "beat": "Two reactant particles meet, but a collision alone is not enough to form products."
+        },
+        {
+          "name": "Energy checked",
+          "beat": "If the particles do not have sufficient energy, the collision is ineffective and no product forms."
+        },
+        {
+          "name": "Orientation checked",
+          "beat": "If the particles meet in the wrong orientation, the collision is also ineffective even if they collide."
+        },
+        {
+          "name": "Product forms",
+          "beat": "Only a collision with sufficient energy and the right orientation becomes an effective collision."
+        }
+      ],
+      "key_symbols": [
+        {
+          "symbol": "reactant A",
+          "role": "problem",
+          "meaning": "One reacting particle that must collide effectively."
+        },
+        {
+          "symbol": "reactant B",
+          "role": "agent",
+          "meaning": "The other reacting particle in the collision."
+        },
+        {
+          "symbol": "activation energy threshold",
+          "role": "highlight",
+          "meaning": "The minimum energy needed for the collision to be successful."
+        },
+        {
+          "symbol": "product pair",
+          "role": "resolution",
+          "meaning": "The product formed after an effective collision."
+        }
+      ],
+      "interactivity_hooks": [
+        "Switch collision energy between low and sufficient to see whether product forms.",
+        "Rotate one particle to test right and wrong orientations."
+      ],
+      "output_filename": "rate-reaction-effective-collision.html",
+      "file_path": "artifacts/rate-reaction-effective-collision.html"
+    },
+    {
+      "id": "rate-reaction-particle-size-surface-area",
+      "source_ref": "page 9",
+      "subject": "O Level Chemistry",
+      "topic": "Particle size",
+      "medium": "interactive_html",
+      "mechanism": "Smaller reactant particles expose a greater total surface area, allowing more contact between reactants and increasing the frequency of effective collisions.",
+      "transferable_principle": "Increasing exposed surface area increases reaction rate when collisions occur at the surface.",
+      "steps": [
+        {
+          "name": "Large pieces",
+          "beat": "A few large reactant pieces expose only their outside surfaces to the other reactant."
+        },
+        {
+          "name": "Smaller pieces",
+          "beat": "Breaking the same reactant into smaller pieces exposes more total surface area."
+        },
+        {
+          "name": "More contact",
+          "beat": "With more exposed surface, more reacting particles can collide with the solid at the same time."
+        },
+        {
+          "name": "Faster reaction",
+          "beat": "The frequency of effective collisions is higher, so the rate of reaction increases."
+        }
+      ],
+      "key_symbols": [
+        {
+          "symbol": "large reactant block",
+          "role": "problem",
+          "meaning": "The lower-surface-area case."
+        },
+        {
+          "symbol": "small reactant pieces",
+          "role": "agent",
+          "meaning": "The higher-surface-area case after particle size is reduced."
+        },
+        {
+          "symbol": "exposed surfaces",
+          "role": "highlight",
+          "meaning": "The contact area available for collisions."
+        },
+        {
+          "symbol": "effective collision marks",
+          "role": "resolution",
+          "meaning": "Successful collisions occurring at exposed surfaces."
+        }
+      ],
+      "interactivity_hooks": [
+        "Drag a particle-size slider from large pieces to smaller pieces and compare exposed surface area.",
+        "Toggle collision markers to compare effective-collision frequency in the two cases."
+      ],
+      "output_filename": "rate-reaction-particle-size-surface-area.html",
+      "file_path": "artifacts/rate-reaction-particle-size-surface-area.html"
+    },
+    {
+      "id": "rate-reaction-concentration-collision-frequency",
+      "source_ref": "page 10",
+      "subject": "O Level Chemistry",
+      "topic": "Concentration",
+      "medium": "interactive_html",
+      "mechanism": "A higher concentration places more reacting particles in the same volume, so collisions and effective collisions occur more frequently and the initial graph gradient is steeper.",
+      "transferable_principle": "Concentration changes reaction rate through particle number per unit volume; final product amount stays the same if the limiting reagent amount is unchanged.",
+      "steps": [
+        {
+          "name": "Same volume",
+          "beat": "Two containers have the same volume but different numbers of reacting particles."
+        },
+        {
+          "name": "More particles",
+          "beat": "The higher-concentration container has more particles per unit volume."
+        },
+        {
+          "name": "More collisions",
+          "beat": "Because particles are more crowded, collisions happen more frequently."
+        },
+        {
+          "name": "Steeper start",
+          "beat": "The higher-concentration reaction has a steeper initial product-time gradient."
+        },
+        {
+          "name": "Same final volume",
+          "beat": "If the limiting reagent amount is the same, the final volume of carbon dioxide produced is the same."
+        }
+      ],
+      "key_symbols": [
+        {
+          "symbol": "low concentration container",
+          "role": "problem",
+          "meaning": "The slower comparison case with fewer particles per unit volume."
+        },
+        {
+          "symbol": "high concentration container",
+          "role": "agent",
+          "meaning": "The faster case with more particles in the same volume."
+        },
+        {
+          "symbol": "collision flashes",
+          "role": "highlight",
+          "meaning": "The frequency of particle collisions."
+        },
+        {
+          "symbol": "product-time curves",
+          "role": "neutral",
+          "meaning": "The graph comparing reaction rates and final gas volumes."
+        },
+        {
+          "symbol": "shared final plateau",
+          "role": "resolution",
+          "meaning": "The same final product amount when the limiting reagent is unchanged."
+        }
+      ],
+      "interactivity_hooks": [
+        "Adjust concentration and observe particle density, collision frequency, and initial gradient together.",
+        "Toggle limiting reagent amount to see when final gas volume does or does not change."
+      ],
+      "output_filename": "rate-reaction-concentration-collision-frequency.html",
+      "file_path": "artifacts/rate-reaction-concentration-collision-frequency.html"
+    },
+    {
+      "id": "rate-reaction-pressure-particle-density",
+      "source_ref": "page 11",
+      "subject": "O Level Chemistry",
+      "topic": "Pressure",
+      "medium": "interactive_html",
+      "mechanism": "Increasing pressure decreases the volume occupied by gaseous reactants, bringing particles closer together so there are more particles per unit volume and more frequent effective collisions.",
+      "transferable_principle": "For gaseous reactants, pressure affects rate by changing particle density and collision frequency.",
+      "steps": [
+        {
+          "name": "Lower pressure",
+          "beat": "Gas particles are spread through a larger volume, so collisions are less frequent."
+        },
+        {
+          "name": "Volume decreases",
+          "beat": "Increasing pressure compresses the gas into a smaller volume."
+        },
+        {
+          "name": "Particles closer",
+          "beat": "The same particles are now closer together, giving more reactants per unit volume."
+        },
+        {
+          "name": "Faster reaction",
+          "beat": "More collisions occur between reactants, increasing the frequency of effective collisions."
+        }
+      ],
+      "key_symbols": [
+        {
+          "symbol": "movable piston",
+          "role": "agent",
+          "meaning": "The pressure change that compresses the gas."
+        },
+        {
+          "symbol": "gas reactant particles",
+          "role": "problem",
+          "meaning": "The reacting particles whose spacing changes with pressure."
+        },
+        {
+          "symbol": "smaller gas volume",
+          "role": "highlight",
+          "meaning": "The compressed space that increases particles per unit volume."
+        },
+        {
+          "symbol": "effective collision marks",
+          "role": "resolution",
+          "meaning": "Successful collisions occurring more often at higher pressure."
+        }
+      ],
+      "interactivity_hooks": [
+        "Drag the piston to change volume and observe particle density.",
+        "Compare collision counts at low and high pressure over the same time interval."
+      ],
+      "output_filename": "rate-reaction-pressure-particle-density.html",
+      "file_path": "artifacts/rate-reaction-pressure-particle-density.html"
+    },
+    {
+      "id": "rate-reaction-temperature-kinetic-energy",
+      "source_ref": "page 12",
+      "subject": "O Level Chemistry",
+      "topic": "Temperature",
+      "medium": "interactive_html",
+      "mechanism": "Increasing temperature raises average kinetic energy, making particles move faster and increasing the fraction with energy at or above activation energy, so effective collisions become more frequent.",
+      "transferable_principle": "Temperature increases reaction rate by changing both collision frequency and the proportion of collisions energetic enough to react.",
+      "steps": [
+        {
+          "name": "Lower temperature",
+          "beat": "Particles move more slowly and fewer have enough energy to overcome activation energy."
+        },
+        {
+          "name": "Temperature rises",
+          "beat": "The average kinetic energy of the particles increases."
+        },
+        {
+          "name": "Faster motion",
+          "beat": "Particles move faster, so collisions happen more often."
+        },
+        {
+          "name": "More above threshold",
+          "beat": "A larger fraction of particles has energy greater than or equal to the activation energy."
+        },
+        {
+          "name": "Higher rate",
+          "beat": "Both effects increase the frequency of effective collisions and raise the reaction rate."
+        }
+      ],
+      "key_symbols": [
+        {
+          "symbol": "slow particles",
+          "role": "problem",
+          "meaning": "The lower-temperature case with less kinetic energy."
+        },
+        {
+          "symbol": "heat input",
+          "role": "agent",
+          "meaning": "The temperature increase that raises average kinetic energy."
+        },
+        {
+          "symbol": "activation energy line",
+          "role": "highlight",
+          "meaning": "The threshold energy needed for reaction."
+        },
+        {
+          "symbol": "above-threshold particles",
+          "role": "resolution",
+          "meaning": "Particles with enough energy for effective collisions."
+        }
+      ],
+      "interactivity_hooks": [
+        "Move a temperature slider to change particle speed and above-threshold fraction.",
+        "Toggle between motion view and energy-distribution view to connect the two explanations."
+      ],
+      "output_filename": "rate-reaction-temperature-kinetic-energy.html",
+      "file_path": "artifacts/rate-reaction-temperature-kinetic-energy.html"
+    },
+    {
+      "id": "rate-reaction-catalyst-lower-activation-energy",
+      "source_ref": "page 13",
+      "subject": "O Level Chemistry",
+      "topic": "Catalyst",
+      "medium": "interactive_html",
+      "mechanism": "A catalyst provides an alternative reaction pathway with lower activation energy, so more reacting particles have sufficient kinetic energy to overcome the barrier and collide effectively.",
+      "transferable_principle": "A catalyst changes rate by lowering the activation energy barrier without changing the reaction yield or being chemically altered.",
+      "steps": [
+        {
+          "name": "Uncatalysed path",
+          "beat": "Without a catalyst, particles must overcome a higher activation energy barrier."
+        },
+        {
+          "name": "Catalyst added",
+          "beat": "The catalyst provides an alternative reaction pathway."
+        },
+        {
+          "name": "Lower barrier",
+          "beat": "The alternative pathway has a lower activation energy requirement."
+        },
+        {
+          "name": "More effective collisions",
+          "beat": "More reacting particles now have enough kinetic energy to react successfully."
+        },
+        {
+          "name": "Catalyst unchanged",
+          "beat": "The catalyst changes the rate of reaction without being chemically altered or changing the yield."
+        }
+      ],
+      "key_symbols": [
+        {
+          "symbol": "uncatalysed energy barrier",
+          "role": "problem",
+          "meaning": "The higher activation energy requirement."
+        },
+        {
+          "symbol": "catalyst",
+          "role": "agent",
+          "meaning": "The substance providing an alternative pathway."
+        },
+        {
+          "symbol": "lower activation energy path",
+          "role": "highlight",
+          "meaning": "The reduced energy barrier in the catalysed reaction."
+        },
+        {
+          "symbol": "successful reacting particles",
+          "role": "resolution",
+          "meaning": "Particles that now have sufficient energy to react."
+        }
+      ],
+      "interactivity_hooks": [
+        "Toggle catalyst on and off to compare activation energy barriers.",
+        "Adjust particle energy and see whether each particle clears the uncatalysed or catalysed barrier."
+      ],
+      "output_filename": "rate-reaction-catalyst-lower-activation-energy.html",
+      "file_path": "artifacts/rate-reaction-catalyst-lower-activation-energy.html"
+    },
+    {
+      "id": "rate-reaction-tys-concentration-graph-choice",
+      "source_ref": "page 16",
+      "subject": "O Level Chemistry",
+      "topic": "Concentration graph choice",
+      "medium": "interactive_html",
+      "mechanism": "When magnesium mass and excess acid conditions keep the final hydrogen amount unchanged, increasing acid concentration makes the initial gradient steeper while the final gas volume remains the same.",
+      "transferable_principle": "For rate graph questions, separate rate clues from amount clues: concentration changes the initial gradient, while the limiting reagent controls the final plateau.",
+      "steps": [
+        {
+          "name": "Identify the change",
+          "beat": "The acid concentration increases from 1.0 mol/dm3 to 2.0 mol/dm3 under otherwise same conditions."
+        },
+        {
+          "name": "Predict the rate",
+          "beat": "Higher concentration gives more particles per unit volume, so the reaction starts faster."
+        },
+        {
+          "name": "Check final amount",
+          "beat": "The magnesium mass is still 0.5 g and the acid is in excess, so the final hydrogen volume stays the same."
+        },
+        {
+          "name": "Choose the curve",
+          "beat": "The correct curve is the one with a steeper initial gradient but the same final plateau as graph 1."
+        }
+      ],
+      "key_symbols": [
+        {
+          "symbol": "graph 1",
+          "role": "neutral",
+          "meaning": "The original reaction curve for 1.0 mol/dm3 acid."
+        },
+        {
+          "symbol": "steeper candidate curve",
+          "role": "agent",
+          "meaning": "The curve showing the faster reaction at higher concentration."
+        },
+        {
+          "symbol": "same plateau line",
+          "role": "highlight",
+          "meaning": "The unchanged final hydrogen volume."
+        },
+        {
+          "symbol": "incorrect plateau curves",
+          "role": "problem",
+          "meaning": "Options that change the final amount despite the same magnesium amount."
+        },
+        {
+          "symbol": "chosen answer B",
+          "role": "resolution",
+          "meaning": "The curve matching both the rate and amount clues."
+        }
+      ],
+      "interactivity_hooks": [
+        "Click each candidate curve to test it against the two checks: initial gradient and final plateau.",
+        "Toggle clue labels for concentration, excess acid, and magnesium mass."
+      ],
+      "output_filename": "rate-reaction-tys-concentration-graph-choice.html",
+      "file_path": "artifacts/rate-reaction-tys-concentration-graph-choice.html"
+    }
+  ],
+  "house_style": {
+    "palette": {
+      "problem": "#c0392b",
+      "agent": "#1f6fa6",
+      "resolution": "#5dade2",
+      "neutral": "#1a1a1a",
+      "highlight": "#f1c40f",
+      "good": "#1e7d4f",
+      "bg": "#f5f1e8",
+      "paper": "#fbf8f1",
+      "rule": "#d8d2c2",
+      "ink_soft": "#4a4a4a"
+    },
+    "fonts": {
+      "display": "Fraunces",
+      "body": "Inter Tight",
+      "mono": "JetBrains Mono"
+    },
+    "layout": "header, two-column stage/sidebar, caption bar, controls, steps list, reference panels",
+    "keyboard": [
+      "ArrowLeft previous",
+      "ArrowRight next",
+      "Space auto-play",
+      "R restart"
+    ]
+  }
+}

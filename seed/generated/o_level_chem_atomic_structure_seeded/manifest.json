@@ -1,0 +1,533 @@
+{
+  "notes": {
+    "id": "o_level_chem_atomic_structure",
+    "title": "O Level Chemistry: Atomic Structure",
+    "subject": "O Level Chemistry",
+    "source_file": "source/[O LEVEL CHEMISTRY] Atomic Structure - demo.pdf",
+    "total_pages": 15,
+    "total_artifacts": 6
+  },
+  "pages": [
+    {
+      "page_number": 1,
+      "title": "Topic 2.2: Atomic Structure",
+      "kind": "title",
+      "has_artifacts": false,
+      "artifact_ids": [],
+      "triage_reason": "Title slide only; no mechanism or worked method."
+    },
+    {
+      "page_number": 2,
+      "title": "Chapter Analysis",
+      "kind": "admin",
+      "has_artifacts": false,
+      "artifact_ids": [],
+      "triage_reason": "Exam weighting and logistics; useful context but not an explanatory mechanism."
+    },
+    {
+      "page_number": 3,
+      "title": "Basics: Subatomic Particles",
+      "kind": "reference",
+      "has_artifacts": false,
+      "artifact_ids": [],
+      "triage_reason": "Defines proton, neutron, and electron properties in a table; no causal process."
+    },
+    {
+      "page_number": 4,
+      "title": "Basics: Electronic Configuration",
+      "kind": "key_concept",
+      "has_artifacts": false,
+      "artifact_ids": [],
+      "triage_reason": "States 2,8,8 shell capacity as a rule; no worked decision process on this page."
+    },
+    {
+      "page_number": 5,
+      "title": "Basics: Proton and Nucleon Number",
+      "kind": "definition",
+      "has_artifacts": false,
+      "artifact_ids": [],
+      "triage_reason": "Introduces notation and definitions; the application is seeded later in the worked question."
+    },
+    {
+      "page_number": 6,
+      "title": "Formation of Positive Ions",
+      "kind": "process",
+      "has_artifacts": true,
+      "artifact_ids": [
+        "atomic-structure-sodium-cation-electron-loss"
+      ],
+      "triage_reason": "Shows electron loss causing proton-electron imbalance and a positive ion."
+    },
+    {
+      "page_number": 7,
+      "title": "Formation of Negative Ions",
+      "kind": "process",
+      "has_artifacts": true,
+      "artifact_ids": [
+        "atomic-structure-chloride-anion-electron-gain"
+      ],
+      "triage_reason": "Shows electron gain causing proton-electron imbalance and a negative ion."
+    },
+    {
+      "page_number": 8,
+      "title": "Electrically Neutral to Compound",
+      "kind": "section_header",
+      "has_artifacts": false,
+      "artifact_ids": [],
+      "triage_reason": "Preview slide framing a why question; it does not yet present the mechanism."
+    },
+    {
+      "page_number": 9,
+      "title": "Atom, Ion, Compound",
+      "kind": "overview",
+      "has_artifacts": false,
+      "artifact_ids": [],
+      "triage_reason": "High-level analogy and sequence; ionic bond formation is mentioned but not developed enough for a source-grounded artifact."
+    },
+    {
+      "page_number": 10,
+      "title": "Isotopes",
+      "kind": "section_header",
+      "has_artifacts": false,
+      "artifact_ids": [],
+      "triage_reason": "Section title and key concept statement only."
+    },
+    {
+      "page_number": 11,
+      "title": "Same Chemical Properties, Different Physical Properties",
+      "kind": "key_concept",
+      "has_artifacts": true,
+      "artifact_ids": [
+        "atomic-structure-isotope-properties-comparison"
+      ],
+      "triage_reason": "Compares how unchanged electrons preserve chemical properties while changed neutrons affect mass-related physical properties."
+    },
+    {
+      "page_number": 12,
+      "title": "Case Study: Chlorine Mass 35.5",
+      "kind": "tys",
+      "has_artifacts": true,
+      "artifact_ids": [
+        "atomic-structure-chlorine-relative-atomic-mass"
+      ],
+      "triage_reason": "Worked weighted-average calculation connects isotope abundances to relative atomic mass."
+    },
+    {
+      "page_number": 13,
+      "title": "Things to Note: Understanding Isotopes",
+      "kind": "overview",
+      "has_artifacts": false,
+      "artifact_ids": [],
+      "triage_reason": "Summary of isotope takeaways already represented by pages 11 and 12."
+    },
+    {
+      "page_number": 14,
+      "title": "Try It Yourself: Oganesson Notation",
+      "kind": "tys",
+      "has_artifacts": true,
+      "artifact_ids": [
+        "atomic-structure-og-element-notation-method"
+      ],
+      "triage_reason": "Worked MCQ requires applying proton and nucleon number rules to choose the correct statement."
+    },
+    {
+      "page_number": 15,
+      "title": "Try It Yourself: 2- Ion Electronic Structure",
+      "kind": "tys",
+      "has_artifacts": true,
+      "artifact_ids": [
+        "atomic-structure-two-minus-ion-selection-method"
+      ],
+      "triage_reason": "Worked MCQ requires reversing ion formation logic from a 2- ion back to the neutral atom's proton number."
+    }
+  ],
+  "artifacts": [
+    {
+      "id": "atomic-structure-sodium-cation-electron-loss",
+      "source_ref": "page 6",
+      "subject": "O Level Chemistry",
+      "topic": "Positive ion formation",
+      "medium": "interactive_html",
+      "mechanism": "When a sodium atom loses one outer electron, its 11 protons outnumber its 10 remaining electrons, so the particle becomes Na+.",
+      "transferable_principle": "A positive ion forms when electron loss leaves more protons than electrons.",
+      "steps": [
+        {
+          "name": "Neutral sodium",
+          "beat": "Start with a sodium atom where proton count and electron count balance, so the atom has no overall charge."
+        },
+        {
+          "name": "Outer electron leaves",
+          "beat": "The single valence electron is removed from the outer shell while the nucleus stays unchanged."
+        },
+        {
+          "name": "Counts become unequal",
+          "beat": "Sodium still has 11 protons, but now only 10 electrons remain."
+        },
+        {
+          "name": "Na+ forms",
+          "beat": "The extra positive proton charge gives the ion a +1 charge, written as Na+."
+        }
+      ],
+      "key_symbols": [
+        {
+          "symbol": "sodium atom",
+          "role": "neutral",
+          "meaning": "The starting particle with balanced protons and electrons."
+        },
+        {
+          "symbol": "outer electron",
+          "role": "problem",
+          "meaning": "The electron being removed from the atom."
+        },
+        {
+          "symbol": "electron-loss arrow",
+          "role": "agent",
+          "meaning": "The change that reduces the electron count by one."
+        },
+        {
+          "symbol": "Na+ ion",
+          "role": "resolution",
+          "meaning": "The resulting cation with one more proton than electron."
+        },
+        {
+          "symbol": "+1 charge label",
+          "role": "highlight",
+          "meaning": "The charge caused by the proton-electron imbalance."
+        }
+      ],
+      "interactivity_hooks": [
+        "Toggle the lost outer electron on and off to compare neutral sodium with Na+.",
+        "Click proton and electron counters to highlight why the charge changes."
+      ],
+      "output_filename": "atomic-structure-sodium-cation-electron-loss.html",
+      "file_path": "artifacts/atomic-structure-sodium-cation-electron-loss.html"
+    },
+    {
+      "id": "atomic-structure-chloride-anion-electron-gain",
+      "source_ref": "page 7",
+      "subject": "O Level Chemistry",
+      "topic": "Negative ion formation",
+      "medium": "interactive_html",
+      "mechanism": "When a chlorine atom gains one electron to complete its valence shell, its 18 electrons outnumber its 17 protons, so the particle becomes Cl-.",
+      "transferable_principle": "A negative ion forms when electron gain leaves more electrons than protons.",
+      "steps": [
+        {
+          "name": "Neutral chlorine",
+          "beat": "Begin with a chlorine atom whose proton and electron counts are equal."
+        },
+        {
+          "name": "Electron joins",
+          "beat": "One electron is added to the valence shell so the outer shell becomes complete."
+        },
+        {
+          "name": "Electrons outnumber protons",
+          "beat": "Chlorine still has 17 protons, but now has 18 electrons."
+        },
+        {
+          "name": "Cl- forms",
+          "beat": "The extra electron gives the ion a -1 charge, written as Cl-."
+        }
+      ],
+      "key_symbols": [
+        {
+          "symbol": "chlorine atom",
+          "role": "neutral",
+          "meaning": "The starting particle before electron gain."
+        },
+        {
+          "symbol": "incoming electron",
+          "role": "agent",
+          "meaning": "The added electron that changes the charge balance."
+        },
+        {
+          "symbol": "valence shell gap",
+          "role": "problem",
+          "meaning": "The incomplete outer shell before gain."
+        },
+        {
+          "symbol": "Cl- ion",
+          "role": "resolution",
+          "meaning": "The resulting anion with one more electron than proton."
+        },
+        {
+          "symbol": "-1 charge label",
+          "role": "highlight",
+          "meaning": "The charge caused by the proton-electron imbalance."
+        }
+      ],
+      "interactivity_hooks": [
+        "Drag one electron into chlorine's outer shell to watch the charge counter become -1.",
+        "Toggle before and after states to compare atom and anion."
+      ],
+      "output_filename": "atomic-structure-chloride-anion-electron-gain.html",
+      "file_path": "artifacts/atomic-structure-chloride-anion-electron-gain.html"
+    },
+    {
+      "id": "atomic-structure-isotope-properties-comparison",
+      "source_ref": "page 11",
+      "subject": "O Level Chemistry",
+      "topic": "Isotope properties",
+      "medium": "interactive_html",
+      "mechanism": "Isotopes keep the same proton and electron counts, so their chemical reactions stay the same, but different neutron counts change their masses and mass-related physical properties.",
+      "transferable_principle": "Chemical properties follow electron arrangement, while physical properties can change when mass changes.",
+      "steps": [
+        {
+          "name": "Same element",
+          "beat": "Two atoms are shown with the same number of protons, so they are atoms of the same element."
+        },
+        {
+          "name": "Same electrons",
+          "beat": "Their electron arrangements match, so they undergo the same chemical reactions and form compounds with the same formula."
+        },
+        {
+          "name": "Different neutrons",
+          "beat": "The nuclei contain different numbers of neutrons, creating slightly different masses."
+        },
+        {
+          "name": "Property split",
+          "beat": "Chemical properties remain similar, while physical properties such as density can differ."
+        }
+      ],
+      "key_symbols": [
+        {
+          "symbol": "matching electron shells",
+          "role": "agent",
+          "meaning": "The shared feature responsible for similar chemical properties."
+        },
+        {
+          "symbol": "extra neutrons",
+          "role": "problem",
+          "meaning": "The differing feature that changes mass."
+        },
+        {
+          "symbol": "chemical reaction path",
+          "role": "resolution",
+          "meaning": "The same reaction outcome caused by the same electron arrangement."
+        },
+        {
+          "symbol": "mass scale",
+          "role": "highlight",
+          "meaning": "The physical difference caused by neutron count."
+        },
+        {
+          "symbol": "isotope pair",
+          "role": "neutral",
+          "meaning": "Two atoms of the same element being compared."
+        }
+      ],
+      "interactivity_hooks": [
+        "Toggle neutron count while keeping electrons fixed to see which property labels change.",
+        "Compare chemical and physical property panels side by side."
+      ],
+      "output_filename": "atomic-structure-isotope-properties-comparison.html",
+      "file_path": "artifacts/atomic-structure-isotope-properties-comparison.html"
+    },
+    {
+      "id": "atomic-structure-chlorine-relative-atomic-mass",
+      "source_ref": "page 12",
+      "subject": "O Level Chemistry",
+      "topic": "Chlorine average mass",
+      "medium": "interactive_html",
+      "mechanism": "Chlorine's relative atomic mass is 35.5 because chlorine-35 contributes 75% of the weighted average and chlorine-37 contributes 25%.",
+      "transferable_principle": "Relative atomic mass is a weighted average of isotope masses using their percentage abundances.",
+      "steps": [
+        {
+          "name": "Two isotopes",
+          "beat": "Chlorine exists as chlorine-35 and chlorine-37 rather than as atoms with 35.5 nucleons."
+        },
+        {
+          "name": "Different abundances",
+          "beat": "The sample has more chlorine-35 atoms, represented as 75%, and fewer chlorine-37 atoms, represented as 25%."
+        },
+        {
+          "name": "Weight each mass",
+          "beat": "Multiply each isotope mass by its abundance: 35 x 75% and 37 x 25%."
+        },
+        {
+          "name": "Add contributions",
+          "beat": "The weighted contributions add to 35.5, giving chlorine's relative atomic mass."
+        }
+      ],
+      "key_symbols": [
+        {
+          "symbol": "chlorine-35 group",
+          "role": "agent",
+          "meaning": "The more abundant isotope contributing most of the average."
+        },
+        {
+          "symbol": "chlorine-37 group",
+          "role": "problem",
+          "meaning": "The less abundant heavier isotope that pulls the average upward."
+        },
+        {
+          "symbol": "weighted average bar",
+          "role": "highlight",
+          "meaning": "The combined calculation using mass and percentage abundance."
+        },
+        {
+          "symbol": "35.5 Ar result",
+          "role": "resolution",
+          "meaning": "The relative atomic mass shown on the periodic table."
+        },
+        {
+          "symbol": "percentage table",
+          "role": "neutral",
+          "meaning": "The source data for isotope abundance."
+        }
+      ],
+      "interactivity_hooks": [
+        "Adjust abundance sliders for chlorine-35 and chlorine-37 to see the weighted average move.",
+        "Click each isotope group to reveal its individual contribution to 35.5."
+      ],
+      "output_filename": "atomic-structure-chlorine-relative-atomic-mass.html",
+      "file_path": "artifacts/atomic-structure-chlorine-relative-atomic-mass.html"
+    },
+    {
+      "id": "atomic-structure-og-element-notation-method",
+      "source_ref": "page 14",
+      "subject": "O Level Chemistry",
+      "topic": "Element notation method",
+      "medium": "interactive_html",
+      "mechanism": "For neutral oganesson-294, the lower number 118 gives both protons and electrons, while neutrons are found by subtracting 118 from the nucleon number 294.",
+      "transferable_principle": "In nuclide notation, proton number identifies protons and neutral-atom electrons, while nucleon number minus proton number gives neutrons.",
+      "steps": [
+        {
+          "name": "Read the lower number",
+          "beat": "The proton number is 118, so an atom of oganesson contains 118 protons."
+        },
+        {
+          "name": "Use neutrality",
+          "beat": "Because the question asks about an atom, the number of electrons equals the number of protons."
+        },
+        {
+          "name": "Subtract for neutrons",
+          "beat": "The nucleon number is 294, so neutrons are 294 - 118 = 176."
+        },
+        {
+          "name": "Choose statement C",
+          "beat": "The correct statement is that it contains 118 protons and 176 neutrons."
+        }
+      ],
+      "key_symbols": [
+        {
+          "symbol": "118 proton number",
+          "role": "agent",
+          "meaning": "The number that determines protons and neutral-atom electrons."
+        },
+        {
+          "symbol": "294 nucleon number",
+          "role": "neutral",
+          "meaning": "The total number of protons and neutrons."
+        },
+        {
+          "symbol": "subtraction bracket",
+          "role": "highlight",
+          "meaning": "The calculation used to find neutrons."
+        },
+        {
+          "symbol": "wrong answer options",
+          "role": "problem",
+          "meaning": "Distractors that confuse electrons, protons, and nucleons."
+        },
+        {
+          "symbol": "option C",
+          "role": "resolution",
+          "meaning": "The statement matching the particle counts."
+        }
+      ],
+      "interactivity_hooks": [
+        "Click each answer option to see which count rule it violates.",
+        "Reveal proton, electron, and neutron counts one at a time from the notation."
+      ],
+      "output_filename": "atomic-structure-og-element-notation-method.html",
+      "file_path": "artifacts/atomic-structure-og-element-notation-method.html"
+    },
+    {
+      "id": "atomic-structure-two-minus-ion-selection-method",
+      "source_ref": "page 15",
+      "subject": "O Level Chemistry",
+      "topic": "2- ion selection",
+      "medium": "interactive_html",
+      "mechanism": "A 2- ion with electronic structure 2,8,8 has 18 electrons after gaining two, so the neutral atom had 16 electrons and proton number 16.",
+      "transferable_principle": "To work backward from a negative ion, subtract gained electrons from the ion's electron count to find the neutral atom's proton number.",
+      "steps": [
+        {
+          "name": "Count ion electrons",
+          "beat": "The electronic structure 2,8,8 totals 18 electrons in the ion."
+        },
+        {
+          "name": "Interpret 2- charge",
+          "beat": "A 2- ion formed when the atom gained two electrons."
+        },
+        {
+          "name": "Reverse the gain",
+          "beat": "Subtract the gained electrons: 18 - 2 = 16 electrons in the neutral atom."
+        },
+        {
+          "name": "Match proton number",
+          "beat": "A neutral atom with 16 electrons has 16 protons, so the option with proton number 16 is correct."
+        }
+      ],
+      "key_symbols": [
+        {
+          "symbol": "2,8,8 shells",
+          "role": "neutral",
+          "meaning": "The ion's electron arrangement and total electron count."
+        },
+        {
+          "symbol": "2- charge",
+          "role": "problem",
+          "meaning": "The clue that two electrons were gained."
+        },
+        {
+          "symbol": "reverse arrow",
+          "role": "agent",
+          "meaning": "The reasoning step that removes the gained electrons to recover the neutral atom."
+        },
+        {
+          "symbol": "proton number 16",
+          "role": "resolution",
+          "meaning": "The matching neutral atom proton number."
+        },
+        {
+          "symbol": "answer choices",
+          "role": "highlight",
+          "meaning": "The options filtered by proton number."
+        }
+      ],
+      "interactivity_hooks": [
+        "Click the 2, 8, and 8 shell labels to build the total of 18 electrons.",
+        "Toggle ion charge between 1- and 2- to see how the neutral proton number changes.",
+        "Select each option to test whether its proton number matches the reversed count."
+      ],
+      "output_filename": "atomic-structure-two-minus-ion-selection-method.html",
+      "file_path": "artifacts/atomic-structure-two-minus-ion-selection-method.html"
+    }
+  ],
+  "house_style": {
+    "palette": {
+      "problem": "#c0392b",
+      "agent": "#1f6fa6",
+      "resolution": "#5dade2",
+      "neutral": "#1a1a1a",
+      "highlight": "#f1c40f",
+      "good": "#1e7d4f",
+      "bg": "#f5f1e8",
+      "paper": "#fbf8f1",
+      "rule": "#d8d2c2",
+      "ink_soft": "#4a4a4a"
+    },
+    "fonts": {
+      "display": "Fraunces",
+      "body": "Inter Tight",
+      "mono": "JetBrains Mono"
+    },
+    "layout": "header, two-column stage/sidebar, caption bar, controls, steps list, reference panels",
+    "keyboard": [
+      "ArrowLeft previous",
+      "ArrowRight next",
+      "Space auto-play",
+      "R restart"
+    ]
+  }
+}
