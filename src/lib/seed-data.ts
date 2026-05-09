@@ -1,5 +1,7 @@
 import atomicManifest from "../../seed/generated/o_level_chem_atomic_structure_seeded/manifest.json";
 import rateManifest from "../../seed/generated/o_level_chem_rate_of_reaction_seeded/manifest.json";
+import { existsSync, readFileSync } from "node:fs";
+import path from "node:path";
 import { buildArtifact } from "@/lib/artifacts/renderer";
 import {
   artifactSpecSchema,
@@ -50,6 +52,7 @@ type BundleConfig = {
   summary: string;
   sourceFile: string;
   sourcePath: string;
+  seedBundleDir: string;
   manifest: SeedManifest;
 };
 
@@ -61,6 +64,7 @@ const bundleConfigs: BundleConfig[] = [
       "Animated and interactive notes about reaction rate, collision theory, concentration, pressure, temperature, and catalysts.",
     sourceFile: "[O LEVEL CHEMISTRY] Rate of Reaction - demo.pdf",
     sourcePath: "seed/[O LEVEL CHEMISTRY] Rate of Reaction - demo.pdf",
+    seedBundleDir: "o_level_chem_rate_of_reaction_seeded",
     manifest: rateManifest as unknown as SeedManifest,
   },
   {
@@ -70,6 +74,7 @@ const bundleConfigs: BundleConfig[] = [
       "Particle-level notes about atomic structure, ions, charge, isotope reasoning, and worked notation questions.",
     sourceFile: "[O LEVEL CHEMISTRY] Atomic Structure - demo.pdf",
     sourcePath: "seed/[O LEVEL CHEMISTRY] Atomic Structure - demo.pdf",
+    seedBundleDir: "o_level_chem_atomic_structure_seeded",
     manifest: atomicManifest as unknown as SeedManifest,
   },
 ];
@@ -81,17 +86,35 @@ function toSchemaArtifact(artifact: ArtifactSpec & { file_path?: string }) {
 function makeArtifacts({
   id: noteSetId,
   manifest,
+  seedBundleDir,
 }: BundleConfig): ArtifactRecord[] {
   return manifest.artifacts.map((artifact) => {
     const spec = toSchemaArtifact(artifact);
     const built = buildArtifact(spec);
+    const savedHtml = readSavedArtifactHtml(
+      seedBundleDir,
+      artifact.file_path || path.join("artifacts", spec.output_filename),
+    );
 
     return {
       ...built,
+      html: savedHtml ?? built.html,
       origin: "seed" as const,
       noteSetId,
     };
   });
+}
+
+function readSavedArtifactHtml(seedBundleDir: string, relativePath: string) {
+  const absolutePath = path.join(
+    process.cwd(),
+    "seed",
+    "generated",
+    seedBundleDir,
+    relativePath,
+  );
+  if (!existsSync(absolutePath)) return null;
+  return readFileSync(absolutePath, "utf8");
 }
 
 function makeNoteSet(config: BundleConfig): NoteSet {

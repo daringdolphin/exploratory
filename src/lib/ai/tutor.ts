@@ -30,7 +30,15 @@ const generatedArtifactContextSchema = artifactSpecSchema
 const tutorRequestSchema = z.object({
   noteSetId: z.string().optional(),
   artifactId: z.string().optional(),
+  selectedArtifact: artifactSpecSchema.optional(),
   generatedArtifacts: z.array(generatedArtifactContextSchema).optional(),
+  showArtifactRequest: z
+    .object({
+      messageId: z.string().optional(),
+      messageText: z.string().optional(),
+      sourceArtifact: artifactSpecSchema.optional(),
+    })
+    .optional(),
 });
 
 export type TutorRequestInput = z.infer<typeof tutorRequestSchema>;
@@ -39,6 +47,11 @@ export type TutorContext = {
   noteSet: NoteSet | null;
   selectedArtifact: ArtifactSpec | null;
   generatedArtifacts: ArtifactSpec[];
+  showArtifactRequest: {
+    messageId?: string;
+    messageText?: string;
+    sourceArtifact: ArtifactSpec | null;
+  } | null;
 };
 
 export const chatTutorTools = {
@@ -146,15 +159,25 @@ export function buildTutorContext(input: TutorRequestInput): TutorContext {
   const generatedArtifacts =
     input.generatedArtifacts?.map((artifact) => toArtifactSpec(artifact)) ?? [];
   const selectedArtifact = input.artifactId
-    ? getArtifactById(input.artifactId) ??
+    ? input.selectedArtifact ??
+      getArtifactById(input.artifactId) ??
       generatedArtifacts.find((artifact) => artifact.id === input.artifactId) ??
       null
-    : null;
+    : input.selectedArtifact ?? null;
+  const sourceArtifact =
+    input.showArtifactRequest?.sourceArtifact ?? selectedArtifact ?? null;
 
   return {
     noteSet,
     selectedArtifact: selectedArtifact ? toArtifactSpec(selectedArtifact) : null,
     generatedArtifacts,
+    showArtifactRequest: input.showArtifactRequest
+      ? {
+          messageId: input.showArtifactRequest.messageId,
+          messageText: input.showArtifactRequest.messageText,
+          sourceArtifact: sourceArtifact ? toArtifactSpec(sourceArtifact) : null,
+        }
+      : null,
   };
 }
 
@@ -228,6 +251,7 @@ When to answer in text:
 When to call buildArtifact:
 - The student asks "show me", "make an artifact", "visualize", "compare", "why does X change Y", or seems stuck on a causal chain.
 - The answer depends on a mechanism, worked example, comparison, or parameter change that benefits from interaction.
+- If Current app context includes showArtifactRequest, call buildArtifact in this response. Use the message thread and showArtifactRequest.messageText to identify what confused the student, and use showArtifactRequest.sourceArtifact or selectedArtifact as the parent spec. Do not only answer in text.
 
 Artifact rules:
 - medium must be "interactive_html".
@@ -313,5 +337,6 @@ function toTutorPromptContext(context: TutorContext) {
       : null,
     selectedArtifact: context.selectedArtifact,
     generatedArtifacts: context.generatedArtifacts,
+    showArtifactRequest: context.showArtifactRequest,
   };
 }

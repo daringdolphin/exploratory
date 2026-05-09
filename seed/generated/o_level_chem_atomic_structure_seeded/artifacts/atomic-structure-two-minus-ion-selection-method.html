@@ -12,647 +12,434 @@
       --neutral: #151913;
       --highlight: #d79d1f;
       --good: #207857;
-      --bg: #ede8d9;
       --paper: #fff8ea;
       --paper-strong: #fffdf6;
-      --surface-cool: #e2eee8;
+      --surface: #f3e8d4;
+      --surface-cool: #dfe9e2;
       --rule: #cabf9e;
-      --ink-soft: #626b5f;
+      --muted: #626b5f;
       --shadow: #10201d;
     }
 
     * { box-sizing: border-box; }
 
-    html, body {
-      min-height: 100%;
-      overflow-x: hidden;
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
     }
 
     body {
-      margin: 0;
       background:
-        linear-gradient(135deg, rgba(255, 248, 234, 0.97), rgba(226, 238, 232, 0.94) 52%, rgba(242, 225, 188, 0.76)),
+        linear-gradient(135deg, rgba(255, 248, 234, 0.98), rgba(223, 233, 226, 0.95) 54%, rgba(242, 225, 188, 0.78)),
         repeating-linear-gradient(0deg, rgba(21, 25, 19, 0.026) 0 1px, transparent 1px 28px),
         repeating-linear-gradient(90deg, rgba(21, 25, 19, 0.022) 0 1px, transparent 1px 28px);
       color: var(--neutral);
       font-family: "Avenir Next", "Trebuchet MS", system-ui, sans-serif;
     }
 
-    button, input, select {
+    button,
+    input,
+    select {
       color: inherit;
       font: inherit;
     }
 
     button:focus-visible,
-    input:focus-visible,
-    select:focus-visible {
-      outline: 3px solid rgba(8, 122, 138, 0.26);
+    input:focus-visible {
+      outline: 3px solid rgba(8, 122, 138, 0.28);
       outline-offset: 2px;
     }
 
-    .mono,
-    .eyebrow,
-    .source-chip,
-    .scenario-count,
-    .rate-pill,
-    button,
-    .metric,
-    .control-label,
-    .vocab-chip,
-    .role-label,
-    footer {
-      font-family: "Andale Mono", "Courier New", monospace;
-      letter-spacing: 0;
+    .artifact {
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr);
+      gap: 8px;
+      width: 100%;
+      height: 100vh;
+      min-height: 520px;
+      padding: 9px;
+      animation: settle 420ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
     }
 
-    .shell {
-      width: min(1240px, calc(100vw - 24px));
-      margin: 0 auto;
-      padding: 22px 0 26px;
-      animation: load-in 520ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
-    }
-
-    .artifact-header {
+    .topbar {
       display: grid;
       grid-template-columns: minmax(0, 1fr) auto;
-      gap: 18px;
+      gap: 12px;
       align-items: end;
-      margin-bottom: 14px;
-      border-bottom: 1px solid rgba(21, 25, 19, 0.14);
-      padding-bottom: 14px;
+      min-height: 74px;
+      border: 1px solid rgba(21, 25, 19, 0.14);
+      background: rgba(255, 253, 246, 0.76);
+      padding: 10px 12px;
     }
 
-    .eyebrow {
-      margin: 0;
-      color: var(--agent);
-      font-size: 12px;
-      font-weight: 800;
+    .eyebrow,
+    .source,
+    .scenario-count,
+    .control-label,
+    .metric,
+    .checkpoint button,
+    .prediction button,
+    .scenario-tab,
+    .vocab-chip {
+      font-family: "Andale Mono", "Courier New", monospace;
+      letter-spacing: 0;
       text-transform: uppercase;
     }
 
+    .eyebrow {
+      margin: 0 0 3px;
+      color: var(--agent);
+      font-size: 10px;
+      font-weight: 800;
+    }
+
     h1 {
-      max-width: 900px;
-      margin: 6px 0 8px;
+      margin: 0;
       font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(34px, 5vw, 64px);
-      line-height: 0.95;
+      font-size: clamp(24px, 3.1vw, 42px);
+      line-height: 0.96;
       letter-spacing: 0;
       overflow-wrap: anywhere;
     }
 
     .aha {
       max-width: 920px;
-      margin: 0;
-      color: var(--ink-soft);
-      font-size: 17px;
-      line-height: 1.48;
-      overflow-wrap: anywhere;
-    }
-
-    .source-chip {
-      border: 1px solid rgba(21, 25, 19, 0.16);
-      background: rgba(255, 253, 246, 0.76);
-      color: var(--neutral);
+      max-height: 38px;
+      margin: 5px 0 0;
+      overflow: hidden;
+      color: var(--muted);
       font-size: 12px;
-      font-weight: 800;
-      padding: 10px 12px;
-      text-align: right;
-      text-transform: uppercase;
-      white-space: nowrap;
+      line-height: 1.28;
     }
 
-    .learning-grid {
+    .source {
+      align-self: stretch;
       display: grid;
-      grid-template-columns: minmax(0, 1.76fr) minmax(310px, 0.78fr);
-      gap: 16px;
-      align-items: stretch;
-      max-width: 100%;
+      min-width: 118px;
+      place-items: center;
+      border-left: 1px solid rgba(21, 25, 19, 0.12);
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .main {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(278px, 320px);
+      gap: 8px;
+      min-height: 0;
     }
 
     .stage,
-    .guide {
+    .side {
       min-width: 0;
-      border: 1px solid rgba(21, 25, 19, 0.15);
-      background: rgba(255, 248, 234, 0.82);
-      box-shadow: 0 24px 70px rgba(16, 32, 29, 0.12);
+      min-height: 0;
+      border: 1px solid rgba(21, 25, 19, 0.14);
+      background: rgba(255, 253, 246, 0.8);
       overflow: hidden;
     }
 
     .stage {
+      position: relative;
       display: grid;
-      grid-template-rows: auto minmax(430px, 1fr) auto auto;
-      min-height: 720px;
-    }
-
-    .stage-top {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      gap: 14px;
-      align-items: center;
-      border-bottom: 1px solid rgba(21, 25, 19, 0.12);
-      padding: 14px 16px;
-    }
-
-    .scenario-count,
-    .rate-pill {
-      color: var(--ink-soft);
-      font-size: 12px;
-      font-weight: 800;
-      text-transform: uppercase;
-    }
-
-    .stage-title {
-      margin: 5px 0 0;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(24px, 3vw, 38px);
-      line-height: 1;
-      letter-spacing: 0;
-      overflow-wrap: anywhere;
-    }
-
-    .rate-pill {
-      display: grid;
-      min-width: 142px;
-      border: 1px solid rgba(21, 25, 19, 0.14);
-      background: rgba(255, 253, 246, 0.84);
-      padding: 9px 11px;
-      text-align: right;
-    }
-
-    .rate-pill strong {
-      color: var(--neutral);
-      font-size: 20px;
-      line-height: 1;
+      grid-template-rows: minmax(0, 1fr) auto;
     }
 
     .canvas-wrap {
       position: relative;
-      min-height: 430px;
-      margin: 14px;
-      border: 1px solid rgba(21, 25, 19, 0.14);
-      background: var(--paper-strong);
-      overflow: hidden;
-      animation: canvas-in 640ms 80ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+      min-height: 0;
     }
 
     canvas {
       display: block;
       width: 100%;
       height: 100%;
-      min-height: 430px;
     }
 
-    .metric-row {
-      position: absolute;
-      right: 12px;
-      bottom: 12px;
-      left: 12px;
+    .metrics {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 8px;
-      pointer-events: none;
+      border-top: 1px solid rgba(21, 25, 19, 0.12);
+      background: rgba(21, 25, 19, 0.08);
+      gap: 1px;
     }
 
     .metric {
-      min-height: 54px;
-      border: 1px solid rgba(21, 25, 19, 0.12);
-      background: rgba(255, 253, 246, 0.88);
-      color: var(--ink-soft);
-      font-size: 11px;
-      padding: 8px 10px;
+      min-width: 0;
+      background: rgba(255, 253, 246, 0.92);
+      color: var(--muted);
+      font-size: 9px;
+      font-weight: 800;
+      padding: 7px 8px;
     }
 
     .metric strong {
       display: block;
-      margin-bottom: 3px;
+      margin-bottom: 2px;
       color: var(--neutral);
-      font-size: 17px;
-    }
-
-    .prediction {
-      margin: 0 14px 14px;
-      border-left: 7px solid var(--highlight);
-      background: rgba(255, 253, 246, 0.76);
-      padding: 13px 15px;
-    }
-
-    .prediction h2 {
-      margin: 0 0 6px;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 24px;
+      font-size: 16px;
       line-height: 1;
-      letter-spacing: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      text-transform: none;
     }
 
-    .prediction p {
-      margin: 0;
-      color: var(--ink-soft);
-      line-height: 1.45;
+    .side {
+      display: grid;
+      grid-template-rows: auto auto auto minmax(0, 1fr) auto;
+      gap: 7px;
+      padding: 9px;
     }
 
-    .prediction-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 12px;
+    .scenario-tabs {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px;
     }
 
-    .transport,
-    .scenario-list,
-    .control-stack,
-    .checkpoint-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .transport {
-      padding: 0 14px 14px;
-    }
-
-    button,
-    .control-card,
-    .scenario-button,
-    .representation,
-    .misconception,
-    .checkpoint {
-      border: 1px solid rgba(21, 25, 19, 0.16);
-      background: rgba(255, 253, 246, 0.78);
-    }
-
-    button {
-      min-height: 38px;
+    .scenario-tab {
+      min-height: 34px;
+      border: 1px solid rgba(21, 25, 19, 0.14);
+      background: rgba(255, 248, 234, 0.76);
       cursor: pointer;
-      font-size: 12px;
+      font-size: 9px;
       font-weight: 800;
-      padding: 0 12px;
-      text-transform: uppercase;
-      transition:
-        background 160ms ease,
-        color 160ms ease,
-        border-color 160ms ease,
-        transform 160ms ease;
+      padding: 5px 7px;
+      text-align: left;
     }
 
-    button:hover:not(:disabled) {
-      border-color: var(--neutral);
-      transform: translateY(-1px);
-    }
-
-    button:disabled {
-      cursor: not-allowed;
-      opacity: 0.44;
-    }
-
-    button[aria-current="true"],
-    button[aria-pressed="true"] {
+    .scenario-tab[aria-current="true"] {
+      border-color: rgba(8, 122, 138, 0.62);
       background: var(--neutral);
       color: var(--paper);
     }
 
-    .guide {
-      display: grid;
-      align-content: start;
-      min-width: 0;
-      max-height: 720px;
-      overflow: auto;
+    .question {
+      border-left: 5px solid var(--highlight);
+      background: rgba(255, 248, 234, 0.76);
+      padding: 8px 9px;
     }
 
-    .panel-block {
-      border-bottom: 1px solid rgba(21, 25, 19, 0.12);
-      padding: 15px;
+    .scenario-count {
+      margin: 0 0 3px;
+      color: var(--muted);
+      font-size: 9px;
+      font-weight: 800;
     }
 
-    .panel-block:last-child {
-      border-bottom: 0;
-    }
-
-    .panel-block h3 {
-      margin: 0 0 10px;
+    .question h2 {
+      margin: 0 0 4px;
       font-family: Georgia, "Times New Roman", serif;
-      font-size: 24px;
+      font-size: 18px;
       line-height: 1;
-      letter-spacing: 0;
     }
 
-    .panel-block p {
+    .question p {
       margin: 0;
-      color: var(--ink-soft);
-      font-size: 13px;
-      line-height: 1.45;
-    }
-
-    .scenario-list,
-    .control-stack,
-    .representation-stack,
-    .vocab-list,
-    .misconception-stack {
-      display: grid;
-      gap: 8px;
-    }
-
-    .scenario-button {
-      display: grid;
-      grid-template-columns: 30px minmax(0, 1fr);
-      gap: 9px;
-      width: 100%;
-      min-height: 62px;
-      padding: 10px;
-      text-align: left;
-    }
-
-    .scenario-button small,
-    .control-card small,
-    .representation small,
-    .misconception small,
-    .checkpoint small {
-      display: block;
-      margin-top: 3px;
-      color: var(--ink-soft);
+      color: var(--muted);
       font-size: 11px;
-      line-height: 1.35;
-      text-transform: none;
+      line-height: 1.28;
     }
 
-    .scenario-button strong,
-    .control-card strong,
-    .representation strong,
-    .misconception strong,
-    .checkpoint strong {
-      display: block;
-      color: var(--neutral);
-      font-size: 13px;
-      line-height: 1.25;
-      overflow-wrap: anywhere;
-      text-transform: none;
+    .prediction {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px;
     }
 
-    .control-card,
-    .representation,
-    .misconception,
-    .checkpoint {
-      width: 100%;
-      padding: 10px;
+    .prediction button,
+    .checkpoint button {
+      min-height: 30px;
+      border: 1px solid rgba(21, 25, 19, 0.16);
+      background: rgba(255, 253, 246, 0.82);
+      cursor: pointer;
+      font-size: 9px;
+      font-weight: 800;
+      padding: 4px 6px;
     }
 
-    .control-card[aria-disabled="true"] {
-      opacity: 0.52;
+    .prediction button[aria-pressed="true"],
+    .checkpoint button[aria-pressed="true"] {
+      background: var(--agent);
+      color: white;
+    }
+
+    .controls {
+      display: grid;
+      gap: 6px;
+      min-height: 0;
+      align-content: start;
+    }
+
+    .control {
+      min-width: 0;
+      border: 1px solid rgba(21, 25, 19, 0.12);
+      background: rgba(255, 253, 246, 0.7);
+      padding: 7px;
+    }
+
+    .control[aria-disabled="true"] {
+      opacity: 0.48;
     }
 
     .control-label {
       display: flex;
       justify-content: space-between;
-      gap: 10px;
+      gap: 8px;
       color: var(--neutral);
-      font-size: 12px;
+      font-size: 9px;
       font-weight: 800;
-      text-transform: uppercase;
+    }
+
+    .control-label span:first-child {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     input[type="range"] {
       width: 100%;
-      margin-top: 8px;
+      margin: 5px 0 0;
       accent-color: var(--agent);
     }
 
-    select,
-    .checkpoint input {
-      width: 100%;
-      min-height: 36px;
-      margin-top: 8px;
-      border: 1px solid rgba(21, 25, 19, 0.16);
-      background: var(--paper-strong);
-      padding: 6px 8px;
-    }
-
-    .discrete-options {
+    .choice-row {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(86px, 1fr));
-      gap: 7px;
-      margin-top: 8px;
+      grid-template-columns: repeat(auto-fit, minmax(54px, 1fr));
+      gap: 4px;
+      margin-top: 6px;
     }
 
-    .discrete-options button {
-      min-height: 34px;
-      padding: 0 8px;
-      white-space: normal;
+    .choice-row button,
+    .toggle-button {
+      min-height: 26px;
+      border: 1px solid rgba(21, 25, 19, 0.15);
+      background: rgba(255, 253, 246, 0.82);
+      cursor: pointer;
+      font-size: 10px;
+      line-height: 1.1;
+      padding: 3px 5px;
     }
 
-    .representation {
-      border-left: 5px solid var(--agent);
+    .choice-row button[aria-current="true"],
+    .toggle-button[aria-pressed="true"] {
+      background: var(--neutral);
+      color: var(--paper);
     }
 
-    .representation[data-type="macroscopic"] {
-      border-left-color: var(--resolution);
+    .checkpoint {
+      border-top: 1px solid rgba(21, 25, 19, 0.12);
+      padding-top: 7px;
     }
 
-    .representation[data-type="symbolic"] {
-      border-left-color: var(--highlight);
+    .checkpoint strong {
+      display: block;
+      color: var(--neutral);
+      font-size: 11px;
+      line-height: 1.25;
     }
 
-    .vocab-list {
-      grid-template-columns: repeat(auto-fit, minmax(118px, 1fr));
+    .checkpoint p,
+    .feedback {
+      min-height: 18px;
+      margin: 5px 0 0;
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.25;
+    }
+
+    .vocab {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      min-height: 26px;
+      overflow: hidden;
     }
 
     .vocab-chip {
-      border: 1px solid rgba(21, 25, 19, 0.14);
-      background: rgba(255, 253, 246, 0.7);
-      color: var(--neutral);
-      font-size: 11px;
+      border: 1px solid rgba(21, 25, 19, 0.12);
+      background: rgba(255, 248, 234, 0.72);
+      color: var(--muted);
+      font-size: 8px;
       font-weight: 800;
-      padding: 8px;
-      text-transform: uppercase;
+      padding: 4px 5px;
     }
 
-    .role-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      margin-bottom: 4px;
-      color: var(--ink-soft);
-      font-size: 10px;
-      font-weight: 800;
-      text-transform: uppercase;
-    }
-
-    .dot {
-      width: 9px;
-      height: 9px;
-      border: 1px solid rgba(21, 25, 19, 0.24);
-      border-radius: 50%;
-      background: var(--role-color);
-    }
-
-    .checkpoint-feedback {
-      min-height: 26px;
-      margin-top: 10px !important;
-      color: var(--neutral) !important;
-    }
-
-    footer {
-      margin-top: 14px;
-      color: var(--ink-soft);
-      font-size: 11px;
-      line-height: 1.4;
-    }
-
-    @keyframes load-in {
-      from { opacity: 0; transform: translateY(12px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes canvas-in {
-      from { opacity: 0; transform: translateY(10px) scale(0.99); }
+    @keyframes settle {
+      from { opacity: 0; transform: translateY(8px) scale(0.995); }
       to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 1ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 1ms !important;
+    @media (max-width: 760px) {
+      .artifact {
+        min-height: 720px;
       }
-    }
 
-    @media (max-width: 900px) {
-      .artifact-header,
-      .learning-grid,
-      .stage-top {
+      .topbar,
+      .main {
         grid-template-columns: minmax(0, 1fr);
       }
 
-      .source-chip,
-      .rate-pill {
-        width: max-content;
-        max-width: 100%;
-        text-align: left;
-        white-space: normal;
+      .source {
+        display: none;
       }
 
-      .guide {
-        max-height: none;
-      }
-    }
-
-    @media (max-width: 560px) {
-      .shell {
-        width: min(calc(100vw - 20px), 340px);
+      .main {
+        grid-template-rows: minmax(0, 1fr) 330px;
       }
 
       h1 {
-        font-size: clamp(30px, 10vw, 42px);
-      }
-
-      .aha {
-        font-size: 15px;
-      }
-
-      .metric-row {
-        grid-template-columns: 1fr;
-      }
-
-      .canvas-wrap {
-        margin: 10px;
-      }
-
-      .transport,
-      .prediction {
-        margin-right: 10px;
-        margin-left: 10px;
-        padding-right: 10px;
-        padding-left: 10px;
+        font-size: 24px;
       }
     }
   </style>
 </head>
 <body>
-  <main class="shell">
-    <header class="artifact-header">
+  <main class="artifact">
+    <header class="topbar">
       <div>
         <p class="eyebrow" id="eyebrow"></p>
         <h1 id="title"></h1>
         <p class="aha" id="aha"></p>
       </div>
-      <div class="source-chip" id="source"></div>
+      <div class="source" id="source"></div>
     </header>
 
-    <section class="learning-grid">
+    <section class="main" aria-label="Interactive teaching artifact">
       <article class="stage">
-        <div class="stage-top">
-          <div>
-            <div class="scenario-count" id="scenario-count"></div>
-            <h2 class="stage-title" id="scenario-title"></h2>
-          </div>
-          <div class="rate-pill">
-            <span>rate readout</span>
-            <strong id="rate-readout">1.0x</strong>
-          </div>
-        </div>
-
         <div class="canvas-wrap">
-          <canvas id="scene" role="img" aria-label="2- Ion Selection MCQ Method linked animated representations"></canvas>
-          <div class="metric-row">
-            <div class="metric"><strong id="metric-frequency">1.0x</strong>Collision / event frequency</div>
-            <div class="metric"><strong id="metric-success">35%</strong>Successful fraction</div>
-            <div class="metric"><strong id="metric-symbolic">Ea</strong>Symbolic lever</div>
-          </div>
+          <canvas id="scene" aria-label="2- Ion Selection MCQ Method interactive visual"></canvas>
         </div>
-
-        <div class="prediction">
-          <h2 id="prediction-heading"></h2>
-          <p id="prediction-copy"></p>
-          <div class="prediction-buttons" id="prediction-buttons"></div>
-        </div>
-
-        <div class="transport">
-          <button id="prev-scenario" type="button">Previous</button>
-          <button id="next-scenario" type="button">Next scenario</button>
-          <button id="reset" type="button">Reset</button>
-          <button id="motion" type="button">Pause motion</button>
+        <div class="metrics">
+          <div class="metric"><strong id="metric-one">-</strong><span id="metric-one-label">micro view</span></div>
+          <div class="metric"><strong id="metric-two">-</strong><span id="metric-two-label">macro view</span></div>
+          <div class="metric"><strong id="metric-three">-</strong><span id="metric-three-label">symbolic view</span></div>
         </div>
       </article>
 
-      <aside class="guide">
-        <div class="panel-block">
-          <h3>Scenarios</h3>
-          <div class="scenario-list" id="scenario-list"></div>
-        </div>
-
-        <div class="panel-block">
-          <h3>Controls</h3>
-          <p id="control-hint"></p>
-          <div class="control-stack" id="controls"></div>
-        </div>
-
-        <div class="panel-block">
-          <h3>Linked Views</h3>
-          <p id="representations-intro"></p>
-          <div class="representation-stack" id="representations"></div>
-        </div>
-
-        <div class="panel-block">
-          <h3>Misconception</h3>
-          <div class="misconception-stack" id="misconceptions"></div>
-        </div>
-
-        <div class="panel-block">
-          <h3>Checkpoint</h3>
-          <div id="checkpoint"></div>
-        </div>
-
-        <div class="panel-block">
-          <h3>Vocabulary</h3>
-          <div class="vocab-list" id="vocabulary"></div>
-        </div>
+      <aside class="side">
+        <div class="scenario-tabs" id="scenario-tabs"></div>
+        <section class="question">
+          <p class="scenario-count" id="scenario-count"></p>
+          <h2 id="scenario-title"></h2>
+          <p id="scenario-question"></p>
+        </section>
+        <div class="prediction" id="prediction"></div>
+        <div class="controls" id="controls"></div>
+        <section class="checkpoint" id="checkpoint"></section>
+        <div class="vocab" id="vocab"></div>
       </aside>
     </section>
-
-    <footer id="footer"></footer>
   </main>
 
   <script>
     const spec = {"id":"atomic-structure-two-minus-ion-selection-method","source_ref":"page 15","subject":"O Level Chemistry","topic":"2- ion MCQ method","medium":"interactive_html","mechanism":"A 2- ion with electronic structure 2,8,8 has 18 electrons after gaining two, so the neutral atom had 16 electrons and proton number 16.","transferable_principle":"To work backward from a negative ion, subtract gained electrons from the ion electron count to find the neutral atom proton number.","steps":[{"name":"Count ion electrons","beat":"Add 2 + 8 + 8 to show the ion has 18 electrons."},{"name":"Read 2- charge","beat":"Interpret 2- as the atom having gained two electrons."},{"name":"Reverse the gain","beat":"Subtract two gained electrons to get 16 electrons in the neutral atom."},{"name":"Use neutrality","beat":"Match 16 neutral electrons to proton number 16."},{"name":"Choose option B","beat":"Select the option with proton number 16."}],"key_symbols":[{"symbol":"2,8,8","role":"neutral","meaning":"The electronic structure of the ion, totalling 18 electrons."},{"symbol":"2-","role":"problem","meaning":"The charge showing that two electrons were gained."},{"symbol":"18 - 2","role":"agent","meaning":"Reverse step from ion electrons to neutral atom electrons."},{"symbol":"proton number 16","role":"resolution","meaning":"The neutral atom proton number matching option B."},{"symbol":"answer B","role":"highlight","meaning":"The MCQ option with lower number 16."}],"interactivity_hooks":["Click shell numbers 2, 8, and 8 to build the ion electron total.","Toggle 1-, 2-, and 2+ charges to see whether electrons are added or removed when reversing.","Select each option to test whether its proton number matches the neutral atom."],"output_filename":"atomic-structure-two-minus-ion-selection-method.html","artifact_metadata":{"title":"2- Ion Selection MCQ Method","subject":"O Level Chemistry","level":"O Level Chemistry","syllabus_reference":"MOE 6092 Chemistry: Atomic Structure","estimated_interaction_time_minutes":8,"prerequisite_concepts":["Electronic configuration counts electrons","Negative ions form by gaining electrons","Neutral atoms have electrons equal to proton number"]},"learning_design":{"core_aha":"A 2- ion has two extra electrons, so I work backward from 18 to the neutral atom's 16 protons.","learning_objectives":["Students reverse ion formation from charge and electronic configuration to identify the atom proton number.","Students use ion electron count and charge to choose the nuclide option with proton number 16.","To work backward from a negative ion, subtract gained electrons from the ion electron count to find the neutral atom proton number."],"target_misconceptions":[{"misconception":"A 2- charge means the atom lost two electrons.","correction":"A 2- ion formed when the atom gained two electrons, so reverse by subtracting two from the ion electron count.","addressed_in_scenario_id":"reject_eighteen_protons"},{"misconception":"The 2,8,8 electron count belongs to the neutral atom, not the ion.","correction":"A 2- ion formed when the atom gained two electrons, so reverse by subtracting two from the ion electron count.","addressed_in_scenario_id":"reject_eighteen_protons"},{"misconception":"The correct proton number is 18 because the ion has 18 electrons.","correction":"A 2- ion formed when the atom gained two electrons, so reverse by subtracting two from the ion electron count.","addressed_in_scenario_id":"reject_eighteen_protons"},{"misconception":"The upper nucleon number should be used to decide electronic configuration.","correction":"A 2- ion formed when the atom gained two electrons, so reverse by subtracting two from the ion electron count.","addressed_in_scenario_id":"reject_eighteen_protons"}]},"representations":{"description":"All views are linked: changing a control updates the particle/subatomic view, the observable outcome, and the symbolic notation or table.","views":[{"id":"microscopic_ion_shell_view","type":"microscopic","description":"A 2- ion with electrons arranged 2,8,8 and two marked extra electrons."},{"id":"symbolic_electron_configuration","type":"symbolic","description":"2,8,8 summed to 18 ion electrons."},{"id":"charge_reverse_equation","type":"symbolic","description":"neutral atom electrons = 18 - 2 = 16."},{"id":"option_nuclide_table","type":"macroscopic","description":"Options A-D with proton numbers 8, 16, 18, and 20; option B highlighted."}]},"controls":[{"id":"shell_total_reveal","label":"Shell total reveal","type":"slider","min":1,"max":3,"default":1,"step":1,"affects":["symbolic_electron_configuration","microscopic_ion_shell_view"]},{"id":"ion_charge","label":"Ion charge","type":"discrete","default":"2-","options":["1-","2-","2+"],"affects":["microscopic_ion_shell_view","charge_reverse_equation","option_nuclide_table"]},{"id":"selected_option","label":"Answer option","type":"discrete","default":"A","options":["A","B","C","D"],"affects":["option_nuclide_table","checkpoint_charge_direction"]},{"id":"show_reverse_arrow","label":"Show reverse arrow","type":"toggle","default":true,"affects":["charge_reverse_equation","microscopic_ion_shell_view"]}],"scenarios":[{"id":"count_ion_electrons","title":"Count the ion","guiding_question":"How many electrons are in a 2,8,8 ion?","locked_controls":["ion_charge","shell_total_reveal","show_reverse_arrow"],"active_controls":[],"success_criterion":"Student totals 2 + 8 + 8 = 18 electrons in the ion."},{"id":"reverse_two_minus","title":"Reverse 2-","guiding_question":"If the ion has gained two electrons, how many did the neutral atom have?","locked_controls":["ion_charge","shell_total_reveal","show_reverse_arrow"],"active_controls":[],"success_criterion":"Student subtracts 2 from 18 to get 16 neutral atom electrons."},{"id":"reject_eighteen_protons","title":"18-electron trap","guiding_question":"Why is proton number 18 not the answer?","locked_controls":["ion_charge","shell_total_reveal","show_reverse_arrow"],"active_controls":["selected_option"],"success_criterion":"Student explains that 18 is the ion electron count, while the neutral atom proton number is 16.","misconception_buster":true},{"id":"free_ion_mcq","title":"Free method","guiding_question":"Can you choose the atom by reversing the ion formation?","locked_controls":[],"active_controls":["shell_total_reveal","ion_charge","selected_option","show_reverse_arrow"],"success_criterion":"Student selects option B and justifies proton number 16."}],"checkpoints":[{"id":"checkpoint_charge_direction","after_scenario":"count_ion_electrons","prompt":"A student says 2- means the neutral atom lost two electrons. What is the correct direction?","type":"fill_in_blank","answers":["A 2- ion formed when the atom gained two electrons, so reverse by subtracting..."]},{"id":"checkpoint_ion_mcq_summary","after_scenario":"reverse_two_minus","prompt":"Explain the page 15 answer in one sentence.","type":"fill_in_blank","answers":["The ion has 18 electrons, a 2- ion has gained 2 electrons, so the neutral ato..."]}],"ui_requirements":{"always_visible":["reset_button","current_scenario_title","rate_readout"],"syllabus_vocabulary_to_surface":["proton number","nucleon number","isotopes","relative atomic mass","ions","electronic configuration","charge","shells","electrons"],"tone":"Clear, direct, no childish language. Treat students as capable.","accessibility":["colourblind-safe palette","labels not just colours","keyboard-navigable controls","Always show numeric shell totals and proton numbers beside option labels."]}};
-    const roleNames = {"problem":"Problem","agent":"Cause","resolution":"Outcome","neutral":"Structure","highlight":"Focus"};
+    const roleLabels = {"problem":"Trap","agent":"Cause","resolution":"Outcome","neutral":"Structure","highlight":"Focus"};
     const roleColors = {
       problem: "#c84a36",
       agent: "#087a8a",
@@ -662,42 +449,29 @@
       good: "#207857",
       paper: "#fff8ea",
       paperStrong: "#fffdf6",
-      surfaceCool: "#e2eee8",
+      surface: "#f3e8d4",
+      surfaceCool: "#dfe9e2",
       rule: "#cabf9e",
-      inkSoft: "#626b5f"
+      muted: "#626b5f"
     };
 
-    const predictionChoices = [
-      "It increases",
-      "It decreases",
-      "It stays about the same",
-      "A different mechanism changes"
-    ];
-
+    const predictionChoices = ["Increase", "Decrease", "Stay same", "It depends"];
+    const values = {};
+    const checkpointState = {};
     let scenarioIndex = 0;
     let predictionMade = false;
     let selectedPrediction = "";
-    let motionRunning = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let motion = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let animationId = null;
     let lastTime = 0;
-    let seed = 31 + spec.id.length * 19;
-    const values = {};
-    const particles = [];
-    const pulses = [];
-    const checkpointState = {};
+    let timeSeed = 0;
 
     const canvas = document.getElementById("scene");
     const ctx = canvas.getContext("2d");
-    const scenarioList = document.getElementById("scenario-list");
+    const scenarioTabs = document.getElementById("scenario-tabs");
     const controlsEl = document.getElementById("controls");
-    const predictionButtons = document.getElementById("prediction-buttons");
+    const predictionEl = document.getElementById("prediction");
     const checkpointEl = document.getElementById("checkpoint");
-    const motionButton = document.getElementById("motion");
-
-    function rand() {
-      seed = (seed * 1664525 + 1013904223) % 4294967296;
-      return seed / 4294967296;
-    }
 
     function clamp(value, min, max) {
       return Math.max(min, Math.min(max, value));
@@ -705,20 +479,7 @@
 
     function compact(value, max) {
       const text = String(value || "");
-      return text.length <= max ? text : text.slice(0, max - 3).trim() + "...";
-    }
-
-    function keywordText() {
-      return [
-        spec.id,
-        spec.topic,
-        spec.mechanism,
-        spec.transferable_principle,
-        spec.learning_design.core_aha,
-        spec.controls.map(function(control) {
-          return control.id + " " + control.label + " " + control.affects.join(" ");
-        }).join(" ")
-      ].join(" ").toLowerCase();
+      return text.length > max ? text.slice(0, max - 3).trim() + "..." : text;
     }
 
     function currentScenario() {
@@ -733,7 +494,7 @@
       if (control.default !== undefined) return control.default;
       if (control.type === "toggle") return false;
       if (control.type === "slider" || control.type === "stepper") return control.min || 0;
-      return (control.options && control.options[0]) || "";
+      return control.options && control.options.length ? control.options[0] : "";
     }
 
     function resetValues() {
@@ -742,29 +503,26 @@
       });
     }
 
-    function controlNorm(control) {
-      const value = values[control.id];
-      if (control.type === "toggle") return value ? 1 : 0;
-      if (control.type === "slider" || control.type === "stepper") {
-        const min = Number(control.min || 0);
-        const max = Number(control.max || 100);
-        return clamp((Number(value) - min) / Math.max(1, max - min), 0, 1);
-      }
-      const options = control.options || [];
-      const index = Math.max(0, options.indexOf(String(value)));
-      return options.length <= 1 ? 0 : index / (options.length - 1);
+    function getValue(id, fallback) {
+      return values[id] === undefined ? fallback : values[id];
+    }
+
+    function setMetric(one, oneLabel, two, twoLabel, three, threeLabel) {
+      document.getElementById("metric-one").textContent = one;
+      document.getElementById("metric-one-label").textContent = oneLabel;
+      document.getElementById("metric-two").textContent = two;
+      document.getElementById("metric-two-label").textContent = twoLabel;
+      document.getElementById("metric-three").textContent = three;
+      document.getElementById("metric-three-label").textContent = threeLabel;
     }
 
     function activeControlIds() {
       const scenario = currentScenario();
-      if (!scenario) return new Set();
-      if (!scenario.active_controls.length) {
-        return new Set(spec.controls.map(function(control) { return control.id; }));
-      }
+      if (!scenario || !scenario.active_controls.length) return new Set();
       return new Set(scenario.active_controls);
     }
 
-    function isControlLocked(control) {
+    function isLocked(control) {
       const scenario = currentScenario();
       if (!scenario) return true;
       return !predictionMade ||
@@ -772,71 +530,62 @@
         !activeControlIds().has(control.id);
     }
 
-    function computeMetrics() {
-      let collisionFrequency = 1;
-      let successfulFraction = 0.34;
-      let activationEnergy = 1;
-      let particleSpeed = 1;
-      let density = 0.45;
-      let symbolicLabel = "linked";
-      const words = keywordText();
+    function controlNorm(id, fallback) {
+      const control = controlById(id);
+      if (!control) return fallback || 0;
+      const value = getValue(id, control.default);
+      if (control.type === "toggle") return value ? 1 : 0;
+      if (control.type === "slider" || control.type === "stepper") {
+        return clamp((Number(value) - Number(control.min || 0)) / Math.max(1, Number(control.max || 100) - Number(control.min || 0)), 0, 1);
+      }
+      const options = control.options || [];
+      const index = Math.max(0, options.indexOf(String(value)));
+      return options.length <= 1 ? 0 : index / (options.length - 1);
+    }
 
-      spec.controls.forEach(function(control) {
-        const norm = controlNorm(control);
-        const effect = (control.id + " " + control.label + " " + control.affects.join(" ")).toLowerCase();
-        const active = activeControlIds().has(control.id);
-        const weight = active || predictionMade ? 1 : 0.55;
+    function applyControlSideEffects(id) {
+      const presetAtoms = {
+        hydrogen: 1,
+        sodium: 11,
+        chlorine: 17,
+        argon: 18,
+        calcium: 20
+      };
+      const elementData = {
+        Ca: { z: 20, a: 40 },
+        Cl: { z: 17, a: 35 },
+        Na: { z: 11, a: 23 },
+        Og: { z: 118, a: 294 }
+      };
 
-        if (/temperature|kinetic|speed|thermal|heat/.test(effect)) {
-          particleSpeed += norm * 1.35 * weight;
-          collisionFrequency += norm * 0.35 * weight;
-          successfulFraction += norm * 0.42 * weight;
-          symbolicLabel = "energy";
-        }
-
-        if (/concentration|pressure|density|surface|area|particle_count|frequency|volume|contact/.test(effect)) {
-          collisionFrequency += norm * 1.08 * weight;
-          density += norm * 0.42 * weight;
-          symbolicLabel = "frequency";
-        }
-
-        if (/catalyst|activation|barrier|alternative/.test(effect)) {
-          const activeCatalyst = control.type === "toggle" ? Boolean(values[control.id]) : norm > 0.45;
-          if (activeCatalyst) {
-            activationEnergy -= 0.36 * weight;
-            successfulFraction += 0.34 * weight;
-            symbolicLabel = "lower Ea";
-          }
-        }
-
-        if (/electron|charge|ion|shell|proton|nucleon|isotope|mass/.test(effect)) {
-          collisionFrequency += norm * 0.18 * weight;
-          successfulFraction += norm * 0.16 * weight;
-          density += norm * 0.16 * weight;
-          symbolicLabel = /isotope|mass|nucleon/.test(effect) ? "mass number" : "charge";
-        }
-      });
-
-      if (/rate|collision|activation|catalyst|temperature|concentration|pressure|surface/.test(words)) {
-        symbolicLabel = symbolicLabel === "linked" ? "Ea" : symbolicLabel;
+      if (id === "atom_preset" && presetAtoms[String(values.atom_preset)]) {
+        values.electron_count = presetAtoms[String(values.atom_preset)];
       }
 
-      activationEnergy = clamp(activationEnergy, 0.48, 1.35);
-      successfulFraction = clamp(successfulFraction / activationEnergy, 0.08, 0.94);
-      collisionFrequency = clamp(collisionFrequency, 0.42, 3.8);
-      density = clamp(density, 0.18, 1.2);
-      particleSpeed = clamp(particleSpeed, 0.55, 3.2);
-      const rate = clamp(collisionFrequency * successfulFraction, 0.1, 3.9);
+      if (id === "element_symbol" && elementData[String(values.element_symbol)]) {
+        values.proton_number = elementData[String(values.element_symbol)].z;
+        values.nucleon_number = elementData[String(values.element_symbol)].a;
+      }
+    }
 
-      return {
-        collisionFrequency: collisionFrequency,
-        successfulFraction: successfulFraction,
-        activationEnergy: activationEnergy,
-        particleSpeed: particleSpeed,
-        density: density,
-        rate: rate,
-        symbolicLabel: symbolicLabel
-      };
+    function shellFill(electrons) {
+      let remaining = Math.max(0, Math.round(electrons));
+      const caps = [2, 8, 8, 18];
+      return caps.map(function(cap) {
+        const used = Math.min(cap, remaining);
+        remaining -= used;
+        return used;
+      }).filter(function(count, index) {
+        return count > 0 || index < 2;
+      });
+    }
+
+    function chargeNumber(label) {
+      const value = String(label || "atom");
+      if (value === "atom" || value === "neutral") return 0;
+      if (value.indexOf("+") >= 0) return Number(value.replace("+", "")) || 1;
+      if (value.indexOf("-") >= 0) return -1 * (Number(value.replace("-", "")) || 1);
+      return 0;
     }
 
     function resizeCanvas() {
@@ -845,102 +594,51 @@
       canvas.width = Math.max(1, Math.round(rect.width * dpr));
       canvas.height = Math.max(1, Math.round(rect.height * dpr));
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      resetParticles();
     }
 
-    function resetParticles() {
-      particles.length = 0;
-      const width = canvas.clientWidth || 900;
-      const height = canvas.clientHeight || 500;
-      const count = 72;
-      for (let i = 0; i < count; i += 1) {
-        const symbol = spec.key_symbols[i % spec.key_symbols.length] || { role: "neutral", symbol: "particle" };
-        const angle = rand() * Math.PI * 2;
-        particles.push({
-          x: 34 + rand() * Math.max(1, width * 0.56 - 68),
-          y: 66 + rand() * Math.max(1, height - 150),
-          vx: Math.cos(angle) * (18 + rand() * 42),
-          vy: Math.sin(angle) * (18 + rand() * 42),
-          r: 4.5 + rand() * 4.5,
-          role: symbol.role,
-          phase: rand() * Math.PI * 2
-        });
-      }
-    }
-
-    function renderStaticText() {
+    function renderStatic() {
       document.getElementById("eyebrow").textContent = spec.artifact_metadata.level + " / " + spec.subject;
       document.getElementById("source").textContent = spec.source_ref;
       document.getElementById("title").textContent = spec.artifact_metadata.title || spec.topic;
       document.getElementById("aha").textContent = spec.learning_design.core_aha;
-      document.getElementById("representations-intro").textContent = spec.representations.description;
-      document.getElementById("footer").textContent = "Sandboxed self-contained teaching artifact. Predict first, then test with the unlocked controls. Use Left/Right to change scenario, R to reset.";
-      renderRepresentations();
-      renderVocabulary();
-    }
 
-    function renderRepresentations() {
-      const root = document.getElementById("representations");
-      root.replaceChildren();
-      spec.representations.views.forEach(function(view) {
-        const item = document.createElement("div");
-        item.className = "representation";
-        item.dataset.type = view.type;
-        const strong = document.createElement("strong");
-        strong.textContent = view.type.charAt(0).toUpperCase() + view.type.slice(1);
-        const small = document.createElement("small");
-        small.textContent = view.description;
-        item.append(strong, small);
-        root.append(item);
+      const vocab = document.getElementById("vocab");
+      vocab.replaceChildren();
+      spec.ui_requirements.syllabus_vocabulary_to_surface.slice(0, 8).forEach(function(term) {
+        const chip = document.createElement("span");
+        chip.className = "vocab-chip";
+        chip.textContent = term;
+        vocab.append(chip);
       });
     }
 
-    function renderVocabulary() {
-      const root = document.getElementById("vocabulary");
-      root.replaceChildren();
-      spec.ui_requirements.syllabus_vocabulary_to_surface.forEach(function(term) {
-        const item = document.createElement("div");
-        item.className = "vocab-chip";
-        item.textContent = term;
-        root.append(item);
-      });
-    }
-
-    function renderScenarioList() {
-      scenarioList.replaceChildren();
-      spec.scenarios.forEach(function(scenario, index) {
+    function renderScenarios() {
+      scenarioTabs.replaceChildren();
+      spec.scenarios.slice(0, 4).forEach(function(scenario, index) {
         const button = document.createElement("button");
-        button.className = "scenario-button";
+        button.className = "scenario-tab";
         button.type = "button";
+        button.textContent = String(index + 1).padStart(2, "0") + " " + scenario.title;
         button.setAttribute("aria-current", index === scenarioIndex ? "true" : "false");
         button.addEventListener("click", function() {
-          setScenario(index);
+          scenarioIndex = index;
+          predictionMade = false;
+          selectedPrediction = "";
+          renderAll();
         });
-
-        const count = document.createElement("span");
-        count.className = "mono";
-        count.textContent = String(index + 1).padStart(2, "0");
-        const copy = document.createElement("span");
-        const label = document.createElement("strong");
-        label.textContent = scenario.title;
-        const detail = document.createElement("small");
-        detail.textContent = compact(scenario.guiding_question, 108);
-        copy.append(label, detail);
-        button.append(count, copy);
-        scenarioList.append(button);
+        scenarioTabs.append(button);
       });
     }
 
-    function renderPrediction() {
+    function renderQuestion() {
       const scenario = currentScenario();
       document.getElementById("scenario-count").textContent = "Scenario " + (scenarioIndex + 1) + " / " + spec.scenarios.length;
       document.getElementById("scenario-title").textContent = scenario.title;
-      document.getElementById("prediction-heading").textContent = predictionMade ? "Test the prediction" : "Predict first";
-      document.getElementById("prediction-copy").textContent = predictionMade
-        ? "Prediction logged: " + selectedPrediction + ". Now use the unlocked control(s) and watch all three representations move together."
+      document.getElementById("scenario-question").textContent = predictionMade
+        ? (scenario.success_criterion || "Use the controls and link the three views.")
         : scenario.guiding_question;
 
-      predictionButtons.replaceChildren();
+      predictionEl.replaceChildren();
       if (!predictionMade) {
         predictionChoices.forEach(function(choice) {
           const button = document.createElement("button");
@@ -949,29 +647,34 @@
           button.addEventListener("click", function() {
             predictionMade = true;
             selectedPrediction = choice;
-            pulses.push({ x: canvas.clientWidth * 0.33, y: canvas.clientHeight * 0.42, age: 0 });
             renderAll();
           });
-          predictionButtons.append(button);
+          predictionEl.append(button);
         });
       } else {
-        const criterion = document.createElement("p");
-        criterion.textContent = scenario.prompt_after || scenario.success_criterion || "Compare what changed in the particles, the graph, and the symbols.";
-        predictionButtons.append(criterion);
+        const left = document.createElement("button");
+        left.type = "button";
+        left.textContent = "Prediction: " + selectedPrediction;
+        left.setAttribute("aria-pressed", "true");
+        const reset = document.createElement("button");
+        reset.type = "button";
+        reset.textContent = "Reset";
+        reset.addEventListener("click", function() {
+          resetValues();
+          predictionMade = false;
+          selectedPrediction = "";
+          renderAll();
+        });
+        predictionEl.append(left, reset);
       }
     }
 
     function renderControls() {
       controlsEl.replaceChildren();
-      const scenario = currentScenario();
-      document.getElementById("control-hint").textContent = predictionMade
-        ? "Only the scenario controls are active. Locked controls stay fixed so the chemistry stays traceable."
-        : "Choose a prediction to unlock this scenario's controls.";
-
-      spec.controls.forEach(function(control) {
-        const locked = isControlLocked(control);
+      spec.controls.slice(0, 5).forEach(function(control) {
+        const locked = isLocked(control);
         const item = document.createElement("div");
-        item.className = "control-card";
+        item.className = "control";
         item.setAttribute("aria-disabled", locked ? "true" : "false");
 
         const label = document.createElement("div");
@@ -979,15 +682,9 @@
         const name = document.createElement("span");
         name.textContent = control.label;
         const value = document.createElement("span");
-        value.textContent = formatControlValue(control);
+        value.textContent = String(formatControlValue(control));
         label.append(name, value);
         item.append(label);
-
-        if (scenario.locked_controls.indexOf(control.id) >= 0) {
-          const note = document.createElement("small");
-          note.textContent = "Fixed in this scenario";
-          item.append(note);
-        }
 
         if (control.type === "slider" || control.type === "stepper") {
           const input = document.createElement("input");
@@ -1004,46 +701,33 @@
           item.append(input);
         } else if (control.type === "toggle") {
           const button = document.createElement("button");
+          button.className = "toggle-button";
           button.type = "button";
           button.disabled = locked;
-          button.setAttribute("aria-pressed", values[control.id] ? "true" : "false");
           button.textContent = values[control.id] ? "On" : "Off";
+          button.setAttribute("aria-pressed", values[control.id] ? "true" : "false");
           button.addEventListener("click", function() {
             values[control.id] = !values[control.id];
             renderControls();
           });
           item.append(button);
-        } else if (control.type === "discrete") {
+        } else {
           const group = document.createElement("div");
-          group.className = "discrete-options";
-          (control.options || []).forEach(function(option) {
+          group.className = "choice-row";
+          (control.options || []).slice(0, 5).forEach(function(option) {
             const button = document.createElement("button");
             button.type = "button";
             button.disabled = locked;
-            button.setAttribute("aria-current", values[control.id] === option ? "true" : "false");
             button.textContent = option;
+            button.setAttribute("aria-current", String(values[control.id]) === option ? "true" : "false");
             button.addEventListener("click", function() {
               values[control.id] = option;
+              applyControlSideEffects(control.id);
               renderControls();
             });
             group.append(button);
           });
           item.append(group);
-        } else {
-          const select = document.createElement("select");
-          select.disabled = locked;
-          (control.options || []).forEach(function(option) {
-            const choice = document.createElement("option");
-            choice.value = option;
-            choice.textContent = option;
-            select.append(choice);
-          });
-          select.value = String(values[control.id]);
-          select.addEventListener("change", function(event) {
-            values[control.id] = event.target.value;
-            renderControls();
-          });
-          item.append(select);
         }
 
         controlsEl.append(item);
@@ -1053,42 +737,7 @@
     function formatControlValue(control) {
       const value = values[control.id];
       if (control.type === "toggle") return value ? "On" : "Off";
-      return String(value);
-    }
-
-    function renderMisconceptions() {
-      const root = document.getElementById("misconceptions");
-      root.replaceChildren();
-      const scenario = currentScenario();
-      const items = spec.learning_design.target_misconceptions.filter(function(item) {
-        return item.addressed_in_scenario_id === scenario.id;
-      });
-
-      if (!items.length) {
-        const empty = document.createElement("p");
-        empty.textContent = "No named misconception for this scenario. Focus on linking the three views.";
-        root.append(empty);
-        return;
-      }
-
-      items.forEach(function(item) {
-        const block = document.createElement("div");
-        block.className = "misconception";
-        const role = document.createElement("span");
-        role.className = "role-label";
-        role.style.setProperty("--role-color", roleColors.problem);
-        const dot = document.createElement("span");
-        dot.className = "dot";
-        const roleText = document.createElement("span");
-        roleText.textContent = "Watch for";
-        role.append(dot, roleText);
-        const wrong = document.createElement("strong");
-        wrong.textContent = item.misconception;
-        const correction = document.createElement("small");
-        correction.textContent = item.correction;
-        block.append(role, wrong, correction);
-        root.append(block);
-      });
+      return value;
     }
 
     function renderCheckpoint() {
@@ -1096,460 +745,70 @@
       const scenario = currentScenario();
       const checkpoint = spec.checkpoints.find(function(item) {
         return item.after_scenario === scenario.id;
-      });
+      }) || spec.checkpoints[0];
 
-      if (!checkpoint) {
-        const empty = document.createElement("p");
-        empty.textContent = predictionMade
-          ? "No checkpoint here. Move to the next scenario when you can explain what changed."
-          : "A checkpoint appears after the relevant scenario.";
-        checkpointEl.append(empty);
-        return;
-      }
+      if (!checkpoint) return;
 
-      const block = document.createElement("div");
-      block.className = "checkpoint";
       const prompt = document.createElement("strong");
       prompt.textContent = checkpoint.prompt;
-      block.append(prompt);
+      checkpointEl.append(prompt);
 
-      if (checkpoint.type === "fill_in_blank") {
-        const input = document.createElement("input");
-        input.placeholder = "Type the missing term(s)";
-        input.value = checkpointState[checkpoint.id] || "";
-        input.addEventListener("input", function(event) {
-          checkpointState[checkpoint.id] = event.target.value;
-        });
-        block.append(input);
-      } else if (checkpoint.type === "matching") {
-        checkpoint.pairs.forEach(function(pair, index) {
-          const select = document.createElement("select");
-          select.dataset.answer = pair.mechanism;
-          const placeholder = document.createElement("option");
-          placeholder.value = "";
-          placeholder.textContent = pair.factor + ": choose mechanism";
-          select.append(placeholder);
-          checkpoint.pairs.forEach(function(option) {
-            const choice = document.createElement("option");
-            choice.value = option.mechanism;
-            choice.textContent = option.mechanism;
-            select.append(choice);
-          });
-          select.value = checkpointState[checkpoint.id + "-" + index] || "";
-          select.addEventListener("change", function(event) {
-            checkpointState[checkpoint.id + "-" + index] = event.target.value;
-          });
-          block.append(select);
-        });
-      } else {
+      if (checkpoint.type === "multiple_choice") {
         const group = document.createElement("div");
-        group.className = "discrete-options";
+        group.className = "choice-row";
         checkpoint.options.forEach(function(option) {
           const button = document.createElement("button");
           button.type = "button";
           button.textContent = option;
-          button.setAttribute("aria-current", checkpointState[checkpoint.id] === option ? "true" : "false");
+          button.setAttribute("aria-pressed", checkpointState[checkpoint.id] === option ? "true" : "false");
           button.addEventListener("click", function() {
             checkpointState[checkpoint.id] = option;
             renderCheckpoint();
           });
           group.append(button);
         });
-        block.append(group);
+        checkpointEl.append(group);
+      } else if (checkpoint.type === "matching") {
+        checkpoint.pairs.slice(0, 3).forEach(function(pair) {
+          const p = document.createElement("p");
+          p.textContent = pair.factor + " -> " + pair.mechanism;
+          checkpointEl.append(p);
+        });
+      } else {
+        const p = document.createElement("p");
+        p.textContent = "Say it aloud, then check the visual: " + checkpoint.answers.join(" / ");
+        checkpointEl.append(p);
       }
 
-      const actions = document.createElement("div");
-      actions.className = "checkpoint-actions";
-      const check = document.createElement("button");
-      check.type = "button";
-      check.textContent = "Check";
       const feedback = document.createElement("p");
-      feedback.className = "checkpoint-feedback";
-      check.addEventListener("click", function() {
-        feedback.textContent = checkpointIsCorrect(checkpoint, block)
-          ? "Good. You linked the observation to the mechanism."
-          : "Not quite yet. Use the linked views to name the mechanism precisely.";
-        feedback.style.color = checkpointIsCorrect(checkpoint, block) ? roleColors.good : roleColors.problem;
-      });
-      actions.append(check);
-      block.append(actions, feedback);
-      checkpointEl.append(block);
-    }
-
-    function checkpointIsCorrect(checkpoint, block) {
-      if (checkpoint.type === "fill_in_blank") {
-        const answer = String(checkpointState[checkpoint.id] || "").toLowerCase();
-        return checkpoint.answers.every(function(expected) {
-          return answer.indexOf(String(expected).toLowerCase()) >= 0;
-        });
+      feedback.className = "feedback";
+      if (checkpoint.type === "multiple_choice" && checkpointState[checkpoint.id]) {
+        feedback.textContent = checkpointState[checkpoint.id] === checkpoint.answer
+          ? "Good. The explanation matches the mechanism."
+          : "Not quite. Look for the view that changed first.";
+        feedback.style.color = checkpointState[checkpoint.id] === checkpoint.answer ? roleColors.good : roleColors.problem;
+      } else if (predictionMade) {
+        feedback.textContent = currentScenario().prompt_after || "Checkpoint: connect particle change to the symbol.";
+      } else {
+        feedback.textContent = "Predict first; the checkpoint makes the mechanism explicit.";
       }
-
-      if (checkpoint.type === "matching") {
-        const selects = Array.from(block.querySelectorAll("select"));
-        return selects.every(function(select) {
-          return select.value && select.value === select.dataset.answer;
-        });
-      }
-
-      return checkpointState[checkpoint.id] === checkpoint.answer;
+      checkpointEl.append(feedback);
     }
 
     function renderAll() {
-      renderScenarioList();
-      renderPrediction();
+      renderScenarios();
+      renderQuestion();
       renderControls();
-      renderMisconceptions();
       renderCheckpoint();
-      syncMotionButton();
     }
 
-    function setScenario(next) {
-      scenarioIndex = clamp(next, 0, spec.scenarios.length - 1);
-      predictionMade = false;
-      selectedPrediction = "";
-      pulses.push({ x: canvas.clientWidth * 0.5, y: canvas.clientHeight * 0.42, age: 0 });
-      renderAll();
-    }
-
-    function resetArtifact() {
-      resetValues();
-      predictionMade = false;
-      selectedPrediction = "";
-      checkpointEl.replaceChildren();
-      resetParticles();
-      renderAll();
-    }
-
-    function syncMotionButton() {
-      motionButton.textContent = motionRunning ? "Pause motion" : "Resume motion";
-      motionButton.setAttribute("aria-current", motionRunning ? "false" : "true");
-    }
-
-    function panel(x, y, w, h, title, subtitle) {
-      ctx.fillStyle = "rgba(255, 253, 246, 0.94)";
-      ctx.strokeStyle = "rgba(21, 25, 19, 0.18)";
-      ctx.lineWidth = 1;
-      ctx.fillRect(x, y, w, h);
-      ctx.strokeRect(x, y, w, h);
-      drawText(title, x + 14, y + 24, {
-        color: roleColors.neutral,
-        font: "800 12px Andale Mono, Courier New, monospace"
-      });
-      if (subtitle) {
-        drawText(compact(subtitle, 48), x + 14, y + 43, {
-          color: roleColors.inkSoft,
-          font: "12px Avenir Next, Trebuchet MS, sans-serif"
-        });
-      }
-    }
-
-    function drawText(text, x, y, options) {
-      const opts = options || {};
-      ctx.save();
-      ctx.fillStyle = opts.color || roleColors.neutral;
-      ctx.font = opts.font || "800 12px Andale Mono, Courier New, monospace";
-      ctx.textAlign = opts.align || "left";
-      ctx.textBaseline = opts.baseline || "alphabetic";
-      const maxWidth = opts.maxWidth || 999;
-      const words = String(text).split(" ");
-      let line = "";
-      let yy = y;
-      for (let i = 0; i < words.length; i += 1) {
-        const test = line ? line + " " + words[i] : words[i];
-        if (ctx.measureText(test).width > maxWidth && line) {
-          ctx.fillText(line, x, yy);
-          line = words[i];
-          yy += opts.lineHeight || 16;
-        } else {
-          line = test;
-        }
-      }
-      if (line) ctx.fillText(line, x, yy);
-      ctx.restore();
-    }
-
-    function drawArrow(x1, y1, x2, y2, color, width) {
-      const angle = Math.atan2(y2 - y1, x2 - x1);
-      ctx.save();
-      ctx.strokeStyle = color;
-      ctx.fillStyle = color;
-      ctx.lineWidth = width || 2;
-      ctx.beginPath();
-      ctx.moveTo(x1, y1);
-      ctx.lineTo(x2, y2);
-      ctx.stroke();
-      ctx.translate(x2, y2);
-      ctx.rotate(angle);
-      ctx.beginPath();
-      ctx.moveTo(0, 0);
-      ctx.lineTo(-10, -5);
-      ctx.lineTo(-10, 5);
-      ctx.closePath();
-      ctx.fill();
-      ctx.restore();
-    }
-
-    function drawMicroscopic(delta, time, x, y, w, h, metrics) {
-      const micro = spec.representations.views.find(function(view) { return view.type === "microscopic"; });
-      panel(x, y, w, h, "Microscopic", micro ? micro.description : "");
-
-      const box = { x: x + 18, y: y + 58, w: w - 36, h: h - 90 };
-      ctx.fillStyle = "rgba(226, 238, 232, 0.62)";
-      ctx.strokeStyle = "rgba(21, 25, 19, 0.22)";
-      ctx.lineWidth = 2;
-      ctx.fillRect(box.x, box.y, box.w, box.h);
-      ctx.strokeRect(box.x, box.y, box.w, box.h);
-
-      const activeCount = Math.round(clamp(24 + metrics.density * 38, 18, particles.length));
-      for (let i = 0; i < activeCount; i += 1) {
-        const particle = particles[i];
-        if (motionRunning) {
-          particle.x += particle.vx * delta * metrics.particleSpeed;
-          particle.y += particle.vy * delta * metrics.particleSpeed;
-        }
-
-        if (particle.x < box.x + particle.r || particle.x > box.x + box.w - particle.r) particle.vx *= -1;
-        if (particle.y < box.y + particle.r || particle.y > box.y + box.h - particle.r) particle.vy *= -1;
-        particle.x = clamp(particle.x, box.x + particle.r, box.x + box.w - particle.r);
-        particle.y = clamp(particle.y, box.y + particle.r, box.y + box.h - particle.r);
-
-        const successful = i % Math.max(2, Math.round(8 - metrics.rate)) === 0;
-        ctx.globalAlpha = predictionMade ? 0.88 : 0.42;
-        ctx.fillStyle = roleColors[particle.role] || roleColors.neutral;
-        ctx.strokeStyle = successful ? roleColors.highlight : "rgba(21, 25, 19, 0.34)";
-        ctx.lineWidth = successful ? 2.2 : 1;
-        ctx.beginPath();
-        ctx.arc(
-          particle.x,
-          particle.y,
-          particle.r + Math.sin(time * 0.004 + particle.phase) * (motionRunning ? 0.9 : 0.2),
-          0,
-          Math.PI * 2
-        );
-        ctx.fill();
-        ctx.stroke();
-      }
-      ctx.globalAlpha = 1;
-
-      if (predictionMade && motionRunning && rand() < metrics.rate * 0.025) {
-        pulses.push({
-          x: box.x + rand() * box.w,
-          y: box.y + rand() * box.h,
-          age: 0
-        });
-      }
-
-      drawText("successful collisions flash", box.x + 12, box.y + box.h - 14, {
-        color: roleColors.inkSoft,
-        font: "800 11px Andale Mono, Courier New, monospace"
-      });
-    }
-
-    function drawMacroscopic(x, y, w, h, metrics) {
-      const macro = spec.representations.views.find(function(view) { return view.type === "macroscopic"; });
-      panel(x, y, w, h, "Macroscopic", macro ? macro.description : "");
-
-      const gx = x + 42;
-      const gy = y + h - 42;
-      const gw = w - 76;
-      const gh = h - 92;
-      ctx.strokeStyle = roleColors.neutral;
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.moveTo(gx, gy - gh);
-      ctx.lineTo(gx, gy);
-      ctx.lineTo(gx + gw, gy);
-      ctx.stroke();
-
-      const decreasing = /reactant|mass loss|mass decreases|used up/i.test(spec.topic + " " + spec.mechanism);
-      ctx.strokeStyle = roleColors.resolution;
-      ctx.lineWidth = 4;
-      ctx.beginPath();
-      for (let i = 0; i <= 80; i += 1) {
-        const t = i / 80;
-        const curve = decreasing
-          ? Math.exp(-metrics.rate * t * 1.2)
-          : 1 - Math.exp(-metrics.rate * t * 1.2);
-        const px = gx + t * gw;
-        const py = decreasing
-          ? gy - curve * gh * 0.86
-          : gy - curve * gh * 0.86;
-        if (i === 0) ctx.moveTo(px, py);
-        else ctx.lineTo(px, py);
-      }
-      ctx.stroke();
-
-      const slopeX = gx + gw * 0.16;
-      const slopeY = decreasing
-        ? gy - Math.exp(-metrics.rate * 0.16 * 1.2) * gh * 0.86
-        : gy - (1 - Math.exp(-metrics.rate * 0.16 * 1.2)) * gh * 0.86;
-      drawArrow(slopeX - 26, slopeY + 28, slopeX + 34, slopeY - 28, roleColors.highlight, 3);
-      drawText("initial gradient = rate", slopeX + 8, slopeY - 38, {
-        color: roleColors.highlight,
-        font: "800 11px Andale Mono, Courier New, monospace",
-        maxWidth: 120
-      });
-      drawText(decreasing ? "[reactant] / mass" : "product amount", gx - 28, gy - gh - 8, {
-        color: roleColors.inkSoft,
-        font: "800 10px Andale Mono, Courier New, monospace"
-      });
-      drawText("time", gx + gw - 22, gy + 24, {
-        color: roleColors.inkSoft,
-        font: "800 10px Andale Mono, Courier New, monospace"
-      });
-    }
-
-    function drawSymbolic(x, y, w, h, metrics) {
-      const symbolic = spec.representations.views.find(function(view) { return view.type === "symbolic"; });
-      panel(x, y, w, h, "Symbolic", symbolic ? symbolic.description : "");
-      const words = keywordText();
-
-      if (/electron|charge|ion|shell|proton|nucleon|isotope|relative atomic mass/.test(words)) {
-        drawAtomicSymbolic(x, y, w, h, metrics);
-      } else {
-        drawEnergySymbolic(x, y, w, h, metrics);
-      }
-    }
-
-    function drawEnergySymbolic(x, y, w, h, metrics) {
-      const baseY = y + h - 48;
-      const startX = x + 34;
-      const endX = x + w - 32;
-      const peakX = x + w * 0.48;
-      const peakY = y + 74 + metrics.activationEnergy * 48;
-      ctx.strokeStyle = roleColors.agent;
-      ctx.lineWidth = 4;
-      ctx.beginPath();
-      ctx.moveTo(startX, baseY - 20);
-      ctx.bezierCurveTo(x + w * 0.28, y + 74, peakX, peakY - 92, peakX, peakY - 48);
-      ctx.bezierCurveTo(x + w * 0.66, peakY + 16, x + w * 0.72, baseY - 76, endX, baseY - 76);
-      ctx.stroke();
-
-      if (metrics.activationEnergy < 0.78) {
-        ctx.strokeStyle = roleColors.good;
-        ctx.setLineDash([7, 8]);
-        ctx.beginPath();
-        ctx.moveTo(startX, baseY - 20);
-        ctx.bezierCurveTo(x + w * 0.32, y + 112, peakX, peakY - 58, peakX, peakY - 24);
-        ctx.bezierCurveTo(x + w * 0.66, peakY + 28, x + w * 0.72, baseY - 76, endX, baseY - 76);
-        ctx.stroke();
-        ctx.setLineDash([]);
-        drawText("catalyst lowers Ea", peakX - 58, peakY + 8, {
-          color: roleColors.good,
-          font: "800 11px Andale Mono, Courier New, monospace"
-        });
-      }
-
-      ctx.strokeStyle = roleColors.highlight;
-      ctx.lineWidth = 3;
-      ctx.beginPath();
-      ctx.moveTo(startX + 22, baseY - 20);
-      ctx.lineTo(startX + 22, peakY - 48);
-      ctx.stroke();
-      drawText("Ea", startX + 30, (baseY + peakY) / 2 - 34, {
-        color: roleColors.highlight,
-        font: "800 16px Georgia, serif"
-      });
-
-      const distX = x + w - 138;
-      const distY = y + 76;
-      const distW = 106;
-      const distH = 54;
-      ctx.strokeStyle = roleColors.rule;
-      ctx.strokeRect(distX, distY, distW, distH);
-      ctx.fillStyle = "rgba(8, 122, 138, 0.18)";
-      ctx.beginPath();
-      for (let i = 0; i <= 36; i += 1) {
-        const t = i / 36;
-        const px = distX + t * distW;
-        const py = distY + distH - Math.sin(t * Math.PI) * distH * (0.35 + metrics.successfulFraction * 0.62);
-        if (i === 0) ctx.moveTo(px, py);
-        else ctx.lineTo(px, py);
-      }
-      ctx.lineTo(distX + distW, distY + distH);
-      ctx.lineTo(distX, distY + distH);
-      ctx.closePath();
-      ctx.fill();
-      drawText("fraction >= Ea", distX + 8, distY + distH + 16, {
-        color: roleColors.inkSoft,
-        font: "800 10px Andale Mono, Courier New, monospace"
-      });
-    }
-
-    function drawAtomicSymbolic(x, y, w, h, metrics) {
-      const cx = x + w * 0.36;
-      const cy = y + h * 0.56;
-      const shellCount = 2 + Math.round(metrics.density);
-      ctx.strokeStyle = roleColors.rule;
-      ctx.lineWidth = 2;
-      for (let shell = 1; shell <= shellCount; shell += 1) {
-        ctx.beginPath();
-        ctx.arc(cx, cy, 28 + shell * 24, 0, Math.PI * 2);
-        ctx.stroke();
-      }
-      ctx.fillStyle = roleColors.problem;
-      ctx.beginPath();
-      ctx.arc(cx, cy, 18, 0, Math.PI * 2);
-      ctx.fill();
-      drawText("nucleus", cx, cy + 4, {
-        align: "center",
-        color: roleColors.paper,
-        font: "800 10px Andale Mono, Courier New, monospace"
-      });
-
-      const electrons = 6 + Math.round(metrics.successfulFraction * 8);
-      for (let i = 0; i < electrons; i += 1) {
-        const shell = 1 + (i % shellCount);
-        const angle = (i / electrons) * Math.PI * 2;
-        const radius = 28 + shell * 24;
-        const ex = cx + Math.cos(angle) * radius;
-        const ey = cy + Math.sin(angle) * radius;
-        ctx.fillStyle = roleColors.agent;
-        ctx.beginPath();
-        ctx.arc(ex, ey, 5, 0, Math.PI * 2);
-        ctx.fill();
-      }
-
-      const notationX = x + w * 0.66;
-      drawText("proton no.", notationX, y + 88, {
-        color: roleColors.inkSoft,
-        font: "800 11px Andale Mono, Courier New, monospace"
-      });
-      drawText("X", notationX + 34, y + 148, {
-        color: roleColors.neutral,
-        font: "700 48px Georgia, serif"
-      });
-      drawText("nucleon no.", notationX, y + 190, {
-        color: roleColors.inkSoft,
-        font: "800 11px Andale Mono, Courier New, monospace"
-      });
-      drawText(metrics.symbolicLabel, notationX, y + h - 34, {
-        color: roleColors.highlight,
-        font: "800 13px Andale Mono, Courier New, monospace"
-      });
-    }
-
-    function updateMetricReadouts(metrics) {
-      document.getElementById("rate-readout").textContent = metrics.rate.toFixed(1) + "x";
-      document.getElementById("metric-frequency").textContent = metrics.collisionFrequency.toFixed(1) + "x";
-      document.getElementById("metric-success").textContent = Math.round(metrics.successfulFraction * 100) + "%";
-      document.getElementById("metric-symbolic").textContent = metrics.symbolicLabel;
-    }
-
-    function draw(time) {
-      animationId = null;
-      const width = canvas.clientWidth || 900;
-      const height = canvas.clientHeight || 500;
-      const delta = Math.min(0.04, Math.max(0.001, (time - lastTime) / 1000 || 0.016));
-      lastTime = time;
-      const metrics = computeMetrics();
-      updateMetricReadouts(metrics);
-
+    function clearCanvas() {
+      const width = canvas.clientWidth;
+      const height = canvas.clientHeight;
       ctx.clearRect(0, 0, width, height);
       ctx.fillStyle = roleColors.paperStrong;
       ctx.fillRect(0, 0, width, height);
-
-      ctx.strokeStyle = "rgba(202, 191, 158, 0.44)";
+      ctx.strokeStyle = "rgba(202, 191, 158, 0.4)";
       ctx.lineWidth = 1;
       for (let x = 0; x < width; x += 32) {
         ctx.beginPath();
@@ -1563,82 +822,699 @@
         ctx.lineTo(width, y);
         ctx.stroke();
       }
+    }
 
-      const gap = 12;
-      if (width < 720) {
-        const panelH = Math.max(150, (height - 48) / 3);
-        drawMicroscopic(delta, time, 12, 12, width - 24, panelH, metrics);
-        drawMacroscopic(12, 24 + panelH, width - 24, panelH, metrics);
-        drawSymbolic(12, 36 + panelH * 2, width - 24, height - panelH * 2 - 48, metrics);
-      } else {
-        const leftW = Math.max(320, width * 0.58);
-        const rightW = width - leftW - gap - 24;
-        const topH = Math.max(190, (height - 36 - gap) * 0.5);
-        drawMicroscopic(delta, time, 12, 12, leftW, height - 24, metrics);
-        drawMacroscopic(leftW + gap + 12, 12, rightW, topH, metrics);
-        drawSymbolic(leftW + gap + 12, topH + gap + 12, rightW, height - topH - gap - 24, metrics);
+    function panel(x, y, w, h, title, subtitle, accent) {
+      ctx.fillStyle = "rgba(255, 253, 246, 0.92)";
+      ctx.strokeStyle = "rgba(21, 25, 19, 0.17)";
+      ctx.lineWidth = 1;
+      ctx.fillRect(x, y, w, h);
+      ctx.strokeRect(x, y, w, h);
+      ctx.fillStyle = accent || roleColors.agent;
+      ctx.fillRect(x, y, 5, h);
+      drawText(title, x + 14, y + 22, {
+        color: roleColors.neutral,
+        font: "800 12px Andale Mono, Courier New, monospace"
+      });
+      if (subtitle) {
+        drawText(compact(subtitle, 70), x + 14, y + 40, {
+          color: roleColors.muted,
+          font: "11px Avenir Next, Trebuchet MS, sans-serif",
+          maxWidth: w - 28
+        });
       }
+    }
 
-      for (let i = pulses.length - 1; i >= 0; i -= 1) {
-        const pulse = pulses[i];
-        pulse.age += delta;
-        const alpha = 1 - pulse.age / 0.72;
-        if (alpha <= 0) {
-          pulses.splice(i, 1);
-          continue;
+    function drawText(text, x, y, options) {
+      const opts = options || {};
+      ctx.save();
+      ctx.fillStyle = opts.color || roleColors.neutral;
+      ctx.font = opts.font || "800 12px Andale Mono, Courier New, monospace";
+      ctx.textAlign = opts.align || "left";
+      ctx.textBaseline = opts.baseline || "alphabetic";
+      const maxWidth = opts.maxWidth || 9999;
+      const lineHeight = opts.lineHeight || 15;
+      const words = String(text || "").split(" ");
+      let line = "";
+      let yy = y;
+      for (let i = 0; i < words.length; i += 1) {
+        const test = line ? line + " " + words[i] : words[i];
+        if (ctx.measureText(test).width > maxWidth && line) {
+          ctx.fillText(line, x, yy);
+          line = words[i];
+          yy += lineHeight;
+        } else {
+          line = test;
         }
-        ctx.globalAlpha = alpha;
-        ctx.strokeStyle = roleColors.highlight;
-        ctx.lineWidth = 4;
-        ctx.beginPath();
-        ctx.arc(pulse.x, pulse.y, 10 + pulse.age * 90, 0, Math.PI * 2);
-        ctx.stroke();
-        ctx.globalAlpha = 1;
       }
+      if (line) ctx.fillText(line, x, yy);
+      ctx.restore();
+    }
 
+    function arrow(x1, y1, x2, y2, color, width) {
+      const angle = Math.atan2(y2 - y1, x2 - x1);
+      ctx.save();
+      ctx.strokeStyle = color || roleColors.highlight;
+      ctx.fillStyle = color || roleColors.highlight;
+      ctx.lineWidth = width || 2;
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.stroke();
+      ctx.translate(x2, y2);
+      ctx.rotate(angle);
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.lineTo(-9, -5);
+      ctx.lineTo(-9, 5);
+      ctx.closePath();
+      ctx.fill();
+      ctx.restore();
+    }
+
+    function electronShells(cx, cy, shells, options) {
+      const opts = options || {};
+      const maxShells = Math.max(1, shells.length);
+      ctx.save();
+      for (let shell = 0; shell < maxShells; shell += 1) {
+        const radius = opts.radiusBase || 32;
+        const r = radius + shell * (opts.shellGap || 30);
+        ctx.strokeStyle = roleColors.rule;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(cx, cy, r, 0, Math.PI * 2);
+        ctx.stroke();
+        const count = shells[shell] || 0;
+        for (let i = 0; i < count; i += 1) {
+          const angle = (i / Math.max(count, 1)) * Math.PI * 2 + timeSeed * (0.22 + shell * 0.05);
+          const ex = cx + Math.cos(angle) * r;
+          const ey = cy + Math.sin(angle) * r;
+          ctx.fillStyle = opts.electronColor || roleColors.agent;
+          ctx.beginPath();
+          ctx.arc(ex, ey, opts.electronRadius || 5, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+      ctx.fillStyle = opts.nucleusColor || roleColors.problem;
+      ctx.beginPath();
+      ctx.arc(cx, cy, opts.nucleusRadius || 22, 0, Math.PI * 2);
+      ctx.fill();
+      drawText(opts.nucleusLabel || "nucleus", cx, cy + 4, {
+        align: "center",
+        color: roleColors.paper,
+        font: "800 10px Andale Mono, Courier New, monospace"
+      });
+      ctx.restore();
+    }
+
+    function drawParticleCluster(cx, cy, protons, neutrons, scale) {
+      const total = Math.min(36, Math.max(6, protons + neutrons));
+      const shownProtons = Math.round(total * protons / Math.max(1, protons + neutrons));
+      for (let i = 0; i < total; i += 1) {
+        const ring = Math.floor(Math.sqrt(i));
+        const angle = i * 2.399 + timeSeed * 0.08;
+        const r = ring * (scale || 7);
+        ctx.fillStyle = i < shownProtons ? roleColors.problem : roleColors.neutral;
+        ctx.beginPath();
+        ctx.arc(cx + Math.cos(angle) * r, cy + Math.sin(angle) * r, (scale || 7) * 0.5, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function splitLayout() {
+      const width = canvas.clientWidth;
+      const height = canvas.clientHeight;
+      const gap = 10;
+      return {
+        width: width,
+        height: height,
+        left: { x: 12, y: 12, w: Math.max(320, width * 0.56), h: height - 24 },
+        topRight: { x: Math.max(320, width * 0.56) + gap + 12, y: 12, w: width - Math.max(320, width * 0.56) - gap - 24, h: (height - 34) * 0.5 },
+        bottomRight: { x: Math.max(320, width * 0.56) + gap + 12, y: 22 + (height - 34) * 0.5, w: width - Math.max(320, width * 0.56) - gap - 24, h: (height - 34) * 0.5 }
+      };
+    }
+
+    function drawGraph(x, y, w, h, rate, options) {
+      const opts = options || {};
+      const gx = x + 42;
+      const gy = y + h - 36;
+      const gw = w - 66;
+      const gh = h - 84;
+      ctx.strokeStyle = roleColors.neutral;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(gx, gy - gh);
+      ctx.lineTo(gx, gy);
+      ctx.lineTo(gx + gw, gy);
+      ctx.stroke();
+      ctx.strokeStyle = opts.color || roleColors.resolution;
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      for (let i = 0; i <= 80; i += 1) {
+        const t = i / 80;
+        const value = opts.decreasing ? Math.exp(-rate * t * 1.3) : 1 - Math.exp(-rate * t * 1.3);
+        const px = gx + t * gw;
+        const py = opts.decreasing ? gy - value * gh * 0.86 : gy - value * gh * 0.86;
+        if (i === 0) ctx.moveTo(px, py);
+        else ctx.lineTo(px, py);
+      }
+      ctx.stroke();
+      if (opts.tangent !== false) {
+        const tx = gx + gw * 0.2;
+        const ty = opts.decreasing
+          ? gy - Math.exp(-rate * 0.2 * 1.3) * gh * 0.86
+          : gy - (1 - Math.exp(-rate * 0.2 * 1.3)) * gh * 0.86;
+        arrow(tx - 26, ty + 24, tx + 34, ty - 24, roleColors.highlight, 3);
+        drawText(opts.tangentLabel || "initial gradient", tx + 6, ty - 32, {
+          color: roleColors.highlight,
+          font: "800 11px Andale Mono, Courier New, monospace"
+        });
+      }
+      drawText(opts.yLabel || "amount", gx - 22, gy - gh - 8, {
+        color: roleColors.muted,
+        font: "800 10px Andale Mono, Courier New, monospace"
+      });
+      drawText("time", gx + gw - 18, gy + 20, {
+        color: roleColors.muted,
+        font: "800 10px Andale Mono, Courier New, monospace"
+      });
+    }
+
+    function drawSubatomic() {
+      const l = splitLayout();
+      const focus = String(getValue("particle_focus", "proton"));
+      const showCharge = Boolean(getValue("show_charge_overlay", true));
+      const showMass = Boolean(getValue("show_mass_overlay", false));
+      panel(l.left.x, l.left.y, l.left.w, l.left.h, "Microscopic", "Choose one particle and watch where it belongs.", roleColors.agent);
+      const cx = l.left.x + l.left.w * 0.46;
+      const cy = l.left.y + l.left.h * 0.52;
+      electronShells(cx, cy, [2, 6], {
+        nucleusLabel: "p+n",
+        nucleusRadius: 34,
+        electronRadius: focus === "electron" ? 7 : 5,
+        electronColor: focus === "electron" ? roleColors.highlight : roleColors.agent
+      });
+      drawParticleCluster(cx, cy, 6, 6, focus === "proton" || focus === "neutron" ? 10 : 7);
+      drawText("protons + neutrons stay in the nucleus", l.left.x + 28, l.left.y + l.left.h - 28, { color: roleColors.muted, font: "800 12px Andale Mono, Courier New, monospace" });
+
+      panel(l.topRight.x, l.topRight.y, l.topRight.w, l.topRight.h, "Macroscopic", "Net charge comes from protons and electrons.", roleColors.resolution);
+      const charge = focus === "proton" ? "+1" : focus === "electron" ? "-1" : "0";
+      const mass = focus === "electron" ? "negligible" : "1";
+      drawText(focus, l.topRight.x + 26, l.topRight.y + 82, { color: roleColors.neutral, font: "700 32px Georgia, serif" });
+      drawText(showCharge ? "charge " + charge : "charge hidden", l.topRight.x + 26, l.topRight.y + 118, { color: roleColors.problem, font: "800 16px Andale Mono, Courier New, monospace" });
+      drawText(showMass ? "relative mass " + mass : "mass hidden", l.topRight.x + 26, l.topRight.y + 146, { color: roleColors.agent, font: "800 16px Andale Mono, Courier New, monospace" });
+
+      panel(l.bottomRight.x, l.bottomRight.y, l.bottomRight.w, l.bottomRight.h, "Symbolic", "Do not mix symbol, charge, mass, and location.", roleColors.highlight);
+      const symbols = { proton: "p", neutron: "n", electron: "e" };
+      const places = { proton: "nucleus", neutron: "nucleus", electron: "shell" };
+      drawText(symbols[focus] || "?", l.bottomRight.x + 34, l.bottomRight.y + 102, { color: roleColors.neutral, font: "700 54px Georgia, serif" });
+      drawText("location: " + (places[focus] || "-"), l.bottomRight.x + 100, l.bottomRight.y + 92, { color: roleColors.muted, font: "800 13px Andale Mono, Courier New, monospace" });
+      drawText("role: " + (roleLabels[focus === "electron" ? "problem" : focus === "proton" ? "agent" : "neutral"]), l.bottomRight.x + 100, l.bottomRight.y + 120, { color: roleColors.muted, font: "800 13px Andale Mono, Courier New, monospace" });
+      setMetric(charge, "charge", mass, "relative mass", places[focus] || "-", "location");
+    }
+
+    function drawElectronicConfig() {
+      const l = splitLayout();
+      const preset = String(getValue("atom_preset", "argon"));
+      const presetCounts = { hydrogen: 1, sodium: 11, chlorine: 17, argon: 18, calcium: 20 };
+      const electrons = Number(getValue("electron_count", presetCounts[preset] || 18));
+      const mode = String(getValue("ion_charge_mode", "neutral"));
+      const adjusted = mode === "cation" ? Math.max(1, electrons - 1) : mode === "anion" ? Math.min(20, electrons + 1) : electrons;
+      const shells = shellFill(adjusted);
+      panel(l.left.x, l.left.y, l.left.w, l.left.h, "Microscopic", "Electrons fill inner shells before outer shells.", roleColors.agent);
+      electronShells(l.left.x + l.left.w * 0.5, l.left.y + l.left.h * 0.52, shells, { nucleusLabel: preset.slice(0, 2), nucleusRadius: 26 });
+      panel(l.topRight.x, l.topRight.y, l.topRight.w, l.topRight.h, "Macroscopic", "Stable patterns are counted shell by shell.", roleColors.resolution);
+      const config = shells.join(",");
+      drawText(config, l.topRight.x + 26, l.topRight.y + 100, { color: roleColors.resolution, font: "700 42px Georgia, serif" });
+      drawText("configuration", l.topRight.x + 30, l.topRight.y + 132, { color: roleColors.muted, font: "800 12px Andale Mono, Courier New, monospace" });
+      panel(l.bottomRight.x, l.bottomRight.y, l.bottomRight.w, l.bottomRight.h, "Symbolic", "The commas are shell boundaries, not decoration.", roleColors.highlight);
+      shells.forEach(function(count, index) {
+        const x = l.bottomRight.x + 28 + index * 56;
+        ctx.fillStyle = index === shells.length - 1 ? roleColors.highlight : roleColors.surfaceCool;
+        ctx.fillRect(x, l.bottomRight.y + 78, 42, 48);
+        ctx.strokeStyle = roleColors.neutral;
+        ctx.strokeRect(x, l.bottomRight.y + 78, 42, 48);
+        drawText(String(count), x + 21, l.bottomRight.y + 108, { align: "center", color: roleColors.neutral, font: "800 20px Andale Mono, Courier New, monospace" });
+      });
+      setMetric(String(adjusted), "electrons", config, "configuration", mode, "charge mode");
+    }
+
+    function drawNotationReader() {
+      const l = splitLayout();
+      const symbol = String(getValue("element_symbol", "Ca"));
+      const z = Number(getValue("proton_number", 20));
+      const a = Math.max(z, Number(getValue("nucleon_number", 40)));
+      const charge = chargeNumber(getValue("charge_state", "atom"));
+      const electrons = z - charge;
+      const neutrons = a - z;
+      panel(l.left.x, l.left.y, l.left.w, l.left.h, "Symbolic first", "Read A and Z before counting particles.", roleColors.highlight);
+      const nx = l.left.x + l.left.w * 0.48;
+      const ny = l.left.y + l.left.h * 0.52;
+      drawText(String(a), nx - 52, ny - 56, { color: roleColors.problem, font: "800 38px Georgia, serif" });
+      drawText(String(z), nx - 48, ny + 60, { color: roleColors.agent, font: "800 38px Georgia, serif" });
+      drawText(symbol, nx, ny + 16, { color: roleColors.neutral, font: "700 96px Georgia, serif" });
+      drawText(charge === 0 ? "neutral atom" : (charge > 0 ? charge + "+" : Math.abs(charge) + "-"), nx + 118, ny - 42, { color: roleColors.highlight, font: "800 20px Andale Mono, Courier New, monospace" });
+      panel(l.topRight.x, l.topRight.y, l.topRight.w, l.topRight.h, "Microscopic", "Nucleus identity follows proton number.", roleColors.agent);
+      drawParticleCluster(l.topRight.x + l.topRight.w * 0.5, l.topRight.y + l.topRight.h * 0.56, z, neutrons, 7);
+      panel(l.bottomRight.x, l.bottomRight.y, l.bottomRight.w, l.bottomRight.h, "Particle counts", "n = nucleon number - proton number", roleColors.resolution);
+      drawText("protons = " + z, l.bottomRight.x + 24, l.bottomRight.y + 82, { color: roleColors.agent, font: "800 16px Andale Mono, Courier New, monospace" });
+      drawText("neutrons = " + a + " - " + z + " = " + neutrons, l.bottomRight.x + 24, l.bottomRight.y + 112, { color: roleColors.problem, font: "800 16px Andale Mono, Courier New, monospace" });
+      drawText("electrons = " + electrons, l.bottomRight.x + 24, l.bottomRight.y + 142, { color: roleColors.resolution, font: "800 16px Andale Mono, Courier New, monospace" });
+      setMetric(String(z), "proton number", String(neutrons), "neutrons", String(electrons), "electrons");
+    }
+
+    function drawIonTransfer(type) {
+      const l = splitLayout();
+      const isCation = type === "cation";
+      const gained = Number(getValue(isCation ? "electron_loss_count" : "electron_gain_count", 0));
+      const transfer = clamp(gained, 0, 1);
+      const baseElectrons = isCation ? 11 : 17;
+      const afterElectrons = isCation ? baseElectrons - transfer : baseElectrons + transfer;
+      const symbol = isCation ? "Na" : "Cl";
+      const charge = isCation ? "+" + transfer : "-" + transfer;
+      panel(l.left.x, l.left.y, l.left.w, l.left.h, "Microscopic", isCation ? "Sodium loses its outer electron." : "Chlorine gains one outer electron.", roleColors.agent);
+      const leftCx = l.left.x + l.left.w * 0.32;
+      const rightCx = l.left.x + l.left.w * 0.68;
+      const cy = l.left.y + l.left.h * 0.52;
+      electronShells(leftCx, cy, shellFill(baseElectrons), { nucleusLabel: symbol, nucleusRadius: 24 });
+      electronShells(rightCx, cy, shellFill(afterElectrons), { nucleusLabel: symbol, nucleusRadius: 24, electronColor: transfer ? roleColors.highlight : roleColors.agent });
+      const t = (Math.sin(timeSeed * 2.2) + 1) / 2;
+      const ex = isCation ? leftCx + 95 + t * 120 : rightCx + 120 - t * 150;
+      const ey = cy - 92 + Math.sin(timeSeed * 5) * 8;
+      ctx.fillStyle = roleColors.highlight;
+      ctx.beginPath();
+      ctx.arc(ex, ey, 7, 0, Math.PI * 2);
+      ctx.fill();
+      arrow(leftCx + 110, cy - 70, rightCx - 110, cy - 70, roleColors.highlight, 3);
+      panel(l.topRight.x, l.topRight.y, l.topRight.w, l.topRight.h, "Charge balance", "Protons stay fixed; electrons change.", roleColors.resolution);
+      const protons = isCation ? 11 : 17;
+      drawText(protons + " protons", l.topRight.x + 28, l.topRight.y + 86, { color: roleColors.problem, font: "800 17px Andale Mono, Courier New, monospace" });
+      drawText(afterElectrons + " electrons", l.topRight.x + 28, l.topRight.y + 118, { color: roleColors.agent, font: "800 17px Andale Mono, Courier New, monospace" });
+      drawText("net charge " + (transfer ? charge.replace("1", "") : "0"), l.topRight.x + 28, l.topRight.y + 150, { color: roleColors.highlight, font: "800 17px Andale Mono, Courier New, monospace" });
+      panel(l.bottomRight.x, l.bottomRight.y, l.bottomRight.w, l.bottomRight.h, "Symbolic", "The sign tells electron imbalance.", roleColors.highlight);
+      drawText(symbol + (transfer ? (isCation ? "+" : "-") : ""), l.bottomRight.x + 30, l.bottomRight.y + 112, { color: roleColors.neutral, font: "700 62px Georgia, serif" });
+      drawText(isCation ? "loss of e- makes + ion" : "gain of e- makes - ion", l.bottomRight.x + 30, l.bottomRight.y + 148, { color: roleColors.muted, font: "800 12px Andale Mono, Courier New, monospace" });
+      setMetric(String(afterElectrons), "electrons", transfer ? (isCation ? "cation" : "anion") : "atom", "particle type", transfer ? (isCation ? "+" : "-") : "0", "charge");
+    }
+
+    function drawIsotopes() {
+      const l = splitLayout();
+      const element = String(getValue("base_element", "chlorine"));
+      const base = element === "carbon" ? { symbol: "C", z: 6, a: 12 } : element === "magnesium" ? { symbol: "Mg", z: 12, a: 24 } : { symbol: "Cl", z: 17, a: 35 };
+      const diff = Number(getValue("neutron_difference", 2));
+      const property = String(getValue("compare_property", "chemical"));
+      panel(l.left.x, l.left.y, l.left.w, l.left.h, "Microscopic comparison", "Same protons and electrons; different neutrons.", roleColors.agent);
+      const y = l.left.y + l.left.h * 0.53;
+      const a1 = base.a;
+      const a2 = base.a + diff;
+      drawParticleCluster(l.left.x + l.left.w * 0.32, y, base.z, a1 - base.z, 8);
+      drawParticleCluster(l.left.x + l.left.w * 0.68, y, base.z, a2 - base.z, 8);
+      drawText(base.symbol + "-" + a1, l.left.x + l.left.w * 0.32, y + 92, { align: "center", color: roleColors.neutral, font: "800 20px Georgia, serif" });
+      drawText(base.symbol + "-" + a2, l.left.x + l.left.w * 0.68, y + 92, { align: "center", color: roleColors.neutral, font: "800 20px Georgia, serif" });
+      panel(l.topRight.x, l.topRight.y, l.topRight.w, l.topRight.h, "Macroscopic property", property === "chemical" ? "Chemical properties stay similar." : "Physical properties can differ.", roleColors.resolution);
+      drawText(property === "chemical" ? "same chemical behavior" : "different physical mass", l.topRight.x + 24, l.topRight.y + 100, { color: property === "chemical" ? roleColors.good : roleColors.highlight, font: "800 18px Andale Mono, Courier New, monospace" });
+      panel(l.bottomRight.x, l.bottomRight.y, l.bottomRight.w, l.bottomRight.h, "Symbolic", "Isotopes are atoms of the same element.", roleColors.highlight);
+      drawText("same Z = " + base.z, l.bottomRight.x + 24, l.bottomRight.y + 84, { color: roleColors.agent, font: "800 16px Andale Mono, Courier New, monospace" });
+      drawText("different A = " + a1 + " / " + a2, l.bottomRight.x + 24, l.bottomRight.y + 116, { color: roleColors.problem, font: "800 16px Andale Mono, Courier New, monospace" });
+      drawText("neutrons differ by " + diff, l.bottomRight.x + 24, l.bottomRight.y + 148, { color: roleColors.highlight, font: "800 16px Andale Mono, Courier New, monospace" });
+      setMetric(String(base.z), "same protons", String(diff), "neutron difference", property, "property focus");
+    }
+
+    function drawRelativeMass() {
+      const l = splitLayout();
+      const abundance = Number(getValue("chlorine_35_abundance", 75));
+      const mode = String(getValue("calculation_mode", "weighted_average"));
+      const sample = Number(getValue("sample_size", 100));
+      const ar = mode === "simple_average" ? 36 : (abundance * 35 + (100 - abundance) * 37) / 100;
+      panel(l.left.x, l.left.y, l.left.w, l.left.h, "Microscopic sample", "Relative atomic mass is pulled by abundance.", roleColors.agent);
+      const cols = 12;
+      const count = Math.min(100, sample);
+      for (let i = 0; i < count; i += 1) {
+        const col = i % cols;
+        const row = Math.floor(i / cols);
+        const is35 = i < Math.round(count * abundance / 100);
+        ctx.fillStyle = is35 ? roleColors.agent : roleColors.problem;
+        ctx.beginPath();
+        ctx.arc(l.left.x + 54 + col * 28, l.left.y + 82 + row * 24, 8, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      panel(l.topRight.x, l.topRight.y, l.topRight.w, l.topRight.h, "Abundance bar", "A decimal mass is an average, not half a neutron.", roleColors.resolution);
+      const bx = l.topRight.x + 24;
+      const by = l.topRight.y + 88;
+      const bw = l.topRight.w - 48;
+      ctx.fillStyle = roleColors.problem;
+      ctx.fillRect(bx, by, bw, 32);
+      ctx.fillStyle = roleColors.agent;
+      ctx.fillRect(bx, by, bw * abundance / 100, 32);
+      ctx.strokeStyle = roleColors.neutral;
+      ctx.strokeRect(bx, by, bw, 32);
+      drawText(abundance + "% Cl-35", bx, by + 56, { color: roleColors.agent, font: "800 13px Andale Mono, Courier New, monospace" });
+      panel(l.bottomRight.x, l.bottomRight.y, l.bottomRight.w, l.bottomRight.h, "Symbolic", "Weighted average uses percentage abundance.", roleColors.highlight);
+      drawText(mode === "weighted_average" ? "(" + abundance + "x35 + " + (100 - abundance) + "x37) / 100" : "(35 + 37) / 2", l.bottomRight.x + 22, l.bottomRight.y + 92, { color: roleColors.muted, font: "800 12px Andale Mono, Courier New, monospace", maxWidth: l.bottomRight.w - 44 });
+      drawText("Ar = " + ar.toFixed(1), l.bottomRight.x + 24, l.bottomRight.y + 136, { color: mode === "weighted_average" ? roleColors.good : roleColors.problem, font: "800 34px Georgia, serif" });
+      setMetric(abundance + "%", "Cl-35 abundance", ar.toFixed(1), "relative atomic mass", mode === "weighted_average" ? "weighted" : "trap", "method");
+    }
+
+    function drawOganesson() {
+      const l = splitLayout();
+      const step = Number(getValue("reveal_step", 1));
+      const focus = String(getValue("particle_count_focus", "protons"));
+      const selected = String(getValue("selected_option", "A"));
+      panel(l.left.x, l.left.y, l.left.w, l.left.h, "MCQ method", "Label the notation before touching the options.", roleColors.highlight);
+      const nx = l.left.x + l.left.w * 0.44;
+      const ny = l.left.y + l.left.h * 0.48;
+      drawText("294", nx - 76, ny - 64, { color: focus === "nucleons" ? roleColors.highlight : roleColors.problem, font: "800 40px Georgia, serif" });
+      drawText("118", nx - 76, ny + 62, { color: focus === "protons" ? roleColors.highlight : roleColors.agent, font: "800 40px Georgia, serif" });
+      drawText("Og", nx, ny + 18, { color: roleColors.neutral, font: "700 96px Georgia, serif" });
+      panel(l.topRight.x, l.topRight.y, l.topRight.w, l.topRight.h, "Working", "Neutrons = nucleon number - proton number.", roleColors.resolution);
+      const lines = ["A = 294", "Z = 118", "protons = 118", "electrons = 118 for atom", "neutrons = 294 - 118 = 176"];
+      lines.slice(0, step).forEach(function(line, index) {
+        drawText(line, l.topRight.x + 24, l.topRight.y + 74 + index * 25, { color: index === step - 1 ? roleColors.highlight : roleColors.neutral, font: "800 14px Andale Mono, Courier New, monospace" });
+      });
+      panel(l.bottomRight.x, l.bottomRight.y, l.bottomRight.w, l.bottomRight.h, "Options", "Reject distractors by naming what they counted.", roleColors.problem);
+      const options = { A: "118 protons", B: "176 neutrons", C: "294 nucleons", D: "412 added numbers" };
+      Object.keys(options).forEach(function(key, index) {
+        const y = l.bottomRight.y + 66 + index * 28;
+        ctx.fillStyle = selected === key ? (key === "B" ? "rgba(32,120,87,0.18)" : "rgba(200,74,54,0.18)") : "rgba(255,253,246,0.72)";
+        ctx.fillRect(l.bottomRight.x + 20, y - 16, l.bottomRight.w - 40, 22);
+        drawText(key + ". " + options[key], l.bottomRight.x + 30, y, { color: key === "B" ? roleColors.good : roleColors.neutral, font: "800 12px Andale Mono, Courier New, monospace" });
+      });
+      setMetric("118", "protons", "176", "neutrons", selected, "chosen option");
+    }
+
+    function drawTwoMinusIon() {
+      const l = splitLayout();
+      const charge = String(getValue("ion_charge", "2-"));
+      const selected = String(getValue("selected_option", "A"));
+      const ionElectrons = 18;
+      const chargeValue = chargeNumber(charge);
+      const neutralElectrons = ionElectrons + chargeValue;
+      panel(l.left.x, l.left.y, l.left.w, l.left.h, "Reverse the ion", "A 2- ion has two extra electrons.", roleColors.agent);
+      electronShells(l.left.x + l.left.w * 0.35, l.left.y + l.left.h * 0.52, shellFill(ionElectrons), { nucleusLabel: "ion", nucleusRadius: 24, electronColor: roleColors.highlight });
+      arrow(l.left.x + l.left.w * 0.5, l.left.y + l.left.h * 0.5, l.left.x + l.left.w * 0.7, l.left.y + l.left.h * 0.5, roleColors.highlight, 3);
+      electronShells(l.left.x + l.left.w * 0.76, l.left.y + l.left.h * 0.52, shellFill(neutralElectrons), { nucleusLabel: "atom", nucleusRadius: 24 });
+      panel(l.topRight.x, l.topRight.y, l.topRight.w, l.topRight.h, "Symbolic equation", "Neutral atom has fewer electrons than a negative ion.", roleColors.highlight);
+      drawText("ion e- = 18", l.topRight.x + 24, l.topRight.y + 82, { color: roleColors.agent, font: "800 16px Andale Mono, Courier New, monospace" });
+      drawText("atom e- = 18 - 2 = " + neutralElectrons, l.topRight.x + 24, l.topRight.y + 116, { color: roleColors.good, font: "800 16px Andale Mono, Courier New, monospace" });
+      drawText("proton number = " + neutralElectrons, l.topRight.x + 24, l.topRight.y + 150, { color: roleColors.resolution, font: "800 16px Andale Mono, Courier New, monospace" });
+      panel(l.bottomRight.x, l.bottomRight.y, l.bottomRight.w, l.bottomRight.h, "Options", "18 electrons is the ion count, not the atom proton number.", roleColors.problem);
+      const options = { A: "14", B: "16", C: "18", D: "20" };
+      Object.keys(options).forEach(function(key, index) {
+        const y = l.bottomRight.y + 66 + index * 28;
+        ctx.fillStyle = selected === key ? (key === "B" ? "rgba(32,120,87,0.18)" : "rgba(200,74,54,0.18)") : "rgba(255,253,246,0.72)";
+        ctx.fillRect(l.bottomRight.x + 22, y - 16, l.bottomRight.w - 44, 22);
+        drawText(key + ". " + options[key], l.bottomRight.x + 32, y, { color: key === "B" ? roleColors.good : roleColors.neutral, font: "800 13px Andale Mono, Courier New, monospace" });
+      });
+      setMetric("18", "ion electrons", String(neutralElectrons), "neutral protons", selected, "chosen option");
+    }
+
+    function drawRateMeasurement() {
+      const l = splitLayout();
+      const time = Number(getValue("reaction_time", 0));
+      const particles = Number(getValue("initial_particles", 70));
+      const rate = 0.65 + particles / 70;
+      panel(l.left.x, l.left.y, l.left.w, l.left.h, "Macroscopic graph", "Rate is gradient at that moment.", roleColors.resolution);
+      drawGraph(l.left.x + 10, l.left.y + 36, l.left.w - 20, l.left.h - 52, rate, { tangent: Boolean(getValue("show_tangent", true)), tangentLabel: "gradient here", yLabel: String(getValue("measurement_mode", "gas volume")) });
+      const x = l.left.x + 70 + (l.left.w - 140) * clamp(time / 100, 0, 1);
+      ctx.strokeStyle = roleColors.problem;
+      ctx.setLineDash([6, 6]);
+      ctx.beginPath();
+      ctx.moveTo(x, l.left.y + 64);
+      ctx.lineTo(x, l.left.y + l.left.h - 48);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      panel(l.topRight.x, l.topRight.y, l.topRight.w, l.topRight.h, "Microscopic", "Reactants are used up, so collisions become less frequent.", roleColors.agent);
+      drawMovingParticles(l.topRight.x, l.topRight.y, l.topRight.w, l.topRight.h, 18 + particles / 3, rate, 0.5);
+      panel(l.bottomRight.x, l.bottomRight.y, l.bottomRight.w, l.bottomRight.h, "Symbolic", "rate = change / time; initial rate uses start gradient.", roleColors.highlight);
+      drawText("rate = gradient", l.bottomRight.x + 24, l.bottomRight.y + 98, { color: roleColors.highlight, font: "800 26px Georgia, serif" });
+      drawText("steeper line -> faster reaction", l.bottomRight.x + 24, l.bottomRight.y + 134, { color: roleColors.muted, font: "800 12px Andale Mono, Courier New, monospace" });
+      setMetric(time + " s", "reaction time", rate.toFixed(1) + "x", "gradient", String(particles), "initial particles");
+    }
+
+    function drawMovingParticles(x, y, w, h, count, speed, success) {
+      const box = { x: x + 22, y: y + 56, w: w - 44, h: h - 86 };
+      ctx.fillStyle = "rgba(223, 233, 226, 0.7)";
+      ctx.strokeStyle = "rgba(21, 25, 19, 0.18)";
+      ctx.fillRect(box.x, box.y, box.w, box.h);
+      ctx.strokeRect(box.x, box.y, box.w, box.h);
+      for (let i = 0; i < Math.min(72, count); i += 1) {
+        const a = i * 2.399 + timeSeed * speed;
+        const r = 0.28 + (i % 9) * 0.038;
+        const px = box.x + box.w * (0.5 + Math.cos(a) * r);
+        const py = box.y + box.h * (0.5 + Math.sin(a * 1.13) * r);
+        ctx.fillStyle = i % Math.max(2, Math.round(10 - success * 7)) === 0 ? roleColors.highlight : (i % 2 ? roleColors.agent : roleColors.problem);
+        ctx.beginPath();
+        ctx.arc(px, py, 5, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function drawCollisionGate() {
+      const l = splitLayout();
+      const energy = Number(getValue("collision_energy", 55));
+      const ea = Number(getValue("activation_energy", 60));
+      const orientation = String(getValue("orientation", "wrong orientation"));
+      const freq = Number(getValue("collision_rate", 3));
+      const passEnergy = energy >= ea;
+      const passOrient = orientation.indexOf("right") >= 0;
+      panel(l.left.x, l.left.y, l.left.w, l.left.h, "Microscopic collision", "A collision must pass both gates.", roleColors.agent);
+      const cx = l.left.x + l.left.w * 0.5;
+      const cy = l.left.y + l.left.h * 0.52;
+      const offset = 90 - Math.sin(timeSeed * freq) * 40;
+      ctx.fillStyle = roleColors.agent;
+      ctx.beginPath();
+      ctx.arc(cx - offset, cy, 28, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = roleColors.problem;
+      ctx.beginPath();
+      ctx.arc(cx + offset, cy, 28, 0, Math.PI * 2);
+      ctx.fill();
+      arrow(cx - offset + 40, cy, cx - 14, cy, roleColors.agent, 3);
+      arrow(cx + offset - 40, cy, cx + 14, cy, roleColors.problem, 3);
+      drawText(passEnergy && passOrient ? "products form" : "bounce apart", cx, cy + 84, { align: "center", color: passEnergy && passOrient ? roleColors.good : roleColors.problem, font: "800 22px Georgia, serif" });
+      panel(l.topRight.x, l.topRight.y, l.topRight.w, l.topRight.h, "Macroscopic count", "Only effective collisions increase product.", roleColors.resolution);
+      drawText(passEnergy && passOrient ? "effective" : "ineffective", l.topRight.x + 26, l.topRight.y + 102, { color: passEnergy && passOrient ? roleColors.good : roleColors.problem, font: "800 28px Georgia, serif" });
+      panel(l.bottomRight.x, l.bottomRight.y, l.bottomRight.w, l.bottomRight.h, "Symbolic gates", "energy >= Ea AND right orientation", roleColors.highlight);
+      drawText("energy " + (passEnergy ? "passes" : "fails"), l.bottomRight.x + 24, l.bottomRight.y + 88, { color: passEnergy ? roleColors.good : roleColors.problem, font: "800 15px Andale Mono, Courier New, monospace" });
+      drawText("orientation " + (passOrient ? "passes" : "fails"), l.bottomRight.x + 24, l.bottomRight.y + 120, { color: passOrient ? roleColors.good : roleColors.problem, font: "800 15px Andale Mono, Courier New, monospace" });
+      setMetric(String(energy), "collision energy", String(ea), "activation energy", passEnergy && passOrient ? "yes" : "no", "effective?");
+    }
+
+    function drawSurfaceArea() {
+      const l = splitLayout();
+      const size = String(getValue("particle_size", "large lump"));
+      const small = size.indexOf("small") >= 0 || size.indexOf("powder") >= 0;
+      const amount = Number(getValue("solid_amount", 2));
+      const exposed = small ? 4 + amount * 6 : 2 + amount;
+      panel(l.left.x, l.left.y, l.left.w, l.left.h, "Macroscopic solid", "Smaller pieces expose more surface to acid.", roleColors.resolution);
+      const startX = l.left.x + 76;
+      const startY = l.left.y + 110;
+      const cubeSize = small ? 36 : 110;
+      const cubes = small ? 16 : 2;
+      for (let i = 0; i < cubes; i += 1) {
+        const x = startX + (i % 4) * (cubeSize + 12);
+        const y = startY + Math.floor(i / 4) * (cubeSize + 12);
+        ctx.fillStyle = roleColors.surfaceCool;
+        ctx.fillRect(x, y, cubeSize, cubeSize);
+        ctx.strokeStyle = Boolean(getValue("show_surface_area", true)) ? roleColors.highlight : roleColors.neutral;
+        ctx.lineWidth = Boolean(getValue("show_surface_area", true)) ? 4 : 1;
+        ctx.strokeRect(x, y, cubeSize, cubeSize);
+      }
+      panel(l.topRight.x, l.topRight.y, l.topRight.w, l.topRight.h, "Microscopic contact", "More exposed sites allow more frequent collisions.", roleColors.agent);
+      drawMovingParticles(l.topRight.x, l.topRight.y, l.topRight.w, l.topRight.h, exposed * 4, 1 + exposed / 10, 0.7);
+      panel(l.bottomRight.x, l.bottomRight.y, l.bottomRight.w, l.bottomRight.h, "Graph", "Higher surface area gives a steeper start.", roleColors.highlight);
+      drawGraph(l.bottomRight.x, l.bottomRight.y + 28, l.bottomRight.w, l.bottomRight.h - 24, 0.5 + exposed / 12, { tangentLabel: "faster start" });
+      setMetric(size, "particle size", String(exposed), "exposed sites", (0.5 + exposed / 12).toFixed(1) + "x", "initial rate");
+    }
+
+    function drawConcentration() {
+      const l = splitLayout();
+      const concentration = Number(getValue("acid_concentration", 1));
+      const magnesium = Number(getValue("magnesium_mass", 0.5));
+      const excess = Boolean(getValue("acid_excess", true));
+      const rate = 0.6 + concentration * 0.6;
+      panel(l.left.x, l.left.y, l.left.w, l.left.h, "Microscopic solution", "More particles per volume gives more collisions.", roleColors.agent);
+      drawMovingParticles(l.left.x, l.left.y, l.left.w, l.left.h, 26 + concentration * 26, 0.8 + concentration, 0.65);
+      panel(l.topRight.x, l.topRight.y, l.topRight.w, l.topRight.h, "Macroscopic graph", "Concentration changes initial gradient; limiting reactant sets final volume.", roleColors.resolution);
+      drawGraph(l.topRight.x, l.topRight.y + 28, l.topRight.w, l.topRight.h - 24, rate, { tangent: Boolean(getValue("show_gradient", true)), tangentLabel: "initial gradient" });
+      panel(l.bottomRight.x, l.bottomRight.y, l.bottomRight.w, l.bottomRight.h, "Symbolic", "Rate depends on collision frequency, not just final amount.", roleColors.highlight);
+      drawText("collision frequency ↑", l.bottomRight.x + 24, l.bottomRight.y + 88, { color: roleColors.agent, font: "800 17px Andale Mono, Courier New, monospace" });
+      drawText("final gas: " + (excess ? magnesium + " g Mg limits" : "acid limits"), l.bottomRight.x + 24, l.bottomRight.y + 122, { color: roleColors.resolution, font: "800 14px Andale Mono, Courier New, monospace" });
+      setMetric(concentration.toFixed(1), "concentration", rate.toFixed(1) + "x", "initial rate", String(getValue("curve_choice", "B")), "curve choice");
+    }
+
+    function drawPressure() {
+      const l = splitLayout();
+      const pressure = Number(getValue("pressure_level", 2));
+      const count = Number(getValue("gas_particle_count", 40));
+      const volume = 1.05 - pressure * 0.12;
+      panel(l.left.x, l.left.y, l.left.w, l.left.h, "Macroscopic piston", "Pressure compresses the same gas particles.", roleColors.resolution);
+      const boxW = l.left.w * 0.62 * volume;
+      const boxX = l.left.x + (l.left.w - boxW) * 0.5;
+      const boxY = l.left.y + 90;
+      const boxH = l.left.h - 160;
+      ctx.fillStyle = "rgba(223,233,226,0.7)";
+      ctx.fillRect(boxX, boxY, boxW, boxH);
+      ctx.strokeStyle = roleColors.neutral;
+      ctx.strokeRect(boxX, boxY, boxW, boxH);
+      arrow(boxX + boxW + 80, boxY + boxH / 2, boxX + boxW + 8, boxY + boxH / 2, roleColors.problem, 4);
+      for (let i = 0; i < count; i += 1) {
+        const a = i * 2.399 + timeSeed * (0.9 + pressure * 0.15);
+        const px = boxX + boxW * (0.5 + Math.cos(a) * 0.43);
+        const py = boxY + boxH * (0.5 + Math.sin(a * 1.21) * 0.43);
+        ctx.fillStyle = i % 2 ? roleColors.agent : roleColors.problem;
+        ctx.beginPath();
+        ctx.arc(px, py, 5, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      panel(l.topRight.x, l.topRight.y, l.topRight.w, l.topRight.h, "Microscopic density", "More particles per unit volume.", roleColors.agent);
+      drawText("same particles", l.topRight.x + 24, l.topRight.y + 88, { color: roleColors.neutral, font: "800 16px Andale Mono, Courier New, monospace" });
+      drawText("smaller volume", l.topRight.x + 24, l.topRight.y + 120, { color: roleColors.problem, font: "800 16px Andale Mono, Courier New, monospace" });
+      panel(l.bottomRight.x, l.bottomRight.y, l.bottomRight.w, l.bottomRight.h, "Rate link", "Closer particles collide more frequently.", roleColors.highlight);
+      drawGraph(l.bottomRight.x, l.bottomRight.y + 28, l.bottomRight.w, l.bottomRight.h - 24, 0.6 + pressure * 0.35, { tangentLabel: "more collisions" });
+      setMetric(String(pressure), "pressure level", volume.toFixed(2), "relative volume", (0.6 + pressure * 0.35).toFixed(1) + "x", "rate");
+    }
+
+    function drawTemperature() {
+      const l = splitLayout();
+      const temp = Number(getValue("temperature", 30));
+      const ea = Number(getValue("activation_energy", 60));
+      const fraction = clamp((temp + 20) / Math.max(ea, 1), 0.12, 1.3);
+      panel(l.left.x, l.left.y, l.left.w, l.left.h, "Microscopic motion", "Higher temperature moves particles faster and changes energy distribution.", roleColors.agent);
+      drawMovingParticles(l.left.x, l.left.y, l.left.w, l.left.h, 44, 0.5 + temp / 28, fraction);
+      panel(l.topRight.x, l.topRight.y, l.topRight.w, l.topRight.h, "Energy distribution", "More particles exceed activation energy.", roleColors.resolution);
+      const gx = l.topRight.x + 32;
+      const gy = l.topRight.y + l.topRight.h - 38;
+      const gw = l.topRight.w - 64;
+      const gh = l.topRight.h - 86;
+      ctx.strokeStyle = roleColors.neutral;
+      ctx.beginPath();
+      ctx.moveTo(gx, gy);
+      ctx.lineTo(gx + gw, gy);
+      ctx.stroke();
+      ctx.strokeStyle = roleColors.agent;
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      for (let i = 0; i <= 60; i += 1) {
+        const t = i / 60;
+        const y = gy - Math.sin(t * Math.PI) * gh * (0.45 + temp / 130);
+        const x = gx + t * gw;
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+      const eaX = gx + gw * clamp(ea / 100, 0.15, 0.92);
+      ctx.strokeStyle = roleColors.problem;
+      ctx.setLineDash([5, 5]);
+      ctx.beginPath();
+      ctx.moveTo(eaX, gy);
+      ctx.lineTo(eaX, gy - gh);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      drawText("Ea", eaX + 5, gy - gh + 15, { color: roleColors.problem, font: "800 12px Andale Mono, Courier New, monospace" });
+      panel(l.bottomRight.x, l.bottomRight.y, l.bottomRight.w, l.bottomRight.h, "Symbolic", "Temperature does not lower activation energy.", roleColors.highlight);
+      drawText("fraction >= Ea increases", l.bottomRight.x + 24, l.bottomRight.y + 98, { color: roleColors.good, font: "800 16px Andale Mono, Courier New, monospace" });
+      drawText("Ea stays " + ea, l.bottomRight.x + 24, l.bottomRight.y + 130, { color: roleColors.problem, font: "800 16px Andale Mono, Courier New, monospace" });
+      setMetric(temp + "°C", "temperature", Math.round(fraction * 100) + "%", "relative success", String(ea), "Ea");
+    }
+
+    function drawCatalyst() {
+      const l = splitLayout();
+      const catalyst = Boolean(getValue("catalyst_present", false));
+      const temp = Number(getValue("temperature", 30));
+      const rate = catalyst ? 2.4 : 1.1 + temp / 100;
+      panel(l.left.x, l.left.y, l.left.w, l.left.h, "Energy pathway", "A catalyst provides a lower activation energy route.", roleColors.highlight);
+      const gx = l.left.x + 68;
+      const gy = l.left.y + l.left.h - 92;
+      const gw = l.left.w - 136;
+      const peak = catalyst ? 0.38 : 0.78;
+      ctx.strokeStyle = roleColors.problem;
+      ctx.lineWidth = 5;
+      ctx.beginPath();
+      ctx.moveTo(gx, gy);
+      ctx.bezierCurveTo(gx + gw * 0.25, gy - 120, gx + gw * 0.45, gy - l.left.h * peak, gx + gw * 0.55, gy - l.left.h * peak);
+      ctx.bezierCurveTo(gx + gw * 0.7, gy - 80, gx + gw * 0.78, gy - 60, gx + gw, gy - 60);
+      ctx.stroke();
+      if (catalyst) {
+        ctx.strokeStyle = roleColors.good;
+        ctx.setLineDash([8, 8]);
+        ctx.beginPath();
+        ctx.moveTo(gx, gy);
+        ctx.bezierCurveTo(gx + gw * 0.28, gy - 70, gx + gw * 0.42, gy - 150, gx + gw * 0.56, gy - 140);
+        ctx.bezierCurveTo(gx + gw * 0.72, gy - 90, gx + gw * 0.82, gy - 60, gx + gw, gy - 60);
+        ctx.stroke();
+        ctx.setLineDash([]);
+      }
+      panel(l.topRight.x, l.topRight.y, l.topRight.w, l.topRight.h, "Microscopic", "More collisions have enough energy; catalyst is not used up.", roleColors.agent);
+      drawMovingParticles(l.topRight.x, l.topRight.y, l.topRight.w, l.topRight.h, 42, rate, catalyst ? 0.9 : 0.4);
+      panel(l.bottomRight.x, l.bottomRight.y, l.bottomRight.w, l.bottomRight.h, "Macroscopic graph", "Faster rate, same final yield.", roleColors.resolution);
+      drawGraph(l.bottomRight.x, l.bottomRight.y + 28, l.bottomRight.w, l.bottomRight.h - 24, rate, { tangentLabel: "faster" });
+      setMetric(catalyst ? "present" : "absent", "catalyst", rate.toFixed(1) + "x", "rate", Boolean(getValue("show_yield", true)) ? "same yield" : "yield hidden", "final amount");
+    }
+
+    function drawGeneric() {
+      const l = splitLayout();
+      panel(l.left.x, l.left.y, l.left.w, l.left.h, "Mechanism", spec.mechanism, roleColors.agent);
+      drawMovingParticles(l.left.x, l.left.y, l.left.w, l.left.h, 42, 1.2, 0.55);
+      panel(l.topRight.x, l.topRight.y, l.topRight.w, l.topRight.h, "Linked outcome", spec.transferable_principle, roleColors.resolution);
+      drawGraph(l.topRight.x, l.topRight.y + 28, l.topRight.w, l.topRight.h - 24, 1.2, { tangentLabel: "linked change" });
+      panel(l.bottomRight.x, l.bottomRight.y, l.bottomRight.w, l.bottomRight.h, "Symbolic", spec.steps.map(function(step) { return step.name; }).join(" -> "), roleColors.highlight);
+      drawText(spec.topic, l.bottomRight.x + 24, l.bottomRight.y + 110, { color: roleColors.highlight, font: "800 26px Georgia, serif" });
+      setMetric("linked", "views", String(spec.controls.length), "controls", String(spec.scenarios.length), "scenarios");
+    }
+
+    function drawDomainScene() {
+      const id = spec.id;
+      if (id.indexOf("subatomic-particle-map") >= 0) return drawSubatomic();
+      if (id.indexOf("electronic-configuration") >= 0) return drawElectronicConfig();
+      if (id.indexOf("proton-nucleon") >= 0) return drawNotationReader();
+      if (id.indexOf("sodium-cation") >= 0) return drawIonTransfer("cation");
+      if (id.indexOf("chloride-anion") >= 0) return drawIonTransfer("anion");
+      if (id.indexOf("isotope-properties") >= 0) return drawIsotopes();
+      if (id.indexOf("relative-atomic-mass") >= 0) return drawRelativeMass();
+      if (id.indexOf("og-element") >= 0) return drawOganesson();
+      if (id.indexOf("two-minus-ion") >= 0) return drawTwoMinusIon();
+      if (id.indexOf("measurement-gradient") >= 0) return drawRateMeasurement();
+      if (id.indexOf("effective-collision") >= 0) return drawCollisionGate();
+      if (id.indexOf("particle-size") >= 0) return drawSurfaceArea();
+      if (id.indexOf("concentration") >= 0) return drawConcentration();
+      if (id.indexOf("pressure") >= 0) return drawPressure();
+      if (id.indexOf("temperature") >= 0) return drawTemperature();
+      if (id.indexOf("catalyst") >= 0) return drawCatalyst();
+      return drawGeneric();
+    }
+
+    function draw(time) {
+      animationId = null;
+      const delta = Math.min(0.04, Math.max(0.001, (time - lastTime) / 1000 || 0.016));
+      lastTime = time;
+      if (motion) timeSeed += delta;
+      clearCanvas();
+      drawDomainScene();
       if (!document.hidden) scheduleDraw();
     }
 
     function scheduleDraw() {
-      if (animationId === null) {
-        animationId = requestAnimationFrame(draw);
-      }
+      if (animationId === null) animationId = requestAnimationFrame(draw);
     }
 
-    document.getElementById("prev-scenario").addEventListener("click", function() {
-      setScenario(scenarioIndex - 1);
-    });
-    document.getElementById("next-scenario").addEventListener("click", function() {
-      setScenario(scenarioIndex + 1);
-    });
-    document.getElementById("reset").addEventListener("click", resetArtifact);
-    motionButton.addEventListener("click", function() {
-      motionRunning = !motionRunning;
-      syncMotionButton();
+    window.addEventListener("resize", function() {
+      resizeCanvas();
+      scheduleDraw();
     });
 
-    window.addEventListener("resize", resizeCanvas);
     document.addEventListener("visibilitychange", function() {
-      if (document.hidden) {
-        motionRunning = false;
-        syncMotionButton();
-        if (animationId !== null) {
-          cancelAnimationFrame(animationId);
-          animationId = null;
-        }
+      if (document.hidden && animationId !== null) {
+        cancelAnimationFrame(animationId);
+        animationId = null;
       } else {
         lastTime = performance.now();
         scheduleDraw();
       }
     });
-    document.addEventListener("keydown", function(event) {
-      if (event.key === "ArrowLeft") setScenario(scenarioIndex - 1);
-      if (event.key === "ArrowRight") setScenario(scenarioIndex + 1);
-      if (event.key === "r" || event.key === "R") resetArtifact();
-    });
 
     resetValues();
-    renderStaticText();
+    renderStatic();
     renderAll();
     resizeCanvas();
     scheduleDraw();

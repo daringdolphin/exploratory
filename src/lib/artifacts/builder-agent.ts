@@ -1,9 +1,62 @@
-<!doctype html>
+import type { ArtifactSpec, BuiltArtifact } from "./schema";
+
+const roleLabels: Record<string, string> = {
+  problem: "Trap",
+  agent: "Cause",
+  resolution: "Outcome",
+  neutral: "Structure",
+  highlight: "Focus",
+};
+
+function escapeHtml(value: string) {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function artifactJson(spec: ArtifactSpec) {
+  return JSON.stringify(spec)
+    .replace(/</g, "\\u003c")
+    .replace(/\u2028/g, "\\u2028")
+    .replace(/\u2029/g, "\\u2029");
+}
+
+export class ArtifactGenerationAgent {
+  buildHtml(spec: ArtifactSpec) {
+    return buildArtifactDocument(spec);
+  }
+
+  build(spec: ArtifactSpec): BuiltArtifact {
+    return {
+      ...spec,
+      html: this.buildHtml(spec),
+    };
+  }
+}
+
+export const artifactGenerationAgent = new ArtifactGenerationAgent();
+
+export function buildArtifactHtml(spec: ArtifactSpec) {
+  return artifactGenerationAgent.buildHtml(spec);
+}
+
+export function buildArtifact(spec: ArtifactSpec): BuiltArtifact {
+  return artifactGenerationAgent.build(spec);
+}
+
+function buildArtifactDocument(spec: ArtifactSpec) {
+  const title = escapeHtml(spec.artifact_metadata.title || spec.topic);
+  const data = artifactJson(spec);
+
+  return `<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Two Gates for an Effective Collision</title>
+  <title>${title}</title>
   <style>
     :root {
       --problem: #c84a36;
@@ -413,7 +466,7 @@
     <section class="main" aria-label="Interactive teaching artifact">
       <article class="stage">
         <div class="canvas-wrap">
-          <canvas id="scene" aria-label="Two Gates for an Effective Collision interactive visual"></canvas>
+          <canvas id="scene" aria-label="${title} interactive visual"></canvas>
         </div>
         <div class="metrics">
           <div class="metric"><strong id="metric-one">-</strong><span id="metric-one-label">micro view</span></div>
@@ -438,8 +491,8 @@
   </main>
 
   <script>
-    const spec = {"id":"rate-effective-collision-gate","source_ref":"page 7","subject":"O Level Chemistry","topic":"Conditions for effective collision","medium":"interactive_html","mechanism":"Reacting particles form products only when a collision has sufficient energy and the correct orientation; missing either condition makes the collision ineffective.","transferable_principle":"Every rate factor should be explained by how it changes the frequency of effective collisions.","steps":[{"name":"Particles approach","beat":"Reactant particles move and collide in an animated microscopic view."},{"name":"Check energy","beat":"A collision must have energy greater than or equal to the activation energy."},{"name":"Check orientation","beat":"The particles must meet in the right orientation for bonds to change."},{"name":"Form products","beat":"Only collisions that pass both checks count as effective collisions and produce products."}],"key_symbols":[{"symbol":"energy badge","role":"highlight","meaning":"Shows whether the collision has sufficient energy."},{"symbol":"orientation arrow","role":"agent","meaning":"Shows whether the particles meet in the right orientation."},{"symbol":"activation energy line","role":"problem","meaning":"The minimum energy needed for reaction."},{"symbol":"effective collision counter","role":"resolution","meaning":"Counts successful collisions that form products."}],"interactivity_hooks":["Toggle collision energy and orientation to test whether products form.","Watch non-effective collisions bounce apart with a reason label.","Compare total collisions with successful collisions."],"output_filename":"rate-effective-collision-gate.html","artifact_metadata":{"title":"Two Gates for an Effective Collision","subject":"O Level Chemistry","level":"O-Level","syllabus_reference":"Collision theory: sufficient energy and right orientation for effective collision","estimated_interaction_time_minutes":7,"prerequisite_concepts":["Reactant particles","Products","Kinetic energy","Activation energy"]},"learning_design":{"core_aha":"A collision is not automatically successful; I need both enough energy and the right orientation before products form.","learning_objectives":["State the two conditions for an effective collision.","Distinguish total collision frequency from effective collision frequency.","Explain why insufficient energy or wrong orientation prevents product formation."],"target_misconceptions":[{"misconception":"Any collision between reactants forms products.","correction":"Only effective collisions form products; ineffective collisions do not lead to reaction.","addressed_in_scenario_id":"two-gate-test"},{"misconception":"Sufficient energy alone guarantees reaction.","correction":"The particles also need the right orientation for the collision to be effective.","addressed_in_scenario_id":"wrong-orientation"},{"misconception":"Correct orientation alone guarantees reaction.","correction":"The collision must also have enough energy to overcome activation energy.","addressed_in_scenario_id":"low-energy"}]},"representations":{"description":"A two-gate model links particle collisions, product formation, and symbolic condition checks.","views":[{"id":"animated-collision-box","type":"microscopic","description":"Particles move, collide, bounce apart, or react depending on energy and orientation."},{"id":"product-counter","type":"macroscopic","description":"A visible product counter rises only when a collision is successful."},{"id":"condition-checklist","type":"symbolic","description":"A symbolic checklist and activation energy marker show which condition passes or fails."}]},"controls":[{"id":"collision_energy","label":"Collision energy","type":"slider","min":0,"max":100,"default":55,"step":5,"affects":["energy_badge","activation_energy_check","successful_collision"]},{"id":"activation_energy","label":"Activation energy","type":"slider","min":30,"max":80,"default":60,"step":5,"affects":["energy_threshold","successful_collision","energy_view"]},{"id":"orientation","label":"Orientation","type":"discrete","default":"wrong orientation","options":["wrong orientation","right orientation"],"affects":["orientation_arrow","successful_collision","product_counter"]},{"id":"collision_rate","label":"Collision frequency","type":"slider","min":1,"max":5,"default":3,"step":1,"affects":["particle_speed","collision_counter","effective_collision_counter"]}],"scenarios":[{"id":"low-energy","title":"Right Orientation, Low Energy","guiding_question":"If the particles face the right way but do not reach activation energy, should products form?","locked_controls":["activation_energy","orientation","collision_rate"],"active_controls":["collision_energy"],"success_criterion":"You explain that correct orientation is not enough when energy is below activation energy.","misconception_buster":true},{"id":"wrong-orientation","title":"Enough Energy, Wrong Orientation","guiding_question":"Why does a high-energy collision still fail when the particles meet in the wrong orientation?","locked_controls":["collision_energy","activation_energy","collision_rate"],"active_controls":["orientation"],"success_criterion":"You state that sufficient energy must be paired with the right orientation.","misconception_buster":true},{"id":"two-gate-test","title":"Make It Effective","guiding_question":"Which two settings must both be true before the collision becomes a successful collision?","locked_controls":["collision_rate"],"active_controls":["collision_energy","activation_energy","orientation"],"success_criterion":"You set energy at or above activation energy and choose right orientation, then products form.","misconception_buster":true},{"id":"free-play","title":"Collision Counter Challenge","guiding_question":"Can you create many collisions but only a few effective collisions, then explain why?","locked_controls":[],"active_controls":["collision_energy","activation_energy","orientation","collision_rate"],"success_criterion":"You distinguish collision frequency from effective collision frequency using the counters."}],"checkpoints":[{"id":"two-conditions","after_scenario":"two-gate-test","prompt":"An effective collision needs sufficient ______ and the right ______.","type":"fill_in_blank","answers":["energy","orientation"]},{"id":"collision-trap","after_scenario":"wrong-orientation","prompt":"A collision has enough energy but the wrong orientation. What happens?","type":"multiple_choice","options":["Products form because energy is enough","No products form because the collision is not effective","The activation energy becomes lower","The reaction is complete"],"answer":"No products form because the collision is not effective"}],"ui_requirements":{"always_visible":["collision animation","energy threshold","orientation indicator","effective collision counter"],"syllabus_vocabulary_to_surface":["effective collision","successful collision","sufficient energy","right orientation","activation energy","collision frequency"],"tone":"Use clear O-Level collision-theory language and avoid molecular detail beyond the notes.","accessibility":["Use icons and labels for pass or fail states.","Let students pause individual collision replays.","Pair animation changes with text reason chips."]}};
-    const roleLabels = {"problem":"Trap","agent":"Cause","resolution":"Outcome","neutral":"Structure","highlight":"Focus"};
+    const spec = ${data};
+    const roleLabels = ${JSON.stringify(roleLabels)};
     const roleColors = {
       problem: "#c84a36",
       agent: "#087a8a",
@@ -1520,4 +1573,5 @@
     scheduleDraw();
   </script>
 </body>
-</html>
+</html>`;
+}

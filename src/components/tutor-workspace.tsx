@@ -5,20 +5,14 @@ import {
   ArrowRight,
   BookOpen,
   Bot,
-  CheckCircle2,
   ChevronRight,
+  Compass,
   FileText,
-  FlaskConical,
-  Gauge,
-  Layers3,
   Loader2,
   MessageSquareText,
-  PanelLeft,
-  Play,
   RotateCcw,
   Send,
   Sparkles,
-  Target,
   User,
 } from "lucide-react";
 import { DefaultChatTransport, type UIMessage } from "ai";
@@ -31,6 +25,13 @@ import {
   useState,
   type FormEvent,
 } from "react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import {
+  buildSuggestedPromptsFromArtifact,
+  FALLBACK_SUGGESTED_PROMPTS,
+  truncateWords,
+} from "@/lib/artifact-suggested-prompts";
 import type { ArtifactRecord, NoteSet } from "@/lib/seed-data";
 import type { BuiltArtifact } from "@/lib/artifacts/schema";
 
@@ -57,31 +58,17 @@ type ArtifactToolPart = UIMessage["parts"][number] & {
 };
 
 type LearningPlan = {
-  concepts: Array<{
-    label: string;
-    sourceRef: string;
-    role: string;
-    coreAha: string;
-  }>;
-  outcomes: string[];
   storyboard: Array<{
     id: string;
     topic: string;
-    sourceRef: string;
-    mechanism: string;
-    outcome: string;
     origin: "seed" | "generated";
-    coreAha: string;
-    scenarioCount: number;
-    checkpointCount: number;
   }>;
 };
 
-const suggestedPrompts = [
-  "Turn this note set into a 5-minute learning path.",
-  "Give me a quick practice check for the current artifact.",
-  "Create a follow-up artifact with a slider.",
-];
+type ConceptsSidebarMode = "original-notes" | "explore-concepts";
+
+const SHOW_ME_PROMPT =
+  "Show me with an interactive artifact based on what I was confused about.";
 
 const chatTransport = new DefaultChatTransport<UIMessage>({
   api: "/api/chat",
@@ -89,6 +76,8 @@ const chatTransport = new DefaultChatTransport<UIMessage>({
 
 export function TutorWorkspace({ noteSets }: TutorWorkspaceProps) {
   const [selectedNoteId, setSelectedNoteId] = useState(noteSets[0]?.id ?? "");
+  const [conceptsSidebarMode, setConceptsSidebarMode] =
+    useState<ConceptsSidebarMode>("explore-concepts");
   const [selectedArtifactId, setSelectedArtifactId] = useState(
     noteSets[0]?.artifacts[0]?.id ?? "",
   );
@@ -120,28 +109,54 @@ export function TutorWorkspace({ noteSets }: TutorWorkspaceProps) {
     artifacts.find((artifact) => artifact.id === selectedArtifactId) ??
     artifacts[0];
 
+  const suggestedPrompts = useMemo(() => {
+    if (conceptsSidebarMode === "explore-concepts" && selectedArtifact) {
+      const derived = buildSuggestedPromptsFromArtifact(selectedArtifact);
+      return derived.length > 0 ? derived : [...FALLBACK_SUGGESTED_PROMPTS];
+    }
+    return [...FALLBACK_SUGGESTED_PROMPTS];
+  }, [conceptsSidebarMode, selectedArtifact]);
+
+  const pdfSourceUrl = selectedNote
+    ? `/api/source/${encodeURIComponent(selectedNote.id)}`
+    : "";
+
   const learningPlan = useMemo(
     () => buildLearningPlan(artifacts),
     [artifacts],
   );
 
-  const selectedStoryboardIndex = Math.max(
-    0,
-    learningPlan.storyboard.findIndex(
-      (beat) => beat.id === selectedArtifact?.id,
-    ),
-  );
   const canSend = deferredInput.trim().length > 0 && status === "ready";
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
   }, [messages, status]);
 
-  const chatContext = () => ({
-    noteSetId: selectedNote?.id,
-    artifactId: selectedArtifact?.id,
-    generatedArtifacts: generatedArtifacts.map(toArtifactSpec),
-  });
+  const chatContext = (options?: {
+    showArtifactForMessageId?: string;
+    sourceMessageText?: string;
+  }) => {
+    const selectedArtifactSpec = selectedArtifact
+      ? toArtifactSpec(selectedArtifact)
+      : undefined;
+
+    return {
+      noteSetId: selectedNote?.id,
+      artifactId:
+        conceptsSidebarMode === "explore-concepts"
+          ? selectedArtifact?.id
+          : undefined,
+      selectedArtifact: selectedArtifactSpec,
+      generatedArtifacts: generatedArtifacts.map(toArtifactSpec),
+      showArtifactRequest: options?.showArtifactForMessageId
+        ? {
+            messageId: options.showArtifactForMessageId,
+            messageText: options.sourceMessageText,
+            sourceArtifact: selectedArtifactSpec,
+          }
+        : undefined,
+    };
+  };
 
   async function submitMessage(text: string) {
     const next = text.trim();
@@ -161,7 +176,24 @@ export function TutorWorkspace({ noteSets }: TutorWorkspaceProps) {
     void submitMessage(input);
   }
 
-  function selectNote(noteSet: NoteSet) {
+  async function requestArtifactForMessage(message: UIMessage) {
+    if (!selectedArtifact || status !== "ready") return;
+
+    await sendMessage(
+      { text: SHOW_ME_PROMPT },
+      {
+        body: chatContext({
+          showArtifactForMessageId: message.id,
+          sourceMessageText: getMessageText(message),
+        }),
+      },
+    );
+  }
+
+  function selectNote(noteSetId: string) {
+    const noteSet = noteSets.find((item) => item.id === noteSetId);
+    if (!noteSet) return;
+
     startTransition(() => {
       setSelectedNoteId(noteSet.id);
       setSelectedArtifactId(noteSet.artifacts[0]?.id ?? "");
@@ -176,9 +208,12 @@ export function TutorWorkspace({ noteSets }: TutorWorkspaceProps) {
 
   function openGeneratedArtifact(artifact: BuiltArtifact) {
     selectArtifact(artifact.id);
+    startTransition(() => {
+      setConceptsSidebarMode("explore-concepts");
+    });
   }
 
-  if (!selectedNote || !selectedArtifact) {
+  if (!selectedNote) {
     return (
       <main className="empty-state">
         <p>No seeded notes found.</p>
@@ -187,285 +222,259 @@ export function TutorWorkspace({ noteSets }: TutorWorkspaceProps) {
   }
 
   return (
-    <main className="learning-app">
-      <div className="atmosphere" aria-hidden="true" />
-      <section className="theater-shell" aria-label="Chemistry tutor studio">
-        <header className="theater-header">
-          <div className="brand-lockup">
-            <p className="studio-kicker">
-              <FlaskConical aria-hidden="true" />
-              Chemistry Tutor Studio
-            </p>
-            <h1>{selectedNote.title}</h1>
-            <p>{selectedNote.summary}</p>
+    <main className="learning-desk">
+      <section className="desk-shell" aria-label="Tutor workspace">
+        <aside className="chapter-rail" aria-label="Chapter concepts">
+          <div className="chapter-picker">
+            <label htmlFor="chapter-select">
+              <BookOpen aria-hidden="true" />
+              Chapter
+            </label>
+            <select
+              id="chapter-select"
+              onChange={(event) => selectNote(event.target.value)}
+              value={selectedNote.id}
+            >
+              {noteSets.map((noteSet) => (
+                <option key={noteSet.id} value={noteSet.id}>
+                  {noteSet.title}
+                </option>
+              ))}
+            </select>
           </div>
 
-          <nav className="note-switcher" aria-label="Choose note set">
-            {noteSets.map((noteSet) => (
-              <button
-                aria-current={noteSet.id === selectedNote.id}
-                className="note-tab"
-                key={noteSet.id}
-                onClick={() => selectNote(noteSet)}
-                type="button"
-              >
-                <BookOpen aria-hidden="true" />
-                <span>{noteSet.title}</span>
-              </button>
-            ))}
-          </nav>
-        </header>
+          <div
+            className="sidebar-view-tabs"
+            role="radiogroup"
+            aria-label="Notes and concepts"
+          >
+            <label className="sidebar-view-tab" id="tab-original-notes">
+              <input
+                checked={conceptsSidebarMode === "original-notes"}
+                className="sidebar-view-tab-input"
+                name="concepts-sidebar-mode"
+                onChange={() => setConceptsSidebarMode("original-notes")}
+                type="radio"
+                value="original-notes"
+              />
+              <span className="sidebar-view-tab-label">
+                <FileText aria-hidden="true" />
+                Original notes
+              </span>
+            </label>
+            <label className="sidebar-view-tab" id="tab-explore-concepts">
+              <input
+                checked={conceptsSidebarMode === "explore-concepts"}
+                className="sidebar-view-tab-input"
+                name="concepts-sidebar-mode"
+                onChange={() => setConceptsSidebarMode("explore-concepts")}
+                type="radio"
+                value="explore-concepts"
+              />
+              <span className="sidebar-view-tab-label">
+                <Compass aria-hidden="true" />
+                Explore concepts
+              </span>
+            </label>
+          </div>
 
-        <section className="composition-grid" aria-label="Learning workspace">
-          <aside className="story-panel" aria-label="Storyboard learning path">
-            <div className="panel-heading">
-              <p className="panel-kicker">
-                <Layers3 aria-hidden="true" />
-                Storyboard
-              </p>
-              <h2>Teaching design flow</h2>
-              <p>
-                Each artifact now starts from a core aha, constrained
-                scenarios, linked representations, and a checkpoint.
-              </p>
-            </div>
-
-            <div className="concept-stack" aria-label="Key concepts">
-              {learningPlan.concepts.map((concept, index) => (
-                <div className="concept-row" key={`${concept.label}-${index}`}>
-                  <span className="concept-index">
+          {conceptsSidebarMode === "explore-concepts" ? (
+            <nav
+              className="concept-list"
+              aria-label="Choose concept artifact"
+              id="panel-explore-concepts"
+            >
+              {learningPlan.storyboard.map((beat, index) => (
+                <button
+                  aria-current={
+                    selectedArtifact ? beat.id === selectedArtifact.id : false
+                  }
+                  className="concept-artifact"
+                  key={beat.id}
+                  onClick={() => selectArtifact(beat.id)}
+                  type="button"
+                >
+                  <span className="concept-pin" aria-hidden="true">
                     {String(index + 1).padStart(2, "0")}
                   </span>
-                  <span>
-                    <strong>{concept.label}</strong>
-                    <small>{compactText(concept.coreAha, 96)}</small>
+                  <span className="concept-artifact-copy">
+                    <strong>{beat.topic}</strong>
                   </span>
-                </div>
-              ))}
-            </div>
-
-            <div className="outcome-panel">
-              <p className="mini-heading">
-                <Target aria-hidden="true" />
-                Learning outcomes
-              </p>
-              <div className="outcome-list">
-                {learningPlan.outcomes.map((outcome, index) => (
-                  <p key={`${outcome}-${index}`}>
-                    <CheckCircle2 aria-hidden="true" />
-                    <span>{outcome}</span>
-                  </p>
-                ))}
-              </div>
-            </div>
-
-            <div className="flow-shell">
-              <p className="mini-heading">
-                <Gauge aria-hidden="true" />
-                Core artifact flow
-              </p>
-              <div className="flow-list">
-                {learningPlan.storyboard.map((beat, index) => (
-                  <button
-                    aria-current={beat.id === selectedArtifact.id}
-                    className="flow-beat"
-                    key={beat.id}
-                    onClick={() => selectArtifact(beat.id)}
-                    type="button"
-                  >
-                    <span className="flow-number">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-                    <span className="flow-copy">
-                      <strong>{beat.topic}</strong>
-                      <small>
-                        {beat.scenarioCount} scenarios /{" "}
-                        {beat.checkpointCount} checkpoint
-                        {beat.checkpointCount === 1 ? "" : "s"}
-                      </small>
-                    </span>
-                    {beat.origin === "generated" ? (
-                      <Sparkles aria-hidden="true" />
-                    ) : (
-                      <ChevronRight aria-hidden="true" />
-                    )}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <details className="source-pages">
-              <summary>
-                <PanelLeft aria-hidden="true" />
-                Source pages
-              </summary>
-              <div>
-                {selectedNote.pages.map((page) => (
-                  <p key={page.page_number}>
-                    <span>{String(page.page_number).padStart(2, "0")}</span>
-                    <span>{page.title}</span>
-                  </p>
-                ))}
-              </div>
-            </details>
-          </aside>
-
-          <section className="artifact-theater" aria-label="Interactive artifact">
-            <div className="stage-toolbar">
-              <div>
-                <p className="panel-kicker">
-                  <Play aria-hidden="true" />
-                  Core artifact {selectedStoryboardIndex + 1} of{" "}
-                  {learningPlan.storyboard.length}
-                </p>
-                <h2>{selectedArtifact.topic}</h2>
-              </div>
-              <div className="stage-actions">
-                <span>{selectedArtifact.source_ref}</span>
-                <a
-                  href={`/api/source/${selectedNote.id}`}
-                  rel="noreferrer"
-                  target="_blank"
-                >
-                  <FileText aria-hidden="true" />
-                  Open notes
-                </a>
-              </div>
-            </div>
-
-            <div className="artifact-frame-wrap">
-              <iframe
-                className="artifact-frame"
-                sandbox="allow-scripts"
-                srcDoc={selectedArtifact.html}
-                title={`${selectedArtifact.topic} artifact`}
-              />
-            </div>
-
-            <div className="artifact-brief">
-              <p>
-                <strong>Core aha</strong>
-                {selectedArtifact.learning_design.core_aha}
-              </p>
-              <p>
-                <strong>Scenario design</strong>
-                {selectedArtifact.scenarios
-                  .map((scenario) => scenario.title)
-                  .join(" / ")}
-              </p>
-              <p>
-                <strong>Checkpoint</strong>
-                {selectedArtifact.checkpoints[0]?.prompt ??
-                  selectedArtifact.transferable_principle}
-              </p>
-            </div>
-          </section>
-
-          <aside className="coach-panel" aria-label="Chat tutor">
-            <div className="coach-header">
-              <div>
-                <p className="panel-kicker">
-                  <Sparkles aria-hidden="true" />
-                  Tutor thread
-                </p>
-                <h2>Probe the artifact</h2>
-              </div>
-              {status === "streaming" || status === "submitted" ? (
-                <button className="icon-text-button" onClick={stop} type="button">
-                  <RotateCcw aria-hidden="true" />
-                  Stop
+                  {beat.origin === "generated" ? (
+                    <Sparkles aria-label="Generated artifact" />
+                  ) : (
+                    <ChevronRight aria-hidden="true" />
+                  )}
                 </button>
-              ) : null}
+              ))}
+            </nav>
+          ) : (
+            <div
+              aria-labelledby="tab-original-notes"
+              className="original-notes-hint"
+              id="panel-original-notes"
+              role="tabpanel"
+            >
+              <strong>Reading the source PDF</strong>
+              The chapter PDF opens in the center. Switch to Explore concepts
+              to open interactive artifacts for each idea.
             </div>
+          )}
+        </aside>
 
-            <p className="coach-context">
-              Current context: <strong>{selectedArtifact.topic}</strong>
-            </p>
-
-            <div className="chat-scroll">
-              {messages.length === 0 ? (
-                <div className="prompt-slate">
-                  <div>
-                    <Sparkles aria-hidden="true" />
-                    <strong>Start with the artifact on screen</strong>
-                  </div>
-                  <div className="prompt-list">
-                    {suggestedPrompts.map((prompt) => (
-                      <button
-                        key={prompt}
-                        onClick={() => void submitMessage(prompt)}
-                        type="button"
-                      >
-                        <span>{prompt}</span>
-                        <ArrowRight aria-hidden="true" />
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              ) : null}
-
-              <div className="message-list">
-                {messages.map((message) => (
-                  <ChatMessage
-                    key={message.id}
-                    message={message}
-                    onOpenArtifact={openGeneratedArtifact}
-                  />
-                ))}
-                {status === "submitted" ? (
-                  <div className="thinking-row">
-                    <Loader2 aria-hidden="true" />
-                    Thinking through the mechanism...
-                  </div>
-                ) : null}
-                <div ref={bottomRef} />
+        <section
+          className="artifact-workbench"
+          aria-label={
+            conceptsSidebarMode === "original-notes"
+              ? "Original notes PDF"
+              : "Selected artifact"
+          }
+        >
+          {conceptsSidebarMode === "original-notes" ? (
+            <>
+              <header className="artifact-header">
+                <h2>{selectedNote.title}</h2>
+                <p>Original notes · PDF</p>
+              </header>
+              <div className="artifact-canvas">
+                <iframe
+                  className="artifact-frame pdf-source-frame"
+                  src={pdfSourceUrl}
+                  title={`${selectedNote.title} original notes`}
+                />
               </div>
-            </div>
+            </>
+          ) : selectedArtifact ? (
+            <>
+              <header className="artifact-header">
+                <h2>{selectedArtifact.topic}</h2>
+              </header>
 
-            {error ? <div className="chat-error">{error.message}</div> : null}
-
-            <form className="composer" onSubmit={handleSubmit}>
-              <textarea
-                onChange={(event) => setInput(event.target.value)}
-                onKeyDown={(event) => {
-                  if (event.key === "Enter" && !event.shiftKey) {
-                    event.preventDefault();
-                    void submitMessage(input);
-                  }
-                }}
-                placeholder="Ask for a mechanism, comparison, or practice check..."
-                value={input}
-              />
-              <button disabled={!canSend} title="Send" type="submit">
-                <Send aria-hidden="true" />
-              </button>
-            </form>
-          </aside>
+              <div className="artifact-canvas">
+                <iframe
+                  key={selectedArtifact.id}
+                  className="artifact-frame"
+                  sandbox="allow-scripts"
+                  srcDoc={selectedArtifact.html}
+                  title={`${selectedArtifact.topic} artifact`}
+                />
+              </div>
+            </>
+          ) : (
+            <>
+              <header className="artifact-header">
+                <h2>{selectedNote.title}</h2>
+                <p>No artifacts yet</p>
+              </header>
+              <div className="artifact-canvas explore-empty">
+                <p>
+                  There are no interactive artifacts for this chapter yet. Use
+                  the chat to generate one, or switch to Original notes to read
+                  the PDF.
+                </p>
+              </div>
+            </>
+          )}
         </section>
 
-        <section className="source-dock" aria-label="Original document">
-          <div className="source-dock-header">
+        <aside className="tutor-rail" aria-label="Tutor chat">
+          <div className="tutor-header">
             <div>
               <p className="panel-kicker">
-                <FileText aria-hidden="true" />
-                Original document
+                <Bot aria-hidden="true" />
+                Tutor agent
               </p>
-              <h2>{selectedNote.sourceFile}</h2>
+              <h2>Chat</h2>
             </div>
-            <a
-              href={`/api/source/${selectedNote.id}`}
-              rel="noreferrer"
-              target="_blank"
-            >
-              Open PDF
-            </a>
+            {status === "streaming" || status === "submitted" ? (
+              <button className="icon-text-button" onClick={stop} type="button">
+                <RotateCcw aria-hidden="true" />
+                Stop
+              </button>
+            ) : null}
           </div>
-          <iframe
-            loading="lazy"
-            src={`/api/source/${selectedNote.id}`}
-            title={`${selectedNote.title} source PDF`}
-          />
-        </section>
+
+          <p className="tutor-context">
+            {conceptsSidebarMode === "original-notes" ? (
+              <>
+                Viewing <strong>original notes</strong> for{" "}
+                <strong>{selectedNote.title}</strong>
+              </>
+            ) : selectedArtifact ? (
+              <>
+                Focused on <strong>{selectedArtifact.topic}</strong>
+              </>
+            ) : (
+              <>
+                Chapter <strong>{selectedNote.title}</strong> · pick a concept
+                when available
+              </>
+            )}
+          </p>
+
+          <div className="chat-scroll">
+            {messages.length === 0 ? (
+              <div className="prompt-slate">
+                <div>
+                  <Sparkles aria-hidden="true" />
+                  <strong>Ask or generate from here</strong>
+                </div>
+                <div className="prompt-list">
+                  {suggestedPrompts.map((prompt, index) => (
+                    <button
+                      key={`sp-${index}`}
+                      onClick={() => void submitMessage(prompt)}
+                      title={prompt}
+                      type="button"
+                    >
+                      <span>{truncateWords(prompt)}</span>
+                      <ArrowRight aria-hidden="true" />
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+
+            <div className="message-list">
+              {messages.map((message) => (
+                <ChatMessage
+                  key={message.id}
+                  message={message}
+                  onOpenArtifact={openGeneratedArtifact}
+                  onRequestArtifact={requestArtifactForMessage}
+                  canRequestArtifact={Boolean(selectedArtifact)}
+                  isChatReady={status === "ready"}
+                />
+              ))}
+              {status === "submitted" ? (
+                <div className="thinking-row">
+                  <Loader2 aria-hidden="true" />
+                  Thinking through the mechanism...
+                </div>
+              ) : null}
+              <div ref={bottomRef} />
+            </div>
+          </div>
+
+          {error ? <div className="chat-error">{error.message}</div> : null}
+
+          <form className="composer" onSubmit={handleSubmit}>
+            <textarea
+              onChange={(event) => setInput(event.target.value)}
+              onKeyDown={(event) => {
+                if (event.key === "Enter" && !event.shiftKey) {
+                  event.preventDefault();
+                  void submitMessage(input);
+                }
+              }}
+              placeholder="Ask about this concept or request a new artifact..."
+              value={input}
+            />
+            <button disabled={!canSend} title="Send" type="submit">
+              <Send aria-hidden="true" />
+            </button>
+          </form>
+        </aside>
       </section>
     </main>
   );
@@ -474,11 +483,22 @@ export function TutorWorkspace({ noteSets }: TutorWorkspaceProps) {
 function ChatMessage({
   message,
   onOpenArtifact,
+  onRequestArtifact,
+  canRequestArtifact,
+  isChatReady,
 }: {
   message: UIMessage;
   onOpenArtifact: (artifact: BuiltArtifact) => void;
+  onRequestArtifact: (message: UIMessage) => void;
+  canRequestArtifact: boolean;
+  isChatReady: boolean;
 }) {
   const isUser = message.role === "user";
+  const canShowRequest =
+    !isUser &&
+    canRequestArtifact &&
+    hasTextPart(message) &&
+    !hasGeneratedArtifact(message);
 
   return (
     <div className={`chat-row ${isUser ? "is-user" : "is-agent"}`}>
@@ -496,6 +516,19 @@ function ChatMessage({
             part={part}
           />
         ))}
+        {canShowRequest ? (
+          <div className="message-actions">
+            <button
+              className="show-me-button"
+              disabled={!isChatReady}
+              onClick={() => onRequestArtifact(message)}
+              type="button"
+            >
+              <Sparkles aria-hidden="true" />
+              Show me
+            </button>
+          </div>
+        ) : null}
       </div>
 
       {isUser ? (
@@ -515,7 +548,11 @@ function MessagePart({
   onOpenArtifact: (artifact: BuiltArtifact) => void;
 }) {
   if (part.type === "text") {
-    return <p className="message-copy">{part.text}</p>;
+    return (
+      <div className="message-copy markdown-output">
+        <ReactMarkdown remarkPlugins={[remarkGfm]}>{part.text}</ReactMarkdown>
+      </div>
+    );
   }
 
   if (isBuildArtifactPart(part)) {
@@ -561,6 +598,7 @@ function MessagePart({
             </button>
           </div>
           <iframe
+            key={part.output.id}
             sandbox="allow-scripts"
             srcDoc={part.output.html}
             title={`${part.output.topic} generated artifact`}
@@ -577,6 +615,27 @@ function isBuildArtifactPart(
   part: UIMessage["parts"][number],
 ): part is ArtifactToolPart {
   return part.type === "tool-buildArtifact";
+}
+
+function hasTextPart(message: UIMessage) {
+  return getMessageText(message).length > 0;
+}
+
+function getMessageText(message: UIMessage) {
+  return message.parts
+    .filter((part) => part.type === "text")
+    .map((part) => part.text.trim())
+    .filter(Boolean)
+    .join("\n\n");
+}
+
+function hasGeneratedArtifact(message: UIMessage) {
+  return message.parts.some(
+    (part) =>
+      isBuildArtifactPart(part) &&
+      part.state === "output-available" &&
+      isBuiltArtifact(part.output),
+  );
 }
 
 function isBuiltArtifact(value: unknown): value is BuiltArtifact {
@@ -618,32 +677,13 @@ function extractGeneratedArtifacts(
 function buildLearningPlan(
   artifacts: Array<ArtifactRecord | GeneratedArtifact>,
 ): LearningPlan {
-  const concepts = artifacts.slice(0, 6).map((artifact) => ({
-    label: artifact.topic,
-    sourceRef: artifact.source_ref,
-    role: artifact.key_symbols[0]?.role ?? "neutral",
-    coreAha: artifact.learning_design.core_aha,
-  }));
-
-  const outcomes = artifacts
-    .slice(0, 4)
-    .map((artifact) =>
-      compactText(artifact.learning_design.learning_objectives[0], 126),
-    );
-
   const storyboard = artifacts.map((artifact) => ({
     id: artifact.id,
     topic: artifact.topic,
-    sourceRef: artifact.source_ref,
-    mechanism: artifact.mechanism,
-    outcome: compactText(artifact.transferable_principle, 110),
     origin: artifact.origin,
-    coreAha: artifact.learning_design.core_aha,
-    scenarioCount: artifact.scenarios.length,
-    checkpointCount: artifact.checkpoints.length,
   }));
 
-  return { concepts, outcomes, storyboard };
+  return { storyboard };
 }
 
 function compactText(value: string, maxLength: number) {
