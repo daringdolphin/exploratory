@@ -1,39 +1,9 @@
-import type { ArtifactSpec, BuiltArtifact } from "./schema";
-
-const roleLabels: Record<string, string> = {
-  problem: "Problem",
-  agent: "Cause",
-  resolution: "Outcome",
-  neutral: "Structure",
-  highlight: "Focus",
-};
-
-function escapeHtml(value: string) {
-  return value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
-
-function artifactJson(spec: ArtifactSpec) {
-  return JSON.stringify(spec)
-    .replace(/</g, "\\u003c")
-    .replace(/\u2028/g, "\\u2028")
-    .replace(/\u2029/g, "\\u2029");
-}
-
-export function buildArtifactHtml(spec: ArtifactSpec) {
-  const title = escapeHtml(spec.artifact_metadata.title || spec.topic);
-  const data = artifactJson(spec);
-
-  return `<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>${title}</title>
+  <title>Subatomic Particle Map</title>
   <style>
     :root {
       --problem: #c84a36;
@@ -620,7 +590,7 @@ export function buildArtifactHtml(spec: ArtifactSpec) {
         </div>
 
         <div class="canvas-wrap">
-          <canvas id="scene" role="img" aria-label="${title} linked animated representations"></canvas>
+          <canvas id="scene" role="img" aria-label="Subatomic Particle Map linked animated representations"></canvas>
           <div class="metric-row">
             <div class="metric"><strong id="metric-frequency">1.0x</strong>Collision / event frequency</div>
             <div class="metric"><strong id="metric-success">35%</strong>Successful fraction</div>
@@ -681,8 +651,8 @@ export function buildArtifactHtml(spec: ArtifactSpec) {
   </main>
 
   <script>
-    const spec = ${data};
-    const roleNames = ${JSON.stringify(roleLabels)};
+    const spec = {"id":"atomic-structure-subatomic-particle-map","source_ref":"page 3","subject":"O Level Chemistry","topic":"Subatomic particles","medium":"interactive_html","mechanism":"Protons and neutrons sit in the nucleus while electrons occupy shells; their charge and relative mass decide how atoms are counted and compared.","transferable_principle":"Before reasoning about atoms, separate each particle by charge, relative mass, symbol, and location.","steps":[{"name":"Place the particles","beat":"Show protons and neutrons clustered in the nucleus, with electrons animated on shells around it."},{"name":"Compare charges","beat":"Highlight proton +1, neutron 0, and electron -1 while a net-charge meter updates."},{"name":"Compare masses","beat":"Make protons and neutrons count as relative mass 1 while the electron mass is shown as negligible."},{"name":"Link symbols","beat":"Attach p, n, and e labels to the particle table so students connect diagram and notation."}],"key_symbols":[{"symbol":"p","role":"agent","meaning":"Proton: +1 charge, relative mass 1, found in the nucleus."},{"symbol":"n","role":"neutral","meaning":"Neutron: no charge, relative mass 1, found in the nucleus."},{"symbol":"e","role":"problem","meaning":"Electron: -1 charge, negligible relative mass, found in electron shells."},{"symbol":"nucleus","role":"highlight","meaning":"The central region containing protons and neutrons."},{"symbol":"electron shell","role":"resolution","meaning":"The region outside the nucleus where electrons are arranged."}],"interactivity_hooks":["Switch particle focus to animate where each particle belongs.","Toggle charge and mass overlays to compare what each particle contributes.","Run a quick sort challenge that asks whether a particle belongs in the nucleus or shell."],"output_filename":"atomic-structure-subatomic-particle-map.html","artifact_metadata":{"title":"Subatomic Particle Map","subject":"O Level Chemistry","level":"O Level Chemistry","syllabus_reference":"MOE 6092 Chemistry: Atomic Structure","estimated_interaction_time_minutes":5,"prerequisite_concepts":["Atoms contain subatomic particles","Positive and negative charges can cancel"]},"learning_design":{"core_aha":"I can tell what each particle does by asking four questions: charge, mass, symbol, and location.","learning_objectives":["Students distinguish protons, neutrons, and electrons before using them in charge, isotope, and notation reasoning.","Given a particle name or symbol, state its charge, relative mass, and location without mixing nucleus and shell roles.","Before reasoning about atoms, separate each particle by charge, relative mass, symbol, and location."],"target_misconceptions":[{"misconception":"Electrons are found in the nucleus.","correction":"Electrons are found in electron shells; only protons and neutrons are in the nucleus.","addressed_in_scenario_id":"locate_nucleus_particles"},{"misconception":"Neutrons affect charge because they are in the nucleus.","correction":"Electrons are found in electron shells; only protons and neutrons are in the nucleus.","addressed_in_scenario_id":"locate_nucleus_particles"},{"misconception":"Electrons contribute the same relative mass as protons and neutrons.","correction":"Electrons are found in electron shells; only protons and neutrons are in the nucleus.","addressed_in_scenario_id":"locate_nucleus_particles"},{"misconception":"Particle symbols p, n, and e are interchangeable labels rather than specific particles.","correction":"Electrons are found in electron shells; only protons and neutrons are in the nucleus.","addressed_in_scenario_id":"locate_nucleus_particles"}]},"representations":{"description":"All views are linked: changing a control updates the particle/subatomic view, the observable outcome, and the symbolic notation or table.","views":[{"id":"microscopic_atom_view","type":"microscopic","description":"A nucleus with protons and neutrons, plus electrons moving on shells."},{"id":"charge_balance_meter","type":"macroscopic","description":"The net charge contribution when the focused particle count changes."},{"id":"symbolic_particle_table","type":"symbolic","description":"p, n, and e matched to charge, relative mass, and location."},{"id":"mass_comparison_bar","type":"macroscopic","description":"Relative mass comparison: proton 1, neutron 1, electron negligible."}]},"controls":[{"id":"particle_focus","label":"Particle focus","type":"discrete","default":"proton","options":["proton","neutron","electron"],"affects":["microscopic_atom_view","symbolic_particle_table","particle_charge_labels"]},{"id":"show_charge_overlay","label":"Show charge","type":"toggle","default":true,"affects":["charge_balance_meter","particle_charge_labels"]},{"id":"show_mass_overlay","label":"Show relative mass","type":"toggle","default":false,"affects":["mass_comparison_bar","symbolic_particle_table"]},{"id":"particle_sort_mode","label":"Sort challenge","type":"toggle","default":false,"affects":["microscopic_atom_view","checkpoint_particle_location"]}],"scenarios":[{"id":"locate_nucleus_particles","title":"Nucleus or shell?","guiding_question":"Which particles should stay inside the nucleus?","locked_controls":["show_charge_overlay","show_mass_overlay"],"active_controls":["particle_focus"],"success_criterion":"Student identifies protons and neutrons in the nucleus and electrons in shells.","misconception_buster":true},{"id":"read_charge_roles","title":"Charge contribution","guiding_question":"Which particle changes the charge meter upward, downward, or not at all?","locked_controls":["show_charge_overlay"],"active_controls":["particle_focus"],"success_criterion":"Student links proton to +1, electron to -1, and neutron to 0 charge."},{"id":"mass_is_not_charge","title":"Mass is separate","guiding_question":"Which particles count toward almost all atomic mass?","locked_controls":["show_mass_overlay"],"active_controls":["particle_focus"],"success_criterion":"Student explains that protons and neutrons have relative mass 1 while electron mass is negligible.","misconception_buster":true},{"id":"free_particle_compare","title":"Free compare","guiding_question":"Can you build a complete particle profile from the table and diagram?","locked_controls":[],"active_controls":["particle_focus","show_charge_overlay","show_mass_overlay","particle_sort_mode"],"success_criterion":"Student can state charge, relative mass, symbol, and location for the selected particle."}],"checkpoints":[{"id":"checkpoint_particle_location","after_scenario":"locate_nucleus_particles","prompt":"A student says electrons are in the nucleus because atoms are tiny. What should you correct?","type":"fill_in_blank","answers":["Electrons are found in electron shells"]},{"id":"checkpoint_particle_summary","after_scenario":"read_charge_roles","prompt":"Complete the sentence: Proton is ___, neutron is ___, electron is ___.","type":"fill_in_blank","answers":["Proton is positive in the nucleus, neutron is neutral in the nucleus, electro..."]}],"ui_requirements":{"always_visible":["reset_button","current_scenario_title","rate_readout"],"syllabus_vocabulary_to_surface":["proton number","nucleon number","isotopes","relative atomic mass","ions","electronic configuration","charge","shells","electrons"],"tone":"Clear, direct, no childish language. Treat students as capable.","accessibility":["colourblind-safe palette","labels not just colours","keyboard-navigable controls","Use shape and labels in addition to colour for charge and location."]}};
+    const roleNames = {"problem":"Problem","agent":"Cause","resolution":"Outcome","neutral":"Structure","highlight":"Focus"};
     const roleColors = {
       problem: "#c84a36",
       agent: "#087a8a",
@@ -1674,12 +1644,4 @@ export function buildArtifactHtml(spec: ArtifactSpec) {
     scheduleDraw();
   </script>
 </body>
-</html>`;
-}
-
-export function buildArtifact(spec: ArtifactSpec): BuiltArtifact {
-  return {
-    ...spec,
-    html: buildArtifactHtml(spec),
-  };
-}
+</html>

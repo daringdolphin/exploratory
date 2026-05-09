@@ -1,39 +1,9 @@
-import type { ArtifactSpec, BuiltArtifact } from "./schema";
-
-const roleLabels: Record<string, string> = {
-  problem: "Problem",
-  agent: "Cause",
-  resolution: "Outcome",
-  neutral: "Structure",
-  highlight: "Focus",
-};
-
-function escapeHtml(value: string) {
-  return value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
-
-function artifactJson(spec: ArtifactSpec) {
-  return JSON.stringify(spec)
-    .replace(/</g, "\\u003c")
-    .replace(/\u2028/g, "\\u2028")
-    .replace(/\u2029/g, "\\u2029");
-}
-
-export function buildArtifactHtml(spec: ArtifactSpec) {
-  const title = escapeHtml(spec.artifact_metadata.title || spec.topic);
-  const data = artifactJson(spec);
-
-  return `<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>${title}</title>
+  <title>Proton and Nucleon Number Reader</title>
   <style>
     :root {
       --problem: #c84a36;
@@ -620,7 +590,7 @@ export function buildArtifactHtml(spec: ArtifactSpec) {
         </div>
 
         <div class="canvas-wrap">
-          <canvas id="scene" role="img" aria-label="${title} linked animated representations"></canvas>
+          <canvas id="scene" role="img" aria-label="Proton and Nucleon Number Reader linked animated representations"></canvas>
           <div class="metric-row">
             <div class="metric"><strong id="metric-frequency">1.0x</strong>Collision / event frequency</div>
             <div class="metric"><strong id="metric-success">35%</strong>Successful fraction</div>
@@ -681,8 +651,8 @@ export function buildArtifactHtml(spec: ArtifactSpec) {
   </main>
 
   <script>
-    const spec = ${data};
-    const roleNames = ${JSON.stringify(roleLabels)};
+    const spec = {"id":"atomic-structure-proton-nucleon-notation-reader","source_ref":"page 5","subject":"O Level Chemistry","topic":"Proton and nucleon number","medium":"interactive_html","mechanism":"In nuclide notation, the lower number is proton number and the upper number is nucleon number, so neutrons are found by subtraction.","transferable_principle":"Element identity follows proton number, while nucleon number counts protons plus neutrons.","steps":[{"name":"Read the lower number","beat":"Point to the proton number below the symbol and assign that many protons."},{"name":"Read the upper number","beat":"Point to the nucleon number above the symbol as protons plus neutrons."},{"name":"Subtract for neutrons","beat":"Subtract proton number from nucleon number to reveal neutron count."},{"name":"Use neutrality","beat":"If it is an atom with no charge, set electrons equal to protons."},{"name":"Name the element","beat":"Show that proton number, not nucleon number, fixes the element identity."}],"key_symbols":[{"symbol":"Ca","role":"neutral","meaning":"Element symbol used in the notes for calcium notation."},{"symbol":"20","role":"agent","meaning":"Proton number: total protons in the atom."},{"symbol":"40","role":"highlight","meaning":"Nucleon number: total protons plus neutrons."},{"symbol":"40 - 20","role":"resolution","meaning":"Subtraction used to find neutrons."},{"symbol":"neutral atom","role":"problem","meaning":"The condition that makes electrons equal to protons."}],"interactivity_hooks":["Drag labels onto upper number, lower number, and element symbol.","Change proton and nucleon numbers to see whether element identity or neutron count changes.","Toggle atom versus ion to decide when electrons equal protons."],"output_filename":"atomic-structure-proton-nucleon-notation-reader.html","artifact_metadata":{"title":"Proton and Nucleon Number Reader","subject":"O Level Chemistry","level":"O Level Chemistry","syllabus_reference":"MOE 6092 Chemistry: Atomic Structure","estimated_interaction_time_minutes":7,"prerequisite_concepts":["Protons and neutrons are in the nucleus","Neutral atoms have equal protons and electrons"]},"learning_design":{"core_aha":"I can decode the whole atom by reading lower number, upper number, then subtracting.","learning_objectives":["Students translate nuclide notation into protons, neutrons, electrons, and element identity.","Given nuclide notation, students find protons, neutrons, and electrons without swapping proton and nucleon number.","Element identity follows proton number, while nucleon number counts protons plus neutrons."],"target_misconceptions":[{"misconception":"The upper number is proton number because it is printed on top.","correction":"The upper number is nucleon number; the lower number is proton number.","addressed_in_scenario_id":"change_neutrons_not_identity"},{"misconception":"Nucleon number means neutrons only.","correction":"The upper number is nucleon number; the lower number is proton number.","addressed_in_scenario_id":"change_neutrons_not_identity"},{"misconception":"Element identity changes when neutron count changes.","correction":"The upper number is nucleon number; the lower number is proton number.","addressed_in_scenario_id":"change_neutrons_not_identity"},{"misconception":"Electrons always equal protons even when a charge is shown.","correction":"The upper number is nucleon number; the lower number is proton number.","addressed_in_scenario_id":"change_neutrons_not_identity"}]},"representations":{"description":"All views are linked: changing a control updates the particle/subatomic view, the observable outcome, and the symbolic notation or table.","views":[{"id":"microscopic_nucleus_view","type":"microscopic","description":"Protons and neutrons inside the nucleus with electrons in shells for neutral atoms."},{"id":"symbolic_nuclide_notation","type":"symbolic","description":"Upper nucleon number, lower proton number, and element symbol."},{"id":"subtraction_equation","type":"symbolic","description":"neutrons = nucleon number - proton number."},{"id":"particle_count_table","type":"macroscopic","description":"Protons, neutrons, electrons, and overall charge."}]},"controls":[{"id":"element_symbol","label":"Element symbol","type":"discrete","default":"Ca","options":["Ca","Cl","Na","Og"],"affects":["symbolic_nuclide_notation","microscopic_nucleus_view"]},{"id":"proton_number","label":"Proton number","type":"slider","min":1,"max":118,"default":20,"step":1,"affects":["symbolic_nuclide_notation","particle_count_table","microscopic_nucleus_view"]},{"id":"nucleon_number","label":"Nucleon number","type":"slider","min":1,"max":294,"default":40,"step":1,"affects":["symbolic_nuclide_notation","subtraction_equation","particle_count_table"]},{"id":"charge_state","label":"Particle charge","type":"discrete","default":"atom","options":["atom","1+","1-","2-"],"affects":["particle_count_table","microscopic_nucleus_view"]}],"scenarios":[{"id":"decode_calcium","title":"Decode calcium","guiding_question":"For calcium-40 with proton number 20, how many protons, neutrons, and electrons are there?","locked_controls":["element_symbol","proton_number","nucleon_number","charge_state"],"active_controls":[],"success_criterion":"Student states 20 protons, 20 neutrons, and 20 electrons for a neutral calcium atom."},{"id":"change_neutrons_not_identity","title":"Identity check","guiding_question":"If only the nucleon number changes, did the element change?","locked_controls":["element_symbol","proton_number","charge_state"],"active_controls":["nucleon_number"],"success_criterion":"Student explains that changing nucleon number changes neutron count, not the element identity.","misconception_buster":true},{"id":"atom_vs_ion_electrons","title":"Atom or ion?","guiding_question":"When should electrons equal the proton number?","locked_controls":["element_symbol","proton_number","nucleon_number"],"active_controls":["charge_state"],"success_criterion":"Student says electrons equal protons only for a neutral atom, then adjust for charge in ions.","misconception_buster":true},{"id":"free_notation_reader","title":"Free decode","guiding_question":"Can you predict the particle counts before revealing the table?","locked_controls":[],"active_controls":["element_symbol","proton_number","nucleon_number","charge_state"],"success_criterion":"Student decodes notation into correct protons, neutrons, electrons, and charge."}],"checkpoints":[{"id":"checkpoint_upper_lower","after_scenario":"decode_calcium","prompt":"A student says the upper number is the proton number. How do you correct them?","type":"fill_in_blank","answers":["The upper number is nucleon number"]},{"id":"checkpoint_identity_rule","after_scenario":"change_neutrons_not_identity","prompt":"What determines the identity of an element?","type":"fill_in_blank","answers":["The proton number determines the identity of an element"]}],"ui_requirements":{"always_visible":["reset_button","current_scenario_title","rate_readout"],"syllabus_vocabulary_to_surface":["proton number","nucleon number","isotopes","relative atomic mass","ions","electronic configuration","charge","shells","electrons"],"tone":"Clear, direct, no childish language. Treat students as capable.","accessibility":["colourblind-safe palette","labels not just colours","keyboard-navigable controls","Use explicit labels for upper number, lower number, and charge state."]}};
+    const roleNames = {"problem":"Problem","agent":"Cause","resolution":"Outcome","neutral":"Structure","highlight":"Focus"};
     const roleColors = {
       problem: "#c84a36",
       agent: "#087a8a",
@@ -1674,12 +1644,4 @@ export function buildArtifactHtml(spec: ArtifactSpec) {
     scheduleDraw();
   </script>
 </body>
-</html>`;
-}
-
-export function buildArtifact(spec: ArtifactSpec): BuiltArtifact {
-  return {
-    ...spec,
-    html: buildArtifactHtml(spec),
-  };
-}
+</html>

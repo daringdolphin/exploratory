@@ -1,39 +1,9 @@
-import type { ArtifactSpec, BuiltArtifact } from "./schema";
-
-const roleLabels: Record<string, string> = {
-  problem: "Problem",
-  agent: "Cause",
-  resolution: "Outcome",
-  neutral: "Structure",
-  highlight: "Focus",
-};
-
-function escapeHtml(value: string) {
-  return value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
-
-function artifactJson(spec: ArtifactSpec) {
-  return JSON.stringify(spec)
-    .replace(/</g, "\\u003c")
-    .replace(/\u2028/g, "\\u2028")
-    .replace(/\u2029/g, "\\u2029");
-}
-
-export function buildArtifactHtml(spec: ArtifactSpec) {
-  const title = escapeHtml(spec.artifact_metadata.title || spec.topic);
-  const data = artifactJson(spec);
-
-  return `<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>${title}</title>
+  <title>Electronic Configuration Shell Builder</title>
   <style>
     :root {
       --problem: #c84a36;
@@ -620,7 +590,7 @@ export function buildArtifactHtml(spec: ArtifactSpec) {
         </div>
 
         <div class="canvas-wrap">
-          <canvas id="scene" role="img" aria-label="${title} linked animated representations"></canvas>
+          <canvas id="scene" role="img" aria-label="Electronic Configuration Shell Builder linked animated representations"></canvas>
           <div class="metric-row">
             <div class="metric"><strong id="metric-frequency">1.0x</strong>Collision / event frequency</div>
             <div class="metric"><strong id="metric-success">35%</strong>Successful fraction</div>
@@ -681,8 +651,8 @@ export function buildArtifactHtml(spec: ArtifactSpec) {
   </main>
 
   <script>
-    const spec = ${data};
-    const roleNames = ${JSON.stringify(roleLabels)};
+    const spec = {"id":"atomic-structure-electronic-configuration-shell-builder","source_ref":"page 4","subject":"O Level Chemistry","topic":"Electronic configuration","medium":"interactive_html","mechanism":"Electrons fill shells in the O-Level pattern 2,8,8 for the first 20 elements, so a total electron count becomes a shell-by-shell electronic configuration.","transferable_principle":"Electronic configuration is a count of electrons arranged by shell capacity, not a count of protons or neutrons.","steps":[{"name":"Start with electrons","beat":"Choose a neutral atom or ion and show its total electron count before shell filling begins."},{"name":"Fill the first shell","beat":"Animate the first two electrons entering the first shell before any electron moves outward."},{"name":"Fill the second shell","beat":"Add up to eight electrons to the second shell and display the growing notation."},{"name":"Use the third shell","beat":"For O-Level examples up to calcium, continue with up to eight electrons in the third shell."},{"name":"Read the notation","beat":"Convert the filled shells into a comma-separated electronic configuration such as 2,8,8."}],"key_symbols":[{"symbol":"first shell","role":"agent","meaning":"Innermost shell with a maximum of 2 electrons."},{"symbol":"second shell","role":"resolution","meaning":"Next shell with a maximum of 8 electrons for O-Level examples."},{"symbol":"third shell","role":"highlight","meaning":"Third shell treated as maximum 8 for the first 20 elements in this topic."},{"symbol":"2,8,8","role":"neutral","meaning":"The must-know shell capacity pattern from the notes."},{"symbol":"electron count","role":"problem","meaning":"The number being distributed across shells."}],"interactivity_hooks":["Move an electron-count slider and watch shells fill in the 2,8,8 pattern.","Select Na, Cl, Ar, or Ca presets to compare neutral atom configurations.","Toggle ion mode to see that electronic configuration follows electron count, not proton count alone."],"output_filename":"atomic-structure-electronic-configuration-shell-builder.html","artifact_metadata":{"title":"Electronic Configuration Shell Builder","subject":"O Level Chemistry","level":"O Level Chemistry","syllabus_reference":"MOE 6092 Chemistry: Atomic Structure","estimated_interaction_time_minutes":7,"prerequisite_concepts":["Electrons are found in shells","Neutral atoms have equal protons and electrons"]},"learning_design":{"core_aha":"I can get the electronic configuration by placing electrons into shells in order.","learning_objectives":["Students convert an electron count into electronic configuration using first, second, and third shell capacities.","Given an electron count up to 20, students write the correct O-Level shell configuration.","Electronic configuration is a count of electrons arranged by shell capacity, not a count of protons or neutrons."],"target_misconceptions":[{"misconception":"Electronic configuration counts neutrons as well as electrons.","correction":"First shell 2, second shell 8, third shell 8 for the 2,8,8 pattern used here.","addressed_in_scenario_id":"spot_shell_order"},{"misconception":"The second shell starts filling before the first shell has 2 electrons.","correction":"First shell 2, second shell 8, third shell 8 for the 2,8,8 pattern used here.","addressed_in_scenario_id":"spot_shell_order"},{"misconception":"A stable octet means the atom must be electrically neutral.","correction":"First shell 2, second shell 8, third shell 8 for the 2,8,8 pattern used here.","addressed_in_scenario_id":"spot_shell_order"},{"misconception":"The 2,8,8 rule should be extended carelessly to transition metals beyond this O-Level scope.","correction":"First shell 2, second shell 8, third shell 8 for the 2,8,8 pattern used here.","addressed_in_scenario_id":"spot_shell_order"}]},"representations":{"description":"All views are linked: changing a control updates the particle/subatomic view, the observable outcome, and the symbolic notation or table.","views":[{"id":"microscopic_shell_view","type":"microscopic","description":"Electrons animated into first, second, and third shells around a nucleus."},{"id":"symbolic_configuration_strip","type":"symbolic","description":"Comma-separated electronic configuration that updates as shells fill."},{"id":"macroscopic_stability_badge","type":"macroscopic","description":"Outer-shell completion and neutral or ion charge state for selected presets."},{"id":"particle_counter_panel","type":"symbolic","description":"Protons, electrons, and electron count used for shell filling."}]},"controls":[{"id":"electron_count","label":"Electrons","type":"slider","min":1,"max":20,"default":18,"step":1,"affects":["microscopic_shell_view","symbolic_configuration_strip","macroscopic_stability_badge"]},{"id":"atom_preset","label":"Atom preset","type":"discrete","default":"argon","options":["hydrogen","sodium","chlorine","argon","calcium"],"affects":["electron_count","particle_counter_panel","symbolic_configuration_strip"]},{"id":"show_capacity_labels","label":"Show shell limits","type":"toggle","default":true,"affects":["microscopic_shell_view","symbolic_configuration_strip"]},{"id":"ion_charge_mode","label":"Charge mode","type":"discrete","default":"neutral","options":["neutral","cation","anion"],"affects":["electron_count","particle_counter_panel","macroscopic_stability_badge"]}],"scenarios":[{"id":"build_argon","title":"Build argon","guiding_question":"Why does 18 electrons become 2,8,8?","locked_controls":["atom_preset","ion_charge_mode","show_capacity_labels"],"active_controls":["electron_count"],"success_criterion":"Student fills 2 electrons in the first shell, 8 in the second, and 8 in the third."},{"id":"spot_shell_order","title":"Fill in order","guiding_question":"What goes wrong if the second shell starts too early?","locked_controls":["electron_count","show_capacity_labels"],"active_controls":["atom_preset"],"success_criterion":"Student explains that inner shells fill before electrons are placed in the next shell.","misconception_buster":true},{"id":"ion_count_matters","title":"Ion count matters","guiding_question":"When a particle is an ion, whose count controls the electronic configuration?","locked_controls":["atom_preset","show_capacity_labels"],"active_controls":["ion_charge_mode"],"success_criterion":"Student states that the electron count, after gain or loss, gives the electronic configuration.","misconception_buster":true},{"id":"free_shell_builder","title":"Free build","guiding_question":"Can you predict the shell notation before the animation finishes?","locked_controls":[],"active_controls":["electron_count","atom_preset","show_capacity_labels","ion_charge_mode"],"success_criterion":"Student writes the same configuration shown by the shell animation."}],"checkpoints":[{"id":"checkpoint_shell_capacity","after_scenario":"build_argon","prompt":"Write the O-Level shell capacities shown in the notes for the first three shells.","type":"fill_in_blank","answers":["First shell 2, second shell 8, third shell 8 for the 2,8,8 pattern used here"]},{"id":"checkpoint_electrons_only","after_scenario":"spot_shell_order","prompt":"A student uses proton plus neutron count to fill shells. What should they use instead?","type":"fill_in_blank","answers":["They should use the number of electrons, adjusted if the particle is an ion"]}],"ui_requirements":{"always_visible":["reset_button","current_scenario_title","rate_readout"],"syllabus_vocabulary_to_surface":["electronic configuration","proton number","nucleon number","isotopes","relative atomic mass","ions","charge","shells","electrons"],"tone":"Clear, direct, no childish language. Treat students as capable.","accessibility":["colourblind-safe palette","labels not just colours","keyboard-navigable controls","Every shell should have a text label and count, not only rings or colour."]}};
+    const roleNames = {"problem":"Problem","agent":"Cause","resolution":"Outcome","neutral":"Structure","highlight":"Focus"};
     const roleColors = {
       problem: "#c84a36",
       agent: "#087a8a",
@@ -1674,12 +1644,4 @@ export function buildArtifactHtml(spec: ArtifactSpec) {
     scheduleDraw();
   </script>
 </body>
-</html>`;
-}
-
-export function buildArtifact(spec: ArtifactSpec): BuiltArtifact {
-  return {
-    ...spec,
-    html: buildArtifactHtml(spec),
-  };
-}
+</html>

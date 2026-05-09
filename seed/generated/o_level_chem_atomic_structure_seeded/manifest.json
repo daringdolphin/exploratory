@@ -5,7 +5,7 @@
     "subject": "O Level Chemistry",
     "source_file": "source/[O LEVEL CHEMISTRY] Atomic Structure - demo.pdf",
     "total_pages": 15,
-    "total_artifacts": 6
+    "total_artifacts": 9
   },
   "pages": [
     {
@@ -14,7 +14,7 @@
       "kind": "title",
       "has_artifacts": false,
       "artifact_ids": [],
-      "triage_reason": "Title slide only; no mechanism or worked method."
+      "triage_reason": "Title slide only; no teachable mechanism or worked method."
     },
     {
       "page_number": 2,
@@ -22,31 +22,37 @@
       "kind": "admin",
       "has_artifacts": false,
       "artifact_ids": [],
-      "triage_reason": "Exam weighting and logistics; useful context but not an explanatory mechanism."
+      "triage_reason": "Exam weighting and logistics; useful context but not a chemistry representation."
     },
     {
       "page_number": 3,
       "title": "Basics: Subatomic Particles",
       "kind": "reference",
-      "has_artifacts": false,
-      "artifact_ids": [],
-      "triage_reason": "Defines proton, neutron, and electron properties in a table; no causal process."
+      "has_artifacts": true,
+      "artifact_ids": [
+        "atomic-structure-subatomic-particle-map"
+      ],
+      "triage_reason": "The particle table has common traps around charge, relative mass, symbol, and location, so it benefits from a linked particle explorer."
     },
     {
       "page_number": 4,
       "title": "Basics: Electronic Configuration",
       "kind": "key_concept",
-      "has_artifacts": false,
-      "artifact_ids": [],
-      "triage_reason": "States 2,8,8 shell capacity as a rule; no worked decision process on this page."
+      "has_artifacts": true,
+      "artifact_ids": [
+        "atomic-structure-electronic-configuration-shell-builder"
+      ],
+      "triage_reason": "The 2,8,8 shell rule becomes clearer when students build electron arrangements and see shell capacity limits."
     },
     {
       "page_number": 5,
       "title": "Basics: Proton and Nucleon Number",
       "kind": "definition",
-      "has_artifacts": false,
-      "artifact_ids": [],
-      "triage_reason": "Introduces notation and definitions; the application is seeded later in the worked question."
+      "has_artifacts": true,
+      "artifact_ids": [
+        "atomic-structure-proton-nucleon-notation-reader"
+      ],
+      "triage_reason": "Nuclide notation requires translating proton number, nucleon number, symbol, protons, neutrons, and electrons."
     },
     {
       "page_number": 6,
@@ -56,7 +62,7 @@
       "artifact_ids": [
         "atomic-structure-sodium-cation-electron-loss"
       ],
-      "triage_reason": "Shows electron loss causing proton-electron imbalance and a positive ion."
+      "triage_reason": "Shows electron loss causing more protons than electrons and formation of a cation."
     },
     {
       "page_number": 7,
@@ -66,7 +72,7 @@
       "artifact_ids": [
         "atomic-structure-chloride-anion-electron-gain"
       ],
-      "triage_reason": "Shows electron gain causing proton-electron imbalance and a negative ion."
+      "triage_reason": "Shows electron gain causing more electrons than protons and formation of an anion."
     },
     {
       "page_number": 8,
@@ -74,7 +80,7 @@
       "kind": "section_header",
       "has_artifacts": false,
       "artifact_ids": [],
-      "triage_reason": "Preview slide framing a why question; it does not yet present the mechanism."
+      "triage_reason": "Framing slide only; the atom-to-ion mechanisms are represented by the page 6 and page 7 ion artifacts."
     },
     {
       "page_number": 9,
@@ -82,7 +88,7 @@
       "kind": "overview",
       "has_artifacts": false,
       "artifact_ids": [],
-      "triage_reason": "High-level analogy and sequence; ionic bond formation is mentioned but not developed enough for a source-grounded artifact."
+      "triage_reason": "High-level sequence from atom to ion to compound; ionic bonding is mentioned but not developed enough in this PDF for a separate source-grounded artifact."
     },
     {
       "page_number": 10,
@@ -90,7 +96,7 @@
       "kind": "section_header",
       "has_artifacts": false,
       "artifact_ids": [],
-      "triage_reason": "Section title and key concept statement only."
+      "triage_reason": "Section title and key concept statement only; the detailed isotope reasoning begins on page 11."
     },
     {
       "page_number": 11,
@@ -100,25 +106,28 @@
       "artifact_ids": [
         "atomic-structure-isotope-properties-comparison"
       ],
-      "triage_reason": "Compares how unchanged electrons preserve chemical properties while changed neutrons affect mass-related physical properties."
+      "triage_reason": "Contrasts unchanged protons/electrons with changed neutrons to explain chemical and physical property differences."
     },
     {
       "page_number": 12,
       "title": "Case Study: Chlorine Mass 35.5",
-      "kind": "tys",
+      "kind": "worked_example",
       "has_artifacts": true,
       "artifact_ids": [
         "atomic-structure-chlorine-relative-atomic-mass"
       ],
-      "triage_reason": "Worked weighted-average calculation connects isotope abundances to relative atomic mass."
+      "triage_reason": "Worked isotope-abundance calculation connects chlorine-35, chlorine-37, percentage abundance, and relative atomic mass."
     },
     {
       "page_number": 13,
       "title": "Things to Note: Understanding Isotopes",
-      "kind": "overview",
-      "has_artifacts": false,
-      "artifact_ids": [],
-      "triage_reason": "Summary of isotope takeaways already represented by pages 11 and 12."
+      "kind": "summary",
+      "has_artifacts": true,
+      "artifact_ids": [
+        "atomic-structure-isotope-properties-comparison",
+        "atomic-structure-chlorine-relative-atomic-mass"
+      ],
+      "triage_reason": "Summary slide consolidates the isotope property and relative atomic mass ideas represented by the two isotope artifacts."
     },
     {
       "page_number": 14,
@@ -128,7 +137,7 @@
       "artifact_ids": [
         "atomic-structure-og-element-notation-method"
       ],
-      "triage_reason": "Worked MCQ requires applying proton and nucleon number rules to choose the correct statement."
+      "triage_reason": "MCQ requires reading nucleon number and proton number from nuclide notation, then calculating neutrons."
     },
     {
       "page_number": 15,
@@ -138,69 +147,1144 @@
       "artifact_ids": [
         "atomic-structure-two-minus-ion-selection-method"
       ],
-      "triage_reason": "Worked MCQ requires reversing ion formation logic from a 2- ion back to the neutral atom's proton number."
+      "triage_reason": "MCQ requires reversing a 2- ion with electronic structure 2,8,8 back to the neutral atom proton number."
     }
   ],
   "artifacts": [
+    {
+      "id": "atomic-structure-subatomic-particle-map",
+      "source_ref": "page 3",
+      "subject": "O Level Chemistry",
+      "topic": "Subatomic particles",
+      "medium": "interactive_html",
+      "mechanism": "Protons and neutrons sit in the nucleus while electrons occupy shells; their charge and relative mass decide how atoms are counted and compared.",
+      "transferable_principle": "Before reasoning about atoms, separate each particle by charge, relative mass, symbol, and location.",
+      "steps": [
+        {
+          "name": "Place the particles",
+          "beat": "Show protons and neutrons clustered in the nucleus, with electrons animated on shells around it."
+        },
+        {
+          "name": "Compare charges",
+          "beat": "Highlight proton +1, neutron 0, and electron -1 while a net-charge meter updates."
+        },
+        {
+          "name": "Compare masses",
+          "beat": "Make protons and neutrons count as relative mass 1 while the electron mass is shown as negligible."
+        },
+        {
+          "name": "Link symbols",
+          "beat": "Attach p, n, and e labels to the particle table so students connect diagram and notation."
+        }
+      ],
+      "key_symbols": [
+        {
+          "symbol": "p",
+          "role": "agent",
+          "meaning": "Proton: +1 charge, relative mass 1, found in the nucleus."
+        },
+        {
+          "symbol": "n",
+          "role": "neutral",
+          "meaning": "Neutron: no charge, relative mass 1, found in the nucleus."
+        },
+        {
+          "symbol": "e",
+          "role": "problem",
+          "meaning": "Electron: -1 charge, negligible relative mass, found in electron shells."
+        },
+        {
+          "symbol": "nucleus",
+          "role": "highlight",
+          "meaning": "The central region containing protons and neutrons."
+        },
+        {
+          "symbol": "electron shell",
+          "role": "resolution",
+          "meaning": "The region outside the nucleus where electrons are arranged."
+        }
+      ],
+      "interactivity_hooks": [
+        "Switch particle focus to animate where each particle belongs.",
+        "Toggle charge and mass overlays to compare what each particle contributes.",
+        "Run a quick sort challenge that asks whether a particle belongs in the nucleus or shell."
+      ],
+      "output_filename": "atomic-structure-subatomic-particle-map.html",
+      "file_path": "artifacts/atomic-structure-subatomic-particle-map.html",
+      "artifact_metadata": {
+        "title": "Subatomic Particle Map",
+        "subject": "O Level Chemistry",
+        "level": "O Level Chemistry",
+        "syllabus_reference": "MOE 6092 Chemistry: Atomic Structure",
+        "estimated_interaction_time_minutes": 5,
+        "prerequisite_concepts": [
+          "Atoms contain subatomic particles",
+          "Positive and negative charges can cancel"
+        ]
+      },
+      "learning_design": {
+        "core_aha": "I can tell what each particle does by asking four questions: charge, mass, symbol, and location.",
+        "learning_objectives": [
+          "Students distinguish protons, neutrons, and electrons before using them in charge, isotope, and notation reasoning.",
+          "Given a particle name or symbol, state its charge, relative mass, and location without mixing nucleus and shell roles.",
+          "Before reasoning about atoms, separate each particle by charge, relative mass, symbol, and location."
+        ],
+        "target_misconceptions": [
+          {
+            "misconception": "Electrons are found in the nucleus.",
+            "correction": "Electrons are found in electron shells; only protons and neutrons are in the nucleus.",
+            "addressed_in_scenario_id": "locate_nucleus_particles"
+          },
+          {
+            "misconception": "Neutrons affect charge because they are in the nucleus.",
+            "correction": "Electrons are found in electron shells; only protons and neutrons are in the nucleus.",
+            "addressed_in_scenario_id": "locate_nucleus_particles"
+          },
+          {
+            "misconception": "Electrons contribute the same relative mass as protons and neutrons.",
+            "correction": "Electrons are found in electron shells; only protons and neutrons are in the nucleus.",
+            "addressed_in_scenario_id": "locate_nucleus_particles"
+          },
+          {
+            "misconception": "Particle symbols p, n, and e are interchangeable labels rather than specific particles.",
+            "correction": "Electrons are found in electron shells; only protons and neutrons are in the nucleus.",
+            "addressed_in_scenario_id": "locate_nucleus_particles"
+          }
+        ]
+      },
+      "representations": {
+        "description": "All views are linked: changing a control updates the particle/subatomic view, the observable outcome, and the symbolic notation or table.",
+        "views": [
+          {
+            "id": "microscopic_atom_view",
+            "type": "microscopic",
+            "description": "A nucleus with protons and neutrons, plus electrons moving on shells."
+          },
+          {
+            "id": "charge_balance_meter",
+            "type": "macroscopic",
+            "description": "The net charge contribution when the focused particle count changes."
+          },
+          {
+            "id": "symbolic_particle_table",
+            "type": "symbolic",
+            "description": "p, n, and e matched to charge, relative mass, and location."
+          },
+          {
+            "id": "mass_comparison_bar",
+            "type": "macroscopic",
+            "description": "Relative mass comparison: proton 1, neutron 1, electron negligible."
+          }
+        ]
+      },
+      "controls": [
+        {
+          "id": "particle_focus",
+          "label": "Particle focus",
+          "type": "discrete",
+          "default": "proton",
+          "affects": [
+            "microscopic_atom_view",
+            "symbolic_particle_table",
+            "particle_charge_labels"
+          ],
+          "options": [
+            "proton",
+            "neutron",
+            "electron"
+          ]
+        },
+        {
+          "id": "show_charge_overlay",
+          "label": "Show charge",
+          "type": "toggle",
+          "default": true,
+          "affects": [
+            "charge_balance_meter",
+            "particle_charge_labels"
+          ]
+        },
+        {
+          "id": "show_mass_overlay",
+          "label": "Show relative mass",
+          "type": "toggle",
+          "default": false,
+          "affects": [
+            "mass_comparison_bar",
+            "symbolic_particle_table"
+          ]
+        },
+        {
+          "id": "particle_sort_mode",
+          "label": "Sort challenge",
+          "type": "toggle",
+          "default": false,
+          "affects": [
+            "microscopic_atom_view",
+            "checkpoint_particle_location"
+          ]
+        }
+      ],
+      "scenarios": [
+        {
+          "id": "locate_nucleus_particles",
+          "title": "Nucleus or shell?",
+          "guiding_question": "Which particles should stay inside the nucleus?",
+          "locked_controls": [
+            "show_charge_overlay",
+            "show_mass_overlay"
+          ],
+          "active_controls": [
+            "particle_focus"
+          ],
+          "success_criterion": "Student identifies protons and neutrons in the nucleus and electrons in shells.",
+          "misconception_buster": true
+        },
+        {
+          "id": "read_charge_roles",
+          "title": "Charge contribution",
+          "guiding_question": "Which particle changes the charge meter upward, downward, or not at all?",
+          "locked_controls": [
+            "show_charge_overlay"
+          ],
+          "active_controls": [
+            "particle_focus"
+          ],
+          "success_criterion": "Student links proton to +1, electron to -1, and neutron to 0 charge."
+        },
+        {
+          "id": "mass_is_not_charge",
+          "title": "Mass is separate",
+          "guiding_question": "Which particles count toward almost all atomic mass?",
+          "locked_controls": [
+            "show_mass_overlay"
+          ],
+          "active_controls": [
+            "particle_focus"
+          ],
+          "success_criterion": "Student explains that protons and neutrons have relative mass 1 while electron mass is negligible.",
+          "misconception_buster": true
+        },
+        {
+          "id": "free_particle_compare",
+          "title": "Free compare",
+          "guiding_question": "Can you build a complete particle profile from the table and diagram?",
+          "locked_controls": [],
+          "active_controls": [
+            "particle_focus",
+            "show_charge_overlay",
+            "show_mass_overlay",
+            "particle_sort_mode"
+          ],
+          "success_criterion": "Student can state charge, relative mass, symbol, and location for the selected particle."
+        }
+      ],
+      "checkpoints": [
+        {
+          "id": "checkpoint_particle_location",
+          "after_scenario": "locate_nucleus_particles",
+          "type": "fill_in_blank",
+          "prompt": "A student says electrons are in the nucleus because atoms are tiny. What should you correct?",
+          "answers": [
+            "Electrons are found in electron shells"
+          ]
+        },
+        {
+          "id": "checkpoint_particle_summary",
+          "after_scenario": "read_charge_roles",
+          "type": "fill_in_blank",
+          "prompt": "Complete the sentence: Proton is ___, neutron is ___, electron is ___.",
+          "answers": [
+            "Proton is positive in the nucleus, neutron is neutral in the nucleus, electro..."
+          ]
+        }
+      ],
+      "ui_requirements": {
+        "always_visible": [
+          "reset_button",
+          "current_scenario_title",
+          "rate_readout"
+        ],
+        "syllabus_vocabulary_to_surface": [
+          "proton number",
+          "nucleon number",
+          "isotopes",
+          "relative atomic mass",
+          "ions",
+          "electronic configuration",
+          "charge",
+          "shells",
+          "electrons"
+        ],
+        "tone": "Clear, direct, no childish language. Treat students as capable.",
+        "accessibility": [
+          "colourblind-safe palette",
+          "labels not just colours",
+          "keyboard-navigable controls",
+          "Use shape and labels in addition to colour for charge and location."
+        ]
+      }
+    },
+    {
+      "id": "atomic-structure-electronic-configuration-shell-builder",
+      "source_ref": "page 4",
+      "subject": "O Level Chemistry",
+      "topic": "Electronic configuration",
+      "medium": "interactive_html",
+      "mechanism": "Electrons fill shells in the O-Level pattern 2,8,8 for the first 20 elements, so a total electron count becomes a shell-by-shell electronic configuration.",
+      "transferable_principle": "Electronic configuration is a count of electrons arranged by shell capacity, not a count of protons or neutrons.",
+      "steps": [
+        {
+          "name": "Start with electrons",
+          "beat": "Choose a neutral atom or ion and show its total electron count before shell filling begins."
+        },
+        {
+          "name": "Fill the first shell",
+          "beat": "Animate the first two electrons entering the first shell before any electron moves outward."
+        },
+        {
+          "name": "Fill the second shell",
+          "beat": "Add up to eight electrons to the second shell and display the growing notation."
+        },
+        {
+          "name": "Use the third shell",
+          "beat": "For O-Level examples up to calcium, continue with up to eight electrons in the third shell."
+        },
+        {
+          "name": "Read the notation",
+          "beat": "Convert the filled shells into a comma-separated electronic configuration such as 2,8,8."
+        }
+      ],
+      "key_symbols": [
+        {
+          "symbol": "first shell",
+          "role": "agent",
+          "meaning": "Innermost shell with a maximum of 2 electrons."
+        },
+        {
+          "symbol": "second shell",
+          "role": "resolution",
+          "meaning": "Next shell with a maximum of 8 electrons for O-Level examples."
+        },
+        {
+          "symbol": "third shell",
+          "role": "highlight",
+          "meaning": "Third shell treated as maximum 8 for the first 20 elements in this topic."
+        },
+        {
+          "symbol": "2,8,8",
+          "role": "neutral",
+          "meaning": "The must-know shell capacity pattern from the notes."
+        },
+        {
+          "symbol": "electron count",
+          "role": "problem",
+          "meaning": "The number being distributed across shells."
+        }
+      ],
+      "interactivity_hooks": [
+        "Move an electron-count slider and watch shells fill in the 2,8,8 pattern.",
+        "Select Na, Cl, Ar, or Ca presets to compare neutral atom configurations.",
+        "Toggle ion mode to see that electronic configuration follows electron count, not proton count alone."
+      ],
+      "output_filename": "atomic-structure-electronic-configuration-shell-builder.html",
+      "file_path": "artifacts/atomic-structure-electronic-configuration-shell-builder.html",
+      "artifact_metadata": {
+        "title": "Electronic Configuration Shell Builder",
+        "subject": "O Level Chemistry",
+        "level": "O Level Chemistry",
+        "syllabus_reference": "MOE 6092 Chemistry: Atomic Structure",
+        "estimated_interaction_time_minutes": 7,
+        "prerequisite_concepts": [
+          "Electrons are found in shells",
+          "Neutral atoms have equal protons and electrons"
+        ]
+      },
+      "learning_design": {
+        "core_aha": "I can get the electronic configuration by placing electrons into shells in order.",
+        "learning_objectives": [
+          "Students convert an electron count into electronic configuration using first, second, and third shell capacities.",
+          "Given an electron count up to 20, students write the correct O-Level shell configuration.",
+          "Electronic configuration is a count of electrons arranged by shell capacity, not a count of protons or neutrons."
+        ],
+        "target_misconceptions": [
+          {
+            "misconception": "Electronic configuration counts neutrons as well as electrons.",
+            "correction": "First shell 2, second shell 8, third shell 8 for the 2,8,8 pattern used here.",
+            "addressed_in_scenario_id": "spot_shell_order"
+          },
+          {
+            "misconception": "The second shell starts filling before the first shell has 2 electrons.",
+            "correction": "First shell 2, second shell 8, third shell 8 for the 2,8,8 pattern used here.",
+            "addressed_in_scenario_id": "spot_shell_order"
+          },
+          {
+            "misconception": "A stable octet means the atom must be electrically neutral.",
+            "correction": "First shell 2, second shell 8, third shell 8 for the 2,8,8 pattern used here.",
+            "addressed_in_scenario_id": "spot_shell_order"
+          },
+          {
+            "misconception": "The 2,8,8 rule should be extended carelessly to transition metals beyond this O-Level scope.",
+            "correction": "First shell 2, second shell 8, third shell 8 for the 2,8,8 pattern used here.",
+            "addressed_in_scenario_id": "spot_shell_order"
+          }
+        ]
+      },
+      "representations": {
+        "description": "All views are linked: changing a control updates the particle/subatomic view, the observable outcome, and the symbolic notation or table.",
+        "views": [
+          {
+            "id": "microscopic_shell_view",
+            "type": "microscopic",
+            "description": "Electrons animated into first, second, and third shells around a nucleus."
+          },
+          {
+            "id": "symbolic_configuration_strip",
+            "type": "symbolic",
+            "description": "Comma-separated electronic configuration that updates as shells fill."
+          },
+          {
+            "id": "macroscopic_stability_badge",
+            "type": "macroscopic",
+            "description": "Outer-shell completion and neutral or ion charge state for selected presets."
+          },
+          {
+            "id": "particle_counter_panel",
+            "type": "symbolic",
+            "description": "Protons, electrons, and electron count used for shell filling."
+          }
+        ]
+      },
+      "controls": [
+        {
+          "id": "electron_count",
+          "label": "Electrons",
+          "type": "slider",
+          "default": 18,
+          "affects": [
+            "microscopic_shell_view",
+            "symbolic_configuration_strip",
+            "macroscopic_stability_badge"
+          ],
+          "min": 1,
+          "max": 20,
+          "step": 1
+        },
+        {
+          "id": "atom_preset",
+          "label": "Atom preset",
+          "type": "discrete",
+          "default": "argon",
+          "affects": [
+            "electron_count",
+            "particle_counter_panel",
+            "symbolic_configuration_strip"
+          ],
+          "options": [
+            "hydrogen",
+            "sodium",
+            "chlorine",
+            "argon",
+            "calcium"
+          ]
+        },
+        {
+          "id": "show_capacity_labels",
+          "label": "Show shell limits",
+          "type": "toggle",
+          "default": true,
+          "affects": [
+            "microscopic_shell_view",
+            "symbolic_configuration_strip"
+          ]
+        },
+        {
+          "id": "ion_charge_mode",
+          "label": "Charge mode",
+          "type": "discrete",
+          "default": "neutral",
+          "affects": [
+            "electron_count",
+            "particle_counter_panel",
+            "macroscopic_stability_badge"
+          ],
+          "options": [
+            "neutral",
+            "cation",
+            "anion"
+          ]
+        }
+      ],
+      "scenarios": [
+        {
+          "id": "build_argon",
+          "title": "Build argon",
+          "guiding_question": "Why does 18 electrons become 2,8,8?",
+          "locked_controls": [
+            "atom_preset",
+            "ion_charge_mode",
+            "show_capacity_labels"
+          ],
+          "active_controls": [
+            "electron_count"
+          ],
+          "success_criterion": "Student fills 2 electrons in the first shell, 8 in the second, and 8 in the third."
+        },
+        {
+          "id": "spot_shell_order",
+          "title": "Fill in order",
+          "guiding_question": "What goes wrong if the second shell starts too early?",
+          "locked_controls": [
+            "electron_count",
+            "show_capacity_labels"
+          ],
+          "active_controls": [
+            "atom_preset"
+          ],
+          "success_criterion": "Student explains that inner shells fill before electrons are placed in the next shell.",
+          "misconception_buster": true
+        },
+        {
+          "id": "ion_count_matters",
+          "title": "Ion count matters",
+          "guiding_question": "When a particle is an ion, whose count controls the electronic configuration?",
+          "locked_controls": [
+            "atom_preset",
+            "show_capacity_labels"
+          ],
+          "active_controls": [
+            "ion_charge_mode"
+          ],
+          "success_criterion": "Student states that the electron count, after gain or loss, gives the electronic configuration.",
+          "misconception_buster": true
+        },
+        {
+          "id": "free_shell_builder",
+          "title": "Free build",
+          "guiding_question": "Can you predict the shell notation before the animation finishes?",
+          "locked_controls": [],
+          "active_controls": [
+            "electron_count",
+            "atom_preset",
+            "show_capacity_labels",
+            "ion_charge_mode"
+          ],
+          "success_criterion": "Student writes the same configuration shown by the shell animation."
+        }
+      ],
+      "checkpoints": [
+        {
+          "id": "checkpoint_shell_capacity",
+          "after_scenario": "build_argon",
+          "type": "fill_in_blank",
+          "prompt": "Write the O-Level shell capacities shown in the notes for the first three shells.",
+          "answers": [
+            "First shell 2, second shell 8, third shell 8 for the 2,8,8 pattern used here"
+          ]
+        },
+        {
+          "id": "checkpoint_electrons_only",
+          "after_scenario": "spot_shell_order",
+          "type": "fill_in_blank",
+          "prompt": "A student uses proton plus neutron count to fill shells. What should they use instead?",
+          "answers": [
+            "They should use the number of electrons, adjusted if the particle is an ion"
+          ]
+        }
+      ],
+      "ui_requirements": {
+        "always_visible": [
+          "reset_button",
+          "current_scenario_title",
+          "rate_readout"
+        ],
+        "syllabus_vocabulary_to_surface": [
+          "electronic configuration",
+          "proton number",
+          "nucleon number",
+          "isotopes",
+          "relative atomic mass",
+          "ions",
+          "charge",
+          "shells",
+          "electrons"
+        ],
+        "tone": "Clear, direct, no childish language. Treat students as capable.",
+        "accessibility": [
+          "colourblind-safe palette",
+          "labels not just colours",
+          "keyboard-navigable controls",
+          "Every shell should have a text label and count, not only rings or colour."
+        ]
+      }
+    },
+    {
+      "id": "atomic-structure-proton-nucleon-notation-reader",
+      "source_ref": "page 5",
+      "subject": "O Level Chemistry",
+      "topic": "Proton and nucleon number",
+      "medium": "interactive_html",
+      "mechanism": "In nuclide notation, the lower number is proton number and the upper number is nucleon number, so neutrons are found by subtraction.",
+      "transferable_principle": "Element identity follows proton number, while nucleon number counts protons plus neutrons.",
+      "steps": [
+        {
+          "name": "Read the lower number",
+          "beat": "Point to the proton number below the symbol and assign that many protons."
+        },
+        {
+          "name": "Read the upper number",
+          "beat": "Point to the nucleon number above the symbol as protons plus neutrons."
+        },
+        {
+          "name": "Subtract for neutrons",
+          "beat": "Subtract proton number from nucleon number to reveal neutron count."
+        },
+        {
+          "name": "Use neutrality",
+          "beat": "If it is an atom with no charge, set electrons equal to protons."
+        },
+        {
+          "name": "Name the element",
+          "beat": "Show that proton number, not nucleon number, fixes the element identity."
+        }
+      ],
+      "key_symbols": [
+        {
+          "symbol": "Ca",
+          "role": "neutral",
+          "meaning": "Element symbol used in the notes for calcium notation."
+        },
+        {
+          "symbol": "20",
+          "role": "agent",
+          "meaning": "Proton number: total protons in the atom."
+        },
+        {
+          "symbol": "40",
+          "role": "highlight",
+          "meaning": "Nucleon number: total protons plus neutrons."
+        },
+        {
+          "symbol": "40 - 20",
+          "role": "resolution",
+          "meaning": "Subtraction used to find neutrons."
+        },
+        {
+          "symbol": "neutral atom",
+          "role": "problem",
+          "meaning": "The condition that makes electrons equal to protons."
+        }
+      ],
+      "interactivity_hooks": [
+        "Drag labels onto upper number, lower number, and element symbol.",
+        "Change proton and nucleon numbers to see whether element identity or neutron count changes.",
+        "Toggle atom versus ion to decide when electrons equal protons."
+      ],
+      "output_filename": "atomic-structure-proton-nucleon-notation-reader.html",
+      "file_path": "artifacts/atomic-structure-proton-nucleon-notation-reader.html",
+      "artifact_metadata": {
+        "title": "Proton and Nucleon Number Reader",
+        "subject": "O Level Chemistry",
+        "level": "O Level Chemistry",
+        "syllabus_reference": "MOE 6092 Chemistry: Atomic Structure",
+        "estimated_interaction_time_minutes": 7,
+        "prerequisite_concepts": [
+          "Protons and neutrons are in the nucleus",
+          "Neutral atoms have equal protons and electrons"
+        ]
+      },
+      "learning_design": {
+        "core_aha": "I can decode the whole atom by reading lower number, upper number, then subtracting.",
+        "learning_objectives": [
+          "Students translate nuclide notation into protons, neutrons, electrons, and element identity.",
+          "Given nuclide notation, students find protons, neutrons, and electrons without swapping proton and nucleon number.",
+          "Element identity follows proton number, while nucleon number counts protons plus neutrons."
+        ],
+        "target_misconceptions": [
+          {
+            "misconception": "The upper number is proton number because it is printed on top.",
+            "correction": "The upper number is nucleon number; the lower number is proton number.",
+            "addressed_in_scenario_id": "change_neutrons_not_identity"
+          },
+          {
+            "misconception": "Nucleon number means neutrons only.",
+            "correction": "The upper number is nucleon number; the lower number is proton number.",
+            "addressed_in_scenario_id": "change_neutrons_not_identity"
+          },
+          {
+            "misconception": "Element identity changes when neutron count changes.",
+            "correction": "The upper number is nucleon number; the lower number is proton number.",
+            "addressed_in_scenario_id": "change_neutrons_not_identity"
+          },
+          {
+            "misconception": "Electrons always equal protons even when a charge is shown.",
+            "correction": "The upper number is nucleon number; the lower number is proton number.",
+            "addressed_in_scenario_id": "change_neutrons_not_identity"
+          }
+        ]
+      },
+      "representations": {
+        "description": "All views are linked: changing a control updates the particle/subatomic view, the observable outcome, and the symbolic notation or table.",
+        "views": [
+          {
+            "id": "microscopic_nucleus_view",
+            "type": "microscopic",
+            "description": "Protons and neutrons inside the nucleus with electrons in shells for neutral atoms."
+          },
+          {
+            "id": "symbolic_nuclide_notation",
+            "type": "symbolic",
+            "description": "Upper nucleon number, lower proton number, and element symbol."
+          },
+          {
+            "id": "subtraction_equation",
+            "type": "symbolic",
+            "description": "neutrons = nucleon number - proton number."
+          },
+          {
+            "id": "particle_count_table",
+            "type": "macroscopic",
+            "description": "Protons, neutrons, electrons, and overall charge."
+          }
+        ]
+      },
+      "controls": [
+        {
+          "id": "element_symbol",
+          "label": "Element symbol",
+          "type": "discrete",
+          "default": "Ca",
+          "affects": [
+            "symbolic_nuclide_notation",
+            "microscopic_nucleus_view"
+          ],
+          "options": [
+            "Ca",
+            "Cl",
+            "Na",
+            "Og"
+          ]
+        },
+        {
+          "id": "proton_number",
+          "label": "Proton number",
+          "type": "slider",
+          "default": 20,
+          "affects": [
+            "symbolic_nuclide_notation",
+            "particle_count_table",
+            "microscopic_nucleus_view"
+          ],
+          "min": 1,
+          "max": 118,
+          "step": 1
+        },
+        {
+          "id": "nucleon_number",
+          "label": "Nucleon number",
+          "type": "slider",
+          "default": 40,
+          "affects": [
+            "symbolic_nuclide_notation",
+            "subtraction_equation",
+            "particle_count_table"
+          ],
+          "min": 1,
+          "max": 294,
+          "step": 1
+        },
+        {
+          "id": "charge_state",
+          "label": "Particle charge",
+          "type": "discrete",
+          "default": "atom",
+          "affects": [
+            "particle_count_table",
+            "microscopic_nucleus_view"
+          ],
+          "options": [
+            "atom",
+            "1+",
+            "1-",
+            "2-"
+          ]
+        }
+      ],
+      "scenarios": [
+        {
+          "id": "decode_calcium",
+          "title": "Decode calcium",
+          "guiding_question": "For calcium-40 with proton number 20, how many protons, neutrons, and electrons are there?",
+          "locked_controls": [
+            "element_symbol",
+            "proton_number",
+            "nucleon_number",
+            "charge_state"
+          ],
+          "active_controls": [],
+          "success_criterion": "Student states 20 protons, 20 neutrons, and 20 electrons for a neutral calcium atom."
+        },
+        {
+          "id": "change_neutrons_not_identity",
+          "title": "Identity check",
+          "guiding_question": "If only the nucleon number changes, did the element change?",
+          "locked_controls": [
+            "element_symbol",
+            "proton_number",
+            "charge_state"
+          ],
+          "active_controls": [
+            "nucleon_number"
+          ],
+          "success_criterion": "Student explains that changing nucleon number changes neutron count, not the element identity.",
+          "misconception_buster": true
+        },
+        {
+          "id": "atom_vs_ion_electrons",
+          "title": "Atom or ion?",
+          "guiding_question": "When should electrons equal the proton number?",
+          "locked_controls": [
+            "element_symbol",
+            "proton_number",
+            "nucleon_number"
+          ],
+          "active_controls": [
+            "charge_state"
+          ],
+          "success_criterion": "Student says electrons equal protons only for a neutral atom, then adjust for charge in ions.",
+          "misconception_buster": true
+        },
+        {
+          "id": "free_notation_reader",
+          "title": "Free decode",
+          "guiding_question": "Can you predict the particle counts before revealing the table?",
+          "locked_controls": [],
+          "active_controls": [
+            "element_symbol",
+            "proton_number",
+            "nucleon_number",
+            "charge_state"
+          ],
+          "success_criterion": "Student decodes notation into correct protons, neutrons, electrons, and charge."
+        }
+      ],
+      "checkpoints": [
+        {
+          "id": "checkpoint_upper_lower",
+          "after_scenario": "decode_calcium",
+          "type": "fill_in_blank",
+          "prompt": "A student says the upper number is the proton number. How do you correct them?",
+          "answers": [
+            "The upper number is nucleon number"
+          ]
+        },
+        {
+          "id": "checkpoint_identity_rule",
+          "after_scenario": "change_neutrons_not_identity",
+          "type": "fill_in_blank",
+          "prompt": "What determines the identity of an element?",
+          "answers": [
+            "The proton number determines the identity of an element"
+          ]
+        }
+      ],
+      "ui_requirements": {
+        "always_visible": [
+          "reset_button",
+          "current_scenario_title",
+          "rate_readout"
+        ],
+        "syllabus_vocabulary_to_surface": [
+          "proton number",
+          "nucleon number",
+          "isotopes",
+          "relative atomic mass",
+          "ions",
+          "electronic configuration",
+          "charge",
+          "shells",
+          "electrons"
+        ],
+        "tone": "Clear, direct, no childish language. Treat students as capable.",
+        "accessibility": [
+          "colourblind-safe palette",
+          "labels not just colours",
+          "keyboard-navigable controls",
+          "Use explicit labels for upper number, lower number, and charge state."
+        ]
+      }
+    },
     {
       "id": "atomic-structure-sodium-cation-electron-loss",
       "source_ref": "page 6",
       "subject": "O Level Chemistry",
       "topic": "Positive ion formation",
       "medium": "interactive_html",
-      "mechanism": "When a sodium atom loses one outer electron, its 11 protons outnumber its 10 remaining electrons, so the particle becomes Na+.",
+      "mechanism": "When a sodium atom loses one outer electron, its 11 protons outnumber its 10 electrons, so the particle becomes Na+.",
       "transferable_principle": "A positive ion forms when electron loss leaves more protons than electrons.",
       "steps": [
         {
-          "name": "Neutral sodium",
-          "beat": "Start with a sodium atom where proton count and electron count balance, so the atom has no overall charge."
+          "name": "Start neutral",
+          "beat": "Show a sodium atom with 11 protons and 11 electrons arranged 2,8,1."
         },
         {
-          "name": "Outer electron leaves",
-          "beat": "The single valence electron is removed from the outer shell while the nucleus stays unchanged."
+          "name": "Lose the outer electron",
+          "beat": "Animate the single valence electron leaving while the nucleus stays unchanged."
         },
         {
-          "name": "Counts become unequal",
-          "beat": "Sodium still has 11 protons, but now only 10 electrons remain."
+          "name": "Compare counts",
+          "beat": "Update the counter to 11 protons and 10 electrons."
         },
         {
-          "name": "Na+ forms",
-          "beat": "The extra positive proton charge gives the ion a +1 charge, written as Na+."
+          "name": "Write Na+",
+          "beat": "Show the +1 charge and the symbol Na+ after electron loss."
         }
       ],
       "key_symbols": [
         {
-          "symbol": "sodium atom",
+          "symbol": "Na atom",
           "role": "neutral",
-          "meaning": "The starting particle with balanced protons and electrons."
+          "meaning": "Neutral sodium before electron loss."
         },
         {
           "symbol": "outer electron",
           "role": "problem",
-          "meaning": "The electron being removed from the atom."
+          "meaning": "The valence electron removed from sodium."
         },
         {
-          "symbol": "electron-loss arrow",
+          "symbol": "loss arrow",
           "role": "agent",
-          "meaning": "The change that reduces the electron count by one."
+          "meaning": "The process that decreases electron count by one."
         },
         {
-          "symbol": "Na+ ion",
+          "symbol": "Na+",
           "role": "resolution",
-          "meaning": "The resulting cation with one more proton than electron."
+          "meaning": "Sodium cation with one more proton than electron."
         },
         {
-          "symbol": "+1 charge label",
+          "symbol": "+1 charge",
           "role": "highlight",
           "meaning": "The charge caused by the proton-electron imbalance."
         }
       ],
       "interactivity_hooks": [
-        "Toggle the lost outer electron on and off to compare neutral sodium with Na+.",
-        "Click proton and electron counters to highlight why the charge changes."
+        "Drag the valence electron away from sodium and watch the charge meter turn +1.",
+        "Toggle neutral atom versus cation to compare 2,8,1 and 2,8.",
+        "Switch the attempted change between electron loss and proton loss to catch the common trap."
       ],
       "output_filename": "atomic-structure-sodium-cation-electron-loss.html",
-      "file_path": "artifacts/atomic-structure-sodium-cation-electron-loss.html"
+      "file_path": "artifacts/atomic-structure-sodium-cation-electron-loss.html",
+      "artifact_metadata": {
+        "title": "Sodium Cation Electron Loss",
+        "subject": "O Level Chemistry",
+        "level": "O Level Chemistry",
+        "syllabus_reference": "MOE 6092 Chemistry: Atomic Structure",
+        "estimated_interaction_time_minutes": 6,
+        "prerequisite_concepts": [
+          "Protons are positive",
+          "Electrons are negative",
+          "Sodium has electronic configuration 2,8,1"
+        ]
+      },
+      "learning_design": {
+        "core_aha": "Na+ is positive because sodium lost an electron, not because it gained a proton.",
+        "learning_objectives": [
+          "Students explain positive ion formation using proton-electron imbalance and electronic configuration.",
+          "Given electron loss from an atom, students determine ion charge, ion symbol, and remaining electron arrangement.",
+          "A positive ion forms when electron loss leaves more protons than electrons."
+        ],
+        "target_misconceptions": [
+          {
+            "misconception": "Positive ions form when atoms gain protons.",
+            "correction": "The nucleus and proton number stay unchanged; sodium still has 11 protons.",
+            "addressed_in_scenario_id": "not_proton_gain"
+          },
+          {
+            "misconception": "The nucleus changes when sodium becomes Na+.",
+            "correction": "The nucleus and proton number stay unchanged; sodium still has 11 protons.",
+            "addressed_in_scenario_id": "not_proton_gain"
+          },
+          {
+            "misconception": "Na+ has 12 protons instead of 11 protons.",
+            "correction": "The nucleus and proton number stay unchanged; sodium still has 11 protons.",
+            "addressed_in_scenario_id": "not_proton_gain"
+          },
+          {
+            "misconception": "The plus sign means an electron was added.",
+            "correction": "The nucleus and proton number stay unchanged; sodium still has 11 protons.",
+            "addressed_in_scenario_id": "not_proton_gain"
+          }
+        ]
+      },
+      "representations": {
+        "description": "All views are linked: changing a control updates the particle/subatomic view, the observable outcome, and the symbolic notation or table.",
+        "views": [
+          {
+            "id": "microscopic_sodium_shell_view",
+            "type": "microscopic",
+            "description": "Sodium nucleus with 11 protons and electrons arranged 2,8,1 before loss, then 2,8 after loss."
+          },
+          {
+            "id": "charge_balance_meter",
+            "type": "macroscopic",
+            "description": "11 protons versus 10 electrons producing +1 charge."
+          },
+          {
+            "id": "symbolic_na_notation",
+            "type": "symbolic",
+            "description": "Na atom, Na+, and electronic configuration 2,8,1 to 2,8."
+          }
+        ]
+      },
+      "controls": [
+        {
+          "id": "electron_loss_count",
+          "label": "Electrons lost",
+          "type": "slider",
+          "default": 0,
+          "affects": [
+            "microscopic_sodium_shell_view",
+            "charge_balance_meter",
+            "symbolic_na_notation"
+          ],
+          "min": 0,
+          "max": 1,
+          "step": 1
+        },
+        {
+          "id": "show_configuration",
+          "label": "Show configuration",
+          "type": "toggle",
+          "default": true,
+          "affects": [
+            "symbolic_na_notation",
+            "microscopic_sodium_shell_view"
+          ]
+        },
+        {
+          "id": "change_type_probe",
+          "label": "Change type",
+          "type": "discrete",
+          "default": "electron_loss",
+          "affects": [
+            "microscopic_sodium_shell_view",
+            "charge_balance_meter",
+            "checkpoint_proton_loss_trap"
+          ],
+          "options": [
+            "electron_loss",
+            "proton_loss"
+          ]
+        },
+        {
+          "id": "animate_transfer",
+          "label": "Animate transfer",
+          "type": "toggle",
+          "default": true,
+          "affects": [
+            "microscopic_sodium_shell_view"
+          ]
+        }
+      ],
+      "scenarios": [
+        {
+          "id": "neutral_sodium",
+          "title": "Neutral sodium",
+          "guiding_question": "Why does the sodium atom have no overall charge at the start?",
+          "locked_controls": [
+            "electron_loss_count",
+            "change_type_probe",
+            "show_configuration"
+          ],
+          "active_controls": [],
+          "success_criterion": "Student states that 11 protons and 11 electrons balance to zero charge."
+        },
+        {
+          "id": "make_na_plus",
+          "title": "Make Na+",
+          "guiding_question": "What exact count changes when sodium becomes Na+?",
+          "locked_controls": [
+            "change_type_probe",
+            "show_configuration"
+          ],
+          "active_controls": [
+            "electron_loss_count"
+          ],
+          "success_criterion": "Student explains that electrons decrease from 11 to 10 while protons remain 11."
+        },
+        {
+          "id": "not_proton_gain",
+          "title": "No proton gain",
+          "guiding_question": "Why is gaining protons the wrong explanation for Na+?",
+          "locked_controls": [
+            "electron_loss_count",
+            "change_type_probe"
+          ],
+          "active_controls": [
+            "change_type_probe"
+          ],
+          "success_criterion": "Student rejects nucleus changes and says ion formation changes electron count.",
+          "misconception_buster": true
+        },
+        {
+          "id": "free_cation_compare",
+          "title": "Free compare",
+          "guiding_question": "Can you connect electron loss, charge, and symbol without help?",
+          "locked_controls": [],
+          "active_controls": [
+            "electron_loss_count",
+            "show_configuration",
+            "change_type_probe",
+            "animate_transfer"
+          ],
+          "success_criterion": "Student predicts Na+ and 2,8 after one electron is lost."
+        }
+      ],
+      "checkpoints": [
+        {
+          "id": "checkpoint_proton_loss_trap",
+          "after_scenario": "neutral_sodium",
+          "type": "fill_in_blank",
+          "prompt": "Someone says Na+ has 12 protons. What stays unchanged during ion formation?",
+          "answers": [
+            "The nucleus and proton number stay unchanged"
+          ]
+        },
+        {
+          "id": "checkpoint_cation_summary",
+          "after_scenario": "make_na_plus",
+          "type": "fill_in_blank",
+          "prompt": "Explain Na+ in one sentence using protons and electrons.",
+          "answers": [
+            "Na+ has 11 protons and 10 electrons because sodium lost one electron"
+          ]
+        }
+      ],
+      "ui_requirements": {
+        "always_visible": [
+          "reset_button",
+          "current_scenario_title",
+          "rate_readout"
+        ],
+        "syllabus_vocabulary_to_surface": [
+          "charge",
+          "proton number",
+          "nucleon number",
+          "isotopes",
+          "relative atomic mass",
+          "ions",
+          "electronic configuration",
+          "shells",
+          "electrons"
+        ],
+        "tone": "Clear, direct, no childish language. Treat students as capable.",
+        "accessibility": [
+          "colourblind-safe palette",
+          "labels not just colours",
+          "keyboard-navigable controls",
+          "Use + and - labels plus count text so charge is not colour-only."
+        ]
+      }
     },
     {
       "id": "atomic-structure-chloride-anion-electron-gain",
@@ -208,36 +1292,36 @@
       "subject": "O Level Chemistry",
       "topic": "Negative ion formation",
       "medium": "interactive_html",
-      "mechanism": "When a chlorine atom gains one electron to complete its valence shell, its 18 electrons outnumber its 17 protons, so the particle becomes Cl-.",
+      "mechanism": "When a chlorine atom gains one electron to complete its valence shell, its 18 electrons outnumber its 17 protons, so it becomes Cl-.",
       "transferable_principle": "A negative ion forms when electron gain leaves more electrons than protons.",
       "steps": [
         {
-          "name": "Neutral chlorine",
-          "beat": "Begin with a chlorine atom whose proton and electron counts are equal."
+          "name": "Start neutral",
+          "beat": "Show a chlorine atom with 17 protons and 17 electrons arranged 2,8,7."
         },
         {
-          "name": "Electron joins",
-          "beat": "One electron is added to the valence shell so the outer shell becomes complete."
+          "name": "Gain one electron",
+          "beat": "Animate an incoming electron entering the valence shell."
         },
         {
-          "name": "Electrons outnumber protons",
-          "beat": "Chlorine still has 17 protons, but now has 18 electrons."
+          "name": "Complete the shell",
+          "beat": "Update the electronic configuration from 2,8,7 to 2,8,8."
         },
         {
-          "name": "Cl- forms",
-          "beat": "The extra electron gives the ion a -1 charge, written as Cl-."
+          "name": "Write Cl-",
+          "beat": "Show 17 protons, 18 electrons, and the -1 charge symbol Cl-."
         }
       ],
       "key_symbols": [
         {
-          "symbol": "chlorine atom",
+          "symbol": "Cl atom",
           "role": "neutral",
-          "meaning": "The starting particle before electron gain."
+          "meaning": "Neutral chlorine before electron gain."
         },
         {
           "symbol": "incoming electron",
           "role": "agent",
-          "meaning": "The added electron that changes the charge balance."
+          "meaning": "The electron added to chlorine."
         },
         {
           "symbol": "valence shell gap",
@@ -245,263 +1329,1385 @@
           "meaning": "The incomplete outer shell before gain."
         },
         {
-          "symbol": "Cl- ion",
+          "symbol": "Cl-",
           "role": "resolution",
-          "meaning": "The resulting anion with one more electron than proton."
+          "meaning": "Chloride anion with one more electron than proton."
         },
         {
-          "symbol": "-1 charge label",
+          "symbol": "-1 charge",
           "role": "highlight",
-          "meaning": "The charge caused by the proton-electron imbalance."
+          "meaning": "The charge caused by the extra electron."
         }
       ],
       "interactivity_hooks": [
-        "Drag one electron into chlorine's outer shell to watch the charge counter become -1.",
-        "Toggle before and after states to compare atom and anion."
+        "Drag an electron into chlorine and watch the charge meter become -1.",
+        "Toggle 2,8,7 and 2,8,8 to connect shell completion with charge.",
+        "Select electron gain or proton loss explanations and receive immediate feedback."
       ],
       "output_filename": "atomic-structure-chloride-anion-electron-gain.html",
-      "file_path": "artifacts/atomic-structure-chloride-anion-electron-gain.html"
+      "file_path": "artifacts/atomic-structure-chloride-anion-electron-gain.html",
+      "artifact_metadata": {
+        "title": "Chloride Anion Electron Gain",
+        "subject": "O Level Chemistry",
+        "level": "O Level Chemistry",
+        "syllabus_reference": "MOE 6092 Chemistry: Atomic Structure",
+        "estimated_interaction_time_minutes": 6,
+        "prerequisite_concepts": [
+          "Electrons are negative",
+          "Chlorine has electronic configuration 2,8,7",
+          "A full valence shell is stable"
+        ]
+      },
+      "learning_design": {
+        "core_aha": "Cl- is negative because chlorine gained an electron, so electrons now outnumber protons.",
+        "learning_objectives": [
+          "Students explain negative ion formation using electron gain, shell completion, and charge imbalance.",
+          "Given electron gain by a non-metal atom, students determine ion charge, symbol, and electronic configuration.",
+          "A negative ion forms when electron gain leaves more electrons than protons."
+        ],
+        "target_misconceptions": [
+          {
+            "misconception": "Negative ions form when atoms lose protons.",
+            "correction": "Cl- has one extra electron; it has 18 electrons and 17 protons.",
+            "addressed_in_scenario_id": "minus_means_extra_electron"
+          },
+          {
+            "misconception": "The minus sign means chlorine has fewer electrons.",
+            "correction": "Cl- has one extra electron; it has 18 electrons and 17 protons.",
+            "addressed_in_scenario_id": "minus_means_extra_electron"
+          },
+          {
+            "misconception": "Chlorine becomes Cl- but still has 17 electrons.",
+            "correction": "Cl- has one extra electron; it has 18 electrons and 17 protons.",
+            "addressed_in_scenario_id": "minus_means_extra_electron"
+          },
+          {
+            "misconception": "Completing the valence shell automatically means the particle is neutral.",
+            "correction": "Cl- has one extra electron; it has 18 electrons and 17 protons.",
+            "addressed_in_scenario_id": "minus_means_extra_electron"
+          }
+        ]
+      },
+      "representations": {
+        "description": "All views are linked: changing a control updates the particle/subatomic view, the observable outcome, and the symbolic notation or table.",
+        "views": [
+          {
+            "id": "microscopic_chlorine_shell_view",
+            "type": "microscopic",
+            "description": "Chlorine nucleus with 17 protons and electrons arranged 2,8,7, then 2,8,8 after gain."
+          },
+          {
+            "id": "charge_balance_meter",
+            "type": "macroscopic",
+            "description": "17 protons versus 18 electrons producing -1 charge."
+          },
+          {
+            "id": "symbolic_cl_notation",
+            "type": "symbolic",
+            "description": "Cl atom, Cl-, and electronic configuration 2,8,7 to 2,8,8."
+          }
+        ]
+      },
+      "controls": [
+        {
+          "id": "electron_gain_count",
+          "label": "Electrons gained",
+          "type": "slider",
+          "default": 0,
+          "affects": [
+            "microscopic_chlorine_shell_view",
+            "charge_balance_meter",
+            "symbolic_cl_notation"
+          ],
+          "min": 0,
+          "max": 1,
+          "step": 1
+        },
+        {
+          "id": "show_configuration",
+          "label": "Show configuration",
+          "type": "toggle",
+          "default": true,
+          "affects": [
+            "symbolic_cl_notation",
+            "microscopic_chlorine_shell_view"
+          ]
+        },
+        {
+          "id": "explanation_probe",
+          "label": "Explanation",
+          "type": "discrete",
+          "default": "electron_gain",
+          "affects": [
+            "charge_balance_meter",
+            "checkpoint_anion_trap"
+          ],
+          "options": [
+            "electron_gain",
+            "proton_loss"
+          ]
+        },
+        {
+          "id": "animate_transfer",
+          "label": "Animate transfer",
+          "type": "toggle",
+          "default": true,
+          "affects": [
+            "microscopic_chlorine_shell_view"
+          ]
+        }
+      ],
+      "scenarios": [
+        {
+          "id": "neutral_chlorine",
+          "title": "Neutral chlorine",
+          "guiding_question": "Why is chlorine neutral before it gains an electron?",
+          "locked_controls": [
+            "electron_gain_count",
+            "explanation_probe",
+            "show_configuration"
+          ],
+          "active_controls": [],
+          "success_criterion": "Student states that 17 protons and 17 electrons balance to zero charge."
+        },
+        {
+          "id": "make_cl_minus",
+          "title": "Make Cl-",
+          "guiding_question": "What exact count changes when chlorine becomes Cl-?",
+          "locked_controls": [
+            "explanation_probe",
+            "show_configuration"
+          ],
+          "active_controls": [
+            "electron_gain_count"
+          ],
+          "success_criterion": "Student explains that electrons increase from 17 to 18 while protons remain 17."
+        },
+        {
+          "id": "minus_means_extra_electron",
+          "title": "Read the minus sign",
+          "guiding_question": "Why does Cl- have more electrons, not fewer?",
+          "locked_controls": [
+            "electron_gain_count",
+            "show_configuration"
+          ],
+          "active_controls": [
+            "explanation_probe"
+          ],
+          "success_criterion": "Student links the -1 charge to one extra electron compared with protons.",
+          "misconception_buster": true
+        },
+        {
+          "id": "free_anion_compare",
+          "title": "Free compare",
+          "guiding_question": "Can you connect electron gain, charge, and symbol without help?",
+          "locked_controls": [],
+          "active_controls": [
+            "electron_gain_count",
+            "show_configuration",
+            "explanation_probe",
+            "animate_transfer"
+          ],
+          "success_criterion": "Student predicts Cl- and 2,8,8 after one electron is gained."
+        }
+      ],
+      "checkpoints": [
+        {
+          "id": "checkpoint_anion_trap",
+          "after_scenario": "neutral_chlorine",
+          "type": "fill_in_blank",
+          "prompt": "A student says Cl- has fewer electrons because of the minus sign. What is the correction?",
+          "answers": [
+            "Cl- has one extra electron"
+          ]
+        },
+        {
+          "id": "checkpoint_anion_summary",
+          "after_scenario": "make_cl_minus",
+          "type": "fill_in_blank",
+          "prompt": "Explain Cl- in one sentence using protons and electrons.",
+          "answers": [
+            "Cl- has 17 protons and 18 electrons because chlorine gained one electron"
+          ]
+        }
+      ],
+      "ui_requirements": {
+        "always_visible": [
+          "reset_button",
+          "current_scenario_title",
+          "rate_readout"
+        ],
+        "syllabus_vocabulary_to_surface": [
+          "charge",
+          "proton number",
+          "nucleon number",
+          "isotopes",
+          "relative atomic mass",
+          "ions",
+          "electronic configuration",
+          "shells",
+          "electrons"
+        ],
+        "tone": "Clear, direct, no childish language. Treat students as capable.",
+        "accessibility": [
+          "colourblind-safe palette",
+          "labels not just colours",
+          "keyboard-navigable controls",
+          "Label electron count and proton count numerically at all times."
+        ]
+      }
     },
     {
       "id": "atomic-structure-isotope-properties-comparison",
-      "source_ref": "page 11",
+      "source_ref": "pages 11 and 13",
       "subject": "O Level Chemistry",
       "topic": "Isotope properties",
       "medium": "interactive_html",
-      "mechanism": "Isotopes keep the same proton and electron counts, so their chemical reactions stay the same, but different neutron counts change their masses and mass-related physical properties.",
-      "transferable_principle": "Chemical properties follow electron arrangement, while physical properties can change when mass changes.",
+      "mechanism": "Isotopes have the same protons and electrons but different neutrons, so their chemical properties stay similar while mass-related physical properties differ.",
+      "transferable_principle": "Chemical properties follow electron arrangement; physical properties can change when neutron count changes mass.",
       "steps": [
         {
-          "name": "Same element",
-          "beat": "Two atoms are shown with the same number of protons, so they are atoms of the same element."
+          "name": "Fix proton number",
+          "beat": "Show two atoms with the same proton number, so they are the same element."
         },
         {
-          "name": "Same electrons",
-          "beat": "Their electron arrangements match, so they undergo the same chemical reactions and form compounds with the same formula."
+          "name": "Keep electrons same",
+          "beat": "Show matching electron arrangements that lead to similar chemical reactions."
         },
         {
-          "name": "Different neutrons",
-          "beat": "The nuclei contain different numbers of neutrons, creating slightly different masses."
+          "name": "Change neutrons",
+          "beat": "Add or remove neutrons in the nucleus while protons stay fixed."
         },
         {
-          "name": "Property split",
-          "beat": "Chemical properties remain similar, while physical properties such as density can differ."
+          "name": "Split the properties",
+          "beat": "Keep chemical property labels aligned but shift mass and density labels."
         }
       ],
       "key_symbols": [
         {
-          "symbol": "matching electron shells",
+          "symbol": "same protons",
           "role": "agent",
-          "meaning": "The shared feature responsible for similar chemical properties."
+          "meaning": "The reason both atoms are the same element."
         },
         {
-          "symbol": "extra neutrons",
-          "role": "problem",
-          "meaning": "The differing feature that changes mass."
-        },
-        {
-          "symbol": "chemical reaction path",
+          "symbol": "same electrons",
           "role": "resolution",
-          "meaning": "The same reaction outcome caused by the same electron arrangement."
+          "meaning": "The reason isotopes have similar chemical properties."
         },
         {
-          "symbol": "mass scale",
+          "symbol": "different neutrons",
+          "role": "problem",
+          "meaning": "The difference that changes mass."
+        },
+        {
+          "symbol": "density label",
           "role": "highlight",
-          "meaning": "The physical difference caused by neutron count."
+          "meaning": "Example of a physical property that may differ."
         },
         {
-          "symbol": "isotope pair",
+          "symbol": "same formula",
           "role": "neutral",
-          "meaning": "Two atoms of the same element being compared."
+          "meaning": "Compound formula stays the same because chemical behaviour is similar."
         }
       ],
       "interactivity_hooks": [
-        "Toggle neutron count while keeping electrons fixed to see which property labels change.",
-        "Compare chemical and physical property panels side by side."
+        "Adjust neutron count while proton and electron counts are locked.",
+        "Toggle chemical and physical property panels to see which labels change.",
+        "Run an isotope-or-new-element challenge by changing protons or neutrons."
       ],
       "output_filename": "atomic-structure-isotope-properties-comparison.html",
-      "file_path": "artifacts/atomic-structure-isotope-properties-comparison.html"
+      "file_path": "artifacts/atomic-structure-isotope-properties-comparison.html",
+      "artifact_metadata": {
+        "title": "Isotope Properties Comparison",
+        "subject": "O Level Chemistry",
+        "level": "O Level Chemistry",
+        "syllabus_reference": "MOE 6092 Chemistry: Atomic Structure",
+        "estimated_interaction_time_minutes": 8,
+        "prerequisite_concepts": [
+          "Proton number identifies an element",
+          "Electrons are involved in chemical reactions",
+          "Neutrons contribute to mass"
+        ]
+      },
+      "learning_design": {
+        "core_aha": "Changing neutrons changes mass, but keeping electrons the same keeps chemical behaviour similar.",
+        "learning_objectives": [
+          "Students explain why isotopes of the same element have similar chemical properties but different physical properties.",
+          "Students decide whether a change creates an isotope, a new element, or an ion, and predict property effects.",
+          "Chemical properties follow electron arrangement; physical properties can change when neutron count changes mass."
+        ],
+        "target_misconceptions": [
+          {
+            "misconception": "Different neutrons make a different element.",
+            "correction": "They have the same proton number, so they are the same element.",
+            "addressed_in_scenario_id": "not_new_element"
+          },
+          {
+            "misconception": "Isotopes must have different chemical properties because their masses differ.",
+            "correction": "They have the same proton number, so they are the same element.",
+            "addressed_in_scenario_id": "not_new_element"
+          },
+          {
+            "misconception": "Same element means every physical property must be identical.",
+            "correction": "They have the same proton number, so they are the same element.",
+            "addressed_in_scenario_id": "not_new_element"
+          },
+          {
+            "misconception": "Isotopes have different electron arrangements.",
+            "correction": "They have the same proton number, so they are the same element.",
+            "addressed_in_scenario_id": "not_new_element"
+          }
+        ]
+      },
+      "representations": {
+        "description": "All views are linked: changing a control updates the particle/subatomic view, the observable outcome, and the symbolic notation or table.",
+        "views": [
+          {
+            "id": "microscopic_isotope_pair",
+            "type": "microscopic",
+            "description": "Two atoms with matching protons and electrons but different neutron counts."
+          },
+          {
+            "id": "property_comparison_panel",
+            "type": "macroscopic",
+            "description": "Chemical reaction and compound formula stay the same; mass and density can differ."
+          },
+          {
+            "id": "symbolic_isotope_notation",
+            "type": "symbolic",
+            "description": "Same element symbol and proton number with different nucleon numbers."
+          },
+          {
+            "id": "nucleon_difference_equation",
+            "type": "symbolic",
+            "description": "Different neutrons cause different nucleon numbers and masses."
+          }
+        ]
+      },
+      "controls": [
+        {
+          "id": "base_element",
+          "label": "Element",
+          "type": "discrete",
+          "default": "chlorine",
+          "affects": [
+            "microscopic_isotope_pair",
+            "symbolic_isotope_notation"
+          ],
+          "options": [
+            "chlorine",
+            "carbon",
+            "magnesium"
+          ]
+        },
+        {
+          "id": "neutron_difference",
+          "label": "Neutron difference",
+          "type": "slider",
+          "default": 2,
+          "affects": [
+            "microscopic_isotope_pair",
+            "symbolic_isotope_notation",
+            "property_comparison_panel"
+          ],
+          "min": 0,
+          "max": 4,
+          "step": 1
+        },
+        {
+          "id": "compare_property",
+          "label": "Compare property",
+          "type": "discrete",
+          "default": "chemical",
+          "affects": [
+            "property_comparison_panel"
+          ],
+          "options": [
+            "chemical",
+            "physical"
+          ]
+        },
+        {
+          "id": "change_test",
+          "label": "Change test",
+          "type": "discrete",
+          "default": "neutrons",
+          "affects": [
+            "microscopic_isotope_pair",
+            "symbolic_isotope_notation",
+            "checkpoint_isotope_identity"
+          ],
+          "options": [
+            "neutrons",
+            "protons",
+            "electrons"
+          ]
+        }
+      ],
+      "scenarios": [
+        {
+          "id": "same_element_test",
+          "title": "Same element?",
+          "guiding_question": "Why are these two atoms still atoms of the same element?",
+          "locked_controls": [
+            "base_element",
+            "neutron_difference",
+            "change_test"
+          ],
+          "active_controls": [
+            "compare_property"
+          ],
+          "success_criterion": "Student states that proton number is the same, so the element identity is the same."
+        },
+        {
+          "id": "chemical_property_reason",
+          "title": "Chemical properties",
+          "guiding_question": "Why do isotopes undergo similar chemical reactions?",
+          "locked_controls": [
+            "compare_property",
+            "change_test"
+          ],
+          "active_controls": [
+            "base_element"
+          ],
+          "success_criterion": "Student links similar chemical properties to the same electron arrangement."
+        },
+        {
+          "id": "not_new_element",
+          "title": "Isotope trap",
+          "guiding_question": "What change would make a new element instead of an isotope?",
+          "locked_controls": [
+            "base_element",
+            "neutron_difference"
+          ],
+          "active_controls": [
+            "change_test"
+          ],
+          "success_criterion": "Student identifies proton number change as a new element and neutron change as isotope variation.",
+          "misconception_buster": true
+        },
+        {
+          "id": "free_isotope_compare",
+          "title": "Free compare",
+          "guiding_question": "Can you predict which property labels change before revealing them?",
+          "locked_controls": [],
+          "active_controls": [
+            "base_element",
+            "neutron_difference",
+            "compare_property",
+            "change_test"
+          ],
+          "success_criterion": "Student predicts same chemical properties and different mass-related physical properties for isotopes."
+        }
+      ],
+      "checkpoints": [
+        {
+          "id": "checkpoint_isotope_identity",
+          "after_scenario": "same_element_test",
+          "type": "fill_in_blank",
+          "prompt": "A student says chlorine-35 and chlorine-37 are different elements. What number proves they are the same element?",
+          "answers": [
+            "They have the same proton number, so they are the same element"
+          ]
+        },
+        {
+          "id": "checkpoint_property_summary",
+          "after_scenario": "chemical_property_reason",
+          "type": "fill_in_blank",
+          "prompt": "Complete: Isotopes have the same ___ but different ___.",
+          "answers": [
+            "Isotopes have the same protons and electrons but different neutrons"
+          ]
+        }
+      ],
+      "ui_requirements": {
+        "always_visible": [
+          "reset_button",
+          "current_scenario_title",
+          "rate_readout"
+        ],
+        "syllabus_vocabulary_to_surface": [
+          "proton number",
+          "electrons",
+          "nucleon number",
+          "isotopes",
+          "relative atomic mass",
+          "ions",
+          "electronic configuration",
+          "charge",
+          "shells"
+        ],
+        "tone": "Clear, direct, no childish language. Treat students as capable.",
+        "accessibility": [
+          "colourblind-safe palette",
+          "labels not just colours",
+          "keyboard-navigable controls",
+          "Use locked icons for unchanged protons/electrons and explicit count labels for neutrons."
+        ]
+      }
     },
     {
       "id": "atomic-structure-chlorine-relative-atomic-mass",
-      "source_ref": "page 12",
+      "source_ref": "pages 12 and 13",
       "subject": "O Level Chemistry",
-      "topic": "Chlorine average mass",
+      "topic": "Relative atomic mass",
       "medium": "interactive_html",
-      "mechanism": "Chlorine's relative atomic mass is 35.5 because chlorine-35 contributes 75% of the weighted average and chlorine-37 contributes 25%.",
-      "transferable_principle": "Relative atomic mass is a weighted average of isotope masses using their percentage abundances.",
+      "mechanism": "Chlorine has relative atomic mass 35.5 because chlorine-35 and chlorine-37 contribute to a weighted average using their percentage abundances.",
+      "transferable_principle": "Relative atomic mass is the weighted average of isotope masses, not the mass of one atom.",
       "steps": [
         {
-          "name": "Two isotopes",
-          "beat": "Chlorine exists as chlorine-35 and chlorine-37 rather than as atoms with 35.5 nucleons."
+          "name": "Show the isotopes",
+          "beat": "Place chlorine-35 and chlorine-37 groups side by side with their isotope masses."
         },
         {
-          "name": "Different abundances",
-          "beat": "The sample has more chlorine-35 atoms, represented as 75%, and fewer chlorine-37 atoms, represented as 25%."
+          "name": "Set abundances",
+          "beat": "Represent chlorine-35 as 75% and chlorine-37 as 25% of the sample."
         },
         {
           "name": "Weight each mass",
-          "beat": "Multiply each isotope mass by its abundance: 35 x 75% and 37 x 25%."
+          "beat": "Calculate 35 x 75% and 37 x 25% as separate contributions."
         },
         {
           "name": "Add contributions",
-          "beat": "The weighted contributions add to 35.5, giving chlorine's relative atomic mass."
+          "beat": "Combine the contributions to show chlorine Ar = 35.5."
         }
       ],
       "key_symbols": [
         {
-          "symbol": "chlorine-35 group",
+          "symbol": "35Cl",
           "role": "agent",
-          "meaning": "The more abundant isotope contributing most of the average."
+          "meaning": "The more abundant chlorine isotope at 75%."
         },
         {
-          "symbol": "chlorine-37 group",
+          "symbol": "37Cl",
           "role": "problem",
-          "meaning": "The less abundant heavier isotope that pulls the average upward."
+          "meaning": "The heavier chlorine isotope at 25%."
         },
         {
-          "symbol": "weighted average bar",
+          "symbol": "75% / 25%",
           "role": "highlight",
-          "meaning": "The combined calculation using mass and percentage abundance."
+          "meaning": "Percentage abundances used to weight the average."
         },
         {
-          "symbol": "35.5 Ar result",
+          "symbol": "35.5",
           "role": "resolution",
-          "meaning": "The relative atomic mass shown on the periodic table."
+          "meaning": "The relative atomic mass displayed for chlorine."
         },
         {
-          "symbol": "percentage table",
+          "symbol": "weighted average",
           "role": "neutral",
-          "meaning": "The source data for isotope abundance."
+          "meaning": "Mass multiplied by abundance, then added."
         }
       ],
       "interactivity_hooks": [
-        "Adjust abundance sliders for chlorine-35 and chlorine-37 to see the weighted average move.",
-        "Click each isotope group to reveal its individual contribution to 35.5."
+        "Adjust abundance sliders that must sum to 100% and watch the average move.",
+        "Toggle simple average versus weighted average to expose the trap.",
+        "Click each isotope group to reveal its contribution to 35.5."
       ],
       "output_filename": "atomic-structure-chlorine-relative-atomic-mass.html",
-      "file_path": "artifacts/atomic-structure-chlorine-relative-atomic-mass.html"
+      "file_path": "artifacts/atomic-structure-chlorine-relative-atomic-mass.html",
+      "artifact_metadata": {
+        "title": "Chlorine Relative Atomic Mass",
+        "subject": "O Level Chemistry",
+        "level": "O Level Chemistry",
+        "syllabus_reference": "MOE 6092 Chemistry: Atomic Structure",
+        "estimated_interaction_time_minutes": 8,
+        "prerequisite_concepts": [
+          "Isotopes have different nucleon numbers",
+          "Percentages can weight averages"
+        ]
+      },
+      "learning_design": {
+        "core_aha": "35.5 is an average from many chlorine atoms, not a single atom with half a neutron.",
+        "learning_objectives": [
+          "Students calculate relative atomic mass from isotope mass and percentage abundance.",
+          "Students distinguish weighted average from simple average and explain why relative atomic mass can be decimal.",
+          "Relative atomic mass is the weighted average of isotope masses, not the mass of one atom."
+        ],
+        "target_misconceptions": [
+          {
+            "misconception": "Chlorine has atoms with 35.5 protons plus neutrons.",
+            "correction": "The isotopes are not equally abundant; chlorine-35 is 75% and chlorine-37 is 25%, so a weighted average gives 35.5.",
+            "addressed_in_scenario_id": "not_half_neutron"
+          },
+          {
+            "misconception": "Relative atomic mass is always a whole number because nucleon number is whole.",
+            "correction": "The isotopes are not equally abundant; chlorine-35 is 75% and chlorine-37 is 25%, so a weighted average gives 35.5.",
+            "addressed_in_scenario_id": "not_half_neutron"
+          },
+          {
+            "misconception": "The two isotope masses should be averaged equally regardless of abundance.",
+            "correction": "The isotopes are not equally abundant; chlorine-35 is 75% and chlorine-37 is 25%, so a weighted average gives 35.5.",
+            "addressed_in_scenario_id": "not_half_neutron"
+          },
+          {
+            "misconception": "The more abundant isotope does not affect the average more strongly.",
+            "correction": "The isotopes are not equally abundant; chlorine-35 is 75% and chlorine-37 is 25%, so a weighted average gives 35.5.",
+            "addressed_in_scenario_id": "not_half_neutron"
+          }
+        ]
+      },
+      "representations": {
+        "description": "All views are linked: changing a control updates the particle/subatomic view, the observable outcome, and the symbolic notation or table.",
+        "views": [
+          {
+            "id": "microscopic_isotope_sample",
+            "type": "microscopic",
+            "description": "A sample with more chlorine-35 atoms than chlorine-37 atoms."
+          },
+          {
+            "id": "abundance_bar",
+            "type": "macroscopic",
+            "description": "75% chlorine-35 and 25% chlorine-37 as parts of one sample."
+          },
+          {
+            "id": "weighted_average_equation",
+            "type": "symbolic",
+            "description": "35 x 75% + 37 x 25% = 35.5."
+          },
+          {
+            "id": "ar_result_display",
+            "type": "macroscopic",
+            "description": "Relative atomic mass of chlorine as 35.5 on the periodic table."
+          }
+        ]
+      },
+      "controls": [
+        {
+          "id": "chlorine_35_abundance",
+          "label": "35Cl abundance",
+          "type": "slider",
+          "default": 75,
+          "affects": [
+            "microscopic_isotope_sample",
+            "abundance_bar",
+            "weighted_average_equation",
+            "ar_result_display"
+          ],
+          "min": 0,
+          "max": 100,
+          "step": 5
+        },
+        {
+          "id": "calculation_mode",
+          "label": "Calculation mode",
+          "type": "discrete",
+          "default": "weighted_average",
+          "affects": [
+            "weighted_average_equation",
+            "ar_result_display",
+            "checkpoint_average_trap"
+          ],
+          "options": [
+            "weighted_average",
+            "simple_average"
+          ]
+        },
+        {
+          "id": "show_contributions",
+          "label": "Show contributions",
+          "type": "toggle",
+          "default": true,
+          "affects": [
+            "weighted_average_equation",
+            "abundance_bar"
+          ]
+        },
+        {
+          "id": "sample_size",
+          "label": "Sample atoms",
+          "type": "slider",
+          "default": 100,
+          "affects": [
+            "microscopic_isotope_sample",
+            "abundance_bar"
+          ],
+          "min": 20,
+          "max": 100,
+          "step": 20
+        }
+      ],
+      "scenarios": [
+        {
+          "id": "recreate_pdf_calculation",
+          "title": "Recreate 35.5",
+          "guiding_question": "How do 75% chlorine-35 and 25% chlorine-37 give 35.5?",
+          "locked_controls": [
+            "chlorine_35_abundance",
+            "calculation_mode",
+            "show_contributions"
+          ],
+          "active_controls": [],
+          "success_criterion": "Student reads 35 x 75% + 37 x 25% = 35.5 as a weighted average."
+        },
+        {
+          "id": "abundance_pull",
+          "title": "Abundance pull",
+          "guiding_question": "What happens to Ar when chlorine-37 becomes more common?",
+          "locked_controls": [
+            "calculation_mode",
+            "show_contributions"
+          ],
+          "active_controls": [
+            "chlorine_35_abundance"
+          ],
+          "success_criterion": "Student predicts the average increases as the heavier isotope becomes more abundant."
+        },
+        {
+          "id": "not_half_neutron",
+          "title": "Decimal trap",
+          "guiding_question": "Does 35.5 mean one chlorine atom has half a neutron?",
+          "locked_controls": [
+            "chlorine_35_abundance",
+            "calculation_mode"
+          ],
+          "active_controls": [
+            "sample_size"
+          ],
+          "success_criterion": "Student explains that 35.5 is an average across many isotope atoms.",
+          "misconception_buster": true
+        },
+        {
+          "id": "free_weighted_average",
+          "title": "Free average",
+          "guiding_question": "Can you predict the average before the display reveals it?",
+          "locked_controls": [],
+          "active_controls": [
+            "chlorine_35_abundance",
+            "calculation_mode",
+            "show_contributions",
+            "sample_size"
+          ],
+          "success_criterion": "Student uses weighted average logic and rejects the simple-average trap when abundances differ."
+        }
+      ],
+      "checkpoints": [
+        {
+          "id": "checkpoint_average_trap",
+          "after_scenario": "recreate_pdf_calculation",
+          "type": "fill_in_blank",
+          "prompt": "A student calculates (35 + 37) / 2 = 36. Why is that not the chlorine value in the notes?",
+          "answers": [
+            "The isotopes are not equally abundant"
+          ]
+        },
+        {
+          "id": "checkpoint_ar_summary",
+          "after_scenario": "abundance_pull",
+          "type": "fill_in_blank",
+          "prompt": "In one sentence, explain why chlorine Ar is 35.5.",
+          "answers": [
+            "Chlorine Ar is 35"
+          ]
+        }
+      ],
+      "ui_requirements": {
+        "always_visible": [
+          "reset_button",
+          "current_scenario_title",
+          "rate_readout"
+        ],
+        "syllabus_vocabulary_to_surface": [
+          "relative atomic mass",
+          "proton number",
+          "nucleon number",
+          "isotopes",
+          "ions",
+          "electronic configuration",
+          "charge",
+          "shells",
+          "electrons"
+        ],
+        "tone": "Clear, direct, no childish language. Treat students as capable.",
+        "accessibility": [
+          "colourblind-safe palette",
+          "labels not just colours",
+          "keyboard-navigable controls",
+          "Show percentages and counts as text, not only bar lengths."
+        ]
+      }
     },
     {
       "id": "atomic-structure-og-element-notation-method",
       "source_ref": "page 14",
       "subject": "O Level Chemistry",
-      "topic": "Element notation method",
+      "topic": "Oganesson notation MCQ",
       "medium": "interactive_html",
-      "mechanism": "For neutral oganesson-294, the lower number 118 gives both protons and electrons, while neutrons are found by subtracting 118 from the nucleon number 294.",
-      "transferable_principle": "In nuclide notation, proton number identifies protons and neutral-atom electrons, while nucleon number minus proton number gives neutrons.",
+      "mechanism": "For neutral oganesson-294, proton number 118 gives protons and electrons, while 294 - 118 gives 176 neutrons.",
+      "transferable_principle": "For a neutral atom, read proton number for protons and electrons, then subtract from nucleon number for neutrons.",
       "steps": [
         {
-          "name": "Read the lower number",
-          "beat": "The proton number is 118, so an atom of oganesson contains 118 protons."
+          "name": "Read proton number",
+          "beat": "Highlight the lower 118 in oganesson notation as the proton number."
         },
         {
-          "name": "Use neutrality",
-          "beat": "Because the question asks about an atom, the number of electrons equals the number of protons."
+          "name": "Use neutral atom rule",
+          "beat": "Because the question asks for an atom, set electrons equal to 118 protons."
         },
         {
-          "name": "Subtract for neutrons",
-          "beat": "The nucleon number is 294, so neutrons are 294 - 118 = 176."
+          "name": "Read nucleon number",
+          "beat": "Highlight the upper 294 as protons plus neutrons."
         },
         {
-          "name": "Choose statement C",
-          "beat": "The correct statement is that it contains 118 protons and 176 neutrons."
+          "name": "Subtract neutrons",
+          "beat": "Calculate 294 - 118 = 176 neutrons."
+        },
+        {
+          "name": "Choose option C",
+          "beat": "Select the statement with 118 protons and 176 neutrons."
         }
       ],
       "key_symbols": [
         {
-          "symbol": "118 proton number",
-          "role": "agent",
-          "meaning": "The number that determines protons and neutral-atom electrons."
-        },
-        {
-          "symbol": "294 nucleon number",
+          "symbol": "Og",
           "role": "neutral",
-          "meaning": "The total number of protons and neutrons."
+          "meaning": "Oganesson element symbol in the MCQ."
         },
         {
-          "symbol": "subtraction bracket",
+          "symbol": "118",
+          "role": "agent",
+          "meaning": "Proton number, giving protons and neutral-atom electrons."
+        },
+        {
+          "symbol": "294",
           "role": "highlight",
-          "meaning": "The calculation used to find neutrons."
+          "meaning": "Nucleon number, total protons plus neutrons."
         },
         {
-          "symbol": "wrong answer options",
-          "role": "problem",
-          "meaning": "Distractors that confuse electrons, protons, and nucleons."
-        },
-        {
-          "symbol": "option C",
+          "symbol": "176 neutrons",
           "role": "resolution",
-          "meaning": "The statement matching the particle counts."
+          "meaning": "The subtraction result 294 - 118."
+        },
+        {
+          "symbol": "distractors",
+          "role": "problem",
+          "meaning": "Answer options that confuse nucleons, protons, electrons, or neutrons."
         }
       ],
       "interactivity_hooks": [
-        "Click each answer option to see which count rule it violates.",
-        "Reveal proton, electron, and neutron counts one at a time from the notation."
+        "Click upper number, lower number, and symbol to reveal what each controls.",
+        "Select each MCQ option and see which count rule it violates.",
+        "Toggle atom versus ion wording to see why neutral atom matters for electrons."
       ],
       "output_filename": "atomic-structure-og-element-notation-method.html",
-      "file_path": "artifacts/atomic-structure-og-element-notation-method.html"
+      "file_path": "artifacts/atomic-structure-og-element-notation-method.html",
+      "artifact_metadata": {
+        "title": "Oganesson Notation MCQ Method",
+        "subject": "O Level Chemistry",
+        "level": "O Level Chemistry",
+        "syllabus_reference": "MOE 6092 Chemistry: Atomic Structure",
+        "estimated_interaction_time_minutes": 7,
+        "prerequisite_concepts": [
+          "Proton number identifies protons",
+          "Nucleon number is protons plus neutrons",
+          "Neutral atoms have equal protons and electrons"
+        ]
+      },
+      "learning_design": {
+        "core_aha": "I can beat the MCQ by labelling each number before looking at the answer options.",
+        "learning_objectives": [
+          "Students use proton number, nucleon number, and neutral atom rules to evaluate MCQ distractors.",
+          "Students justify why option C is correct and why the other options misuse nucleons, protons, or electrons.",
+          "For a neutral atom, read proton number for protons and electrons, then subtract from nucleon number for neutrons."
+        ],
+        "target_misconceptions": [
+          {
+            "misconception": "Nucleon number is the number of neutrons.",
+            "correction": "176 is the number of neutrons; the nucleon number is 294.",
+            "addressed_in_scenario_id": "distractor_filter"
+          },
+          {
+            "misconception": "The lower number gives electrons only, not protons.",
+            "correction": "176 is the number of neutrons; the nucleon number is 294.",
+            "addressed_in_scenario_id": "distractor_filter"
+          },
+          {
+            "misconception": "A neutral atom can have a different number of electrons and protons.",
+            "correction": "176 is the number of neutrons; the nucleon number is 294.",
+            "addressed_in_scenario_id": "distractor_filter"
+          },
+          {
+            "misconception": "Option wording with nucleons can replace neutrons without changing meaning.",
+            "correction": "176 is the number of neutrons; the nucleon number is 294.",
+            "addressed_in_scenario_id": "distractor_filter"
+          }
+        ]
+      },
+      "representations": {
+        "description": "All views are linked: changing a control updates the particle/subatomic view, the observable outcome, and the symbolic notation or table.",
+        "views": [
+          {
+            "id": "microscopic_og_atom",
+            "type": "microscopic",
+            "description": "A compressed nucleus/count view for 118 protons and 176 neutrons with 118 electrons for a neutral atom."
+          },
+          {
+            "id": "symbolic_og_notation",
+            "type": "symbolic",
+            "description": "294 over 118 Og with callouts for nucleon number and proton number."
+          },
+          {
+            "id": "subtraction_working",
+            "type": "symbolic",
+            "description": "294 - 118 = 176 neutrons."
+          },
+          {
+            "id": "mcq_option_table",
+            "type": "macroscopic",
+            "description": "Options A-D with rule-based feedback and final answer C."
+          }
+        ]
+      },
+      "controls": [
+        {
+          "id": "reveal_step",
+          "label": "Reveal step",
+          "type": "slider",
+          "default": 1,
+          "affects": [
+            "symbolic_og_notation",
+            "subtraction_working",
+            "mcq_option_table"
+          ],
+          "min": 1,
+          "max": 5,
+          "step": 1
+        },
+        {
+          "id": "selected_option",
+          "label": "Answer option",
+          "type": "discrete",
+          "default": "A",
+          "affects": [
+            "mcq_option_table",
+            "checkpoint_distractor_reason"
+          ],
+          "options": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ]
+        },
+        {
+          "id": "particle_count_focus",
+          "label": "Count focus",
+          "type": "discrete",
+          "default": "protons",
+          "affects": [
+            "microscopic_og_atom",
+            "symbolic_og_notation",
+            "subtraction_working"
+          ],
+          "options": [
+            "protons",
+            "electrons",
+            "neutrons",
+            "nucleons"
+          ]
+        },
+        {
+          "id": "question_wording",
+          "label": "Question wording",
+          "type": "discrete",
+          "default": "atom",
+          "affects": [
+            "microscopic_og_atom",
+            "mcq_option_table"
+          ],
+          "options": [
+            "atom",
+            "ion"
+          ]
+        }
+      ],
+      "scenarios": [
+        {
+          "id": "label_numbers_first",
+          "title": "Label first",
+          "guiding_question": "Before reading options, what do 294 and 118 mean?",
+          "locked_controls": [
+            "reveal_step",
+            "question_wording"
+          ],
+          "active_controls": [
+            "particle_count_focus"
+          ],
+          "success_criterion": "Student labels 294 as nucleon number and 118 as proton number."
+        },
+        {
+          "id": "neutral_atom_electrons",
+          "title": "Neutral atom rule",
+          "guiding_question": "Why does oganesson have 118 electrons in this question?",
+          "locked_controls": [
+            "reveal_step",
+            "question_wording",
+            "particle_count_focus"
+          ],
+          "active_controls": [],
+          "success_criterion": "Student states that an atom is neutral, so electrons equal protons."
+        },
+        {
+          "id": "distractor_filter",
+          "title": "Filter options",
+          "guiding_question": "Which options misuse nucleons, protons, or neutrons?",
+          "locked_controls": [
+            "reveal_step",
+            "question_wording"
+          ],
+          "active_controls": [
+            "selected_option"
+          ],
+          "success_criterion": "Student selects C and explains that 176 is neutrons, not nucleons or protons.",
+          "misconception_buster": true
+        },
+        {
+          "id": "free_og_method",
+          "title": "Free method",
+          "guiding_question": "Can you solve by count rules before choosing an option?",
+          "locked_controls": [],
+          "active_controls": [
+            "reveal_step",
+            "selected_option",
+            "particle_count_focus",
+            "question_wording"
+          ],
+          "success_criterion": "Student arrives at 118 protons, 118 electrons, 176 neutrons, and option C."
+        }
+      ],
+      "checkpoints": [
+        {
+          "id": "checkpoint_distractor_reason",
+          "after_scenario": "label_numbers_first",
+          "type": "fill_in_blank",
+          "prompt": "Why is option D, 118 protons and 176 nucleons, wrong?",
+          "answers": [
+            "176 is the number of neutrons"
+          ]
+        },
+        {
+          "id": "checkpoint_og_summary",
+          "after_scenario": "neutral_atom_electrons",
+          "type": "fill_in_blank",
+          "prompt": "Write the three particle counts for a neutral atom of oganesson-294.",
+          "answers": [
+            "118 protons, 118 electrons, and 176 neutrons"
+          ]
+        }
+      ],
+      "ui_requirements": {
+        "always_visible": [
+          "reset_button",
+          "current_scenario_title",
+          "rate_readout"
+        ],
+        "syllabus_vocabulary_to_surface": [
+          "proton number",
+          "nucleon number",
+          "isotopes",
+          "relative atomic mass",
+          "ions",
+          "electronic configuration",
+          "charge",
+          "shells",
+          "electrons"
+        ],
+        "tone": "Clear, direct, no childish language. Treat students as capable.",
+        "accessibility": [
+          "colourblind-safe palette",
+          "labels not just colours",
+          "keyboard-navigable controls",
+          "Provide text feedback for each option, not just correct/incorrect colour."
+        ]
+      }
     },
     {
       "id": "atomic-structure-two-minus-ion-selection-method",
       "source_ref": "page 15",
       "subject": "O Level Chemistry",
-      "topic": "2- ion selection",
+      "topic": "2- ion MCQ method",
       "medium": "interactive_html",
       "mechanism": "A 2- ion with electronic structure 2,8,8 has 18 electrons after gaining two, so the neutral atom had 16 electrons and proton number 16.",
-      "transferable_principle": "To work backward from a negative ion, subtract gained electrons from the ion's electron count to find the neutral atom's proton number.",
+      "transferable_principle": "To work backward from a negative ion, subtract gained electrons from the ion electron count to find the neutral atom proton number.",
       "steps": [
         {
           "name": "Count ion electrons",
-          "beat": "The electronic structure 2,8,8 totals 18 electrons in the ion."
+          "beat": "Add 2 + 8 + 8 to show the ion has 18 electrons."
         },
         {
-          "name": "Interpret 2- charge",
-          "beat": "A 2- ion formed when the atom gained two electrons."
+          "name": "Read 2- charge",
+          "beat": "Interpret 2- as the atom having gained two electrons."
         },
         {
           "name": "Reverse the gain",
-          "beat": "Subtract the gained electrons: 18 - 2 = 16 electrons in the neutral atom."
+          "beat": "Subtract two gained electrons to get 16 electrons in the neutral atom."
         },
         {
-          "name": "Match proton number",
-          "beat": "A neutral atom with 16 electrons has 16 protons, so the option with proton number 16 is correct."
+          "name": "Use neutrality",
+          "beat": "Match 16 neutral electrons to proton number 16."
+        },
+        {
+          "name": "Choose option B",
+          "beat": "Select the option with proton number 16."
         }
       ],
       "key_symbols": [
         {
-          "symbol": "2,8,8 shells",
+          "symbol": "2,8,8",
           "role": "neutral",
-          "meaning": "The ion's electron arrangement and total electron count."
+          "meaning": "The electronic structure of the ion, totalling 18 electrons."
         },
         {
-          "symbol": "2- charge",
+          "symbol": "2-",
           "role": "problem",
-          "meaning": "The clue that two electrons were gained."
+          "meaning": "The charge showing that two electrons were gained."
         },
         {
-          "symbol": "reverse arrow",
+          "symbol": "18 - 2",
           "role": "agent",
-          "meaning": "The reasoning step that removes the gained electrons to recover the neutral atom."
+          "meaning": "Reverse step from ion electrons to neutral atom electrons."
         },
         {
           "symbol": "proton number 16",
           "role": "resolution",
-          "meaning": "The matching neutral atom proton number."
+          "meaning": "The neutral atom proton number matching option B."
         },
         {
-          "symbol": "answer choices",
+          "symbol": "answer B",
           "role": "highlight",
-          "meaning": "The options filtered by proton number."
+          "meaning": "The MCQ option with lower number 16."
         }
       ],
       "interactivity_hooks": [
-        "Click the 2, 8, and 8 shell labels to build the total of 18 electrons.",
-        "Toggle ion charge between 1- and 2- to see how the neutral proton number changes.",
-        "Select each option to test whether its proton number matches the reversed count."
+        "Click shell numbers 2, 8, and 8 to build the ion electron total.",
+        "Toggle 1-, 2-, and 2+ charges to see whether electrons are added or removed when reversing.",
+        "Select each option to test whether its proton number matches the neutral atom."
       ],
       "output_filename": "atomic-structure-two-minus-ion-selection-method.html",
-      "file_path": "artifacts/atomic-structure-two-minus-ion-selection-method.html"
+      "file_path": "artifacts/atomic-structure-two-minus-ion-selection-method.html",
+      "artifact_metadata": {
+        "title": "2- Ion Selection MCQ Method",
+        "subject": "O Level Chemistry",
+        "level": "O Level Chemistry",
+        "syllabus_reference": "MOE 6092 Chemistry: Atomic Structure",
+        "estimated_interaction_time_minutes": 8,
+        "prerequisite_concepts": [
+          "Electronic configuration counts electrons",
+          "Negative ions form by gaining electrons",
+          "Neutral atoms have electrons equal to proton number"
+        ]
+      },
+      "learning_design": {
+        "core_aha": "A 2- ion has two extra electrons, so I work backward from 18 to the neutral atom's 16 protons.",
+        "learning_objectives": [
+          "Students reverse ion formation from charge and electronic configuration to identify the atom proton number.",
+          "Students use ion electron count and charge to choose the nuclide option with proton number 16.",
+          "To work backward from a negative ion, subtract gained electrons from the ion electron count to find the neutral atom proton number."
+        ],
+        "target_misconceptions": [
+          {
+            "misconception": "A 2- charge means the atom lost two electrons.",
+            "correction": "A 2- ion formed when the atom gained two electrons, so reverse by subtracting two from the ion electron count.",
+            "addressed_in_scenario_id": "reject_eighteen_protons"
+          },
+          {
+            "misconception": "The 2,8,8 electron count belongs to the neutral atom, not the ion.",
+            "correction": "A 2- ion formed when the atom gained two electrons, so reverse by subtracting two from the ion electron count.",
+            "addressed_in_scenario_id": "reject_eighteen_protons"
+          },
+          {
+            "misconception": "The correct proton number is 18 because the ion has 18 electrons.",
+            "correction": "A 2- ion formed when the atom gained two electrons, so reverse by subtracting two from the ion electron count.",
+            "addressed_in_scenario_id": "reject_eighteen_protons"
+          },
+          {
+            "misconception": "The upper nucleon number should be used to decide electronic configuration.",
+            "correction": "A 2- ion formed when the atom gained two electrons, so reverse by subtracting two from the ion electron count.",
+            "addressed_in_scenario_id": "reject_eighteen_protons"
+          }
+        ]
+      },
+      "representations": {
+        "description": "All views are linked: changing a control updates the particle/subatomic view, the observable outcome, and the symbolic notation or table.",
+        "views": [
+          {
+            "id": "microscopic_ion_shell_view",
+            "type": "microscopic",
+            "description": "A 2- ion with electrons arranged 2,8,8 and two marked extra electrons."
+          },
+          {
+            "id": "symbolic_electron_configuration",
+            "type": "symbolic",
+            "description": "2,8,8 summed to 18 ion electrons."
+          },
+          {
+            "id": "charge_reverse_equation",
+            "type": "symbolic",
+            "description": "neutral atom electrons = 18 - 2 = 16."
+          },
+          {
+            "id": "option_nuclide_table",
+            "type": "macroscopic",
+            "description": "Options A-D with proton numbers 8, 16, 18, and 20; option B highlighted."
+          }
+        ]
+      },
+      "controls": [
+        {
+          "id": "shell_total_reveal",
+          "label": "Shell total reveal",
+          "type": "slider",
+          "default": 1,
+          "affects": [
+            "symbolic_electron_configuration",
+            "microscopic_ion_shell_view"
+          ],
+          "min": 1,
+          "max": 3,
+          "step": 1
+        },
+        {
+          "id": "ion_charge",
+          "label": "Ion charge",
+          "type": "discrete",
+          "default": "2-",
+          "affects": [
+            "microscopic_ion_shell_view",
+            "charge_reverse_equation",
+            "option_nuclide_table"
+          ],
+          "options": [
+            "1-",
+            "2-",
+            "2+"
+          ]
+        },
+        {
+          "id": "selected_option",
+          "label": "Answer option",
+          "type": "discrete",
+          "default": "A",
+          "affects": [
+            "option_nuclide_table",
+            "checkpoint_charge_direction"
+          ],
+          "options": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ]
+        },
+        {
+          "id": "show_reverse_arrow",
+          "label": "Show reverse arrow",
+          "type": "toggle",
+          "default": true,
+          "affects": [
+            "charge_reverse_equation",
+            "microscopic_ion_shell_view"
+          ]
+        }
+      ],
+      "scenarios": [
+        {
+          "id": "count_ion_electrons",
+          "title": "Count the ion",
+          "guiding_question": "How many electrons are in a 2,8,8 ion?",
+          "locked_controls": [
+            "ion_charge",
+            "shell_total_reveal",
+            "show_reverse_arrow"
+          ],
+          "active_controls": [],
+          "success_criterion": "Student totals 2 + 8 + 8 = 18 electrons in the ion."
+        },
+        {
+          "id": "reverse_two_minus",
+          "title": "Reverse 2-",
+          "guiding_question": "If the ion has gained two electrons, how many did the neutral atom have?",
+          "locked_controls": [
+            "ion_charge",
+            "shell_total_reveal",
+            "show_reverse_arrow"
+          ],
+          "active_controls": [],
+          "success_criterion": "Student subtracts 2 from 18 to get 16 neutral atom electrons."
+        },
+        {
+          "id": "reject_eighteen_protons",
+          "title": "18-electron trap",
+          "guiding_question": "Why is proton number 18 not the answer?",
+          "locked_controls": [
+            "ion_charge",
+            "shell_total_reveal",
+            "show_reverse_arrow"
+          ],
+          "active_controls": [
+            "selected_option"
+          ],
+          "success_criterion": "Student explains that 18 is the ion electron count, while the neutral atom proton number is 16.",
+          "misconception_buster": true
+        },
+        {
+          "id": "free_ion_mcq",
+          "title": "Free method",
+          "guiding_question": "Can you choose the atom by reversing the ion formation?",
+          "locked_controls": [],
+          "active_controls": [
+            "shell_total_reveal",
+            "ion_charge",
+            "selected_option",
+            "show_reverse_arrow"
+          ],
+          "success_criterion": "Student selects option B and justifies proton number 16."
+        }
+      ],
+      "checkpoints": [
+        {
+          "id": "checkpoint_charge_direction",
+          "after_scenario": "count_ion_electrons",
+          "type": "fill_in_blank",
+          "prompt": "A student says 2- means the neutral atom lost two electrons. What is the correct direction?",
+          "answers": [
+            "A 2- ion formed when the atom gained two electrons, so reverse by subtracting..."
+          ]
+        },
+        {
+          "id": "checkpoint_ion_mcq_summary",
+          "after_scenario": "reverse_two_minus",
+          "type": "fill_in_blank",
+          "prompt": "Explain the page 15 answer in one sentence.",
+          "answers": [
+            "The ion has 18 electrons, a 2- ion has gained 2 electrons, so the neutral ato..."
+          ]
+        }
+      ],
+      "ui_requirements": {
+        "always_visible": [
+          "reset_button",
+          "current_scenario_title",
+          "rate_readout"
+        ],
+        "syllabus_vocabulary_to_surface": [
+          "proton number",
+          "nucleon number",
+          "isotopes",
+          "relative atomic mass",
+          "ions",
+          "electronic configuration",
+          "charge",
+          "shells",
+          "electrons"
+        ],
+        "tone": "Clear, direct, no childish language. Treat students as capable.",
+        "accessibility": [
+          "colourblind-safe palette",
+          "labels not just colours",
+          "keyboard-navigable controls",
+          "Always show numeric shell totals and proton numbers beside option labels."
+        ]
+      }
     }
   ],
   "house_style": {
@@ -522,7 +2728,7 @@
       "body": "Inter Tight",
       "mono": "JetBrains Mono"
     },
-    "layout": "header, two-column stage/sidebar, caption bar, controls, steps list, reference panels",
+    "layout": "header, linked particle/symbolic/macroscopic panels, scenario rail, controls, checkpoints, reference panels",
     "keyboard": [
       "ArrowLeft previous",
       "ArrowRight next",

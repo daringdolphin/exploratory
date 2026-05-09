@@ -61,7 +61,7 @@ const bundleConfigs: BundleConfig[] = [
       "Animated and interactive notes about reaction rate, collision theory, concentration, pressure, temperature, and catalysts.",
     sourceFile: "[O LEVEL CHEMISTRY] Rate of Reaction - demo.pdf",
     sourcePath: "seed/[O LEVEL CHEMISTRY] Rate of Reaction - demo.pdf",
-    manifest: rateManifest as SeedManifest,
+    manifest: rateManifest as unknown as SeedManifest,
   },
   {
     id: "atomic-structure",
@@ -70,19 +70,12 @@ const bundleConfigs: BundleConfig[] = [
       "Particle-level notes about atomic structure, ions, charge, isotope reasoning, and worked notation questions.",
     sourceFile: "[O LEVEL CHEMISTRY] Atomic Structure - demo.pdf",
     sourcePath: "seed/[O LEVEL CHEMISTRY] Atomic Structure - demo.pdf",
-    manifest: atomicManifest as SeedManifest,
+    manifest: atomicManifest as unknown as SeedManifest,
   },
 ];
 
 function toSchemaArtifact(artifact: ArtifactSpec & { file_path?: string }) {
-  return artifactSpecSchema.parse({
-    ...artifact,
-    interactivity_hooks: artifact.interactivity_hooks
-      .slice(0, 5)
-      .map((hook) =>
-        hook.length > 140 ? `${hook.slice(0, 137)}...` : hook,
-      ),
-  });
+  return artifactSpecSchema.parse(artifact);
 }
 
 function makeArtifacts({

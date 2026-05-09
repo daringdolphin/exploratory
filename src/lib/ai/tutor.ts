@@ -66,6 +66,21 @@ export const chatTutorTools = {
             artifact.source_ref,
             artifact.mechanism,
             artifact.transferable_principle,
+            artifact.learning_design.core_aha,
+            ...artifact.learning_design.learning_objectives,
+            ...artifact.learning_design.target_misconceptions.flatMap(
+              (item) => [item.misconception, item.correction],
+            ),
+            ...artifact.controls.map(
+              (control) =>
+                `${control.label} ${control.affects.join(" ")} ${control.id}`,
+            ),
+            ...artifact.scenarios.map(
+              (scenario) =>
+                `${scenario.title} ${scenario.guiding_question} ${
+                  scenario.success_criterion ?? ""
+                }`,
+            ),
             ...artifact.steps.map((step) => `${step.name} ${step.beat}`),
             ...artifact.key_symbols.map(
               (symbol) => `${symbol.symbol} ${symbol.meaning}`,
@@ -106,9 +121,9 @@ export const chatTutorTools = {
   }),
   buildArtifact: tool({
     description:
-      "Create one follow-up interactive HTML artifact when a student needs to see a causal mechanism, comparison, worked example, or parameter change. Default to a canvas-based animated simulation when the mechanism involves motion or change; include meaningful slider/state/practice hooks when probing would teach the concept. The shared build_artifact renderer must still receive a valid ArtifactSpec.",
+      "Create one follow-up interactive HTML teaching artifact when a student needs to predict, test, and connect a causal mechanism across linked representations. Default to animated canvas plus meaningful controls for motion, collisions, rates, particle changes, graph changes, or symbolic transformations.",
     inputSchema: artifactSpecSchema.describe(
-      "A complete ArtifactSpec. Use 3-5 concise visual beats, shared semantic roles, and canvas-friendly deterministic states/interactions for mechanisms with motion, collision, flow, rate, growth, decay, state change, or changing parameters. Keep it self-contained and compatible with sandboxed iframe rendering.",
+      "A complete v2 ArtifactSpec. Fill the learning_design, representations, controls, scenarios, checkpoints, and ui_requirements fields. Scenarios must use predict-then-test, active/locked controls, linked microscopic/macroscopic/symbolic representations, and at least one checkpoint. Keep it self-contained and compatible with sandboxed iframe rendering.",
     ),
     execute: async (spec) => ({
       ...buildArtifact(spec),
@@ -168,6 +183,13 @@ function toArtifactSpec(artifact: ArtifactSpec): ArtifactSpec {
     key_symbols: artifact.key_symbols,
     interactivity_hooks: artifact.interactivity_hooks,
     output_filename: artifact.output_filename,
+    artifact_metadata: artifact.artifact_metadata,
+    learning_design: artifact.learning_design,
+    representations: artifact.representations,
+    controls: artifact.controls,
+    scenarios: artifact.scenarios,
+    checkpoints: artifact.checkpoints,
+    ui_requirements: artifact.ui_requirements,
   };
 }
 
@@ -177,6 +199,7 @@ function buildInstructions(context: TutorContext) {
 Your job is to help a student understand the notes and seeded explainer artifacts. You can answer directly in text, or call buildArtifact to create a follow-up interactive artifact that the webapp can render.
 
 Shared pedagogy:
+- Teaching design comes before rendering. For every artifact, first decide the core_aha, target misconceptions, linked representations, constrained scenarios, and checkpoint; then encode those in the schema.
 - When notes are ingested or a note set is planned, extract key concepts, write concrete learning outcomes, and storyboard the learning path before creating individual artifacts.
 - Treat the core artifact flow like a storyboarding exercise: each artifact is one visual beat in a sequence that moves from concrete observation to mechanism to transferable exam reasoning.
 - Show the mechanism, never just the conclusion.
@@ -184,6 +207,11 @@ Shared pedagogy:
 - Use concrete particle-level reasoning before formulas or symbols.
 - Keep artifact steps as 3-5 visual beats, not paragraphs.
 - Use semantic roles consistently: problem, agent, resolution, neutral, highlight.
+- Use predict-then-test: scenarios should ask for a prediction before controls become active.
+- Use multiple linked representations: microscopic, macroscopic, and symbolic views should all change in response to the same control.
+- Use constrained exploration before free play. Prefer 2-4 deliberate scenarios with locked controls over an open sandbox.
+- Surface at least one misconception when the topic has a known trap, and include a checkpoint that makes the student articulate the mechanism.
+- Honor O-Level/MOE vocabulary exactly when relevant.
 - Do not invent a mechanism when the source context is too thin. Say what is known, narrow the scope, or ask the student for the relevant note page.
 
 When asked to ingest, map, plan, or rebuild notes:
@@ -205,11 +233,18 @@ Artifact rules:
 - medium must be "interactive_html".
 - id should be kebab-style and source_ref should be "follow_up:<parent_id>" when it follows the selected artifact.
 - output_filename must end in .html.
+- artifact_metadata should match the current note set and O-Level context.
+- learning_design.core_aha must be a crisp one-sentence target realization.
+- representations.views must include microscopic, macroscopic, and symbolic views. Describe what each view makes visible.
+- controls must be bounded and meaningful. Use sliders, toggles, discrete controls, selects, or steppers only when changing them tests the scenario question.
+- scenarios must include guiding_question, active_controls, locked_controls, and success_criterion. Put free play last only after constrained scenarios.
+- checkpoints should be fill_in_blank, matching, or multiple_choice, and should follow a scenario where the student has enough evidence to answer.
+- ui_requirements.syllabus_vocabulary_to_surface should list the exact exam vocabulary the artifact should scaffold.
 - Use the same house style through the buildArtifact tool. Do not write HTML in your message and do not inject arbitrary React, DOM, scripts, or styles outside the tool.
 - Canvas-first default: when the mechanism involves motion, collision, rate, flow, growth, decay, state change, or a parameter changing an outcome, shape the ArtifactSpec so buildArtifact/build_artifact renders an animated canvas simulation rather than a static SVG-style diagram.
 - Static or mostly static visuals are acceptable only when motion would not add understanding, such as a pure label map, classification, or short symbolic worked example. Do not use static SVG as the default for mechanisms that unfold over time.
 - Keep the simulation bounded and pedagogically meaningful: one concept, deterministic/reproducible motion as much as practical, 3-5 visible states, and controls that answer a student question rather than adding decorative motion. Prefer sliders, state toggles, compare modes, and quick-practice checks when they let the student probe cause and effect.
-- Preserve chat-window compatibility: the mechanism, transferable_principle, steps, key_symbols, and interactivity_hooks must carry the explanation even if the iframe/canvas is unavailable. Never make motion the only source of meaning.
+- Preserve chat-window compatibility: the mechanism, transferable_principle, steps, key_symbols, interactivity_hooks, scenarios, and checkpoints must carry the explanation even if the iframe/canvas is unavailable. Never make motion the only source of meaning.
 - Chat rendering safety: artifacts are self-contained HTML for a sandboxed iframe using sandbox="allow-scripts" without allow-same-origin. They must not rely on remote scripts/assets, cookies, storage, parent page access, popups, navigation, network calls, or unbounded JavaScript.
 - Animation expectations for rendered artifacts: use requestAnimationFrame for motion, respect prefers-reduced-motion, pause when the document is hidden, and keep CPU/work per frame small.
 
@@ -249,15 +284,30 @@ function toTutorPromptContext(context: TutorContext) {
           })),
           learningOutcomes: context.noteSet.artifacts
             .slice(0, 8)
-            .map((artifact) => artifact.transferable_principle),
+            .flatMap((artifact) => artifact.learning_design.learning_objectives)
+            .slice(0, 8),
           coreArtifactFlow: context.noteSet.artifacts.map((artifact) => ({
             id: artifact.id,
             topic: artifact.topic,
             source_ref: artifact.source_ref,
+            core_aha: artifact.learning_design.core_aha,
             mechanism: artifact.mechanism,
             transferable_principle: artifact.transferable_principle,
-            probe_controls: artifact.interactivity_hooks,
-            beats: artifact.steps.map((step) => step.name),
+            target_misconceptions:
+              artifact.learning_design.target_misconceptions.map(
+                (item) => item.misconception,
+              ),
+            scenarios: artifact.scenarios.map((scenario) => ({
+              id: scenario.id,
+              title: scenario.title,
+              guiding_question: scenario.guiding_question,
+              active_controls: scenario.active_controls,
+            })),
+            controls: artifact.controls.map((control) => ({
+              id: control.id,
+              label: control.label,
+              affects: control.affects,
+            })),
           })),
         }
       : null,

@@ -61,6 +61,7 @@ type LearningPlan = {
     label: string;
     sourceRef: string;
     role: string;
+    coreAha: string;
   }>;
   outcomes: string[];
   storyboard: Array<{
@@ -70,6 +71,9 @@ type LearningPlan = {
     mechanism: string;
     outcome: string;
     origin: "seed" | "generated";
+    coreAha: string;
+    scenarioCount: number;
+    checkpointCount: number;
   }>;
 };
 
@@ -219,10 +223,10 @@ export function TutorWorkspace({ noteSets }: TutorWorkspaceProps) {
                 <Layers3 aria-hidden="true" />
                 Storyboard
               </p>
-              <h2>Concepts to artifact flow</h2>
+              <h2>Teaching design flow</h2>
               <p>
-                Key concepts and outcomes are extracted from the note set, then
-                ordered as a guided run of core artifacts.
+                Each artifact now starts from a core aha, constrained
+                scenarios, linked representations, and a checkpoint.
               </p>
             </div>
 
@@ -234,7 +238,7 @@ export function TutorWorkspace({ noteSets }: TutorWorkspaceProps) {
                   </span>
                   <span>
                     <strong>{concept.label}</strong>
-                    <small>{concept.sourceRef}</small>
+                    <small>{compactText(concept.coreAha, 96)}</small>
                   </span>
                 </div>
               ))}
@@ -274,7 +278,11 @@ export function TutorWorkspace({ noteSets }: TutorWorkspaceProps) {
                     </span>
                     <span className="flow-copy">
                       <strong>{beat.topic}</strong>
-                      <small>{compactText(beat.mechanism, 102)}</small>
+                      <small>
+                        {beat.scenarioCount} scenarios /{" "}
+                        {beat.checkpointCount} checkpoint
+                        {beat.checkpointCount === 1 ? "" : "s"}
+                      </small>
                     </span>
                     {beat.origin === "generated" ? (
                       <Sparkles aria-hidden="true" />
@@ -336,12 +344,19 @@ export function TutorWorkspace({ noteSets }: TutorWorkspaceProps) {
 
             <div className="artifact-brief">
               <p>
-                <strong>Mechanism</strong>
-                {selectedArtifact.mechanism}
+                <strong>Core aha</strong>
+                {selectedArtifact.learning_design.core_aha}
               </p>
               <p>
-                <strong>Transfer</strong>
-                {selectedArtifact.transferable_principle}
+                <strong>Scenario design</strong>
+                {selectedArtifact.scenarios
+                  .map((scenario) => scenario.title)
+                  .join(" / ")}
+              </p>
+              <p>
+                <strong>Checkpoint</strong>
+                {selectedArtifact.checkpoints[0]?.prompt ??
+                  selectedArtifact.transferable_principle}
               </p>
             </div>
           </section>
@@ -534,6 +549,9 @@ function MessagePart({
                 <strong>{part.output.topic}</strong>
               </div>
               <p>{compactText(part.output.mechanism, 132)}</p>
+              {part.output.learning_design?.core_aha ? (
+                <p>{compactText(part.output.learning_design.core_aha, 132)}</p>
+              ) : null}
             </div>
             <button
               onClick={() => onOpenArtifact(part.output as BuiltArtifact)}
@@ -604,11 +622,14 @@ function buildLearningPlan(
     label: artifact.topic,
     sourceRef: artifact.source_ref,
     role: artifact.key_symbols[0]?.role ?? "neutral",
+    coreAha: artifact.learning_design.core_aha,
   }));
 
   const outcomes = artifacts
     .slice(0, 4)
-    .map((artifact) => compactText(artifact.transferable_principle, 126));
+    .map((artifact) =>
+      compactText(artifact.learning_design.learning_objectives[0], 126),
+    );
 
   const storyboard = artifacts.map((artifact) => ({
     id: artifact.id,
@@ -617,6 +638,9 @@ function buildLearningPlan(
     mechanism: artifact.mechanism,
     outcome: compactText(artifact.transferable_principle, 110),
     origin: artifact.origin,
+    coreAha: artifact.learning_design.core_aha,
+    scenarioCount: artifact.scenarios.length,
+    checkpointCount: artifact.checkpoints.length,
   }));
 
   return { concepts, outcomes, storyboard };
@@ -640,5 +664,12 @@ function toArtifactSpec(artifact: BuiltArtifact) {
     key_symbols: artifact.key_symbols,
     interactivity_hooks: artifact.interactivity_hooks,
     output_filename: artifact.output_filename,
+    artifact_metadata: artifact.artifact_metadata,
+    learning_design: artifact.learning_design,
+    representations: artifact.representations,
+    controls: artifact.controls,
+    scenarios: artifact.scenarios,
+    checkpoints: artifact.checkpoints,
+    ui_requirements: artifact.ui_requirements,
   };
 }

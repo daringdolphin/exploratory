@@ -1,39 +1,9 @@
-import type { ArtifactSpec, BuiltArtifact } from "./schema";
-
-const roleLabels: Record<string, string> = {
-  problem: "Problem",
-  agent: "Cause",
-  resolution: "Outcome",
-  neutral: "Structure",
-  highlight: "Focus",
-};
-
-function escapeHtml(value: string) {
-  return value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
-
-function artifactJson(spec: ArtifactSpec) {
-  return JSON.stringify(spec)
-    .replace(/</g, "\\u003c")
-    .replace(/\u2028/g, "\\u2028")
-    .replace(/\u2029/g, "\\u2029");
-}
-
-export function buildArtifactHtml(spec: ArtifactSpec) {
-  const title = escapeHtml(spec.artifact_metadata.title || spec.topic);
-  const data = artifactJson(spec);
-
-  return `<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>${title}</title>
+  <title>Catalyst Lowers the Barrier</title>
   <style>
     :root {
       --problem: #c84a36;
@@ -620,7 +590,7 @@ export function buildArtifactHtml(spec: ArtifactSpec) {
         </div>
 
         <div class="canvas-wrap">
-          <canvas id="scene" role="img" aria-label="${title} linked animated representations"></canvas>
+          <canvas id="scene" role="img" aria-label="Catalyst Lowers the Barrier linked animated representations"></canvas>
           <div class="metric-row">
             <div class="metric"><strong id="metric-frequency">1.0x</strong>Collision / event frequency</div>
             <div class="metric"><strong id="metric-success">35%</strong>Successful fraction</div>
@@ -681,8 +651,8 @@ export function buildArtifactHtml(spec: ArtifactSpec) {
   </main>
 
   <script>
-    const spec = ${data};
-    const roleNames = ${JSON.stringify(roleLabels)};
+    const spec = {"id":"rate-catalyst-lower-activation-energy","source_ref":"pages 13 and 15","subject":"O Level Chemistry","topic":"Catalysts and activation energy","medium":"interactive_html","mechanism":"A catalyst provides an alternative reaction pathway with lower activation energy, so more reacting particles have sufficient kinetic energy and effective collisions become more likely.","transferable_principle":"A catalyst changes the route and rate of reaction without changing final yield or being chemically altered.","steps":[{"name":"Original pathway","beat":"Without a catalyst, particles must overcome a higher activation energy barrier."},{"name":"Alternative pathway","beat":"The catalyst provides a route with lower activation energy."},{"name":"More particles qualify","beat":"More particles now have sufficient kinetic energy to overcome the lower barrier."},{"name":"Rate increases","beat":"Effective collisions become more likely, but the catalyst is not chemically altered and yield is unchanged."},{"name":"TYS distinction","beat":"A catalyst decreases activation energy; increasing temperature does not."}],"key_symbols":[{"symbol":"uncatalysed pathway","role":"neutral","meaning":"The original higher activation energy route."},{"symbol":"catalysed pathway","role":"agent","meaning":"The alternative lower activation energy route."},{"symbol":"activation energy drop","role":"highlight","meaning":"The key change caused by the catalyst."},{"symbol":"unchanged yield marker","role":"problem","meaning":"Prevents students from thinking the catalyst increases final product amount."},{"symbol":"TYS answer B","role":"resolution","meaning":"Catalyst decreases activation energy while increased temperature leaves activation energy unchanged."}],"interactivity_hooks":["Toggle a catalyst to lower the activation energy on an energy profile diagram.","Compare the fraction of particles above the uncatalysed and catalysed barriers.","Answer the TYS catalyst-versus-temperature activation energy question with feedback."],"output_filename":"rate-catalyst-lower-activation-energy.html","artifact_metadata":{"title":"Catalyst Lowers the Barrier","subject":"O Level Chemistry","level":"O-Level","syllabus_reference":"Factors affecting rate: catalysts, alternative pathway, and activation energy","estimated_interaction_time_minutes":10,"prerequisite_concepts":["Activation energy","Kinetic energy","Effective collision","Energy profile diagram","Yield"]},"learning_design":{"core_aha":"A catalyst speeds the reaction by lowering activation energy through an alternative pathway, while temperature speeds it without lowering that barrier.","learning_objectives":["Describe a catalyst as providing an alternative reaction pathway with lower activation energy.","Explain why a lower activation energy increases the chance of effective collision.","State that a catalyst is not chemically altered and does not change yield.","Answer the TYS activation-energy comparison for catalyst and temperature."],"target_misconceptions":[{"misconception":"A catalyst gives particles more kinetic energy.","correction":"A catalyst lowers the activation energy barrier; it does not heat the particles.","addressed_in_scenario_id":"lower-barrier"},{"misconception":"Increasing temperature lowers activation energy in the same way as a catalyst.","correction":"Temperature increases particle kinetic energy, but activation energy stays the same.","addressed_in_scenario_id":"tys-activation-energy"},{"misconception":"A catalyst increases the yield or is used up by the reaction.","correction":"The notes state that yield is not altered and the catalyst is not chemically altered.","addressed_in_scenario_id":"unchanged-catalyst"}]},"representations":{"description":"Students link catalyst pathway, enough-energy fraction, and TYS table reasoning.","views":[{"id":"catalysed-collision-animation","type":"microscopic","description":"Animated collisions show more particles becoming effective when the energy barrier is lowered."},{"id":"reaction-vessel-catalyst","type":"macroscopic","description":"A small amount of catalyst is added; product forms faster while final yield and catalyst amount indicators stay unchanged."},{"id":"energy-profile-comparison","type":"symbolic","description":"An energy profile diagram compares uncatalysed and catalysed pathways with activation energy arrows."},{"id":"tys-answer-table","type":"symbolic","description":"A TYS table contrasts catalyst addition with temperature increase and highlights answer B."}]},"controls":[{"id":"catalyst_present","label":"Catalyst present","type":"toggle","default":false,"affects":["activation_energy","pathway_shape","effective_collision_frequency"]},{"id":"temperature","label":"Temperature","type":"slider","min":20,"max":80,"default":30,"step":10,"affects":["particle_kinetic_energy","enough_energy_fraction","tys_temperature_column"]},{"id":"show_energy_profile","label":"Show energy profile","type":"toggle","default":true,"affects":["energy_profile","activation_energy_arrows"]},{"id":"tys_choice","label":"TYS answer choice","type":"discrete","default":"B","options":["A","B","C","D"],"affects":["tys_feedback","catalyst_column","temperature_column"]},{"id":"show_yield","label":"Show final yield","type":"toggle","default":true,"affects":["yield_marker","catalyst_unchanged_label"]}],"scenarios":[{"id":"lower-barrier","title":"Add the Catalyst","guiding_question":"What changes on the energy profile when a catalyst is added?","locked_controls":["temperature","tys_choice","show_yield"],"active_controls":["catalyst_present","show_energy_profile"],"success_criterion":"You explain that the catalyst provides an alternative pathway with lower activation energy.","misconception_buster":true},{"id":"more-particles-qualify","title":"More Particles Over the Barrier","guiding_question":"Why does lowering activation energy make effective collisions more likely?","locked_controls":["temperature","show_energy_profile","tys_choice","show_yield"],"active_controls":["catalyst_present"],"success_criterion":"You connect the lower barrier to a higher number of particles with sufficient kinetic energy.","misconception_buster":true},{"id":"tys-activation-energy","title":"Catalyst or Temperature?","guiding_question":"In the TYS table, what happens to activation energy for a catalyst and for an increase in temperature?","locked_controls":["catalyst_present","show_energy_profile","show_yield"],"active_controls":["temperature","tys_choice"],"success_criterion":"You choose B: catalyst decreases activation energy, while increased temperature leaves activation energy the same.","misconception_buster":true},{"id":"unchanged-catalyst","title":"Check Yield and Catalyst","guiding_question":"What should stay unchanged even though the reaction is faster with a catalyst?","locked_controls":["temperature","tys_choice"],"active_controls":["catalyst_present","show_yield","show_energy_profile"],"success_criterion":"You state that yield is not altered and the catalyst is not chemically altered.","misconception_buster":true},{"id":"free-play","title":"Barrier Compare","guiding_question":"Can you make the reaction faster using a catalyst, then explain how that differs from heating?","locked_controls":[],"active_controls":["catalyst_present","temperature","show_energy_profile","tys_choice","show_yield"],"success_criterion":"You compare catalyst and temperature using activation energy, kinetic energy, and effective collision frequency."}],"checkpoints":[{"id":"catalyst-fill","after_scenario":"lower-barrier","prompt":"A catalyst provides an alternative pathway with lower ______ energy.","type":"fill_in_blank","answers":["activation"]},{"id":"tys-catalyst-answer","after_scenario":"tys-activation-energy","prompt":"Which TYS row is correct for activation energy?","type":"multiple_choice","options":["A: catalyst decreases, temperature decreases","B: catalyst decreases, temperature stays the same","C: catalyst increases, temperature decreases","D: catalyst increases, temperature stays the same"],"answer":"B: catalyst decreases, temperature stays the same"},{"id":"catalyst-characteristics","after_scenario":"unchanged-catalyst","prompt":"Match each catalyst statement to the notes-based meaning.","type":"matching","pairs":[{"factor":"Alternative pathway","mechanism":"Lower activation energy"},{"factor":"Yield","mechanism":"Not altered by catalyst"},{"factor":"Catalyst","mechanism":"Not chemically altered"}]}],"ui_requirements":{"always_visible":["energy profile","activation energy arrows","enough-energy fraction","TYS table feedback"],"syllabus_vocabulary_to_surface":["catalyst","alternative pathway","activation energy","sufficient kinetic energy","effective collision","yield","rate of reaction"],"tone":"Exam-ready and careful about catalyst versus temperature distinctions.","accessibility":["Use labelled arrows for both activation energy barriers.","Show TYS feedback in text as well as highlights.","Keep catalyst and temperature controls visually separate."]}};
+    const roleNames = {"problem":"Problem","agent":"Cause","resolution":"Outcome","neutral":"Structure","highlight":"Focus"};
     const roleColors = {
       problem: "#c84a36",
       agent: "#087a8a",
@@ -1674,12 +1644,4 @@ export function buildArtifactHtml(spec: ArtifactSpec) {
     scheduleDraw();
   </script>
 </body>
-</html>`;
-}
-
-export function buildArtifact(spec: ArtifactSpec): BuiltArtifact {
-  return {
-    ...spec,
-    html: buildArtifactHtml(spec),
-  };
-}
+</html>

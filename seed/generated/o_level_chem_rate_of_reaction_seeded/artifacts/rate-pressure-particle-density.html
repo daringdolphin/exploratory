@@ -1,39 +1,9 @@
-import type { ArtifactSpec, BuiltArtifact } from "./schema";
-
-const roleLabels: Record<string, string> = {
-  problem: "Problem",
-  agent: "Cause",
-  resolution: "Outcome",
-  neutral: "Structure",
-  highlight: "Focus",
-};
-
-function escapeHtml(value: string) {
-  return value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
-
-function artifactJson(spec: ArtifactSpec) {
-  return JSON.stringify(spec)
-    .replace(/</g, "\\u003c")
-    .replace(/\u2028/g, "\\u2028")
-    .replace(/\u2029/g, "\\u2029");
-}
-
-export function buildArtifactHtml(spec: ArtifactSpec) {
-  const title = escapeHtml(spec.artifact_metadata.title || spec.topic);
-  const data = artifactJson(spec);
-
-  return `<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>${title}</title>
+  <title>Pressure Packs Gas Particles Closer</title>
   <style>
     :root {
       --problem: #c84a36;
@@ -620,7 +590,7 @@ export function buildArtifactHtml(spec: ArtifactSpec) {
         </div>
 
         <div class="canvas-wrap">
-          <canvas id="scene" role="img" aria-label="${title} linked animated representations"></canvas>
+          <canvas id="scene" role="img" aria-label="Pressure Packs Gas Particles Closer linked animated representations"></canvas>
           <div class="metric-row">
             <div class="metric"><strong id="metric-frequency">1.0x</strong>Collision / event frequency</div>
             <div class="metric"><strong id="metric-success">35%</strong>Successful fraction</div>
@@ -681,8 +651,8 @@ export function buildArtifactHtml(spec: ArtifactSpec) {
   </main>
 
   <script>
-    const spec = ${data};
-    const roleNames = ${JSON.stringify(roleLabels)};
+    const spec = {"id":"rate-pressure-particle-density","source_ref":"page 11","subject":"O Level Chemistry","topic":"Pressure and collision frequency","medium":"interactive_html","mechanism":"For gaseous reactants, higher pressure decreases volume and brings particles closer together, giving more particles per unit volume and a higher frequency of effective collisions.","transferable_principle":"Increasing gas pressure speeds a reaction by increasing particle density, not by changing the chemical identity of the reactants.","steps":[{"name":"Compress the gas","beat":"Higher pressure is shown by the same gas particles occupying a smaller volume."},{"name":"Particles get closer","beat":"The number of particles per unit volume increases."},{"name":"Collisions increase","beat":"Closer particles collide more frequently."},{"name":"Rate rises","beat":"More frequent effective collisions increase the rate of reaction."}],"key_symbols":[{"symbol":"movable piston","role":"agent","meaning":"Compresses the gas to raise pressure."},{"symbol":"fixed particle count","role":"neutral","meaning":"Shows pressure changes volume rather than adding particles."},{"symbol":"collision flashes","role":"resolution","meaning":"Visible successful collisions per unit time."},{"symbol":"particle density meter","role":"highlight","meaning":"Displays more reactants per unit volume at higher pressure."}],"interactivity_hooks":["Move a piston to change pressure and particle spacing.","Lock particle number to make particle density visible.","Compare collision frequency counters at low and high pressure."],"output_filename":"rate-pressure-particle-density.html","artifact_metadata":{"title":"Pressure Packs Gas Particles Closer","subject":"O Level Chemistry","level":"O-Level","syllabus_reference":"Factors affecting rate: pressure applied to gaseous reactants","estimated_interaction_time_minutes":7,"prerequisite_concepts":["Gas particles","Volume","Pressure","Collision frequency"]},"learning_design":{"core_aha":"Higher pressure speeds gas reactions because the same particles are packed closer together, so they collide effectively more often.","learning_objectives":["Describe higher pressure as lower volume for gaseous reactants.","Explain more particles per unit volume at higher pressure.","Link particle density to higher collision frequency and rate of reaction."],"target_misconceptions":[{"misconception":"Increasing pressure adds more reactant particles.","correction":"The page explains pressure as bringing existing particles closer together by decreasing volume.","addressed_in_scenario_id":"same-particles"},{"misconception":"Pressure affects solids and liquids in the same way as gases for this topic.","correction":"This pressure explanation is for gaseous reactants whose volume can be compressed.","addressed_in_scenario_id":"gas-only"}]},"representations":{"description":"A piston animation connects gas compression to collision frequency and a steeper symbolic rate graph.","views":[{"id":"compressible-gas-box","type":"microscopic","description":"Animated gas particles move in a box whose volume changes with pressure."},{"id":"piston-pressure-setup","type":"macroscopic","description":"A piston or syringe compresses gaseous reactants while a pressure readout increases."},{"id":"pressure-rate-panel","type":"symbolic","description":"A particle-density meter and rate graph show higher pressure causing a steeper initial gradient."}]},"controls":[{"id":"pressure_level","label":"Pressure level","type":"slider","min":1,"max":5,"default":2,"step":1,"affects":["container_volume","particle_spacing","collision_frequency"]},{"id":"gas_particle_count","label":"Gas particle count","type":"stepper","min":20,"max":60,"default":40,"step":10,"affects":["particle_density","collision_frequency","final_amount"]},{"id":"show_unit_volume","label":"Show unit volume box","type":"toggle","default":true,"affects":["unit_volume_overlay","particles_per_unit_volume"]},{"id":"compare_pressure","label":"Compare low and high pressure","type":"toggle","default":true,"affects":["split_view","collision_counter_comparison"]}],"scenarios":[{"id":"same-particles","title":"Compress Without Adding","guiding_question":"When pressure increases, what happens to volume and particle spacing if the particle count stays the same?","locked_controls":["gas_particle_count","compare_pressure"],"active_controls":["pressure_level","show_unit_volume"],"success_criterion":"You state that volume decreases and particles become closer together without adding particles.","misconception_buster":true},{"id":"collision-frequency","title":"Count the Collisions","guiding_question":"How does the collision frequency change when gas particles are closer together?","locked_controls":["gas_particle_count","show_unit_volume","compare_pressure"],"active_controls":["pressure_level"],"success_criterion":"You connect smaller volume to more collisions per second and a faster rate of reaction."},{"id":"gas-only","title":"Name the State","guiding_question":"Why does this pressure explanation belong to gaseous reactants?","locked_controls":["pressure_level","gas_particle_count","compare_pressure"],"active_controls":["show_unit_volume"],"success_criterion":"You explain that gases can be compressed so particles per unit volume changes clearly.","misconception_buster":true},{"id":"free-play","title":"Pressure Simulator","guiding_question":"Can you raise collision frequency using pressure and explain each visual change?","locked_controls":[],"active_controls":["pressure_level","gas_particle_count","show_unit_volume","compare_pressure"],"success_criterion":"You link pressure, volume, particles per unit volume, collision frequency, and rate of reaction."}],"checkpoints":[{"id":"pressure-fill","after_scenario":"same-particles","prompt":"Higher pressure brings gas particles ______ together because the volume is ______.","type":"fill_in_blank","answers":["closer","decreased"]},{"id":"pressure-match","after_scenario":"collision-frequency","prompt":"Match each pressure idea to the rate explanation.","type":"matching","pairs":[{"factor":"Higher pressure","mechanism":"Smaller volume"},{"factor":"Smaller volume","mechanism":"More particles per unit volume"},{"factor":"More particles per unit volume","mechanism":"Higher frequency of effective collisions"}]}],"ui_requirements":{"always_visible":["piston position","pressure readout","unit volume box","collision frequency counter"],"syllabus_vocabulary_to_surface":["pressure","volume","particles per unit volume","collision frequency","effective collision","rate of reaction"],"tone":"Mechanistic and restrained, emphasising gaseous reactants and particle spacing.","accessibility":["Use numeric readouts for pressure, volume, and collision frequency.","Make split-view comparisons available without animation.","Label gas state explicitly."]}};
+    const roleNames = {"problem":"Problem","agent":"Cause","resolution":"Outcome","neutral":"Structure","highlight":"Focus"};
     const roleColors = {
       problem: "#c84a36",
       agent: "#087a8a",
@@ -1674,12 +1644,4 @@ export function buildArtifactHtml(spec: ArtifactSpec) {
     scheduleDraw();
   </script>
 </body>
-</html>`;
-}
-
-export function buildArtifact(spec: ArtifactSpec): BuiltArtifact {
-  return {
-    ...spec,
-    html: buildArtifactHtml(spec),
-  };
-}
+</html>
