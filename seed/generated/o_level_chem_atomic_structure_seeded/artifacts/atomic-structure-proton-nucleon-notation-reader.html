@@ -12,13 +12,11 @@
       --neutral: #151913;
       --highlight: #d79d1f;
       --good: #207857;
-      --paper: #fff8ea;
-      --paper-strong: #fffdf6;
-      --surface: #f3e8d4;
-      --surface-cool: #dfe9e2;
-      --rule: #cabf9e;
-      --muted: #626b5f;
-      --shadow: #10201d;
+      --paper: #fbf6ec;
+      --paper-strong: #ffffff;
+      --rule: #d8cdb0;
+      --rule-soft: rgba(21, 25, 19, 0.08);
+      --muted: #6a7166;
     }
 
     * { box-sizing: border-box; }
@@ -32,12 +30,11 @@
     }
 
     body {
-      background:
-        linear-gradient(135deg, rgba(255, 248, 234, 0.98), rgba(223, 233, 226, 0.95) 54%, rgba(242, 225, 188, 0.78)),
-        repeating-linear-gradient(0deg, rgba(21, 25, 19, 0.026) 0 1px, transparent 1px 28px),
-        repeating-linear-gradient(90deg, rgba(21, 25, 19, 0.022) 0 1px, transparent 1px 28px);
+      background: var(--paper);
       color: var(--neutral);
       font-family: "Avenir Next", "Trebuchet MS", system-ui, sans-serif;
+      font-size: 13px;
+      line-height: 1.4;
     }
 
     button,
@@ -49,30 +46,31 @@
 
     button:focus-visible,
     input:focus-visible {
-      outline: 3px solid rgba(8, 122, 138, 0.28);
+      outline: 2px solid rgba(8, 122, 138, 0.45);
       outline-offset: 2px;
     }
 
     .artifact {
       display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(260px, 300px);
       grid-template-rows: auto minmax(0, 1fr);
-      gap: 8px;
+      column-gap: 28px;
+      row-gap: 14px;
       width: 100%;
       height: 100vh;
       min-height: 520px;
-      padding: 9px;
-      animation: settle 420ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+      padding: 22px 28px 18px;
+      animation: settle 380ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
     }
 
-    .topbar {
+    .head {
+      grid-column: 1 / -1;
       display: grid;
       grid-template-columns: minmax(0, 1fr) auto;
-      gap: 12px;
-      align-items: end;
-      min-height: 74px;
-      border: 1px solid rgba(21, 25, 19, 0.14);
-      background: rgba(255, 253, 246, 0.76);
-      padding: 10px 12px;
+      gap: 18px;
+      align-items: baseline;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--rule);
     }
 
     .eyebrow,
@@ -80,17 +78,20 @@
     .scenario-count,
     .control-label,
     .metric,
-    .checkpoint button,
-    .prediction button,
+    .metric-label,
     .scenario-tab,
-    .vocab-chip {
+    .vocab-chip,
+    .checkpoint-label,
+    .prediction button,
+    .toggle-button,
+    .choice-row button {
       font-family: "Andale Mono", "Courier New", monospace;
-      letter-spacing: 0;
+      letter-spacing: 0.04em;
       text-transform: uppercase;
     }
 
     .eyebrow {
-      margin: 0 0 3px;
+      margin: 0 0 6px;
       color: var(--agent);
       font-size: 10px;
       font-weight: 800;
@@ -99,54 +100,35 @@
     h1 {
       margin: 0;
       font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(24px, 3.1vw, 42px);
-      line-height: 0.96;
-      letter-spacing: 0;
+      font-weight: 700;
+      font-size: clamp(22px, 2.4vw, 30px);
+      line-height: 1.05;
       overflow-wrap: anywhere;
     }
 
     .aha {
-      max-width: 920px;
-      max-height: 38px;
-      margin: 5px 0 0;
-      overflow: hidden;
+      max-width: 720px;
+      margin: 6px 0 0;
       color: var(--muted);
       font-size: 12px;
-      line-height: 1.28;
+      line-height: 1.4;
     }
 
     .source {
-      align-self: stretch;
-      display: grid;
-      min-width: 118px;
-      place-items: center;
-      border-left: 1px solid rgba(21, 25, 19, 0.12);
+      align-self: end;
       color: var(--muted);
-      font-size: 10px;
+      font-size: 9px;
       font-weight: 800;
-      text-align: center;
-    }
-
-    .main {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(278px, 320px);
-      gap: 8px;
-      min-height: 0;
-    }
-
-    .stage,
-    .side {
-      min-width: 0;
-      min-height: 0;
-      border: 1px solid rgba(21, 25, 19, 0.14);
-      background: rgba(255, 253, 246, 0.8);
-      overflow: hidden;
+      text-align: right;
+      white-space: nowrap;
     }
 
     .stage {
-      position: relative;
+      min-width: 0;
+      min-height: 0;
       display: grid;
       grid-template-rows: minmax(0, 1fr) auto;
+      gap: 10px;
     }
 
     .canvas-wrap {
@@ -163,87 +145,91 @@
     .metrics {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      border-top: 1px solid rgba(21, 25, 19, 0.12);
-      background: rgba(21, 25, 19, 0.08);
-      gap: 1px;
+      gap: 18px;
+      padding-top: 10px;
+      border-top: 1px solid var(--rule-soft);
     }
 
     .metric {
       min-width: 0;
-      background: rgba(255, 253, 246, 0.92);
       color: var(--muted);
       font-size: 9px;
       font-weight: 800;
-      padding: 7px 8px;
     }
 
     .metric strong {
       display: block;
       margin-bottom: 2px;
       color: var(--neutral);
-      font-size: 16px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0;
       line-height: 1;
+      text-transform: none;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      text-transform: none;
     }
 
     .side {
-      display: grid;
-      grid-template-rows: auto auto auto minmax(0, 1fr) auto;
-      gap: 7px;
-      padding: 9px;
+      min-width: 0;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      overflow: hidden;
     }
 
     .scenario-tabs {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 6px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
     }
 
     .scenario-tab {
-      min-height: 34px;
-      border: 1px solid rgba(21, 25, 19, 0.14);
-      background: rgba(255, 248, 234, 0.76);
+      flex: 0 0 auto;
+      padding: 2px 0 4px;
+      border: none;
+      background: none;
+      color: var(--muted);
       cursor: pointer;
       font-size: 9px;
       font-weight: 800;
-      padding: 5px 7px;
+      border-bottom: 2px solid transparent;
       text-align: left;
     }
 
     .scenario-tab[aria-current="true"] {
-      border-color: rgba(8, 122, 138, 0.62);
-      background: var(--neutral);
-      color: var(--paper);
+      color: var(--neutral);
+      border-bottom-color: var(--agent);
     }
 
     .question {
-      border-left: 5px solid var(--highlight);
-      background: rgba(255, 248, 234, 0.76);
-      padding: 8px 9px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
     }
 
     .scenario-count {
-      margin: 0 0 3px;
       color: var(--muted);
       font-size: 9px;
       font-weight: 800;
     }
 
     .question h2 {
-      margin: 0 0 4px;
+      margin: 0;
       font-family: Georgia, "Times New Roman", serif;
       font-size: 18px;
-      line-height: 1;
+      font-weight: 700;
+      line-height: 1.1;
     }
 
     .question p {
       margin: 0;
       color: var(--muted);
-      font-size: 11px;
-      line-height: 1.28;
+      font-size: 12px;
+      line-height: 1.4;
     }
 
     .prediction {
@@ -253,45 +239,48 @@
     }
 
     .prediction button,
-    .checkpoint button {
-      min-height: 30px;
-      border: 1px solid rgba(21, 25, 19, 0.16);
-      background: rgba(255, 253, 246, 0.82);
+    .toggle-button,
+    .choice-row button {
+      min-height: 28px;
+      padding: 5px 8px;
+      border: 1px solid var(--rule);
+      background: transparent;
+      color: var(--neutral);
       cursor: pointer;
       font-size: 9px;
       font-weight: 800;
-      padding: 4px 6px;
     }
 
     .prediction button[aria-pressed="true"],
-    .checkpoint button[aria-pressed="true"] {
-      background: var(--agent);
-      color: white;
+    .toggle-button[aria-pressed="true"],
+    .choice-row button[aria-current="true"] {
+      background: var(--neutral);
+      border-color: var(--neutral);
+      color: var(--paper);
     }
 
     .controls {
-      display: grid;
-      gap: 6px;
-      min-height: 0;
-      align-content: start;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
     .control {
       min-width: 0;
-      border: 1px solid rgba(21, 25, 19, 0.12);
-      background: rgba(255, 253, 246, 0.7);
-      padding: 7px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
     }
 
     .control[aria-disabled="true"] {
-      opacity: 0.48;
+      opacity: 0.45;
     }
 
     .control-label {
       display: flex;
       justify-content: space-between;
       gap: 8px;
-      color: var(--neutral);
+      color: var(--muted);
       font-size: 9px;
       font-weight: 800;
     }
@@ -302,106 +291,102 @@
       white-space: nowrap;
     }
 
+    .control-label span:last-child {
+      color: var(--neutral);
+    }
+
     input[type="range"] {
       width: 100%;
-      margin: 5px 0 0;
+      margin: 0;
       accent-color: var(--agent);
     }
 
     .choice-row {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(54px, 1fr));
+      display: flex;
+      flex-wrap: wrap;
       gap: 4px;
-      margin-top: 6px;
     }
 
-    .choice-row button,
-    .toggle-button {
+    .choice-row button {
+      flex: 0 1 auto;
       min-height: 26px;
-      border: 1px solid rgba(21, 25, 19, 0.15);
-      background: rgba(255, 253, 246, 0.82);
-      cursor: pointer;
-      font-size: 10px;
-      line-height: 1.1;
-      padding: 3px 5px;
-    }
-
-    .choice-row button[aria-current="true"],
-    .toggle-button[aria-pressed="true"] {
-      background: var(--neutral);
-      color: var(--paper);
+      padding: 4px 8px;
     }
 
     .checkpoint {
-      border-top: 1px solid rgba(21, 25, 19, 0.12);
-      padding-top: 7px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding-top: 10px;
+      border-top: 1px solid var(--rule-soft);
     }
 
-    .checkpoint strong {
-      display: block;
+    .checkpoint-label {
+      color: var(--muted);
+      font-size: 9px;
+      font-weight: 800;
+    }
+
+    .checkpoint strong.prompt-text {
       color: var(--neutral);
-      font-size: 11px;
-      line-height: 1.25;
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 600;
+      font-size: 13px;
+      line-height: 1.35;
+      text-transform: none;
+      letter-spacing: 0;
     }
 
     .checkpoint p,
     .feedback {
-      min-height: 18px;
-      margin: 5px 0 0;
+      margin: 0;
       color: var(--muted);
-      font-size: 10px;
-      line-height: 1.25;
+      font-size: 11px;
+      line-height: 1.35;
     }
 
     .vocab {
       display: flex;
       flex-wrap: wrap;
-      gap: 4px;
-      min-height: 26px;
-      overflow: hidden;
+      gap: 4px 10px;
+      padding-top: 8px;
+      border-top: 1px solid var(--rule-soft);
     }
 
     .vocab-chip {
-      border: 1px solid rgba(21, 25, 19, 0.12);
-      background: rgba(255, 248, 234, 0.72);
       color: var(--muted);
       font-size: 8px;
       font-weight: 800;
-      padding: 4px 5px;
     }
 
     @keyframes settle {
-      from { opacity: 0; transform: translateY(8px) scale(0.995); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: none; }
     }
 
-    @media (max-width: 760px) {
+    @media (max-width: 880px) {
       .artifact {
-        min-height: 720px;
+        grid-template-columns: minmax(0, 1fr);
+        padding: 16px 18px;
       }
 
-      .topbar,
-      .main {
+      .head {
         grid-template-columns: minmax(0, 1fr);
       }
 
       .source {
-        display: none;
-      }
-
-      .main {
-        grid-template-rows: minmax(0, 1fr) 330px;
+        text-align: left;
       }
 
       h1 {
-        font-size: 24px;
+        font-size: 22px;
       }
     }
   </style>
 </head>
 <body>
   <main class="artifact">
-    <header class="topbar">
+    <header class="head">
       <div>
         <p class="eyebrow" id="eyebrow"></p>
         <h1 id="title"></h1>
@@ -410,31 +395,34 @@
       <div class="source" id="source"></div>
     </header>
 
-    <section class="main" aria-label="Interactive teaching artifact">
-      <article class="stage">
-        <div class="canvas-wrap">
-          <canvas id="scene" aria-label="Proton and Nucleon Number Reader interactive visual"></canvas>
-        </div>
-        <div class="metrics">
-          <div class="metric"><strong id="metric-one">-</strong><span id="metric-one-label">micro view</span></div>
-          <div class="metric"><strong id="metric-two">-</strong><span id="metric-two-label">macro view</span></div>
-          <div class="metric"><strong id="metric-three">-</strong><span id="metric-three-label">symbolic view</span></div>
-        </div>
-      </article>
-
-      <aside class="side">
-        <div class="scenario-tabs" id="scenario-tabs"></div>
-        <section class="question">
-          <p class="scenario-count" id="scenario-count"></p>
-          <h2 id="scenario-title"></h2>
-          <p id="scenario-question"></p>
-        </section>
-        <div class="prediction" id="prediction"></div>
-        <div class="controls" id="controls"></div>
-        <section class="checkpoint" id="checkpoint"></section>
-        <div class="vocab" id="vocab"></div>
-      </aside>
+    <section class="stage" aria-label="Interactive teaching artifact">
+      <div class="canvas-wrap">
+        <canvas id="scene" aria-label="Proton and Nucleon Number Reader interactive visual"></canvas>
+      </div>
+      <div class="metrics">
+        <div class="metric"><strong id="metric-one">-</strong><span class="metric-label" id="metric-one-label">micro view</span></div>
+        <div class="metric"><strong id="metric-two">-</strong><span class="metric-label" id="metric-two-label">macro view</span></div>
+        <div class="metric"><strong id="metric-three">-</strong><span class="metric-label" id="metric-three-label">symbolic view</span></div>
+      </div>
     </section>
+
+    <aside class="side">
+      <nav class="scenario-tabs" id="scenario-tabs" aria-label="Scenarios"></nav>
+
+      <section class="question">
+        <p class="scenario-count" id="scenario-count"></p>
+        <h2 id="scenario-title"></h2>
+        <p id="scenario-question"></p>
+      </section>
+
+      <div class="prediction" id="prediction"></div>
+
+      <div class="controls" id="controls"></div>
+
+      <section class="checkpoint" id="checkpoint"></section>
+
+      <div class="vocab" id="vocab"></div>
+    </aside>
   </main>
 
   <script>
@@ -447,12 +435,10 @@
       neutral: "#151913",
       highlight: "#d79d1f",
       good: "#207857",
-      paper: "#fff8ea",
-      paperStrong: "#fffdf6",
-      surface: "#f3e8d4",
-      surfaceCool: "#dfe9e2",
-      rule: "#cabf9e",
-      muted: "#626b5f"
+      paper: "#fbf6ec",
+      paperStrong: "#ffffff",
+      rule: "#d8cdb0",
+      muted: "#6a7166"
     };
 
     const predictionChoices = ["Increase", "Decrease", "Stay same", "It depends"];
@@ -597,7 +583,7 @@
     }
 
     function renderStatic() {
-      document.getElementById("eyebrow").textContent = spec.artifact_metadata.level + " / " + spec.subject;
+      document.getElementById("eyebrow").textContent = spec.artifact_metadata.level + " · " + spec.subject;
       document.getElementById("source").textContent = spec.source_ref;
       document.getElementById("title").textContent = spec.artifact_metadata.title || spec.topic;
       document.getElementById("aha").textContent = spec.learning_design.core_aha;
@@ -632,7 +618,7 @@
 
     function renderQuestion() {
       const scenario = currentScenario();
-      document.getElementById("scenario-count").textContent = "Scenario " + (scenarioIndex + 1) + " / " + spec.scenarios.length;
+      document.getElementById("scenario-count").textContent = "Scenario " + (scenarioIndex + 1) + " of " + spec.scenarios.length;
       document.getElementById("scenario-title").textContent = scenario.title;
       document.getElementById("scenario-question").textContent = predictionMade
         ? (scenario.success_criterion || "Use the controls and link the three views.")
@@ -654,7 +640,7 @@
       } else {
         const left = document.createElement("button");
         left.type = "button";
-        left.textContent = "Prediction: " + selectedPrediction;
+        left.textContent = "Predicted: " + selectedPrediction;
         left.setAttribute("aria-pressed", "true");
         const reset = document.createElement("button");
         reset.type = "button";
@@ -749,7 +735,13 @@
 
       if (!checkpoint) return;
 
+      const kicker = document.createElement("p");
+      kicker.className = "checkpoint-label";
+      kicker.textContent = "Checkpoint";
+      checkpointEl.append(kicker);
+
       const prompt = document.createElement("strong");
+      prompt.className = "prompt-text";
       prompt.textContent = checkpoint.prompt;
       checkpointEl.append(prompt);
 
@@ -771,7 +763,7 @@
       } else if (checkpoint.type === "matching") {
         checkpoint.pairs.slice(0, 3).forEach(function(pair) {
           const p = document.createElement("p");
-          p.textContent = pair.factor + " -> " + pair.mechanism;
+          p.textContent = pair.factor + " → " + pair.mechanism;
           checkpointEl.append(p);
         });
       } else {
@@ -788,7 +780,7 @@
           : "Not quite. Look for the view that changed first.";
         feedback.style.color = checkpointState[checkpoint.id] === checkpoint.answer ? roleColors.good : roleColors.problem;
       } else if (predictionMade) {
-        feedback.textContent = currentScenario().prompt_after || "Checkpoint: connect particle change to the symbol.";
+        feedback.textContent = currentScenario().prompt_after || "Connect the particle change to the symbol.";
       } else {
         feedback.textContent = "Predict first; the checkpoint makes the mechanism explicit.";
       }
@@ -806,43 +798,24 @@
       const width = canvas.clientWidth;
       const height = canvas.clientHeight;
       ctx.clearRect(0, 0, width, height);
-      ctx.fillStyle = roleColors.paperStrong;
-      ctx.fillRect(0, 0, width, height);
-      ctx.strokeStyle = "rgba(202, 191, 158, 0.4)";
-      ctx.lineWidth = 1;
-      for (let x = 0; x < width; x += 32) {
-        ctx.beginPath();
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, height);
-        ctx.stroke();
-      }
-      for (let y = 0; y < height; y += 32) {
-        ctx.beginPath();
-        ctx.moveTo(0, y);
-        ctx.lineTo(width, y);
-        ctx.stroke();
-      }
     }
 
     function panel(x, y, w, h, title, subtitle, accent) {
-      ctx.fillStyle = "rgba(255, 253, 246, 0.92)";
-      ctx.strokeStyle = "rgba(21, 25, 19, 0.17)";
-      ctx.lineWidth = 1;
-      ctx.fillRect(x, y, w, h);
-      ctx.strokeRect(x, y, w, h);
+      ctx.save();
       ctx.fillStyle = accent || roleColors.agent;
-      ctx.fillRect(x, y, 5, h);
-      drawText(title, x + 14, y + 22, {
-        color: roleColors.neutral,
-        font: "800 12px Andale Mono, Courier New, monospace"
+      ctx.fillRect(x, y + 4, 3, 14);
+      drawText(title, x + 12, y + 16, {
+        color: roleColors.muted,
+        font: "800 10px Andale Mono, Courier New, monospace"
       });
       if (subtitle) {
-        drawText(compact(subtitle, 70), x + 14, y + 40, {
+        drawText(compact(subtitle, 64), x + 12, y + 32, {
           color: roleColors.muted,
-          font: "11px Avenir Next, Trebuchet MS, sans-serif",
-          maxWidth: w - 28
+          font: "11px Georgia, Times New Roman, serif",
+          maxWidth: w - 24
         });
       }
+      ctx.restore();
     }
 
     function drawText(text, x, y, options) {
@@ -900,7 +873,7 @@
         const radius = opts.radiusBase || 32;
         const r = radius + shell * (opts.shellGap || 30);
         ctx.strokeStyle = roleColors.rule;
-        ctx.lineWidth = 2;
+        ctx.lineWidth = 1.5;
         ctx.beginPath();
         ctx.arc(cx, cy, r, 0, Math.PI * 2);
         ctx.stroke();
@@ -944,13 +917,17 @@
     function splitLayout() {
       const width = canvas.clientWidth;
       const height = canvas.clientHeight;
-      const gap = 10;
+      const gap = 24;
+      const leftW = Math.max(320, width * 0.56);
+      const rightX = leftW + gap;
+      const rightW = Math.max(180, width - rightX);
+      const halfH = (height - gap) * 0.5;
       return {
         width: width,
         height: height,
-        left: { x: 12, y: 12, w: Math.max(320, width * 0.56), h: height - 24 },
-        topRight: { x: Math.max(320, width * 0.56) + gap + 12, y: 12, w: width - Math.max(320, width * 0.56) - gap - 24, h: (height - 34) * 0.5 },
-        bottomRight: { x: Math.max(320, width * 0.56) + gap + 12, y: 22 + (height - 34) * 0.5, w: width - Math.max(320, width * 0.56) - gap - 24, h: (height - 34) * 0.5 }
+        left: { x: 0, y: 0, w: leftW, h: height },
+        topRight: { x: rightX, y: 0, w: rightW, h: halfH },
+        bottomRight: { x: rightX, y: halfH + gap, w: rightW, h: halfH }
       };
     }
 
@@ -961,14 +938,14 @@
       const gw = w - 66;
       const gh = h - 84;
       ctx.strokeStyle = roleColors.neutral;
-      ctx.lineWidth = 2;
+      ctx.lineWidth = 1.5;
       ctx.beginPath();
       ctx.moveTo(gx, gy - gh);
       ctx.lineTo(gx, gy);
       ctx.lineTo(gx + gw, gy);
       ctx.stroke();
       ctx.strokeStyle = opts.color || roleColors.resolution;
-      ctx.lineWidth = 4;
+      ctx.lineWidth = 3;
       ctx.beginPath();
       for (let i = 0; i <= 80; i += 1) {
         const t = i / 80;
@@ -984,7 +961,7 @@
         const ty = opts.decreasing
           ? gy - Math.exp(-rate * 0.2 * 1.3) * gh * 0.86
           : gy - (1 - Math.exp(-rate * 0.2 * 1.3)) * gh * 0.86;
-        arrow(tx - 26, ty + 24, tx + 34, ty - 24, roleColors.highlight, 3);
+        arrow(tx - 26, ty + 24, tx + 34, ty - 24, roleColors.highlight, 2.5);
         drawText(opts.tangentLabel || "initial gradient", tx + 6, ty - 32, {
           color: roleColors.highlight,
           font: "800 11px Andale Mono, Courier New, monospace"
@@ -1007,7 +984,7 @@
       const showMass = Boolean(getValue("show_mass_overlay", false));
       panel(l.left.x, l.left.y, l.left.w, l.left.h, "Microscopic", "Choose one particle and watch where it belongs.", roleColors.agent);
       const cx = l.left.x + l.left.w * 0.46;
-      const cy = l.left.y + l.left.h * 0.52;
+      const cy = l.left.y + l.left.h * 0.55;
       electronShells(cx, cy, [2, 6], {
         nucleusLabel: "p+n",
         nucleusRadius: 34,
@@ -1015,21 +992,21 @@
         electronColor: focus === "electron" ? roleColors.highlight : roleColors.agent
       });
       drawParticleCluster(cx, cy, 6, 6, focus === "proton" || focus === "neutron" ? 10 : 7);
-      drawText("protons + neutrons stay in the nucleus", l.left.x + 28, l.left.y + l.left.h - 28, { color: roleColors.muted, font: "800 12px Andale Mono, Courier New, monospace" });
+      drawText("protons + neutrons stay in the nucleus", l.left.x + 12, l.left.y + l.left.h - 18, { color: roleColors.muted, font: "11px Georgia, Times New Roman, serif" });
 
       panel(l.topRight.x, l.topRight.y, l.topRight.w, l.topRight.h, "Macroscopic", "Net charge comes from protons and electrons.", roleColors.resolution);
       const charge = focus === "proton" ? "+1" : focus === "electron" ? "-1" : "0";
       const mass = focus === "electron" ? "negligible" : "1";
-      drawText(focus, l.topRight.x + 26, l.topRight.y + 82, { color: roleColors.neutral, font: "700 32px Georgia, serif" });
-      drawText(showCharge ? "charge " + charge : "charge hidden", l.topRight.x + 26, l.topRight.y + 118, { color: roleColors.problem, font: "800 16px Andale Mono, Courier New, monospace" });
-      drawText(showMass ? "relative mass " + mass : "mass hidden", l.topRight.x + 26, l.topRight.y + 146, { color: roleColors.agent, font: "800 16px Andale Mono, Courier New, monospace" });
+      drawText(focus, l.topRight.x + 12, l.topRight.y + 78, { color: roleColors.neutral, font: "700 30px Georgia, serif" });
+      drawText(showCharge ? "charge " + charge : "charge hidden", l.topRight.x + 12, l.topRight.y + 110, { color: roleColors.problem, font: "800 13px Andale Mono, Courier New, monospace" });
+      drawText(showMass ? "relative mass " + mass : "mass hidden", l.topRight.x + 12, l.topRight.y + 132, { color: roleColors.agent, font: "800 13px Andale Mono, Courier New, monospace" });
 
       panel(l.bottomRight.x, l.bottomRight.y, l.bottomRight.w, l.bottomRight.h, "Symbolic", "Do not mix symbol, charge, mass, and location.", roleColors.highlight);
       const symbols = { proton: "p", neutron: "n", electron: "e" };
       const places = { proton: "nucleus", neutron: "nucleus", electron: "shell" };
-      drawText(symbols[focus] || "?", l.bottomRight.x + 34, l.bottomRight.y + 102, { color: roleColors.neutral, font: "700 54px Georgia, serif" });
-      drawText("location: " + (places[focus] || "-"), l.bottomRight.x + 100, l.bottomRight.y + 92, { color: roleColors.muted, font: "800 13px Andale Mono, Courier New, monospace" });
-      drawText("role: " + (roleLabels[focus === "electron" ? "problem" : focus === "proton" ? "agent" : "neutral"]), l.bottomRight.x + 100, l.bottomRight.y + 120, { color: roleColors.muted, font: "800 13px Andale Mono, Courier New, monospace" });
+      drawText(symbols[focus] || "?", l.bottomRight.x + 18, l.bottomRight.y + 96, { color: roleColors.neutral, font: "700 48px Georgia, serif" });
+      drawText("location: " + (places[focus] || "-"), l.bottomRight.x + 80, l.bottomRight.y + 80, { color: roleColors.muted, font: "800 12px Andale Mono, Courier New, monospace" });
+      drawText("role: " + (roleLabels[focus === "electron" ? "problem" : focus === "proton" ? "agent" : "neutral"]), l.bottomRight.x + 80, l.bottomRight.y + 102, { color: roleColors.muted, font: "800 12px Andale Mono, Courier New, monospace" });
       setMetric(charge, "charge", mass, "relative mass", places[focus] || "-", "location");
     }
 
@@ -1042,19 +1019,20 @@
       const adjusted = mode === "cation" ? Math.max(1, electrons - 1) : mode === "anion" ? Math.min(20, electrons + 1) : electrons;
       const shells = shellFill(adjusted);
       panel(l.left.x, l.left.y, l.left.w, l.left.h, "Microscopic", "Electrons fill inner shells before outer shells.", roleColors.agent);
-      electronShells(l.left.x + l.left.w * 0.5, l.left.y + l.left.h * 0.52, shells, { nucleusLabel: preset.slice(0, 2), nucleusRadius: 26 });
+      electronShells(l.left.x + l.left.w * 0.5, l.left.y + l.left.h * 0.55, shells, { nucleusLabel: preset.slice(0, 2), nucleusRadius: 26 });
       panel(l.topRight.x, l.topRight.y, l.topRight.w, l.topRight.h, "Macroscopic", "Stable patterns are counted shell by shell.", roleColors.resolution);
       const config = shells.join(",");
-      drawText(config, l.topRight.x + 26, l.topRight.y + 100, { color: roleColors.resolution, font: "700 42px Georgia, serif" });
-      drawText("configuration", l.topRight.x + 30, l.topRight.y + 132, { color: roleColors.muted, font: "800 12px Andale Mono, Courier New, monospace" });
+      drawText(config, l.topRight.x + 12, l.topRight.y + 90, { color: roleColors.resolution, font: "700 36px Georgia, serif" });
+      drawText("configuration", l.topRight.x + 12, l.topRight.y + 116, { color: roleColors.muted, font: "800 11px Andale Mono, Courier New, monospace" });
       panel(l.bottomRight.x, l.bottomRight.y, l.bottomRight.w, l.bottomRight.h, "Symbolic", "The commas are shell boundaries, not decoration.", roleColors.highlight);
       shells.forEach(function(count, index) {
-        const x = l.bottomRight.x + 28 + index * 56;
-        ctx.fillStyle = index === shells.length - 1 ? roleColors.highlight : roleColors.surfaceCool;
-        ctx.fillRect(x, l.bottomRight.y + 78, 42, 48);
+        const x = l.bottomRight.x + 14 + index * 50;
+        ctx.fillStyle = index === shells.length - 1 ? roleColors.highlight : "rgba(36, 124, 111, 0.18)";
+        ctx.fillRect(x, l.bottomRight.y + 70, 38, 44);
         ctx.strokeStyle = roleColors.neutral;
-        ctx.strokeRect(x, l.bottomRight.y + 78, 42, 48);
-        drawText(String(count), x + 21, l.bottomRight.y + 108, { align: "center", color: roleColors.neutral, font: "800 20px Andale Mono, Courier New, monospace" });
+        ctx.lineWidth = 1;
+        ctx.strokeRect(x, l.bottomRight.y + 70, 38, 44);
+        drawText(String(count), x + 19, l.bottomRight.y + 98, { align: "center", color: roleColors.neutral, font: "800 18px Andale Mono, Courier New, monospace" });
       });
       setMetric(String(adjusted), "electrons", config, "configuration", mode, "charge mode");
     }
@@ -1069,17 +1047,17 @@
       const neutrons = a - z;
       panel(l.left.x, l.left.y, l.left.w, l.left.h, "Symbolic first", "Read A and Z before counting particles.", roleColors.highlight);
       const nx = l.left.x + l.left.w * 0.48;
-      const ny = l.left.y + l.left.h * 0.52;
-      drawText(String(a), nx - 52, ny - 56, { color: roleColors.problem, font: "800 38px Georgia, serif" });
-      drawText(String(z), nx - 48, ny + 60, { color: roleColors.agent, font: "800 38px Georgia, serif" });
-      drawText(symbol, nx, ny + 16, { color: roleColors.neutral, font: "700 96px Georgia, serif" });
-      drawText(charge === 0 ? "neutral atom" : (charge > 0 ? charge + "+" : Math.abs(charge) + "-"), nx + 118, ny - 42, { color: roleColors.highlight, font: "800 20px Andale Mono, Courier New, monospace" });
+      const ny = l.left.y + l.left.h * 0.55;
+      drawText(String(a), nx - 52, ny - 56, { color: roleColors.problem, font: "800 34px Georgia, serif" });
+      drawText(String(z), nx - 48, ny + 60, { color: roleColors.agent, font: "800 34px Georgia, serif" });
+      drawText(symbol, nx, ny + 16, { color: roleColors.neutral, font: "700 84px Georgia, serif" });
+      drawText(charge === 0 ? "neutral atom" : (charge > 0 ? charge + "+" : Math.abs(charge) + "-"), nx + 110, ny - 42, { color: roleColors.highlight, font: "800 18px Andale Mono, Courier New, monospace" });
       panel(l.topRight.x, l.topRight.y, l.topRight.w, l.topRight.h, "Microscopic", "Nucleus identity follows proton number.", roleColors.agent);
-      drawParticleCluster(l.topRight.x + l.topRight.w * 0.5, l.topRight.y + l.topRight.h * 0.56, z, neutrons, 7);
-      panel(l.bottomRight.x, l.bottomRight.y, l.bottomRight.w, l.bottomRight.h, "Particle counts", "n = nucleon number - proton number", roleColors.resolution);
-      drawText("protons = " + z, l.bottomRight.x + 24, l.bottomRight.y + 82, { color: roleColors.agent, font: "800 16px Andale Mono, Courier New, monospace" });
-      drawText("neutrons = " + a + " - " + z + " = " + neutrons, l.bottomRight.x + 24, l.bottomRight.y + 112, { color: roleColors.problem, font: "800 16px Andale Mono, Courier New, monospace" });
-      drawText("electrons = " + electrons, l.bottomRight.x + 24, l.bottomRight.y + 142, { color: roleColors.resolution, font: "800 16px Andale Mono, Courier New, monospace" });
+      drawParticleCluster(l.topRight.x + l.topRight.w * 0.5, l.topRight.y + l.topRight.h * 0.62, z, neutrons, 6);
+      panel(l.bottomRight.x, l.bottomRight.y, l.bottomRight.w, l.bottomRight.h, "Particle counts", "n = nucleon - proton number", roleColors.resolution);
+      drawText("protons = " + z, l.bottomRight.x + 12, l.bottomRight.y + 70, { color: roleColors.agent, font: "800 14px Andale Mono, Courier New, monospace" });
+      drawText("neutrons = " + a + " - " + z + " = " + neutrons, l.bottomRight.x + 12, l.bottomRight.y + 96, { color: roleColors.problem, font: "800 14px Andale Mono, Courier New, monospace" });
+      drawText("electrons = " + electrons, l.bottomRight.x + 12, l.bottomRight.y + 122, { color: roleColors.resolution, font: "800 14px Andale Mono, Courier New, monospace" });
       setMetric(String(z), "proton number", String(neutrons), "neutrons", String(electrons), "electrons");
     }
 
@@ -1095,7 +1073,7 @@
       panel(l.left.x, l.left.y, l.left.w, l.left.h, "Microscopic", isCation ? "Sodium loses its outer electron." : "Chlorine gains one outer electron.", roleColors.agent);
       const leftCx = l.left.x + l.left.w * 0.32;
       const rightCx = l.left.x + l.left.w * 0.68;
-      const cy = l.left.y + l.left.h * 0.52;
+      const cy = l.left.y + l.left.h * 0.55;
       electronShells(leftCx, cy, shellFill(baseElectrons), { nucleusLabel: symbol, nucleusRadius: 24 });
       electronShells(rightCx, cy, shellFill(afterElectrons), { nucleusLabel: symbol, nucleusRadius: 24, electronColor: transfer ? roleColors.highlight : roleColors.agent });
       const t = (Math.sin(timeSeed * 2.2) + 1) / 2;
@@ -1105,15 +1083,15 @@
       ctx.beginPath();
       ctx.arc(ex, ey, 7, 0, Math.PI * 2);
       ctx.fill();
-      arrow(leftCx + 110, cy - 70, rightCx - 110, cy - 70, roleColors.highlight, 3);
+      arrow(leftCx + 110, cy - 70, rightCx - 110, cy - 70, roleColors.highlight, 2.5);
       panel(l.topRight.x, l.topRight.y, l.topRight.w, l.topRight.h, "Charge balance", "Protons stay fixed; electrons change.", roleColors.resolution);
       const protons = isCation ? 11 : 17;
-      drawText(protons + " protons", l.topRight.x + 28, l.topRight.y + 86, { color: roleColors.problem, font: "800 17px Andale Mono, Courier New, monospace" });
-      drawText(afterElectrons + " electrons", l.topRight.x + 28, l.topRight.y + 118, { color: roleColors.agent, font: "800 17px Andale Mono, Courier New, monospace" });
-      drawText("net charge " + (transfer ? charge.replace("1", "") : "0"), l.topRight.x + 28, l.topRight.y + 150, { color: roleColors.highlight, font: "800 17px Andale Mono, Courier New, monospace" });
+      drawText(protons + " protons", l.topRight.x + 12, l.topRight.y + 76, { color: roleColors.problem, font: "800 15px Andale Mono, Courier New, monospace" });
+      drawText(afterElectrons + " electrons", l.topRight.x + 12, l.topRight.y + 102, { color: roleColors.agent, font: "800 15px Andale Mono, Courier New, monospace" });
+      drawText("net charge " + (transfer ? charge.replace("1", "") : "0"), l.topRight.x + 12, l.topRight.y + 128, { color: roleColors.highlight, font: "800 15px Andale Mono, Courier New, monospace" });
       panel(l.bottomRight.x, l.bottomRight.y, l.bottomRight.w, l.bottomRight.h, "Symbolic", "The sign tells electron imbalance.", roleColors.highlight);
-      drawText(symbol + (transfer ? (isCation ? "+" : "-") : ""), l.bottomRight.x + 30, l.bottomRight.y + 112, { color: roleColors.neutral, font: "700 62px Georgia, serif" });
-      drawText(isCation ? "loss of e- makes + ion" : "gain of e- makes - ion", l.bottomRight.x + 30, l.bottomRight.y + 148, { color: roleColors.muted, font: "800 12px Andale Mono, Courier New, monospace" });
+      drawText(symbol + (transfer ? (isCation ? "+" : "-") : ""), l.bottomRight.x + 14, l.bottomRight.y + 110, { color: roleColors.neutral, font: "700 54px Georgia, serif" });
+      drawText(isCation ? "loss of e- makes + ion" : "gain of e- makes - ion", l.bottomRight.x + 14, l.bottomRight.y + 134, { color: roleColors.muted, font: "800 11px Andale Mono, Courier New, monospace" });
       setMetric(String(afterElectrons), "electrons", transfer ? (isCation ? "cation" : "anion") : "atom", "particle type", transfer ? (isCation ? "+" : "-") : "0", "charge");
     }
 
@@ -1124,19 +1102,19 @@
       const diff = Number(getValue("neutron_difference", 2));
       const property = String(getValue("compare_property", "chemical"));
       panel(l.left.x, l.left.y, l.left.w, l.left.h, "Microscopic comparison", "Same protons and electrons; different neutrons.", roleColors.agent);
-      const y = l.left.y + l.left.h * 0.53;
+      const y = l.left.y + l.left.h * 0.56;
       const a1 = base.a;
       const a2 = base.a + diff;
       drawParticleCluster(l.left.x + l.left.w * 0.32, y, base.z, a1 - base.z, 8);
       drawParticleCluster(l.left.x + l.left.w * 0.68, y, base.z, a2 - base.z, 8);
-      drawText(base.symbol + "-" + a1, l.left.x + l.left.w * 0.32, y + 92, { align: "center", color: roleColors.neutral, font: "800 20px Georgia, serif" });
-      drawText(base.symbol + "-" + a2, l.left.x + l.left.w * 0.68, y + 92, { align: "center", color: roleColors.neutral, font: "800 20px Georgia, serif" });
+      drawText(base.symbol + "-" + a1, l.left.x + l.left.w * 0.32, y + 92, { align: "center", color: roleColors.neutral, font: "800 18px Georgia, serif" });
+      drawText(base.symbol + "-" + a2, l.left.x + l.left.w * 0.68, y + 92, { align: "center", color: roleColors.neutral, font: "800 18px Georgia, serif" });
       panel(l.topRight.x, l.topRight.y, l.topRight.w, l.topRight.h, "Macroscopic property", property === "chemical" ? "Chemical properties stay similar." : "Physical properties can differ.", roleColors.resolution);
-      drawText(property === "chemical" ? "same chemical behavior" : "different physical mass", l.topRight.x + 24, l.topRight.y + 100, { color: property === "chemical" ? roleColors.good : roleColors.highlight, font: "800 18px Andale Mono, Courier New, monospace" });
+      drawText(property === "chemical" ? "same chemical behavior" : "different physical mass", l.topRight.x + 12, l.topRight.y + 90, { color: property === "chemical" ? roleColors.good : roleColors.highlight, font: "800 16px Andale Mono, Courier New, monospace", maxWidth: l.topRight.w - 24 });
       panel(l.bottomRight.x, l.bottomRight.y, l.bottomRight.w, l.bottomRight.h, "Symbolic", "Isotopes are atoms of the same element.", roleColors.highlight);
-      drawText("same Z = " + base.z, l.bottomRight.x + 24, l.bottomRight.y + 84, { color: roleColors.agent, font: "800 16px Andale Mono, Courier New, monospace" });
-      drawText("different A = " + a1 + " / " + a2, l.bottomRight.x + 24, l.bottomRight.y + 116, { color: roleColors.problem, font: "800 16px Andale Mono, Courier New, monospace" });
-      drawText("neutrons differ by " + diff, l.bottomRight.x + 24, l.bottomRight.y + 148, { color: roleColors.highlight, font: "800 16px Andale Mono, Courier New, monospace" });
+      drawText("same Z = " + base.z, l.bottomRight.x + 12, l.bottomRight.y + 70, { color: roleColors.agent, font: "800 14px Andale Mono, Courier New, monospace" });
+      drawText("different A = " + a1 + " / " + a2, l.bottomRight.x + 12, l.bottomRight.y + 96, { color: roleColors.problem, font: "800 14px Andale Mono, Courier New, monospace" });
+      drawText("neutrons differ by " + diff, l.bottomRight.x + 12, l.bottomRight.y + 122, { color: roleColors.highlight, font: "800 14px Andale Mono, Courier New, monospace" });
       setMetric(String(base.z), "same protons", String(diff), "neutron difference", property, "property focus");
     }
 
@@ -1155,23 +1133,24 @@
         const is35 = i < Math.round(count * abundance / 100);
         ctx.fillStyle = is35 ? roleColors.agent : roleColors.problem;
         ctx.beginPath();
-        ctx.arc(l.left.x + 54 + col * 28, l.left.y + 82 + row * 24, 8, 0, Math.PI * 2);
+        ctx.arc(l.left.x + 40 + col * 28, l.left.y + 80 + row * 24, 7, 0, Math.PI * 2);
         ctx.fill();
       }
       panel(l.topRight.x, l.topRight.y, l.topRight.w, l.topRight.h, "Abundance bar", "A decimal mass is an average, not half a neutron.", roleColors.resolution);
-      const bx = l.topRight.x + 24;
-      const by = l.topRight.y + 88;
-      const bw = l.topRight.w - 48;
+      const bx = l.topRight.x + 12;
+      const by = l.topRight.y + 80;
+      const bw = l.topRight.w - 24;
       ctx.fillStyle = roleColors.problem;
-      ctx.fillRect(bx, by, bw, 32);
+      ctx.fillRect(bx, by, bw, 24);
       ctx.fillStyle = roleColors.agent;
-      ctx.fillRect(bx, by, bw * abundance / 100, 32);
+      ctx.fillRect(bx, by, bw * abundance / 100, 24);
       ctx.strokeStyle = roleColors.neutral;
-      ctx.strokeRect(bx, by, bw, 32);
-      drawText(abundance + "% Cl-35", bx, by + 56, { color: roleColors.agent, font: "800 13px Andale Mono, Courier New, monospace" });
+      ctx.lineWidth = 1;
+      ctx.strokeRect(bx, by, bw, 24);
+      drawText(abundance + "% Cl-35", bx, by + 44, { color: roleColors.agent, font: "800 12px Andale Mono, Courier New, monospace" });
       panel(l.bottomRight.x, l.bottomRight.y, l.bottomRight.w, l.bottomRight.h, "Symbolic", "Weighted average uses percentage abundance.", roleColors.highlight);
-      drawText(mode === "weighted_average" ? "(" + abundance + "x35 + " + (100 - abundance) + "x37) / 100" : "(35 + 37) / 2", l.bottomRight.x + 22, l.bottomRight.y + 92, { color: roleColors.muted, font: "800 12px Andale Mono, Courier New, monospace", maxWidth: l.bottomRight.w - 44 });
-      drawText("Ar = " + ar.toFixed(1), l.bottomRight.x + 24, l.bottomRight.y + 136, { color: mode === "weighted_average" ? roleColors.good : roleColors.problem, font: "800 34px Georgia, serif" });
+      drawText(mode === "weighted_average" ? "(" + abundance + "x35 + " + (100 - abundance) + "x37) / 100" : "(35 + 37) / 2", l.bottomRight.x + 12, l.bottomRight.y + 78, { color: roleColors.muted, font: "800 11px Andale Mono, Courier New, monospace", maxWidth: l.bottomRight.w - 24 });
+      drawText("Ar = " + ar.toFixed(1), l.bottomRight.x + 12, l.bottomRight.y + 122, { color: mode === "weighted_average" ? roleColors.good : roleColors.problem, font: "800 28px Georgia, serif" });
       setMetric(abundance + "%", "Cl-35 abundance", ar.toFixed(1), "relative atomic mass", mode === "weighted_average" ? "weighted" : "trap", "method");
     }
 
@@ -1182,22 +1161,24 @@
       const selected = String(getValue("selected_option", "A"));
       panel(l.left.x, l.left.y, l.left.w, l.left.h, "MCQ method", "Label the notation before touching the options.", roleColors.highlight);
       const nx = l.left.x + l.left.w * 0.44;
-      const ny = l.left.y + l.left.h * 0.48;
-      drawText("294", nx - 76, ny - 64, { color: focus === "nucleons" ? roleColors.highlight : roleColors.problem, font: "800 40px Georgia, serif" });
-      drawText("118", nx - 76, ny + 62, { color: focus === "protons" ? roleColors.highlight : roleColors.agent, font: "800 40px Georgia, serif" });
-      drawText("Og", nx, ny + 18, { color: roleColors.neutral, font: "700 96px Georgia, serif" });
-      panel(l.topRight.x, l.topRight.y, l.topRight.w, l.topRight.h, "Working", "Neutrons = nucleon number - proton number.", roleColors.resolution);
+      const ny = l.left.y + l.left.h * 0.52;
+      drawText("294", nx - 76, ny - 64, { color: focus === "nucleons" ? roleColors.highlight : roleColors.problem, font: "800 36px Georgia, serif" });
+      drawText("118", nx - 76, ny + 62, { color: focus === "protons" ? roleColors.highlight : roleColors.agent, font: "800 36px Georgia, serif" });
+      drawText("Og", nx, ny + 18, { color: roleColors.neutral, font: "700 84px Georgia, serif" });
+      panel(l.topRight.x, l.topRight.y, l.topRight.w, l.topRight.h, "Working", "Neutrons = nucleon - proton number.", roleColors.resolution);
       const lines = ["A = 294", "Z = 118", "protons = 118", "electrons = 118 for atom", "neutrons = 294 - 118 = 176"];
       lines.slice(0, step).forEach(function(line, index) {
-        drawText(line, l.topRight.x + 24, l.topRight.y + 74 + index * 25, { color: index === step - 1 ? roleColors.highlight : roleColors.neutral, font: "800 14px Andale Mono, Courier New, monospace" });
+        drawText(line, l.topRight.x + 12, l.topRight.y + 66 + index * 22, { color: index === step - 1 ? roleColors.highlight : roleColors.neutral, font: "800 12px Andale Mono, Courier New, monospace" });
       });
       panel(l.bottomRight.x, l.bottomRight.y, l.bottomRight.w, l.bottomRight.h, "Options", "Reject distractors by naming what they counted.", roleColors.problem);
       const options = { A: "118 protons", B: "176 neutrons", C: "294 nucleons", D: "412 added numbers" };
       Object.keys(options).forEach(function(key, index) {
-        const y = l.bottomRight.y + 66 + index * 28;
-        ctx.fillStyle = selected === key ? (key === "B" ? "rgba(32,120,87,0.18)" : "rgba(200,74,54,0.18)") : "rgba(255,253,246,0.72)";
-        ctx.fillRect(l.bottomRight.x + 20, y - 16, l.bottomRight.w - 40, 22);
-        drawText(key + ". " + options[key], l.bottomRight.x + 30, y, { color: key === "B" ? roleColors.good : roleColors.neutral, font: "800 12px Andale Mono, Courier New, monospace" });
+        const y = l.bottomRight.y + 60 + index * 24;
+        if (selected === key) {
+          ctx.fillStyle = key === "B" ? "rgba(32,120,87,0.16)" : "rgba(200,74,54,0.16)";
+          ctx.fillRect(l.bottomRight.x + 8, y - 14, l.bottomRight.w - 16, 20);
+        }
+        drawText(key + ". " + options[key], l.bottomRight.x + 14, y, { color: key === "B" ? roleColors.good : roleColors.neutral, font: "800 11px Andale Mono, Courier New, monospace" });
       });
       setMetric("118", "protons", "176", "neutrons", selected, "chosen option");
     }
@@ -1210,20 +1191,22 @@
       const chargeValue = chargeNumber(charge);
       const neutralElectrons = ionElectrons + chargeValue;
       panel(l.left.x, l.left.y, l.left.w, l.left.h, "Reverse the ion", "A 2- ion has two extra electrons.", roleColors.agent);
-      electronShells(l.left.x + l.left.w * 0.35, l.left.y + l.left.h * 0.52, shellFill(ionElectrons), { nucleusLabel: "ion", nucleusRadius: 24, electronColor: roleColors.highlight });
-      arrow(l.left.x + l.left.w * 0.5, l.left.y + l.left.h * 0.5, l.left.x + l.left.w * 0.7, l.left.y + l.left.h * 0.5, roleColors.highlight, 3);
-      electronShells(l.left.x + l.left.w * 0.76, l.left.y + l.left.h * 0.52, shellFill(neutralElectrons), { nucleusLabel: "atom", nucleusRadius: 24 });
+      electronShells(l.left.x + l.left.w * 0.35, l.left.y + l.left.h * 0.55, shellFill(ionElectrons), { nucleusLabel: "ion", nucleusRadius: 24, electronColor: roleColors.highlight });
+      arrow(l.left.x + l.left.w * 0.5, l.left.y + l.left.h * 0.5, l.left.x + l.left.w * 0.7, l.left.y + l.left.h * 0.5, roleColors.highlight, 2.5);
+      electronShells(l.left.x + l.left.w * 0.76, l.left.y + l.left.h * 0.55, shellFill(neutralElectrons), { nucleusLabel: "atom", nucleusRadius: 24 });
       panel(l.topRight.x, l.topRight.y, l.topRight.w, l.topRight.h, "Symbolic equation", "Neutral atom has fewer electrons than a negative ion.", roleColors.highlight);
-      drawText("ion e- = 18", l.topRight.x + 24, l.topRight.y + 82, { color: roleColors.agent, font: "800 16px Andale Mono, Courier New, monospace" });
-      drawText("atom e- = 18 - 2 = " + neutralElectrons, l.topRight.x + 24, l.topRight.y + 116, { color: roleColors.good, font: "800 16px Andale Mono, Courier New, monospace" });
-      drawText("proton number = " + neutralElectrons, l.topRight.x + 24, l.topRight.y + 150, { color: roleColors.resolution, font: "800 16px Andale Mono, Courier New, monospace" });
+      drawText("ion e- = 18", l.topRight.x + 12, l.topRight.y + 70, { color: roleColors.agent, font: "800 14px Andale Mono, Courier New, monospace" });
+      drawText("atom e- = 18 - 2 = " + neutralElectrons, l.topRight.x + 12, l.topRight.y + 96, { color: roleColors.good, font: "800 14px Andale Mono, Courier New, monospace" });
+      drawText("proton number = " + neutralElectrons, l.topRight.x + 12, l.topRight.y + 122, { color: roleColors.resolution, font: "800 14px Andale Mono, Courier New, monospace" });
       panel(l.bottomRight.x, l.bottomRight.y, l.bottomRight.w, l.bottomRight.h, "Options", "18 electrons is the ion count, not the atom proton number.", roleColors.problem);
       const options = { A: "14", B: "16", C: "18", D: "20" };
       Object.keys(options).forEach(function(key, index) {
-        const y = l.bottomRight.y + 66 + index * 28;
-        ctx.fillStyle = selected === key ? (key === "B" ? "rgba(32,120,87,0.18)" : "rgba(200,74,54,0.18)") : "rgba(255,253,246,0.72)";
-        ctx.fillRect(l.bottomRight.x + 22, y - 16, l.bottomRight.w - 44, 22);
-        drawText(key + ". " + options[key], l.bottomRight.x + 32, y, { color: key === "B" ? roleColors.good : roleColors.neutral, font: "800 13px Andale Mono, Courier New, monospace" });
+        const y = l.bottomRight.y + 60 + index * 24;
+        if (selected === key) {
+          ctx.fillStyle = key === "B" ? "rgba(32,120,87,0.16)" : "rgba(200,74,54,0.16)";
+          ctx.fillRect(l.bottomRight.x + 8, y - 14, l.bottomRight.w - 16, 20);
+        }
+        drawText(key + ". " + options[key], l.bottomRight.x + 14, y, { color: key === "B" ? roleColors.good : roleColors.neutral, font: "800 12px Andale Mono, Courier New, monospace" });
       });
       setMetric("18", "ion electrons", String(neutralElectrons), "neutral protons", selected, "chosen option");
     }
@@ -1233,8 +1216,8 @@
       const time = Number(getValue("reaction_time", 0));
       const particles = Number(getValue("initial_particles", 70));
       const rate = 0.65 + particles / 70;
-      panel(l.left.x, l.left.y, l.left.w, l.left.h, "Macroscopic graph", "Rate is gradient at that moment.", roleColors.resolution);
-      drawGraph(l.left.x + 10, l.left.y + 36, l.left.w - 20, l.left.h - 52, rate, { tangent: Boolean(getValue("show_tangent", true)), tangentLabel: "gradient here", yLabel: String(getValue("measurement_mode", "gas volume")) });
+      panel(l.left.x, l.left.y, l.left.w, l.left.h, "Macroscopic graph", "Rate is the gradient at that moment.", roleColors.resolution);
+      drawGraph(l.left.x, l.left.y + 36, l.left.w, l.left.h - 52, rate, { tangent: Boolean(getValue("show_tangent", true)), tangentLabel: "gradient here", yLabel: String(getValue("measurement_mode", "gas volume")) });
       const x = l.left.x + 70 + (l.left.w - 140) * clamp(time / 100, 0, 1);
       ctx.strokeStyle = roleColors.problem;
       ctx.setLineDash([6, 6]);
@@ -1244,29 +1227,30 @@
       ctx.stroke();
       ctx.setLineDash([]);
       panel(l.topRight.x, l.topRight.y, l.topRight.w, l.topRight.h, "Microscopic", "Reactants are used up, so collisions become less frequent.", roleColors.agent);
-      drawMovingParticles(l.topRight.x, l.topRight.y, l.topRight.w, l.topRight.h, 18 + particles / 3, rate, 0.5);
+      drawMovingParticles(l.topRight.x, l.topRight.y + 28, l.topRight.w, l.topRight.h - 28, 18 + particles / 3, rate, 0.5);
       panel(l.bottomRight.x, l.bottomRight.y, l.bottomRight.w, l.bottomRight.h, "Symbolic", "rate = change / time; initial rate uses start gradient.", roleColors.highlight);
-      drawText("rate = gradient", l.bottomRight.x + 24, l.bottomRight.y + 98, { color: roleColors.highlight, font: "800 26px Georgia, serif" });
-      drawText("steeper line -> faster reaction", l.bottomRight.x + 24, l.bottomRight.y + 134, { color: roleColors.muted, font: "800 12px Andale Mono, Courier New, monospace" });
+      drawText("rate = gradient", l.bottomRight.x + 12, l.bottomRight.y + 92, { color: roleColors.highlight, font: "800 22px Georgia, serif" });
+      drawText("steeper line means faster reaction", l.bottomRight.x + 12, l.bottomRight.y + 122, { color: roleColors.muted, font: "800 11px Andale Mono, Courier New, monospace", maxWidth: l.bottomRight.w - 24 });
       setMetric(time + " s", "reaction time", rate.toFixed(1) + "x", "gradient", String(particles), "initial particles");
     }
 
     function drawMovingParticles(x, y, w, h, count, speed, success) {
-      const box = { x: x + 22, y: y + 56, w: w - 44, h: h - 86 };
-      ctx.fillStyle = "rgba(223, 233, 226, 0.7)";
-      ctx.strokeStyle = "rgba(21, 25, 19, 0.18)";
-      ctx.fillRect(box.x, box.y, box.w, box.h);
-      ctx.strokeRect(box.x, box.y, box.w, box.h);
+      const box = { x: x + 8, y: y + 8, w: Math.max(20, w - 16), h: Math.max(20, h - 16) };
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(box.x, box.y, box.w, box.h);
+      ctx.clip();
       for (let i = 0; i < Math.min(72, count); i += 1) {
         const a = i * 2.399 + timeSeed * speed;
-        const r = 0.28 + (i % 9) * 0.038;
+        const r = 0.3 + (i % 9) * 0.038;
         const px = box.x + box.w * (0.5 + Math.cos(a) * r);
         const py = box.y + box.h * (0.5 + Math.sin(a * 1.13) * r);
         ctx.fillStyle = i % Math.max(2, Math.round(10 - success * 7)) === 0 ? roleColors.highlight : (i % 2 ? roleColors.agent : roleColors.problem);
         ctx.beginPath();
-        ctx.arc(px, py, 5, 0, Math.PI * 2);
+        ctx.arc(px, py, 4.5, 0, Math.PI * 2);
         ctx.fill();
       }
+      ctx.restore();
     }
 
     function drawCollisionGate() {
@@ -1279,24 +1263,24 @@
       const passOrient = orientation.indexOf("right") >= 0;
       panel(l.left.x, l.left.y, l.left.w, l.left.h, "Microscopic collision", "A collision must pass both gates.", roleColors.agent);
       const cx = l.left.x + l.left.w * 0.5;
-      const cy = l.left.y + l.left.h * 0.52;
+      const cy = l.left.y + l.left.h * 0.55;
       const offset = 90 - Math.sin(timeSeed * freq) * 40;
       ctx.fillStyle = roleColors.agent;
       ctx.beginPath();
-      ctx.arc(cx - offset, cy, 28, 0, Math.PI * 2);
+      ctx.arc(cx - offset, cy, 26, 0, Math.PI * 2);
       ctx.fill();
       ctx.fillStyle = roleColors.problem;
       ctx.beginPath();
-      ctx.arc(cx + offset, cy, 28, 0, Math.PI * 2);
+      ctx.arc(cx + offset, cy, 26, 0, Math.PI * 2);
       ctx.fill();
-      arrow(cx - offset + 40, cy, cx - 14, cy, roleColors.agent, 3);
-      arrow(cx + offset - 40, cy, cx + 14, cy, roleColors.problem, 3);
-      drawText(passEnergy && passOrient ? "products form" : "bounce apart", cx, cy + 84, { align: "center", color: passEnergy && passOrient ? roleColors.good : roleColors.problem, font: "800 22px Georgia, serif" });
+      arrow(cx - offset + 38, cy, cx - 14, cy, roleColors.agent, 2.5);
+      arrow(cx + offset - 38, cy, cx + 14, cy, roleColors.problem, 2.5);
+      drawText(passEnergy && passOrient ? "products form" : "bounce apart", cx, cy + 80, { align: "center", color: passEnergy && passOrient ? roleColors.good : roleColors.problem, font: "800 20px Georgia, serif" });
       panel(l.topRight.x, l.topRight.y, l.topRight.w, l.topRight.h, "Macroscopic count", "Only effective collisions increase product.", roleColors.resolution);
-      drawText(passEnergy && passOrient ? "effective" : "ineffective", l.topRight.x + 26, l.topRight.y + 102, { color: passEnergy && passOrient ? roleColors.good : roleColors.problem, font: "800 28px Georgia, serif" });
+      drawText(passEnergy && passOrient ? "effective" : "ineffective", l.topRight.x + 12, l.topRight.y + 96, { color: passEnergy && passOrient ? roleColors.good : roleColors.problem, font: "800 24px Georgia, serif" });
       panel(l.bottomRight.x, l.bottomRight.y, l.bottomRight.w, l.bottomRight.h, "Symbolic gates", "energy >= Ea AND right orientation", roleColors.highlight);
-      drawText("energy " + (passEnergy ? "passes" : "fails"), l.bottomRight.x + 24, l.bottomRight.y + 88, { color: passEnergy ? roleColors.good : roleColors.problem, font: "800 15px Andale Mono, Courier New, monospace" });
-      drawText("orientation " + (passOrient ? "passes" : "fails"), l.bottomRight.x + 24, l.bottomRight.y + 120, { color: passOrient ? roleColors.good : roleColors.problem, font: "800 15px Andale Mono, Courier New, monospace" });
+      drawText("energy " + (passEnergy ? "passes" : "fails"), l.bottomRight.x + 12, l.bottomRight.y + 76, { color: passEnergy ? roleColors.good : roleColors.problem, font: "800 14px Andale Mono, Courier New, monospace" });
+      drawText("orientation " + (passOrient ? "passes" : "fails"), l.bottomRight.x + 12, l.bottomRight.y + 102, { color: passOrient ? roleColors.good : roleColors.problem, font: "800 14px Andale Mono, Courier New, monospace" });
       setMetric(String(energy), "collision energy", String(ea), "activation energy", passEnergy && passOrient ? "yes" : "no", "effective?");
     }
 
@@ -1307,23 +1291,23 @@
       const amount = Number(getValue("solid_amount", 2));
       const exposed = small ? 4 + amount * 6 : 2 + amount;
       panel(l.left.x, l.left.y, l.left.w, l.left.h, "Macroscopic solid", "Smaller pieces expose more surface to acid.", roleColors.resolution);
-      const startX = l.left.x + 76;
-      const startY = l.left.y + 110;
-      const cubeSize = small ? 36 : 110;
-      const cubes = small ? 16 : 2;
+      const startX = l.left.x + 24;
+      const startY = l.left.y + 80;
+      const cubeSize = small ? 30 : 96;
+      const cubes = small ? 12 : 2;
       for (let i = 0; i < cubes; i += 1) {
         const x = startX + (i % 4) * (cubeSize + 12);
         const y = startY + Math.floor(i / 4) * (cubeSize + 12);
-        ctx.fillStyle = roleColors.surfaceCool;
+        ctx.fillStyle = "rgba(36, 124, 111, 0.18)";
         ctx.fillRect(x, y, cubeSize, cubeSize);
         ctx.strokeStyle = Boolean(getValue("show_surface_area", true)) ? roleColors.highlight : roleColors.neutral;
-        ctx.lineWidth = Boolean(getValue("show_surface_area", true)) ? 4 : 1;
+        ctx.lineWidth = Boolean(getValue("show_surface_area", true)) ? 3 : 1;
         ctx.strokeRect(x, y, cubeSize, cubeSize);
       }
       panel(l.topRight.x, l.topRight.y, l.topRight.w, l.topRight.h, "Microscopic contact", "More exposed sites allow more frequent collisions.", roleColors.agent);
-      drawMovingParticles(l.topRight.x, l.topRight.y, l.topRight.w, l.topRight.h, exposed * 4, 1 + exposed / 10, 0.7);
+      drawMovingParticles(l.topRight.x, l.topRight.y + 36, l.topRight.w, l.topRight.h - 36, exposed * 4, 1 + exposed / 10, 0.7);
       panel(l.bottomRight.x, l.bottomRight.y, l.bottomRight.w, l.bottomRight.h, "Graph", "Higher surface area gives a steeper start.", roleColors.highlight);
-      drawGraph(l.bottomRight.x, l.bottomRight.y + 28, l.bottomRight.w, l.bottomRight.h - 24, 0.5 + exposed / 12, { tangentLabel: "faster start" });
+      drawGraph(l.bottomRight.x, l.bottomRight.y + 28, l.bottomRight.w, l.bottomRight.h - 28, 0.5 + exposed / 12, { tangentLabel: "faster start" });
       setMetric(size, "particle size", String(exposed), "exposed sites", (0.5 + exposed / 12).toFixed(1) + "x", "initial rate");
     }
 
@@ -1334,12 +1318,12 @@
       const excess = Boolean(getValue("acid_excess", true));
       const rate = 0.6 + concentration * 0.6;
       panel(l.left.x, l.left.y, l.left.w, l.left.h, "Microscopic solution", "More particles per volume gives more collisions.", roleColors.agent);
-      drawMovingParticles(l.left.x, l.left.y, l.left.w, l.left.h, 26 + concentration * 26, 0.8 + concentration, 0.65);
+      drawMovingParticles(l.left.x, l.left.y + 36, l.left.w, l.left.h - 52, 26 + concentration * 26, 0.8 + concentration, 0.65);
       panel(l.topRight.x, l.topRight.y, l.topRight.w, l.topRight.h, "Macroscopic graph", "Concentration changes initial gradient; limiting reactant sets final volume.", roleColors.resolution);
-      drawGraph(l.topRight.x, l.topRight.y + 28, l.topRight.w, l.topRight.h - 24, rate, { tangent: Boolean(getValue("show_gradient", true)), tangentLabel: "initial gradient" });
+      drawGraph(l.topRight.x, l.topRight.y + 28, l.topRight.w, l.topRight.h - 28, rate, { tangent: Boolean(getValue("show_gradient", true)), tangentLabel: "initial gradient" });
       panel(l.bottomRight.x, l.bottomRight.y, l.bottomRight.w, l.bottomRight.h, "Symbolic", "Rate depends on collision frequency, not just final amount.", roleColors.highlight);
-      drawText("collision frequency ↑", l.bottomRight.x + 24, l.bottomRight.y + 88, { color: roleColors.agent, font: "800 17px Andale Mono, Courier New, monospace" });
-      drawText("final gas: " + (excess ? magnesium + " g Mg limits" : "acid limits"), l.bottomRight.x + 24, l.bottomRight.y + 122, { color: roleColors.resolution, font: "800 14px Andale Mono, Courier New, monospace" });
+      drawText("collision frequency goes up", l.bottomRight.x + 12, l.bottomRight.y + 78, { color: roleColors.agent, font: "800 14px Andale Mono, Courier New, monospace", maxWidth: l.bottomRight.w - 24 });
+      drawText("final gas: " + (excess ? magnesium + " g Mg limits" : "acid limits"), l.bottomRight.x + 12, l.bottomRight.y + 110, { color: roleColors.resolution, font: "800 12px Andale Mono, Courier New, monospace", maxWidth: l.bottomRight.w - 24 });
       setMetric(concentration.toFixed(1), "concentration", rate.toFixed(1) + "x", "initial rate", String(getValue("curve_choice", "B")), "curve choice");
     }
 
@@ -1351,27 +1335,33 @@
       panel(l.left.x, l.left.y, l.left.w, l.left.h, "Macroscopic piston", "Pressure compresses the same gas particles.", roleColors.resolution);
       const boxW = l.left.w * 0.62 * volume;
       const boxX = l.left.x + (l.left.w - boxW) * 0.5;
-      const boxY = l.left.y + 90;
-      const boxH = l.left.h - 160;
-      ctx.fillStyle = "rgba(223,233,226,0.7)";
+      const boxY = l.left.y + 80;
+      const boxH = l.left.h - 140;
+      ctx.fillStyle = "rgba(36, 124, 111, 0.12)";
       ctx.fillRect(boxX, boxY, boxW, boxH);
       ctx.strokeStyle = roleColors.neutral;
+      ctx.lineWidth = 1.5;
       ctx.strokeRect(boxX, boxY, boxW, boxH);
-      arrow(boxX + boxW + 80, boxY + boxH / 2, boxX + boxW + 8, boxY + boxH / 2, roleColors.problem, 4);
+      arrow(boxX + boxW + 70, boxY + boxH / 2, boxX + boxW + 8, boxY + boxH / 2, roleColors.problem, 3);
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(boxX, boxY, boxW, boxH);
+      ctx.clip();
       for (let i = 0; i < count; i += 1) {
         const a = i * 2.399 + timeSeed * (0.9 + pressure * 0.15);
         const px = boxX + boxW * (0.5 + Math.cos(a) * 0.43);
         const py = boxY + boxH * (0.5 + Math.sin(a * 1.21) * 0.43);
         ctx.fillStyle = i % 2 ? roleColors.agent : roleColors.problem;
         ctx.beginPath();
-        ctx.arc(px, py, 5, 0, Math.PI * 2);
+        ctx.arc(px, py, 4.5, 0, Math.PI * 2);
         ctx.fill();
       }
+      ctx.restore();
       panel(l.topRight.x, l.topRight.y, l.topRight.w, l.topRight.h, "Microscopic density", "More particles per unit volume.", roleColors.agent);
-      drawText("same particles", l.topRight.x + 24, l.topRight.y + 88, { color: roleColors.neutral, font: "800 16px Andale Mono, Courier New, monospace" });
-      drawText("smaller volume", l.topRight.x + 24, l.topRight.y + 120, { color: roleColors.problem, font: "800 16px Andale Mono, Courier New, monospace" });
+      drawText("same particles", l.topRight.x + 12, l.topRight.y + 76, { color: roleColors.neutral, font: "800 14px Andale Mono, Courier New, monospace" });
+      drawText("smaller volume", l.topRight.x + 12, l.topRight.y + 102, { color: roleColors.problem, font: "800 14px Andale Mono, Courier New, monospace" });
       panel(l.bottomRight.x, l.bottomRight.y, l.bottomRight.w, l.bottomRight.h, "Rate link", "Closer particles collide more frequently.", roleColors.highlight);
-      drawGraph(l.bottomRight.x, l.bottomRight.y + 28, l.bottomRight.w, l.bottomRight.h - 24, 0.6 + pressure * 0.35, { tangentLabel: "more collisions" });
+      drawGraph(l.bottomRight.x, l.bottomRight.y + 28, l.bottomRight.w, l.bottomRight.h - 28, 0.6 + pressure * 0.35, { tangentLabel: "more collisions" });
       setMetric(String(pressure), "pressure level", volume.toFixed(2), "relative volume", (0.6 + pressure * 0.35).toFixed(1) + "x", "rate");
     }
 
@@ -1381,19 +1371,20 @@
       const ea = Number(getValue("activation_energy", 60));
       const fraction = clamp((temp + 20) / Math.max(ea, 1), 0.12, 1.3);
       panel(l.left.x, l.left.y, l.left.w, l.left.h, "Microscopic motion", "Higher temperature moves particles faster and changes energy distribution.", roleColors.agent);
-      drawMovingParticles(l.left.x, l.left.y, l.left.w, l.left.h, 44, 0.5 + temp / 28, fraction);
+      drawMovingParticles(l.left.x, l.left.y + 40, l.left.w, l.left.h - 56, 44, 0.5 + temp / 28, fraction);
       panel(l.topRight.x, l.topRight.y, l.topRight.w, l.topRight.h, "Energy distribution", "More particles exceed activation energy.", roleColors.resolution);
-      const gx = l.topRight.x + 32;
-      const gy = l.topRight.y + l.topRight.h - 38;
-      const gw = l.topRight.w - 64;
-      const gh = l.topRight.h - 86;
+      const gx = l.topRight.x + 22;
+      const gy = l.topRight.y + l.topRight.h - 24;
+      const gw = l.topRight.w - 44;
+      const gh = l.topRight.h - 78;
       ctx.strokeStyle = roleColors.neutral;
+      ctx.lineWidth = 1.2;
       ctx.beginPath();
       ctx.moveTo(gx, gy);
       ctx.lineTo(gx + gw, gy);
       ctx.stroke();
       ctx.strokeStyle = roleColors.agent;
-      ctx.lineWidth = 3;
+      ctx.lineWidth = 2.5;
       ctx.beginPath();
       for (let i = 0; i <= 60; i += 1) {
         const t = i / 60;
@@ -1411,11 +1402,11 @@
       ctx.lineTo(eaX, gy - gh);
       ctx.stroke();
       ctx.setLineDash([]);
-      drawText("Ea", eaX + 5, gy - gh + 15, { color: roleColors.problem, font: "800 12px Andale Mono, Courier New, monospace" });
+      drawText("Ea", eaX + 5, gy - gh + 12, { color: roleColors.problem, font: "800 11px Andale Mono, Courier New, monospace" });
       panel(l.bottomRight.x, l.bottomRight.y, l.bottomRight.w, l.bottomRight.h, "Symbolic", "Temperature does not lower activation energy.", roleColors.highlight);
-      drawText("fraction >= Ea increases", l.bottomRight.x + 24, l.bottomRight.y + 98, { color: roleColors.good, font: "800 16px Andale Mono, Courier New, monospace" });
-      drawText("Ea stays " + ea, l.bottomRight.x + 24, l.bottomRight.y + 130, { color: roleColors.problem, font: "800 16px Andale Mono, Courier New, monospace" });
-      setMetric(temp + "°C", "temperature", Math.round(fraction * 100) + "%", "relative success", String(ea), "Ea");
+      drawText("fraction >= Ea increases", l.bottomRight.x + 12, l.bottomRight.y + 84, { color: roleColors.good, font: "800 14px Andale Mono, Courier New, monospace", maxWidth: l.bottomRight.w - 24 });
+      drawText("Ea stays " + ea, l.bottomRight.x + 12, l.bottomRight.y + 110, { color: roleColors.problem, font: "800 14px Andale Mono, Courier New, monospace" });
+      setMetric(temp + " C", "temperature", Math.round(fraction * 100) + "%", "relative success", String(ea), "Ea");
     }
 
     function drawCatalyst() {
@@ -1424,42 +1415,43 @@
       const temp = Number(getValue("temperature", 30));
       const rate = catalyst ? 2.4 : 1.1 + temp / 100;
       panel(l.left.x, l.left.y, l.left.w, l.left.h, "Energy pathway", "A catalyst provides a lower activation energy route.", roleColors.highlight);
-      const gx = l.left.x + 68;
-      const gy = l.left.y + l.left.h - 92;
-      const gw = l.left.w - 136;
+      const gx = l.left.x + 50;
+      const gy = l.left.y + l.left.h - 70;
+      const gw = l.left.w - 100;
       const peak = catalyst ? 0.38 : 0.78;
       ctx.strokeStyle = roleColors.problem;
-      ctx.lineWidth = 5;
+      ctx.lineWidth = 4;
       ctx.beginPath();
       ctx.moveTo(gx, gy);
-      ctx.bezierCurveTo(gx + gw * 0.25, gy - 120, gx + gw * 0.45, gy - l.left.h * peak, gx + gw * 0.55, gy - l.left.h * peak);
-      ctx.bezierCurveTo(gx + gw * 0.7, gy - 80, gx + gw * 0.78, gy - 60, gx + gw, gy - 60);
+      ctx.bezierCurveTo(gx + gw * 0.25, gy - 110, gx + gw * 0.45, gy - l.left.h * peak, gx + gw * 0.55, gy - l.left.h * peak);
+      ctx.bezierCurveTo(gx + gw * 0.7, gy - 70, gx + gw * 0.78, gy - 50, gx + gw, gy - 50);
       ctx.stroke();
       if (catalyst) {
         ctx.strokeStyle = roleColors.good;
+        ctx.lineWidth = 3;
         ctx.setLineDash([8, 8]);
         ctx.beginPath();
         ctx.moveTo(gx, gy);
-        ctx.bezierCurveTo(gx + gw * 0.28, gy - 70, gx + gw * 0.42, gy - 150, gx + gw * 0.56, gy - 140);
-        ctx.bezierCurveTo(gx + gw * 0.72, gy - 90, gx + gw * 0.82, gy - 60, gx + gw, gy - 60);
+        ctx.bezierCurveTo(gx + gw * 0.28, gy - 60, gx + gw * 0.42, gy - 130, gx + gw * 0.56, gy - 120);
+        ctx.bezierCurveTo(gx + gw * 0.72, gy - 80, gx + gw * 0.82, gy - 50, gx + gw, gy - 50);
         ctx.stroke();
         ctx.setLineDash([]);
       }
       panel(l.topRight.x, l.topRight.y, l.topRight.w, l.topRight.h, "Microscopic", "More collisions have enough energy; catalyst is not used up.", roleColors.agent);
-      drawMovingParticles(l.topRight.x, l.topRight.y, l.topRight.w, l.topRight.h, 42, rate, catalyst ? 0.9 : 0.4);
+      drawMovingParticles(l.topRight.x, l.topRight.y + 36, l.topRight.w, l.topRight.h - 36, 42, rate, catalyst ? 0.9 : 0.4);
       panel(l.bottomRight.x, l.bottomRight.y, l.bottomRight.w, l.bottomRight.h, "Macroscopic graph", "Faster rate, same final yield.", roleColors.resolution);
-      drawGraph(l.bottomRight.x, l.bottomRight.y + 28, l.bottomRight.w, l.bottomRight.h - 24, rate, { tangentLabel: "faster" });
+      drawGraph(l.bottomRight.x, l.bottomRight.y + 28, l.bottomRight.w, l.bottomRight.h - 28, rate, { tangentLabel: "faster" });
       setMetric(catalyst ? "present" : "absent", "catalyst", rate.toFixed(1) + "x", "rate", Boolean(getValue("show_yield", true)) ? "same yield" : "yield hidden", "final amount");
     }
 
     function drawGeneric() {
       const l = splitLayout();
       panel(l.left.x, l.left.y, l.left.w, l.left.h, "Mechanism", spec.mechanism, roleColors.agent);
-      drawMovingParticles(l.left.x, l.left.y, l.left.w, l.left.h, 42, 1.2, 0.55);
+      drawMovingParticles(l.left.x, l.left.y + 40, l.left.w, l.left.h - 56, 42, 1.2, 0.55);
       panel(l.topRight.x, l.topRight.y, l.topRight.w, l.topRight.h, "Linked outcome", spec.transferable_principle, roleColors.resolution);
-      drawGraph(l.topRight.x, l.topRight.y + 28, l.topRight.w, l.topRight.h - 24, 1.2, { tangentLabel: "linked change" });
+      drawGraph(l.topRight.x, l.topRight.y + 28, l.topRight.w, l.topRight.h - 28, 1.2, { tangentLabel: "linked change" });
       panel(l.bottomRight.x, l.bottomRight.y, l.bottomRight.w, l.bottomRight.h, "Symbolic", spec.steps.map(function(step) { return step.name; }).join(" -> "), roleColors.highlight);
-      drawText(spec.topic, l.bottomRight.x + 24, l.bottomRight.y + 110, { color: roleColors.highlight, font: "800 26px Georgia, serif" });
+      drawText(spec.topic, l.bottomRight.x + 12, l.bottomRight.y + 100, { color: roleColors.highlight, font: "800 22px Georgia, serif", maxWidth: l.bottomRight.w - 24 });
       setMetric("linked", "views", String(spec.controls.length), "controls", String(spec.scenarios.length), "scenarios");
     }
 

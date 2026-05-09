@@ -12,10 +12,10 @@ export const FALLBACK_SUGGESTED_PROMPTS = [
 ];
 
 const MAX_PROMPTS = 8;
-/** UI cap for “Ask or generate from here” chips. */
+/** Hard cap for “Ask or generate from here” chips (full prompt text, not label-only). */
 export const MAX_WORDS = 10;
 
-/** Chip label: first {@link MAX_WORDS} words; appends … when shortened. */
+/** Truncates to the first {@link MAX_WORDS} words; appends … when shortened. */
 export function truncateWords(text: string, maxWords = MAX_WORDS): string {
   const t = text.trim();
   if (!t) return t;
@@ -30,6 +30,7 @@ function lowerKey(text: string): string {
 
 /**
  * Builds student-voiced suggested chat prompts from {@link BuiltArtifact} / ArtifactSpec fields.
+ * Each line is capped at {@link MAX_WORDS} words so chips stay scannable and sends stay short.
  */
 export function buildSuggestedPromptsFromArtifact(
   artifact: BuiltArtifact,
@@ -41,7 +42,7 @@ export function buildSuggestedPromptsFromArtifact(
     for (const raw of candidates) {
       if (out.length >= MAX_PROMPTS) return;
       if (!raw) continue;
-      const line = raw.trim();
+      const line = truncateWords(raw.trim());
       const key = lowerKey(line);
       if (key.length < 8 || seen.has(key)) continue;
       seen.add(key);

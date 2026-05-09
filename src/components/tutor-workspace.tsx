@@ -30,7 +30,6 @@ import remarkGfm from "remark-gfm";
 import {
   buildSuggestedPromptsFromArtifact,
   FALLBACK_SUGGESTED_PROMPTS,
-  truncateWords,
 } from "@/lib/artifact-suggested-prompts";
 import type { ArtifactRecord, NoteSet } from "@/lib/seed-data";
 import type { BuiltArtifact } from "@/lib/artifacts/schema";
@@ -67,8 +66,9 @@ type LearningPlan = {
 
 type ConceptsSidebarMode = "original-notes" | "explore-concepts";
 
+/** Keep in sync with 10-word cap on suggested prompt chips. */
 const SHOW_ME_PROMPT =
-  "Show me with an interactive artifact based on what I was confused about.";
+  "Show an interactive artifact for what confused me.";
 
 const chatTransport = new DefaultChatTransport<UIMessage>({
   api: "/api/chat",
@@ -427,7 +427,7 @@ export function TutorWorkspace({ noteSets }: TutorWorkspaceProps) {
                       title={prompt}
                       type="button"
                     >
-                      <span>{truncateWords(prompt)}</span>
+                      <span>{prompt}</span>
                       <ArrowRight aria-hidden="true" />
                     </button>
                   ))}
