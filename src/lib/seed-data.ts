@@ -1,5 +1,3 @@
-import { readFileSync } from "node:fs";
-import path from "node:path";
 import atomicManifest from "../../seed/generated/o_level_chem_atomic_structure_seeded/manifest.json";
 import rateManifest from "../../seed/generated/o_level_chem_rate_of_reaction_seeded/manifest.json";
 import { buildArtifact } from "@/lib/artifacts/renderer";
@@ -53,10 +51,7 @@ type BundleConfig = {
   sourceFile: string;
   sourcePath: string;
   manifest: SeedManifest;
-  bundleDir: string;
 };
-
-const bundleRoot = path.join(process.cwd(), "seed", "generated");
 
 const bundleConfigs: BundleConfig[] = [
   {
@@ -67,7 +62,6 @@ const bundleConfigs: BundleConfig[] = [
     sourceFile: "[O LEVEL CHEMISTRY] Rate of Reaction - demo.pdf",
     sourcePath: "seed/[O LEVEL CHEMISTRY] Rate of Reaction - demo.pdf",
     manifest: rateManifest as SeedManifest,
-    bundleDir: path.join(bundleRoot, "o_level_chem_rate_of_reaction_seeded"),
   },
   {
     id: "atomic-structure",
@@ -77,24 +71,8 @@ const bundleConfigs: BundleConfig[] = [
     sourceFile: "[O LEVEL CHEMISTRY] Atomic Structure - demo.pdf",
     sourcePath: "seed/[O LEVEL CHEMISTRY] Atomic Structure - demo.pdf",
     manifest: atomicManifest as SeedManifest,
-    bundleDir: path.join(bundleRoot, "o_level_chem_atomic_structure_seeded"),
   },
 ];
-
-function readRenderedArtifactHtml(
-  bundleDir: string,
-  artifact: ArtifactSpec & { file_path?: string },
-) {
-  if (!artifact.file_path) {
-    return null;
-  }
-
-  try {
-    return readFileSync(path.join(bundleDir, artifact.file_path), "utf8");
-  } catch {
-    return null;
-  }
-}
 
 function toSchemaArtifact(artifact: ArtifactSpec & { file_path?: string }) {
   return artifactSpecSchema.parse({
@@ -108,14 +86,12 @@ function toSchemaArtifact(artifact: ArtifactSpec & { file_path?: string }) {
 }
 
 function makeArtifacts({
-  bundleDir,
   id: noteSetId,
   manifest,
 }: BundleConfig): ArtifactRecord[] {
   return manifest.artifacts.map((artifact) => {
     const spec = toSchemaArtifact(artifact);
-    const renderedHtml = readRenderedArtifactHtml(bundleDir, artifact);
-    const built = renderedHtml ? { ...spec, html: renderedHtml } : buildArtifact(spec);
+    const built = buildArtifact(spec);
 
     return {
       ...built,

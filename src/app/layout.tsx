@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter_Tight, JetBrains_Mono } from "next/font/google";
+import { Fraunces, JetBrains_Mono, Sora } from "next/font/google";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -8,9 +8,10 @@ const fraunces = Fraunces({
   weight: ["600", "700"],
 });
 
-const interTight = Inter_Tight({
-  variable: "--font-inter-tight",
+const sora = Sora({
+  variable: "--font-sora",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
 });
 
 const jetBrainsMono = JetBrains_Mono({
@@ -20,8 +21,8 @@ const jetBrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Chemistry Tutor",
-  description: "Interactive notes and AI-generated follow-up artifacts.",
+  title: "Chemistry Tutor Studio",
+  description: "Storyboarded learning paths with interactive chemistry artifacts.",
 };
 
 export default function RootLayout({
@@ -32,7 +33,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${fraunces.variable} ${interTight.variable} ${jetBrainsMono.variable} h-full antialiased`}
+      className={`${fraunces.variable} ${sora.variable} ${jetBrainsMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

@@ -2,9 +2,15 @@
 
 import { useChat } from "@ai-sdk/react";
 import {
-  Bot,
+  ArrowRight,
   BookOpen,
+  Bot,
+  CheckCircle2,
+  ChevronRight,
   FileText,
+  FlaskConical,
+  Gauge,
+  Layers3,
   Loader2,
   MessageSquareText,
   PanelLeft,
@@ -12,10 +18,19 @@ import {
   RotateCcw,
   Send,
   Sparkles,
+  Target,
   User,
 } from "lucide-react";
 import { DefaultChatTransport, type UIMessage } from "ai";
-import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
+import {
+  startTransition,
+  useDeferredValue,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type FormEvent,
+} from "react";
 import type { ArtifactRecord, NoteSet } from "@/lib/seed-data";
 import type { BuiltArtifact } from "@/lib/artifacts/schema";
 
@@ -41,10 +56,27 @@ type ArtifactToolPart = UIMessage["parts"][number] & {
   errorText?: string;
 };
 
+type LearningPlan = {
+  concepts: Array<{
+    label: string;
+    sourceRef: string;
+    role: string;
+  }>;
+  outcomes: string[];
+  storyboard: Array<{
+    id: string;
+    topic: string;
+    sourceRef: string;
+    mechanism: string;
+    outcome: string;
+    origin: "seed" | "generated";
+  }>;
+};
+
 const suggestedPrompts = [
-  "Explain this in simpler particle terms.",
-  "Show me why the rate changes.",
-  "Make a follow-up artifact comparing the two cases.",
+  "Turn this note set into a 5-minute learning path.",
+  "Give me a quick practice check for the current artifact.",
+  "Create a follow-up artifact with a slider.",
 ];
 
 const chatTransport = new DefaultChatTransport<UIMessage>({
@@ -57,6 +89,7 @@ export function TutorWorkspace({ noteSets }: TutorWorkspaceProps) {
     noteSets[0]?.artifacts[0]?.id ?? "",
   );
   const [input, setInput] = useState("");
+  const deferredInput = useDeferredValue(input);
   const bottomRef = useRef<HTMLDivElement | null>(null);
 
   const selectedNote =
@@ -82,6 +115,19 @@ export function TutorWorkspace({ noteSets }: TutorWorkspaceProps) {
   const selectedArtifact =
     artifacts.find((artifact) => artifact.id === selectedArtifactId) ??
     artifacts[0];
+
+  const learningPlan = useMemo(
+    () => buildLearningPlan(artifacts),
+    [artifacts],
+  );
+
+  const selectedStoryboardIndex = Math.max(
+    0,
+    learningPlan.storyboard.findIndex(
+      (beat) => beat.id === selectedArtifact?.id,
+    ),
+  );
+  const canSend = deferredInput.trim().length > 0 && status === "ready";
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
@@ -111,229 +157,260 @@ export function TutorWorkspace({ noteSets }: TutorWorkspaceProps) {
     void submitMessage(input);
   }
 
+  function selectNote(noteSet: NoteSet) {
+    startTransition(() => {
+      setSelectedNoteId(noteSet.id);
+      setSelectedArtifactId(noteSet.artifacts[0]?.id ?? "");
+    });
+  }
+
+  function selectArtifact(artifactId: string) {
+    startTransition(() => {
+      setSelectedArtifactId(artifactId);
+    });
+  }
+
   function openGeneratedArtifact(artifact: BuiltArtifact) {
-    setSelectedArtifactId(artifact.id);
+    selectArtifact(artifact.id);
   }
 
   if (!selectedNote || !selectedArtifact) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-background text-foreground">
+      <main className="empty-state">
         <p>No seeded notes found.</p>
       </main>
     );
   }
 
   return (
-    <main className="min-h-screen bg-background text-foreground">
-      <div className="mx-auto grid min-h-screen w-full max-w-[1800px] grid-cols-1 gap-3 p-3 lg:grid-cols-[280px_minmax(0,1fr)_420px]">
-        <aside className="flex min-h-[280px] flex-col rounded-lg border border-rule bg-paper">
-          <div className="border-b border-rule p-4">
-            <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-normal text-muted">
-              <BookOpen className="h-4 w-4" />
-              Seeded notes
-            </div>
-            <h1 className="mt-2 font-display text-3xl leading-none">
-              Chemistry Tutor
-            </h1>
+    <main className="learning-app">
+      <div className="atmosphere" aria-hidden="true" />
+      <section className="theater-shell" aria-label="Chemistry tutor studio">
+        <header className="theater-header">
+          <div className="brand-lockup">
+            <p className="studio-kicker">
+              <FlaskConical aria-hidden="true" />
+              Chemistry Tutor Studio
+            </p>
+            <h1>{selectedNote.title}</h1>
+            <p>{selectedNote.summary}</p>
           </div>
 
-          <div className="grid gap-2 p-3">
+          <nav className="note-switcher" aria-label="Choose note set">
             {noteSets.map((noteSet) => (
               <button
-                className={`rounded-lg border p-3 text-left transition hover:border-ink ${
-                  noteSet.id === selectedNote.id
-                    ? "border-agent bg-agent/10"
-                    : "border-rule bg-white/40"
-                }`}
+                aria-current={noteSet.id === selectedNote.id}
+                className="note-tab"
                 key={noteSet.id}
-                onClick={() => {
-                  setSelectedNoteId(noteSet.id);
-                  setSelectedArtifactId(noteSet.artifacts[0]?.id ?? "");
-                }}
+                onClick={() => selectNote(noteSet)}
                 type="button"
               >
-                <span className="flex items-center gap-2 text-sm font-semibold">
-                  <FileText className="h-4 w-4" />
-                  {noteSet.title}
-                </span>
-                <span className="mt-2 block text-sm leading-5 text-muted">
-                  {noteSet.summary}
-                </span>
+                <BookOpen aria-hidden="true" />
+                <span>{noteSet.title}</span>
               </button>
             ))}
-          </div>
+          </nav>
+        </header>
 
-          <div className="mt-auto border-t border-rule p-3">
-            <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-normal text-muted">
-              <PanelLeft className="h-4 w-4" />
-              Source pages
+        <section className="composition-grid" aria-label="Learning workspace">
+          <aside className="story-panel" aria-label="Storyboard learning path">
+            <div className="panel-heading">
+              <p className="panel-kicker">
+                <Layers3 aria-hidden="true" />
+                Storyboard
+              </p>
+              <h2>Concepts to artifact flow</h2>
+              <p>
+                Key concepts and outcomes are extracted from the note set, then
+                ordered as a guided run of core artifacts.
+              </p>
             </div>
-            <div className="mt-2 grid gap-1">
-              {selectedNote.pages.map((page) => (
-                <div
-                  className="grid grid-cols-[34px_1fr] gap-2 rounded-md px-2 py-1.5 text-sm"
-                  key={page.page_number}
-                >
-                  <span className="font-mono text-xs text-muted">
-                    {String(page.page_number).padStart(2, "0")}
+
+            <div className="concept-stack" aria-label="Key concepts">
+              {learningPlan.concepts.map((concept, index) => (
+                <div className="concept-row" key={`${concept.label}-${index}`}>
+                  <span className="concept-index">
+                    {String(index + 1).padStart(2, "0")}
                   </span>
-                  <span className="truncate">{page.title}</span>
+                  <span>
+                    <strong>{concept.label}</strong>
+                    <small>{concept.sourceRef}</small>
+                  </span>
                 </div>
               ))}
             </div>
-          </div>
-        </aside>
 
-        <section className="grid min-h-[760px] grid-rows-[minmax(260px,0.45fr)_minmax(420px,0.55fr)] gap-3">
-          <div className="overflow-hidden rounded-lg border border-rule bg-paper">
-            <div className="flex items-center justify-between border-b border-rule px-4 py-3">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-normal text-muted">
-                  Original document
-                </p>
-                <h2 className="font-display text-2xl leading-tight">
-                  {selectedNote.sourceFile}
-                </h2>
-              </div>
-              <a
-                className="inline-flex items-center gap-2 rounded-lg border border-rule bg-resolution/20 px-3 py-2 text-sm font-semibold text-ink transition hover:border-ink"
-                href={`/api/source/${selectedNote.id}`}
-                rel="noreferrer"
-                target="_blank"
-              >
-                <FileText className="h-4 w-4" />
-                Open
-              </a>
-            </div>
-            <iframe
-              className="h-[calc(100%-73px)] min-h-[240px] w-full bg-white"
-              src={`/api/source/${selectedNote.id}`}
-              title={`${selectedNote.title} source PDF`}
-            />
-          </div>
-
-          <div className="grid min-h-0 grid-cols-1 gap-3 xl:grid-cols-[260px_minmax(0,1fr)]">
-            <div className="overflow-hidden rounded-lg border border-rule bg-paper">
-              <div className="border-b border-rule px-4 py-3">
-                <p className="text-xs font-semibold uppercase tracking-normal text-muted">
-                  Explainer artifacts
-                </p>
-              </div>
-              <div className="max-h-[620px] overflow-auto p-3">
-                {artifacts.map((artifact) => (
-                  <ArtifactButton
-                    artifact={artifact}
-                    isSelected={artifact.id === selectedArtifact.id}
-                    key={artifact.id}
-                    onSelect={() => setSelectedArtifactId(artifact.id)}
-                  />
+            <div className="outcome-panel">
+              <p className="mini-heading">
+                <Target aria-hidden="true" />
+                Learning outcomes
+              </p>
+              <div className="outcome-list">
+                {learningPlan.outcomes.map((outcome, index) => (
+                  <p key={`${outcome}-${index}`}>
+                    <CheckCircle2 aria-hidden="true" />
+                    <span>{outcome}</span>
+                  </p>
                 ))}
               </div>
             </div>
 
-            <article className="overflow-hidden rounded-lg border border-rule bg-paper">
-              <div className="flex items-center justify-between gap-3 border-b border-rule px-4 py-3">
-                <div className="min-w-0">
-                  <p className="text-xs font-semibold uppercase tracking-normal text-muted">
-                    {selectedArtifact.origin === "seed"
-                      ? "Seeded artifact"
-                      : "Generated follow-up"}
-                  </p>
-                  <h2 className="truncate font-display text-2xl leading-tight">
-                    {selectedArtifact.topic}
-                  </h2>
-                </div>
-                <span className="rounded-md bg-highlight/25 px-2 py-1 font-mono text-xs">
-                  {selectedArtifact.source_ref}
-                </span>
+            <div className="flow-shell">
+              <p className="mini-heading">
+                <Gauge aria-hidden="true" />
+                Core artifact flow
+              </p>
+              <div className="flow-list">
+                {learningPlan.storyboard.map((beat, index) => (
+                  <button
+                    aria-current={beat.id === selectedArtifact.id}
+                    className="flow-beat"
+                    key={beat.id}
+                    onClick={() => selectArtifact(beat.id)}
+                    type="button"
+                  >
+                    <span className="flow-number">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <span className="flow-copy">
+                      <strong>{beat.topic}</strong>
+                      <small>{compactText(beat.mechanism, 102)}</small>
+                    </span>
+                    {beat.origin === "generated" ? (
+                      <Sparkles aria-hidden="true" />
+                    ) : (
+                      <ChevronRight aria-hidden="true" />
+                    )}
+                  </button>
+                ))}
               </div>
+            </div>
+
+            <details className="source-pages">
+              <summary>
+                <PanelLeft aria-hidden="true" />
+                Source pages
+              </summary>
+              <div>
+                {selectedNote.pages.map((page) => (
+                  <p key={page.page_number}>
+                    <span>{String(page.page_number).padStart(2, "0")}</span>
+                    <span>{page.title}</span>
+                  </p>
+                ))}
+              </div>
+            </details>
+          </aside>
+
+          <section className="artifact-theater" aria-label="Interactive artifact">
+            <div className="stage-toolbar">
+              <div>
+                <p className="panel-kicker">
+                  <Play aria-hidden="true" />
+                  Core artifact {selectedStoryboardIndex + 1} of{" "}
+                  {learningPlan.storyboard.length}
+                </p>
+                <h2>{selectedArtifact.topic}</h2>
+              </div>
+              <div className="stage-actions">
+                <span>{selectedArtifact.source_ref}</span>
+                <a
+                  href={`/api/source/${selectedNote.id}`}
+                  rel="noreferrer"
+                  target="_blank"
+                >
+                  <FileText aria-hidden="true" />
+                  Open notes
+                </a>
+              </div>
+            </div>
+
+            <div className="artifact-frame-wrap">
               <iframe
-                className="h-[calc(100%-73px)] min-h-[520px] w-full bg-white"
+                className="artifact-frame"
                 sandbox="allow-scripts"
                 srcDoc={selectedArtifact.html}
                 title={`${selectedArtifact.topic} artifact`}
               />
-            </article>
-          </div>
-        </section>
+            </div>
 
-        <aside className="flex min-h-[760px] flex-col rounded-lg border border-rule bg-paper">
-          <div className="border-b border-rule p-4">
-            <div className="flex items-center justify-between gap-2">
+            <div className="artifact-brief">
+              <p>
+                <strong>Mechanism</strong>
+                {selectedArtifact.mechanism}
+              </p>
+              <p>
+                <strong>Transfer</strong>
+                {selectedArtifact.transferable_principle}
+              </p>
+            </div>
+          </section>
+
+          <aside className="coach-panel" aria-label="Chat tutor">
+            <div className="coach-header">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-normal text-muted">
-                  Agent thread
+                <p className="panel-kicker">
+                  <Sparkles aria-hidden="true" />
+                  Tutor thread
                 </p>
-                <h2 className="font-display text-2xl leading-tight">
-                  Chat Tutor
-                </h2>
+                <h2>Probe the artifact</h2>
               </div>
               {status === "streaming" || status === "submitted" ? (
-                <button
-                  className="inline-flex items-center gap-2 rounded-lg border border-rule bg-white/50 px-3 py-2 text-sm font-semibold"
-                  onClick={stop}
-                  type="button"
-                >
-                  <RotateCcw className="h-4 w-4" />
+                <button className="icon-text-button" onClick={stop} type="button">
+                  <RotateCcw aria-hidden="true" />
                   Stop
                 </button>
               ) : null}
             </div>
-            <p className="mt-2 text-sm leading-5 text-muted">
-              Current context: {selectedArtifact.topic}
+
+            <p className="coach-context">
+              Current context: <strong>{selectedArtifact.topic}</strong>
             </p>
-          </div>
 
-          <div className="flex-1 overflow-auto p-4">
-            {messages.length === 0 ? (
-              <div className="rounded-lg border border-rule bg-white/45 p-4">
-                <div className="flex items-center gap-2 font-semibold">
-                  <Sparkles className="h-4 w-4 text-agent" />
-                  Start with the artifact on screen
-                </div>
-                <div className="mt-3 grid gap-2">
-                  {suggestedPrompts.map((prompt) => (
-                    <button
-                      className="rounded-lg border border-rule bg-paper px-3 py-2 text-left text-sm transition hover:border-ink"
-                      key={prompt}
-                      onClick={() => void submitMessage(prompt)}
-                      type="button"
-                    >
-                      {prompt}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            ) : null}
-
-            <div className="grid gap-3">
-              {messages.map((message) => (
-                <ChatMessage
-                  key={message.id}
-                  message={message}
-                  onOpenArtifact={openGeneratedArtifact}
-                />
-              ))}
-              {status === "submitted" ? (
-                <div className="flex items-center gap-2 text-sm text-muted">
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                  Thinking through the mechanism...
+            <div className="chat-scroll">
+              {messages.length === 0 ? (
+                <div className="prompt-slate">
+                  <div>
+                    <Sparkles aria-hidden="true" />
+                    <strong>Start with the artifact on screen</strong>
+                  </div>
+                  <div className="prompt-list">
+                    {suggestedPrompts.map((prompt) => (
+                      <button
+                        key={prompt}
+                        onClick={() => void submitMessage(prompt)}
+                        type="button"
+                      >
+                        <span>{prompt}</span>
+                        <ArrowRight aria-hidden="true" />
+                      </button>
+                    ))}
+                  </div>
                 </div>
               ) : null}
-              <div ref={bottomRef} />
-            </div>
-          </div>
 
-          {error ? (
-            <div className="border-t border-problem/20 bg-problem/10 px-4 py-3 text-sm text-problem">
-              {error.message}
+              <div className="message-list">
+                {messages.map((message) => (
+                  <ChatMessage
+                    key={message.id}
+                    message={message}
+                    onOpenArtifact={openGeneratedArtifact}
+                  />
+                ))}
+                {status === "submitted" ? (
+                  <div className="thinking-row">
+                    <Loader2 aria-hidden="true" />
+                    Thinking through the mechanism...
+                  </div>
+                ) : null}
+                <div ref={bottomRef} />
+              </div>
             </div>
-          ) : null}
 
-          <form className="border-t border-rule p-3" onSubmit={handleSubmit}>
-            <div className="flex gap-2">
+            {error ? <div className="chat-error">{error.message}</div> : null}
+
+            <form className="composer" onSubmit={handleSubmit}>
               <textarea
-                className="min-h-12 flex-1 resize-none rounded-lg border border-rule bg-white/60 px-3 py-2 text-sm outline-none transition focus:border-agent"
                 onChange={(event) => setInput(event.target.value)}
                 onKeyDown={(event) => {
                   if (event.key === "Enter" && !event.shiftKey) {
@@ -341,54 +418,41 @@ export function TutorWorkspace({ noteSets }: TutorWorkspaceProps) {
                     void submitMessage(input);
                   }
                 }}
-                placeholder="Ask a follow-up..."
+                placeholder="Ask for a mechanism, comparison, or practice check..."
                 value={input}
               />
-              <button
-                className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-agent text-white transition hover:bg-agent/90 disabled:cursor-not-allowed disabled:bg-muted"
-                disabled={!input.trim() || status !== "ready"}
-                title="Send"
-                type="submit"
-              >
-                <Send className="h-5 w-5" />
+              <button disabled={!canSend} title="Send" type="submit">
+                <Send aria-hidden="true" />
               </button>
-            </div>
-          </form>
-        </aside>
-      </div>
-    </main>
-  );
-}
+            </form>
+          </aside>
+        </section>
 
-function ArtifactButton({
-  artifact,
-  isSelected,
-  onSelect,
-}: {
-  artifact: ArtifactRecord | GeneratedArtifact;
-  isSelected: boolean;
-  onSelect: () => void;
-}) {
-  return (
-    <button
-      className={`mb-2 w-full rounded-lg border p-3 text-left transition hover:border-ink ${
-        isSelected ? "border-highlight bg-highlight/15" : "border-rule bg-white/40"
-      }`}
-      onClick={onSelect}
-      type="button"
-    >
-      <span className="flex items-center justify-between gap-2">
-        <span className="min-w-0 truncate font-semibold">{artifact.topic}</span>
-        {artifact.origin === "generated" ? (
-          <Sparkles className="h-4 w-4 shrink-0 text-agent" />
-        ) : (
-          <Play className="h-4 w-4 shrink-0 text-muted" />
-        )}
-      </span>
-      <span className="mt-2 line-clamp-3 block text-sm leading-5 text-muted">
-        {artifact.mechanism}
-      </span>
-    </button>
+        <section className="source-dock" aria-label="Original document">
+          <div className="source-dock-header">
+            <div>
+              <p className="panel-kicker">
+                <FileText aria-hidden="true" />
+                Original document
+              </p>
+              <h2>{selectedNote.sourceFile}</h2>
+            </div>
+            <a
+              href={`/api/source/${selectedNote.id}`}
+              rel="noreferrer"
+              target="_blank"
+            >
+              Open PDF
+            </a>
+          </div>
+          <iframe
+            loading="lazy"
+            src={`/api/source/${selectedNote.id}`}
+            title={`${selectedNote.title} source PDF`}
+          />
+        </section>
+      </section>
+    </main>
   );
 }
 
@@ -402,20 +466,14 @@ function ChatMessage({
   const isUser = message.role === "user";
 
   return (
-    <div className={`flex gap-2 ${isUser ? "justify-end" : "justify-start"}`}>
+    <div className={`chat-row ${isUser ? "is-user" : "is-agent"}`}>
       {!isUser ? (
-        <div className="mt-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-agent text-white">
-          <Bot className="h-4 w-4" />
+        <div className="chat-avatar">
+          <Bot aria-hidden="true" />
         </div>
       ) : null}
 
-      <div
-        className={`max-w-[88%] rounded-lg border px-3 py-2 text-sm leading-6 ${
-          isUser
-            ? "border-agent/20 bg-agent text-white"
-            : "border-rule bg-white/55"
-        }`}
-      >
+      <div className="chat-bubble">
         {message.parts.map((part, index) => (
           <MessagePart
             key={`${message.id}-${index}`}
@@ -426,8 +484,8 @@ function ChatMessage({
       </div>
 
       {isUser ? (
-        <div className="mt-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-neutral text-white">
-          <User className="h-4 w-4" />
+        <div className="chat-avatar user-avatar">
+          <User aria-hidden="true" />
         </div>
       ) : null}
     </div>
@@ -442,27 +500,25 @@ function MessagePart({
   onOpenArtifact: (artifact: BuiltArtifact) => void;
 }) {
   if (part.type === "text") {
-    return <p className="whitespace-pre-wrap">{part.text}</p>;
+    return <p className="message-copy">{part.text}</p>;
   }
 
   if (isBuildArtifactPart(part)) {
     if (part.state === "input-streaming" || part.state === "input-available") {
       return (
-        <div className="my-2 rounded-lg border border-rule bg-paper p-3">
-          <div className="flex items-center gap-2 font-semibold">
-            <Loader2 className="h-4 w-4 animate-spin text-agent" />
-            Building artifact
+        <div className="artifact-toast">
+          <div>
+            <Loader2 aria-hidden="true" />
+            <strong>Building artifact</strong>
           </div>
-          {part.input?.topic ? (
-            <p className="mt-1 text-muted">{part.input.topic}</p>
-          ) : null}
+          {part.input?.topic ? <p>{part.input.topic}</p> : null}
         </div>
       );
     }
 
     if (part.state === "output-error") {
       return (
-        <div className="my-2 rounded-lg border border-problem/30 bg-problem/10 p-3 text-problem">
+        <div className="artifact-error">
           {part.errorText ?? "The artifact tool failed."}
         </div>
       );
@@ -470,19 +526,16 @@ function MessagePart({
 
     if (part.state === "output-available" && part.output) {
       return (
-        <div className="my-2 overflow-hidden rounded-lg border border-agent/30 bg-agent/10">
-          <div className="flex items-start justify-between gap-3 p-3">
-            <div className="min-w-0">
-              <div className="flex items-center gap-2 font-semibold">
-                <MessageSquareText className="h-4 w-4 shrink-0 text-agent" />
-                <span className="truncate">{part.output.topic}</span>
+        <div className="generated-artifact-card">
+          <div className="generated-artifact-header">
+            <div>
+              <div>
+                <MessageSquareText aria-hidden="true" />
+                <strong>{part.output.topic}</strong>
               </div>
-              <p className="mt-1 line-clamp-3 text-muted">
-                {part.output.mechanism}
-              </p>
+              <p>{compactText(part.output.mechanism, 132)}</p>
             </div>
             <button
-              className="shrink-0 rounded-md border border-agent/30 bg-white/70 px-2 py-1 text-xs font-semibold text-ink transition hover:border-agent"
               onClick={() => onOpenArtifact(part.output as BuiltArtifact)}
               type="button"
             >
@@ -490,7 +543,6 @@ function MessagePart({
             </button>
           </div>
           <iframe
-            className="h-80 w-full border-t border-agent/20 bg-white"
             sandbox="allow-scripts"
             srcDoc={part.output.html}
             title={`${part.output.topic} generated artifact`}
@@ -543,6 +595,36 @@ function extractGeneratedArtifacts(
   }
 
   return artifacts;
+}
+
+function buildLearningPlan(
+  artifacts: Array<ArtifactRecord | GeneratedArtifact>,
+): LearningPlan {
+  const concepts = artifacts.slice(0, 6).map((artifact) => ({
+    label: artifact.topic,
+    sourceRef: artifact.source_ref,
+    role: artifact.key_symbols[0]?.role ?? "neutral",
+  }));
+
+  const outcomes = artifacts
+    .slice(0, 4)
+    .map((artifact) => compactText(artifact.transferable_principle, 126));
+
+  const storyboard = artifacts.map((artifact) => ({
+    id: artifact.id,
+    topic: artifact.topic,
+    sourceRef: artifact.source_ref,
+    mechanism: artifact.mechanism,
+    outcome: compactText(artifact.transferable_principle, 110),
+    origin: artifact.origin,
+  }));
+
+  return { concepts, outcomes, storyboard };
+}
+
+function compactText(value: string, maxLength: number) {
+  if (value.length <= maxLength) return value;
+  return `${value.slice(0, maxLength - 1).trim()}…`;
 }
 
 function toArtifactSpec(artifact: BuiltArtifact) {

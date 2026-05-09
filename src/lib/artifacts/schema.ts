@@ -70,7 +70,7 @@ export const artifactSpecSchema = z.object({
     .array(z.string().min(1).max(140))
     .max(5)
     .describe(
-      "Bounded, pedagogically meaningful controls such as toggles, sliders, or replay. Leave empty when only step pacing is useful; never add decorative or unbounded interactions.",
+      "Bounded, pedagogically meaningful controls such as sliders, state toggles, comparison modes, or quick-practice probes. Leave empty when only step pacing is useful; never add decorative or unbounded interactions.",
     ),
   output_filename: z
     .string()

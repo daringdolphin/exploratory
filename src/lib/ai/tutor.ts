@@ -106,7 +106,7 @@ export const chatTutorTools = {
   }),
   buildArtifact: tool({
     description:
-      "Create one follow-up interactive HTML artifact when a student needs to see a causal mechanism, comparison, worked example, or parameter change. Default to a canvas-based animated simulation when the mechanism involves motion or change; the shared build_artifact renderer must still receive a valid ArtifactSpec.",
+      "Create one follow-up interactive HTML artifact when a student needs to see a causal mechanism, comparison, worked example, or parameter change. Default to a canvas-based animated simulation when the mechanism involves motion or change; include meaningful slider/state/practice hooks when probing would teach the concept. The shared build_artifact renderer must still receive a valid ArtifactSpec.",
     inputSchema: artifactSpecSchema.describe(
       "A complete ArtifactSpec. Use 3-5 concise visual beats, shared semantic roles, and canvas-friendly deterministic states/interactions for mechanisms with motion, collision, flow, rate, growth, decay, state change, or changing parameters. Keep it self-contained and compatible with sandboxed iframe rendering.",
     ),
@@ -177,12 +177,21 @@ function buildInstructions(context: TutorContext) {
 Your job is to help a student understand the notes and seeded explainer artifacts. You can answer directly in text, or call buildArtifact to create a follow-up interactive artifact that the webapp can render.
 
 Shared pedagogy:
+- When notes are ingested or a note set is planned, extract key concepts, write concrete learning outcomes, and storyboard the learning path before creating individual artifacts.
+- Treat the core artifact flow like a storyboarding exercise: each artifact is one visual beat in a sequence that moves from concrete observation to mechanism to transferable exam reasoning.
 - Show the mechanism, never just the conclusion.
 - Teach one concept per artifact.
 - Use concrete particle-level reasoning before formulas or symbols.
 - Keep artifact steps as 3-5 visual beats, not paragraphs.
 - Use semantic roles consistently: problem, agent, resolution, neutral, highlight.
 - Do not invent a mechanism when the source context is too thin. Say what is known, narrow the scope, or ask the student for the relevant note page.
+
+When asked to ingest, map, plan, or rebuild notes:
+- First return a compact plan with three sections: Key concepts, Learning outcomes, Core artifact flow.
+- Key concepts should be the smallest mechanism-bearing ideas worth teaching, not every noun from the notes.
+- Learning outcomes should use observable verbs such as explain, predict, compare, trace, classify, or apply.
+- Core artifact flow should order artifacts as storyboard beats. Name the artifact, the mechanism it reveals, the input/probe a student can manipulate, and the outcome they should notice.
+- Only call buildArtifact after the storyboard says a specific beat needs an interactive artifact.
 
 When to answer in text:
 - Definitions, quick checks, simple misconceptions, or requests for a short explanation.
@@ -199,13 +208,13 @@ Artifact rules:
 - Use the same house style through the buildArtifact tool. Do not write HTML in your message and do not inject arbitrary React, DOM, scripts, or styles outside the tool.
 - Canvas-first default: when the mechanism involves motion, collision, rate, flow, growth, decay, state change, or a parameter changing an outcome, shape the ArtifactSpec so buildArtifact/build_artifact renders an animated canvas simulation rather than a static SVG-style diagram.
 - Static or mostly static visuals are acceptable only when motion would not add understanding, such as a pure label map, classification, or short symbolic worked example. Do not use static SVG as the default for mechanisms that unfold over time.
-- Keep the simulation bounded and pedagogically meaningful: one concept, deterministic/reproducible motion as much as practical, 3-5 visible states, and controls that answer a student question rather than adding decorative motion.
+- Keep the simulation bounded and pedagogically meaningful: one concept, deterministic/reproducible motion as much as practical, 3-5 visible states, and controls that answer a student question rather than adding decorative motion. Prefer sliders, state toggles, compare modes, and quick-practice checks when they let the student probe cause and effect.
 - Preserve chat-window compatibility: the mechanism, transferable_principle, steps, key_symbols, and interactivity_hooks must carry the explanation even if the iframe/canvas is unavailable. Never make motion the only source of meaning.
 - Chat rendering safety: artifacts are self-contained HTML for a sandboxed iframe using sandbox="allow-scripts" without allow-same-origin. They must not rely on remote scripts/assets, cookies, storage, parent page access, popups, navigation, network calls, or unbounded JavaScript.
 - Animation expectations for rendered artifacts: use requestAnimationFrame for motion, respect prefers-reduced-motion, pause when the document is hidden, and keep CPU/work per frame small.
 
 Current app context:
-${JSON.stringify(context, null, 2)}
+${JSON.stringify(toTutorPromptContext(context), null, 2)}
 
 Available seeded note sets:
 ${JSON.stringify(
@@ -223,4 +232,36 @@ ${JSON.stringify(
   null,
   2,
 )}`;
+}
+
+function toTutorPromptContext(context: TutorContext) {
+  return {
+    noteSet: context.noteSet
+      ? {
+          id: context.noteSet.id,
+          title: context.noteSet.title,
+          subject: context.noteSet.subject,
+          summary: context.noteSet.summary,
+          pages: context.noteSet.pages,
+          keyConcepts: context.noteSet.artifacts.map((artifact) => ({
+            topic: artifact.topic,
+            source_ref: artifact.source_ref,
+          })),
+          learningOutcomes: context.noteSet.artifacts
+            .slice(0, 8)
+            .map((artifact) => artifact.transferable_principle),
+          coreArtifactFlow: context.noteSet.artifacts.map((artifact) => ({
+            id: artifact.id,
+            topic: artifact.topic,
+            source_ref: artifact.source_ref,
+            mechanism: artifact.mechanism,
+            transferable_principle: artifact.transferable_principle,
+            probe_controls: artifact.interactivity_hooks,
+            beats: artifact.steps.map((step) => step.name),
+          })),
+        }
+      : null,
+    selectedArtifact: context.selectedArtifact,
+    generatedArtifacts: context.generatedArtifacts,
+  };
 }
