@@ -1,39 +1,9 @@
-import type { ArtifactSpec, BuiltArtifact } from "./schema";
-
-const roleLabels: Record<string, string> = {
-  problem: "Problem",
-  agent: "Cause",
-  resolution: "Outcome",
-  neutral: "Structure",
-  highlight: "Focus",
-};
-
-function escapeHtml(value: string) {
-  return value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
-
-function artifactJson(spec: ArtifactSpec) {
-  return JSON.stringify(spec)
-    .replace(/</g, "\\u003c")
-    .replace(/\u2028/g, "\\u2028")
-    .replace(/\u2029/g, "\\u2029");
-}
-
-export function buildArtifactHtml(spec: ArtifactSpec) {
-  const title = escapeHtml(spec.artifact_metadata.title || spec.topic);
-  const data = artifactJson(spec);
-
-  return `<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>${title}</title>
+  <title>Gradient Tells the Rate</title>
   <style>
     :root {
       --problem: #c84a36;
@@ -620,7 +590,7 @@ export function buildArtifactHtml(spec: ArtifactSpec) {
         </div>
 
         <div class="canvas-wrap">
-          <canvas id="scene" role="img" aria-label="${title} linked animated representations"></canvas>
+          <canvas id="scene" role="img" aria-label="Gradient Tells the Rate linked animated representations"></canvas>
           <div class="metric-row">
             <div class="metric"><strong id="metric-frequency">1.0x</strong>Collision / event frequency</div>
             <div class="metric"><strong id="metric-success">35%</strong>Successful fraction</div>
@@ -681,8 +651,8 @@ export function buildArtifactHtml(spec: ArtifactSpec) {
   </main>
 
   <script>
-    const spec = ${data};
-    const roleNames = ${JSON.stringify(roleLabels)};
+    const spec = {"id":"rate-measurement-gradient-decay","source_ref":"pages 4-5","subject":"O Level Chemistry","topic":"Measuring rate from graph gradient","medium":"interactive_html","mechanism":"As reactants are used up, effective collisions become less frequent, so gas volume rises more slowly or mass falls more slowly until the graph gradient is zero.","transferable_principle":"For rate of reaction graphs, the gradient at a time tells the rate at that time; the initial gradient gives the initial rate.","steps":[{"name":"Start fast","beat":"At the start there are many reactant particles, so the graph has its steepest gradient."},{"name":"Collect evidence","beat":"Gas collection rises with time, while mass of the setup falls if gas escapes."},{"name":"Rate falls","beat":"As reactants are used up, the graph becomes gentler because less gas is produced per unit time."},{"name":"Reaction complete","beat":"When no more gas is produced, the graph becomes horizontal and the gradient is zero."}],"key_symbols":[{"symbol":"gas syringe","role":"agent","meaning":"The macroscopic measurement of gas volume produced."},{"symbol":"balance display","role":"agent","meaning":"The macroscopic measurement of mass lost as gas escapes."},{"symbol":"initial tangent","role":"highlight","meaning":"The steep early gradient used to read initial rate."},{"symbol":"horizontal plateau","role":"resolution","meaning":"The zero-gradient region showing that the reaction is complete."},{"symbol":"depleting particles","role":"neutral","meaning":"The microscopic reason the rate decreases over time."}],"interactivity_hooks":["Scrub reaction time to connect particle depletion to the changing graph gradient.","Switch between gas volume and mass loss to compare the same rate pattern.","Toggle a tangent marker to estimate initial rate from the first part of the graph."],"output_filename":"rate-measurement-gradient-decay.html","artifact_metadata":{"title":"Gradient Tells the Rate","subject":"O Level Chemistry","level":"O-Level","syllabus_reference":"Rate of reaction: measuring volume of gas produced and change in mass over time","estimated_interaction_time_minutes":8,"prerequisite_concepts":["Reactants and products","Gas collection","Graph axes","Gradient"]},"learning_design":{"core_aha":"I can read a reaction's speed from how steep the graph is, not just from how high or low the graph looks.","learning_objectives":["Identify initial rate as the initial gradient of a product-time graph.","Explain why the gradient becomes gentler as reactants are used up.","Recognise zero gradient as the reaction being complete.","Relate gas volume and mass loss graphs to the same rate of reaction."],"target_misconceptions":[{"misconception":"The reaction is fastest when the graph has the largest gas volume.","correction":"The reaction is fastest where the graph is steepest, usually at the start.","addressed_in_scenario_id":"initial-rate"},{"misconception":"A horizontal graph means the gas has disappeared.","correction":"A horizontal graph means no more gas is being produced; the final amount remains present or measured.","addressed_in_scenario_id":"completion"},{"misconception":"A mass-loss graph and gas-volume graph show unrelated trends.","correction":"They measure the same reaction from opposite macroscopic signals: gas gained in the syringe or mass lost from the flask.","addressed_in_scenario_id":"measurement-switch"}]},"representations":{"description":"Students link animated particles, a lab measurement, and a live graph with tangent gradient readouts.","views":[{"id":"particle-collision-tank","type":"microscopic","description":"Animated reactant particles collide less often as the reaction proceeds and particles are used up."},{"id":"lab-measurement-setup","type":"macroscopic","description":"A gas syringe fills or a balance reading decreases while time passes."},{"id":"live-rate-graph","type":"symbolic","description":"A volume-time or mass-time graph draws live with tangent gradient, initial rate, and zero-gradient plateau labels."}]},"controls":[{"id":"measurement_mode","label":"Measurement method","type":"discrete","default":"gas volume","options":["gas volume","mass loss"],"affects":["macroscopic_readout","graph_direction","axis_label"]},{"id":"reaction_time","label":"Reaction time","type":"slider","min":0,"max":100,"default":0,"step":1,"affects":["particle_count","graph_point","gradient_readout"]},{"id":"initial_particles","label":"Initial reactant particles","type":"slider","min":30,"max":90,"default":70,"step":10,"affects":["collision_frequency","initial_gradient","final_amount"]},{"id":"show_tangent","label":"Show gradient tangent","type":"toggle","default":true,"affects":["gradient_marker","initial_rate_label"]}],"scenarios":[{"id":"initial-rate","title":"Find the Initial Rate","guiding_question":"Where is the gas-volume graph steepest, and what does that say about the initial rate?","locked_controls":["measurement_mode","initial_particles"],"active_controls":["reaction_time","show_tangent"],"success_criterion":"You identify the first tangent as the steepest part and call it the initial rate.","misconception_buster":true},{"id":"completion","title":"Spot Completion","guiding_question":"How do you know from the graph that no further reaction is occurring?","locked_controls":["measurement_mode","initial_particles"],"active_controls":["reaction_time","show_tangent"],"success_criterion":"You pause at the plateau and explain that zero gradient means no more gas is produced.","misconception_buster":true},{"id":"measurement-switch","title":"Change the Measurement","guiding_question":"What stays similar when the same reaction is measured by gas volume instead of mass loss?","locked_controls":["reaction_time","initial_particles"],"active_controls":["measurement_mode","show_tangent"],"success_criterion":"You explain that both graphs are steepest at the start and become zero-gradient at completion.","misconception_buster":true},{"id":"free-play","title":"Build a Rate Story","guiding_question":"Can you make a faster or slower reaction and still explain it using gradient?","locked_controls":[],"active_controls":["measurement_mode","reaction_time","initial_particles","show_tangent"],"success_criterion":"You describe the particle collisions, the macroscopic reading, and the graph gradient in one linked sentence."}],"checkpoints":[{"id":"gradient-summary","after_scenario":"completion","prompt":"Complete the summary: rate of reaction is shown by the graph ______; the initial rate is the ______ gradient.","type":"fill_in_blank","answers":["gradient","initial"]},{"id":"method-match","after_scenario":"measurement-switch","prompt":"Match each measurement to the graph signal it produces.","type":"matching","pairs":[{"factor":"Volume of gas collected","mechanism":"Graph rises then plateaus"},{"factor":"Change in mass","mechanism":"Graph falls then becomes horizontal"},{"factor":"Reaction complete","mechanism":"Gradient becomes zero"}]}],"ui_requirements":{"always_visible":["particle view","measurement readout","live graph","gradient value"],"syllabus_vocabulary_to_surface":["rate of reaction","initial rate","gradient","volume of gas","change in mass","reaction complete"],"tone":"Exam-focused, visual, and precise without adding vocabulary beyond the notes.","accessibility":["Do not rely on colour alone for steep and gentle gradients.","Provide pause and scrub controls for animation.","Label graph axes directly."]}};
+    const roleNames = {"problem":"Problem","agent":"Cause","resolution":"Outcome","neutral":"Structure","highlight":"Focus"};
     const roleColors = {
       problem: "#c84a36",
       agent: "#087a8a",
@@ -1674,12 +1644,4 @@ export function buildArtifactHtml(spec: ArtifactSpec) {
     scheduleDraw();
   </script>
 </body>
-</html>`;
-}
-
-export function buildArtifact(spec: ArtifactSpec): BuiltArtifact {
-  return {
-    ...spec,
-    html: buildArtifactHtml(spec),
-  };
-}
+</html>

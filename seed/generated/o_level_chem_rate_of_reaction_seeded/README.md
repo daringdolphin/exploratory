@@ -2,38 +2,37 @@
 
 Seed-ready content for `seed/[O LEVEL CHEMISTRY] Rate of Reaction - demo.pdf`.
 
+This bundle uses the v2 teaching artifact schema: each artifact includes a core aha, target misconceptions, linked microscopic/macroscopic/symbolic views, constrained predict-then-test scenarios, controls, and checkpoints.
+
 ## Triage
 
 | Page | Title | Kind | Artifact? | Reason |
 |---:|---|---|:---:|---|
-| 1 | Topic 6.1: Rate of Reaction | Title | No | Title page only. |
-| 2 | Chapter Analysis | Admin overview | No | Exam-weightage overview only. |
-| 3 | Measuring Rate of Reaction | Section overview | No | Lists methods without explaining the mechanisms yet. |
-| 4 | Calculating Rate of Reaction: Volume of Gas | Mechanism graph | Yes | Connects gas production, graph gradient, and completion. |
-| 5 | Calculating Rate of Reaction: Change in Mass | Mechanism graph | Yes | Connects escaping gas, mass loss, gradient, and completion. |
-| 6 | Conditions for Successful Reaction | Section overview | No | Factor list and divider page. |
-| 7 | Conditions for Effective Collision | Mechanism | Yes | Shows sufficient energy plus right orientation as required conditions. |
-| 8 | Five Factors That Affect Rate of Reaction | Section overview | Yes | High-level explorer connects all five factors to effective-collision frequency or enough-energy fraction. |
-| 9 | Size of Reactant Particles | Mechanism comparison | Yes | Smaller particles increase exposed surface area and effective collisions. |
-| 10 | Concentration of Reactants | Mechanism comparison | Yes | Higher concentration increases particles per unit volume and initial gradient. |
-| 11 | Pressure Applied | Mechanism comparison | Yes | Higher pressure compresses gas particles and increases effective collisions. |
-| 12 | Temperature of System | Mechanism | Yes | Higher temperature affects particle speed and fraction above activation energy. |
-| 13 | Use of Catalysts | Mechanism | Yes | Catalyst lowers activation energy through an alternative pathway. |
-| 14 | Biological Catalyst: Enzymes | Facts list | No | Source gives characteristics but not a denaturation or binding mechanism. |
-| 15 | TYS Question: Activation Energy | Worked question | No | Short recall item already covered by catalyst and temperature artifacts. |
-| 16 | TYS Question: Concentration Graph | Worked question | Yes | Graph-choice method benefits from checking gradient and final plateau visually. |
+| 1 | Topic 6.1: Rate of Reaction | title | No | Title page only. |
+| 2 | Chapter Analysis | admin | No | Exam-weightage overview only. |
+| 3 | Measuring Rate of Reaction | overview | No | Lists measurement approaches; graph mechanisms are handled in the combined measurement artifact. |
+| 4 | Calculating Rate of Reaction: Volume of Gas | graph process | Yes | Connects gas/product amount, changing gradient, and reaction completion. |
+| 5 | Calculating Rate of Reaction: Change in Mass | graph process | Yes | Folded into the same measurement-gradient artifact because the graph reasoning is shared. |
+| 6 | Conditions for Successful Reaction | overview | No | Divider and factor list; mechanisms appear on later pages. |
+| 7 | Conditions for Effective Collision | mechanism | Yes | Teaches sufficient energy plus correct orientation as the gate for effective collisions. |
+| 8 | Five Factors That Affect Rate of Reaction | synthesis | No | Rebuilt as focused factor artifacts rather than one broad sandbox. |
+| 9 | Size of Reactant Particles | mechanism comparison | Yes | Links smaller pieces to greater exposed surface area and collision frequency. |
+| 10 | Concentration of Reactants | mechanism comparison | Yes | Links particle density, initial gradient, and unchanged final plateau. |
+| 11 | Pressure Applied | mechanism comparison | Yes | Links compressed gas volume to higher particle density and collision frequency. |
+| 12 | Temperature of System | mechanism | Yes | Separates faster particles from the larger fraction with energy greater than or equal to activation energy. |
+| 13 | Use of Catalysts | misconception buster | Yes | Shows catalysts lower activation energy rather than giving particles more energy. |
+| 14 | Biological Catalyst: Enzymes | reference | No | Definitions and characteristics only in this PDF. |
+| 15 | TYS Question: Activation Energy | recall | No | Catalyst and temperature artifacts cover the mechanism. |
+| 16 | TYS Question: Concentration Graph | worked question | Yes | Folded into the concentration graph artifact's scenario and checkpoint. |
 
-## Generated Artifact Specs
+## Generated Artifacts
 
-- `artifacts/rate-reaction-gas-volume-gradient.html`
-- `artifacts/rate-reaction-mass-loss-gradient.html`
-- `artifacts/rate-reaction-effective-collision.html`
-- `artifacts/rate-reaction-factor-explorer.html`
-- `artifacts/rate-reaction-particle-size-surface-area.html`
-- `artifacts/rate-reaction-concentration-collision-frequency.html`
-- `artifacts/rate-reaction-pressure-particle-density.html`
-- `artifacts/rate-reaction-temperature-kinetic-energy.html`
-- `artifacts/rate-reaction-catalyst-lower-activation-energy.html`
-- `artifacts/rate-reaction-tys-concentration-graph-choice.html`
+- `rate-measurement-gradient-decay` -> `artifacts/rate-measurement-gradient-decay.html`
+- `rate-effective-collision-gate` -> `artifacts/rate-effective-collision-gate.html`
+- `rate-particle-size-surface-area` -> `artifacts/rate-particle-size-surface-area.html`
+- `rate-concentration-graph-plateau` -> `artifacts/rate-concentration-graph-plateau.html`
+- `rate-pressure-particle-density` -> `artifacts/rate-pressure-particle-density.html`
+- `rate-temperature-energy-distribution` -> `artifacts/rate-temperature-energy-distribution.html`
+- `rate-catalyst-lower-activation-energy` -> `artifacts/rate-catalyst-lower-activation-energy.html`
 
-Rendered HTML files are included under `artifacts/`, generated from `manifest.json` by the shared renderer in `scripts/render-seed-artifacts.mjs`. The page 8 rate-factor explorer includes sliders/toggles for particle size, concentration, pressure, temperature, and catalyst.
+Rendered HTML files are included under `artifacts/`, generated from `manifest.json` by the shared renderer in `scripts/render-seed-artifacts.mjs`.

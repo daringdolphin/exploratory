@@ -1,39 +1,9 @@
-import type { ArtifactSpec, BuiltArtifact } from "./schema";
-
-const roleLabels: Record<string, string> = {
-  problem: "Problem",
-  agent: "Cause",
-  resolution: "Outcome",
-  neutral: "Structure",
-  highlight: "Focus",
-};
-
-function escapeHtml(value: string) {
-  return value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
-
-function artifactJson(spec: ArtifactSpec) {
-  return JSON.stringify(spec)
-    .replace(/</g, "\\u003c")
-    .replace(/\u2028/g, "\\u2028")
-    .replace(/\u2029/g, "\\u2029");
-}
-
-export function buildArtifactHtml(spec: ArtifactSpec) {
-  const title = escapeHtml(spec.artifact_metadata.title || spec.topic);
-  const data = artifactJson(spec);
-
-  return `<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>${title}</title>
+  <title>Smaller Pieces, More Surface</title>
   <style>
     :root {
       --problem: #c84a36;
@@ -620,7 +590,7 @@ export function buildArtifactHtml(spec: ArtifactSpec) {
         </div>
 
         <div class="canvas-wrap">
-          <canvas id="scene" role="img" aria-label="${title} linked animated representations"></canvas>
+          <canvas id="scene" role="img" aria-label="Smaller Pieces, More Surface linked animated representations"></canvas>
           <div class="metric-row">
             <div class="metric"><strong id="metric-frequency">1.0x</strong>Collision / event frequency</div>
             <div class="metric"><strong id="metric-success">35%</strong>Successful fraction</div>
@@ -681,8 +651,8 @@ export function buildArtifactHtml(spec: ArtifactSpec) {
   </main>
 
   <script>
-    const spec = ${data};
-    const roleNames = ${JSON.stringify(roleLabels)};
+    const spec = {"id":"rate-particle-size-surface-area","source_ref":"page 9","subject":"O Level Chemistry","topic":"Particle size and surface area","medium":"interactive_html","mechanism":"Smaller reactant particles expose a greater total surface area, so more reactant particles can collide effectively per unit time and the reaction is faster.","transferable_principle":"For the same amount of solid, increasing exposed surface area increases the frequency of effective collisions.","steps":[{"name":"Same amount","beat":"Begin with the same mass or amount of solid reactant."},{"name":"Break into pieces","beat":"Smaller pieces expose more total surface area to the other reactant."},{"name":"More exposed collisions","beat":"More particles can collide at the solid surface in the same time."},{"name":"Faster reaction","beat":"The higher frequency of effective collisions gives a steeper initial gradient."}],"key_symbols":[{"symbol":"large lump","role":"neutral","meaning":"A solid with less exposed surface area."},{"symbol":"small chips","role":"agent","meaning":"The same solid split into smaller particles with more exposed surface."},{"symbol":"surface highlights","role":"highlight","meaning":"The parts of the solid available for collisions."},{"symbol":"collision sparks","role":"resolution","meaning":"Effective collisions occurring at the exposed surface."},{"symbol":"same final amount line","role":"problem","meaning":"Reminds students not to confuse faster rate with more product when amount is unchanged."}],"interactivity_hooks":["Change particle size while keeping the amount of solid fixed.","Animate particles striking only exposed solid surfaces.","Compare initial gradient and final product amount for lump, chips, and powder."],"output_filename":"rate-particle-size-surface-area.html","artifact_metadata":{"title":"Smaller Pieces, More Surface","subject":"O Level Chemistry","level":"O-Level","syllabus_reference":"Factors affecting rate: size of reactant particles and total surface area","estimated_interaction_time_minutes":8,"prerequisite_concepts":["Solid reactants","Surface area","Effective collision","Initial gradient"]},"learning_design":{"core_aha":"Smaller solid particles react faster because more surface is exposed for effective collisions, not because the solid suddenly has more mass.","learning_objectives":["Compare large and small particle sizes by total exposed surface area.","Explain why smaller particles increase the frequency of effective collisions.","Predict the graph with a steeper initial gradient when particle size decreases.","Separate faster rate from greater final amount when the amount of solid is unchanged."],"target_misconceptions":[{"misconception":"Powder reacts faster because there is more reactant.","correction":"For the same amount, powder reacts faster because more surface area is exposed.","addressed_in_scenario_id":"same-amount"},{"misconception":"Only the outside shape changes; collision frequency should stay the same.","correction":"More exposed surface gives more places for reacting particles to collide effectively.","addressed_in_scenario_id":"surface-reveal"},{"misconception":"A faster reaction must produce a larger final volume of gas.","correction":"If the amount of limiting reactant is unchanged, the final product amount stays the same.","addressed_in_scenario_id":"graph-compare"}]},"representations":{"description":"The artifact connects exposed solid surface, visible reaction speed, and graph gradient.","views":[{"id":"solid-surface-animation","type":"microscopic","description":"Animated particles strike exposed surfaces of a lump, chips, or powder and count effective collisions."},{"id":"gas-bubble-readout","type":"macroscopic","description":"A reaction vessel shows bubbles forming faster for smaller particles under the same amount of solid."},{"id":"surface-rate-graph","type":"symbolic","description":"A live product-time graph compares initial gradient and final plateau for each particle size."}]},"controls":[{"id":"particle_size","label":"Particle size","type":"discrete","default":"large lump","options":["large lump","small chips","powder"],"affects":["exposed_surface_area","collision_frequency","initial_gradient"]},{"id":"solid_amount","label":"Amount of solid","type":"slider","min":1,"max":3,"default":2,"step":1,"affects":["final_product_amount","solid_particles","plateau_height"]},{"id":"show_surface_area","label":"Highlight exposed surface","type":"toggle","default":true,"affects":["surface_highlight","surface_area_label"]},{"id":"graph_overlay","label":"Compare graph curves","type":"toggle","default":true,"affects":["curve_overlay","initial_gradient_comparison"]}],"scenarios":[{"id":"same-amount","title":"Keep the Amount Fixed","guiding_question":"If the same amount of solid is used, what actually changes when a lump becomes powder?","locked_controls":["solid_amount","graph_overlay"],"active_controls":["particle_size","show_surface_area"],"success_criterion":"You explain that surface area changes while the amount of solid stays fixed.","misconception_buster":true},{"id":"surface-reveal","title":"Reveal Collision Sites","guiding_question":"Where can collisions happen, and why does powder give more effective collisions per second?","locked_controls":["particle_size","solid_amount","graph_overlay"],"active_controls":["show_surface_area"],"success_criterion":"You link the highlighted exposed surface to a higher effective collision frequency.","misconception_buster":true},{"id":"graph-compare","title":"Choose the Faster Curve","guiding_question":"Which particle size gives the steepest initial gradient, and should the final plateau change?","locked_controls":["solid_amount","show_surface_area"],"active_controls":["particle_size","graph_overlay"],"success_criterion":"You choose powder for the steepest initial gradient and keep the final plateau tied to amount.","misconception_buster":true},{"id":"free-play","title":"Surface Area Lab","guiding_question":"Can you make the reaction faster and separately make more final product?","locked_controls":[],"active_controls":["particle_size","solid_amount","show_surface_area","graph_overlay"],"success_criterion":"You use particle size to change rate and amount of solid to change final product amount."}],"checkpoints":[{"id":"surface-fill","after_scenario":"same-amount","prompt":"Smaller particles have greater total ______ area, causing a higher frequency of ______ collisions.","type":"fill_in_blank","answers":["surface","effective"]},{"id":"surface-mcq","after_scenario":"graph-compare","prompt":"The same mass of powder reacts faster than one large lump because powder has:","type":"multiple_choice","options":["a greater total exposed surface area","a lower activation energy","more moles of limiting reactant","a higher final product amount"],"answer":"a greater total exposed surface area"}],"ui_requirements":{"always_visible":["surface highlight","collision counter","gas production readout","graph comparison"],"syllabus_vocabulary_to_surface":["size of reactant particles","total surface area","collision frequency","effective collision","initial gradient","rate of reaction"],"tone":"Concrete and lab-like, with repeated reminders that amount and surface area are different variables.","accessibility":["Use outlines and labels for exposed surface areas.","Provide text counters alongside animated collision sparks.","Keep graph curves visibly distinct without relying only on colour."]}};
+    const roleNames = {"problem":"Problem","agent":"Cause","resolution":"Outcome","neutral":"Structure","highlight":"Focus"};
     const roleColors = {
       problem: "#c84a36",
       agent: "#087a8a",
@@ -1674,12 +1644,4 @@ export function buildArtifactHtml(spec: ArtifactSpec) {
     scheduleDraw();
   </script>
 </body>
-</html>`;
-}
-
-export function buildArtifact(spec: ArtifactSpec): BuiltArtifact {
-  return {
-    ...spec,
-    html: buildArtifactHtml(spec),
-  };
-}
+</html>

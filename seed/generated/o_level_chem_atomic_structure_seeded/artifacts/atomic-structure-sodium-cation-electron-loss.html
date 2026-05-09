@@ -3,54 +3,87 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>O Level Chemistry: Atomic Structure - Positive ion formation</title>
+  <title>Sodium Cation Electron Loss</title>
   <style>
     :root {
-      --problem: #c0392b;
-      --agent: #1f6fa6;
-      --resolution: #5dade2;
-      --neutral: #1a1a1a;
-      --highlight: #f1c40f;
-      --good: #1e7d4f;
-      --bg: #f5f1e8;
-      --paper: #fbf8f1;
-      --rule: #d8d2c2;
-      --ink-soft: #4a4a4a;
+      --problem: #c84a36;
+      --agent: #087a8a;
+      --resolution: #247c6f;
+      --neutral: #151913;
+      --highlight: #d79d1f;
+      --good: #207857;
+      --bg: #ede8d9;
+      --paper: #fff8ea;
+      --paper-strong: #fffdf6;
+      --surface-cool: #e2eee8;
+      --rule: #cabf9e;
+      --ink-soft: #626b5f;
+      --shadow: #10201d;
     }
 
     * { box-sizing: border-box; }
 
-    html, body { min-height: 100%; }
+    html, body {
+      min-height: 100%;
+      overflow-x: hidden;
+    }
 
     body {
       margin: 0;
-      background: var(--bg);
+      background:
+        linear-gradient(135deg, rgba(255, 248, 234, 0.97), rgba(226, 238, 232, 0.94) 52%, rgba(242, 225, 188, 0.76)),
+        repeating-linear-gradient(0deg, rgba(21, 25, 19, 0.026) 0 1px, transparent 1px 28px),
+        repeating-linear-gradient(90deg, rgba(21, 25, 19, 0.022) 0 1px, transparent 1px 28px);
       color: var(--neutral);
-      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: "Avenir Next", "Trebuchet MS", system-ui, sans-serif;
+    }
+
+    button, input, select {
+      color: inherit;
+      font: inherit;
+    }
+
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible {
+      outline: 3px solid rgba(8, 122, 138, 0.26);
+      outline-offset: 2px;
+    }
+
+    .mono,
+    .eyebrow,
+    .source-chip,
+    .scenario-count,
+    .rate-pill,
+    button,
+    .metric,
+    .control-label,
+    .vocab-chip,
+    .role-label,
+    footer {
+      font-family: "Andale Mono", "Courier New", monospace;
+      letter-spacing: 0;
     }
 
     .shell {
-      width: min(1180px, calc(100vw - 28px));
+      width: min(1240px, calc(100vw - 24px));
       margin: 0 auto;
-      padding: 24px 0 28px;
+      padding: 22px 0 26px;
+      animation: load-in 520ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
     }
 
-    header {
+    .artifact-header {
       display: grid;
       grid-template-columns: minmax(0, 1fr) auto;
       gap: 18px;
       align-items: end;
-      border-bottom: 1px solid var(--rule);
-      padding-bottom: 16px;
-      margin-bottom: 18px;
-    }
-
-    .eyebrow, .source, .counter, button, .stat, .step-btn, .pill {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-      letter-spacing: 0;
+      margin-bottom: 14px;
+      border-bottom: 1px solid rgba(21, 25, 19, 0.14);
+      padding-bottom: 14px;
     }
 
     .eyebrow {
+      margin: 0;
       color: var(--agent);
       font-size: 12px;
       font-weight: 800;
@@ -58,412 +91,1154 @@
     }
 
     h1 {
-      margin: 4px 0 8px;
+      max-width: 900px;
+      margin: 6px 0 8px;
       font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(34px, 5vw, 62px);
-      line-height: 0.94;
+      font-size: clamp(34px, 5vw, 64px);
+      line-height: 0.95;
       letter-spacing: 0;
+      overflow-wrap: anywhere;
     }
 
-    .lede {
+    .aha {
+      max-width: 920px;
       margin: 0;
-      max-width: 780px;
       color: var(--ink-soft);
       font-size: 17px;
-      line-height: 1.42;
+      line-height: 1.48;
+      overflow-wrap: anywhere;
     }
 
-    .source {
-      color: var(--ink-soft);
+    .source-chip {
+      border: 1px solid rgba(21, 25, 19, 0.16);
+      background: rgba(255, 253, 246, 0.76);
+      color: var(--neutral);
       font-size: 12px;
+      font-weight: 800;
+      padding: 10px 12px;
       text-align: right;
+      text-transform: uppercase;
       white-space: nowrap;
     }
 
-    .lesson {
+    .learning-grid {
       display: grid;
-      grid-template-columns: minmax(0, 7fr) minmax(294px, 3fr);
-      gap: 20px;
-      align-items: start;
+      grid-template-columns: minmax(0, 1.76fr) minmax(310px, 0.78fr);
+      gap: 16px;
+      align-items: stretch;
+      max-width: 100%;
     }
 
-    .stage, aside, .panel, .caption {
-      background: var(--paper);
-      border: 1px solid var(--rule);
-    }
-
-    .stage {
-      min-height: 690px;
-      display: grid;
-      grid-template-rows: auto minmax(430px, 1fr) auto auto;
-    }
-
-    .stage-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 16px 18px 0;
-    }
-
-    .counter {
-      color: var(--ink-soft);
-      font-size: 12px;
-    }
-
-    .stage-title {
-      margin: 0;
-      font-size: 15px;
-      font-weight: 800;
-      text-align: right;
-    }
-
-    .animation-wrap {
-      position: relative;
-      min-height: 430px;
-      margin: 10px 18px 0;
-      background: #fffdf8;
-      border: 1px solid var(--rule);
+    .stage,
+    .guide {
+      min-width: 0;
+      border: 1px solid rgba(21, 25, 19, 0.15);
+      background: rgba(255, 248, 234, 0.82);
+      box-shadow: 0 24px 70px rgba(16, 32, 29, 0.12);
       overflow: hidden;
     }
 
+    .stage {
+      display: grid;
+      grid-template-rows: auto minmax(430px, 1fr) auto auto;
+      min-height: 720px;
+    }
+
+    .stage-top {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 14px;
+      align-items: center;
+      border-bottom: 1px solid rgba(21, 25, 19, 0.12);
+      padding: 14px 16px;
+    }
+
+    .scenario-count,
+    .rate-pill {
+      color: var(--ink-soft);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .stage-title {
+      margin: 5px 0 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(24px, 3vw, 38px);
+      line-height: 1;
+      letter-spacing: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .rate-pill {
+      display: grid;
+      min-width: 142px;
+      border: 1px solid rgba(21, 25, 19, 0.14);
+      background: rgba(255, 253, 246, 0.84);
+      padding: 9px 11px;
+      text-align: right;
+    }
+
+    .rate-pill strong {
+      color: var(--neutral);
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    .canvas-wrap {
+      position: relative;
+      min-height: 430px;
+      margin: 14px;
+      border: 1px solid rgba(21, 25, 19, 0.14);
+      background: var(--paper-strong);
+      overflow: hidden;
+      animation: canvas-in 640ms 80ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    }
+
     canvas {
+      display: block;
       width: 100%;
       height: 100%;
       min-height: 430px;
-      display: block;
     }
 
-    .stat-row {
+    .metric-row {
       position: absolute;
-      left: 14px;
-      right: 14px;
+      right: 12px;
       bottom: 12px;
+      left: 12px;
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 8px;
       pointer-events: none;
     }
 
-    .stat {
-      min-height: 48px;
+    .metric {
+      min-height: 54px;
+      border: 1px solid rgba(21, 25, 19, 0.12);
+      background: rgba(255, 253, 246, 0.88);
+      color: var(--ink-soft);
+      font-size: 11px;
       padding: 8px 10px;
-      background: rgba(251, 248, 241, 0.93);
-      border: 1px solid var(--rule);
-      font-size: 12px;
     }
 
-    .stat strong {
+    .metric strong {
       display: block;
       margin-bottom: 3px;
       color: var(--neutral);
-      font-size: 15px;
+      font-size: 17px;
     }
 
-    .caption {
-      margin: 14px 18px;
-      padding: 14px 16px;
-      border-left: 8px solid var(--highlight);
+    .prediction {
+      margin: 0 14px 14px;
+      border-left: 7px solid var(--highlight);
+      background: rgba(255, 253, 246, 0.76);
+      padding: 13px 15px;
     }
 
-    .caption strong {
-      display: block;
-      margin-bottom: 4px;
-      font-size: 15px;
+    .prediction h2 {
+      margin: 0 0 6px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 24px;
+      line-height: 1;
+      letter-spacing: 0;
     }
 
-    .caption p {
-      margin: 0;
-      color: var(--ink-soft);
-      line-height: 1.43;
-    }
-
-    .controls {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      padding: 0 18px 18px;
-    }
-
-    button {
-      border: 1px solid var(--neutral);
-      background: var(--paper);
-      color: var(--neutral);
-      min-height: 38px;
-      padding: 0 12px;
-      font-size: 12px;
-      cursor: pointer;
-    }
-
-    button:hover, button[aria-current="true"] {
-      background: var(--neutral);
-      color: var(--paper);
-    }
-
-    aside {
-      padding: 16px;
-    }
-
-    .steps-list {
-      display: grid;
-      gap: 8px;
-      margin-bottom: 16px;
-    }
-
-    .step-btn {
-      width: 100%;
-      text-align: left;
-      display: grid;
-      grid-template-columns: 34px minmax(0, 1fr);
-      gap: 10px;
-      align-items: center;
-      padding: 10px;
-      min-height: 50px;
-    }
-
-    .panel {
-      padding: 14px;
-      margin-top: 12px;
-    }
-
-    .panel h2 {
-      margin: 0 0 8px;
-      font-size: 13px;
-      text-transform: uppercase;
-    }
-
-    .panel p {
+    .prediction p {
       margin: 0;
       color: var(--ink-soft);
       line-height: 1.45;
     }
 
-    .hooks {
+    .prediction-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .transport,
+    .scenario-list,
+    .control-stack,
+    .checkpoint-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .transport {
+      padding: 0 14px 14px;
+    }
+
+    button,
+    .control-card,
+    .scenario-button,
+    .representation,
+    .misconception,
+    .checkpoint {
+      border: 1px solid rgba(21, 25, 19, 0.16);
+      background: rgba(255, 253, 246, 0.78);
+    }
+
+    button {
+      min-height: 38px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 0 12px;
+      text-transform: uppercase;
+      transition:
+        background 160ms ease,
+        color 160ms ease,
+        border-color 160ms ease,
+        transform 160ms ease;
+    }
+
+    button:hover:not(:disabled) {
+      border-color: var(--neutral);
+      transform: translateY(-1px);
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+      opacity: 0.44;
+    }
+
+    button[aria-current="true"],
+    button[aria-pressed="true"] {
+      background: var(--neutral);
+      color: var(--paper);
+    }
+
+    .guide {
+      display: grid;
+      align-content: start;
+      min-width: 0;
+      max-height: 720px;
+      overflow: auto;
+    }
+
+    .panel-block {
+      border-bottom: 1px solid rgba(21, 25, 19, 0.12);
+      padding: 15px;
+    }
+
+    .panel-block:last-child {
+      border-bottom: 0;
+    }
+
+    .panel-block h3 {
+      margin: 0 0 10px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 24px;
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    .panel-block p {
+      margin: 0;
+      color: var(--ink-soft);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .scenario-list,
+    .control-stack,
+    .representation-stack,
+    .vocab-list,
+    .misconception-stack {
       display: grid;
       gap: 8px;
     }
 
-    .hook-btn {
+    .scenario-button {
+      display: grid;
+      grid-template-columns: 30px minmax(0, 1fr);
+      gap: 9px;
+      width: 100%;
+      min-height: 62px;
+      padding: 10px;
       text-align: left;
-      min-height: 42px;
-      white-space: normal;
+    }
+
+    .scenario-button small,
+    .control-card small,
+    .representation small,
+    .misconception small,
+    .checkpoint small {
+      display: block;
+      margin-top: 3px;
+      color: var(--ink-soft);
+      font-size: 11px;
+      line-height: 1.35;
+      text-transform: none;
+    }
+
+    .scenario-button strong,
+    .control-card strong,
+    .representation strong,
+    .misconception strong,
+    .checkpoint strong {
+      display: block;
+      color: var(--neutral);
+      font-size: 13px;
       line-height: 1.25;
+      overflow-wrap: anywhere;
+      text-transform: none;
     }
 
-    .pill-row {
+    .control-card,
+    .representation,
+    .misconception,
+    .checkpoint {
+      width: 100%;
+      padding: 10px;
+    }
+
+    .control-card[aria-disabled="true"] {
+      opacity: 0.52;
+    }
+
+    .control-label {
       display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 12px;
+      justify-content: space-between;
+      gap: 10px;
+      color: var(--neutral);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
     }
 
-    .pill {
+    input[type="range"] {
+      width: 100%;
+      margin-top: 8px;
+      accent-color: var(--agent);
+    }
+
+    select,
+    .checkpoint input {
+      width: 100%;
+      min-height: 36px;
+      margin-top: 8px;
+      border: 1px solid rgba(21, 25, 19, 0.16);
+      background: var(--paper-strong);
+      padding: 6px 8px;
+    }
+
+    .discrete-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(86px, 1fr));
+      gap: 7px;
+      margin-top: 8px;
+    }
+
+    .discrete-options button {
+      min-height: 34px;
+      padding: 0 8px;
+      white-space: normal;
+    }
+
+    .representation {
+      border-left: 5px solid var(--agent);
+    }
+
+    .representation[data-type="macroscopic"] {
+      border-left-color: var(--resolution);
+    }
+
+    .representation[data-type="symbolic"] {
+      border-left-color: var(--highlight);
+    }
+
+    .vocab-list {
+      grid-template-columns: repeat(auto-fit, minmax(118px, 1fr));
+    }
+
+    .vocab-chip {
+      border: 1px solid rgba(21, 25, 19, 0.14);
+      background: rgba(255, 253, 246, 0.7);
+      color: var(--neutral);
+      font-size: 11px;
+      font-weight: 800;
+      padding: 8px;
+      text-transform: uppercase;
+    }
+
+    .role-label {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      border: 1px solid var(--rule);
-      padding: 5px 7px;
-      font-size: 11px;
-      background: #fffdf8;
+      margin-bottom: 4px;
+      color: var(--ink-soft);
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
     }
 
     .dot {
-      width: 10px;
-      height: 10px;
+      width: 9px;
+      height: 9px;
+      border: 1px solid rgba(21, 25, 19, 0.24);
       border-radius: 50%;
-      background: currentColor;
+      background: var(--role-color);
     }
 
-    .quiet {
-      color: var(--ink-soft);
-      font-size: 14px;
+    .checkpoint-feedback {
+      min-height: 26px;
+      margin-top: 10px !important;
+      color: var(--neutral) !important;
     }
 
     footer {
+      margin-top: 14px;
       color: var(--ink-soft);
-      border-top: 1px solid var(--rule);
-      margin-top: 20px;
-      padding-top: 14px;
-      font-size: 13px;
+      font-size: 11px;
+      line-height: 1.4;
     }
 
-    @media (max-width: 820px) {
-      header, .lesson {
-        grid-template-columns: 1fr;
+    @keyframes load-in {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes canvas-in {
+      from { opacity: 0; transform: translateY(10px) scale(0.99); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 1ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 1ms !important;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .artifact-header,
+      .learning-grid,
+      .stage-top {
+        grid-template-columns: minmax(0, 1fr);
       }
 
-      .source {
+      .source-chip,
+      .rate-pill {
+        width: max-content;
+        max-width: 100%;
         text-align: left;
+        white-space: normal;
       }
 
-      .stat-row {
+      .guide {
+        max-height: none;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .shell {
+        width: min(calc(100vw - 20px), 340px);
+      }
+
+      h1 {
+        font-size: clamp(30px, 10vw, 42px);
+      }
+
+      .aha {
+        font-size: 15px;
+      }
+
+      .metric-row {
         grid-template-columns: 1fr;
+      }
+
+      .canvas-wrap {
+        margin: 10px;
+      }
+
+      .transport,
+      .prediction {
+        margin-right: 10px;
+        margin-left: 10px;
+        padding-right: 10px;
+        padding-left: 10px;
       }
     }
   </style>
 </head>
 <body>
-  <div class="shell">
-    <header>
+  <main class="shell">
+    <header class="artifact-header">
       <div>
-        <div class="eyebrow">O Level Chemistry / page 6</div>
-        <h1>Positive ion formation</h1>
-        <p class="lede">When a sodium atom loses one outer electron, its 11 protons outnumber its 10 remaining electrons, so the particle becomes Na+.</p>
+        <p class="eyebrow" id="eyebrow"></p>
+        <h1 id="title"></h1>
+        <p class="aha" id="aha"></p>
       </div>
-      <div class="source">o_level_chem_atomic_structure<br />canvas-first artifact</div>
+      <div class="source-chip" id="source"></div>
     </header>
 
-    <main class="lesson">
-      <section class="stage" aria-label="Animated artifact stage">
+    <section class="learning-grid">
+      <article class="stage">
         <div class="stage-top">
-          <div class="counter" id="counter"></div>
-          <p class="stage-title" id="stageTitle"></p>
-        </div>
-
-        <div class="animation-wrap">
-          <canvas id="lessonCanvas" aria-label="Positive ion formation animated simulation"></canvas>
-          <div class="stat-row" aria-live="polite">
-            <div class="stat"><strong id="statA">0</strong><span id="statALabel">progress</span></div>
-            <div class="stat"><strong id="statB">0</strong><span id="statBLabel">motion</span></div>
-            <div class="stat"><strong id="statC">0</strong><span id="statCLabel">focus</span></div>
+          <div>
+            <div class="scenario-count" id="scenario-count"></div>
+            <h2 class="stage-title" id="scenario-title"></h2>
+          </div>
+          <div class="rate-pill">
+            <span>rate readout</span>
+            <strong id="rate-readout">1.0x</strong>
           </div>
         </div>
 
-        <div class="caption" id="caption">
-          <strong id="captionName"></strong>
-          <p id="captionBeat"></p>
-        </div>
-
-        <div class="controls">
-          <button type="button" id="back">Back</button>
-          <button type="button" id="next">Next</button>
-          <button type="button" id="restart">Restart</button>
-          <button type="button" id="auto">Auto</button>
-          <button type="button" id="motion">Pause motion</button>
-        </div>
-      </section>
-
-      <aside>
-        <div class="steps-list" id="stepsList"></div>
-
-        <div class="panel">
-          <h2>Principle</h2>
-          <p>A positive ion forms when electron loss leaves more protons than electrons.</p>
-          <div class="pill-row">
-            <span class="pill" style="color:#c0392b"><span class="dot"></span>problem</span><span class="pill" style="color:#1f6fa6"><span class="dot"></span>agent</span><span class="pill" style="color:#5dade2"><span class="dot"></span>resolution</span><span class="pill" style="color:#1a1a1a"><span class="dot"></span>neutral</span><span class="pill" style="color:#f1c40f"><span class="dot"></span>highlight</span>
+        <div class="canvas-wrap">
+          <canvas id="scene" role="img" aria-label="Sodium Cation Electron Loss linked animated representations"></canvas>
+          <div class="metric-row">
+            <div class="metric"><strong id="metric-frequency">1.0x</strong>Collision / event frequency</div>
+            <div class="metric"><strong id="metric-success">35%</strong>Successful fraction</div>
+            <div class="metric"><strong id="metric-symbolic">Ea</strong>Symbolic lever</div>
           </div>
         </div>
 
-        <div class="panel">
-          <h2>Explore</h2>
-          <div class="hooks"><button class="hook-btn" type="button" data-hook="0">Toggle the lost outer electron on and off to compare neutral sodium with Na+.</button><button class="hook-btn" type="button" data-hook="1">Click proton and electron counters to highlight why the charge changes.</button></div>
-          <p class="quiet" id="hookReadout"></p>
+        <div class="prediction">
+          <h2 id="prediction-heading"></h2>
+          <p id="prediction-copy"></p>
+          <div class="prediction-buttons" id="prediction-buttons"></div>
+        </div>
+
+        <div class="transport">
+          <button id="prev-scenario" type="button">Previous</button>
+          <button id="next-scenario" type="button">Next scenario</button>
+          <button id="reset" type="button">Reset</button>
+          <button id="motion" type="button">Pause motion</button>
+        </div>
+      </article>
+
+      <aside class="guide">
+        <div class="panel-block">
+          <h3>Scenarios</h3>
+          <div class="scenario-list" id="scenario-list"></div>
+        </div>
+
+        <div class="panel-block">
+          <h3>Controls</h3>
+          <p id="control-hint"></p>
+          <div class="control-stack" id="controls"></div>
+        </div>
+
+        <div class="panel-block">
+          <h3>Linked Views</h3>
+          <p id="representations-intro"></p>
+          <div class="representation-stack" id="representations"></div>
+        </div>
+
+        <div class="panel-block">
+          <h3>Misconception</h3>
+          <div class="misconception-stack" id="misconceptions"></div>
+        </div>
+
+        <div class="panel-block">
+          <h3>Checkpoint</h3>
+          <div id="checkpoint"></div>
+        </div>
+
+        <div class="panel-block">
+          <h3>Vocabulary</h3>
+          <div class="vocab-list" id="vocabulary"></div>
         </div>
       </aside>
-    </main>
+    </section>
 
-    <footer>Self-contained HTML for sandboxed iframe rendering: no external scripts, no remote assets, and no parent-page access. Use Left/Right, Space for auto-play, and R to restart.</footer>
-  </div>
+    <footer id="footer"></footer>
+  </main>
 
   <script>
-    const DATA = {"spec":{"id":"atomic-structure-sodium-cation-electron-loss","source_ref":"page 6","subject":"O Level Chemistry","topic":"Positive ion formation","medium":"interactive_html","mechanism":"When a sodium atom loses one outer electron, its 11 protons outnumber its 10 remaining electrons, so the particle becomes Na+.","transferable_principle":"A positive ion forms when electron loss leaves more protons than electrons.","steps":[{"name":"Neutral sodium","beat":"Start with a sodium atom where proton count and electron count balance, so the atom has no overall charge."},{"name":"Outer electron leaves","beat":"The single valence electron is removed from the outer shell while the nucleus stays unchanged."},{"name":"Counts become unequal","beat":"Sodium still has 11 protons, but now only 10 electrons remain."},{"name":"Na+ forms","beat":"The extra positive proton charge gives the ion a +1 charge, written as Na+."}],"key_symbols":[{"symbol":"sodium atom","role":"neutral","meaning":"The starting particle with balanced protons and electrons."},{"symbol":"outer electron","role":"problem","meaning":"The electron being removed from the atom."},{"symbol":"electron-loss arrow","role":"agent","meaning":"The change that reduces the electron count by one."},{"symbol":"Na+ ion","role":"resolution","meaning":"The resulting cation with one more proton than electron."},{"symbol":"+1 charge label","role":"highlight","meaning":"The charge caused by the proton-electron imbalance."}],"interactivity_hooks":["Toggle the lost outer electron on and off to compare neutral sodium with Na+.","Click proton and electron counters to highlight why the charge changes."],"output_filename":"atomic-structure-sodium-cation-electron-loss.html","file_path":"artifacts/atomic-structure-sodium-cation-electron-loss.html"},"notes":{"id":"o_level_chem_atomic_structure","title":"O Level Chemistry: Atomic Structure","subject":"O Level Chemistry","source_file":"source/[O LEVEL CHEMISTRY] Atomic Structure - demo.pdf","total_pages":15,"total_artifacts":6}};
-    const spec = DATA.spec;
-    const colors = {"problem":"#c0392b","agent":"#1f6fa6","resolution":"#5dade2","neutral":"#1a1a1a","highlight":"#f1c40f","good":"#1e7d4f","paper":"#fbf8f1","rule":"#d8d2c2","inkSoft":"#4a4a4a"};
-    const textIndex = (spec.id + " " + spec.topic + " " + spec.mechanism).toLowerCase();
-    const canvas = document.querySelector("#lessonCanvas");
-    const ctx = canvas.getContext("2d");
-    const counter = document.querySelector("#counter");
-    const stageTitle = document.querySelector("#stageTitle");
-    const caption = document.querySelector("#caption");
-    const captionName = document.querySelector("#captionName");
-    const captionBeat = document.querySelector("#captionBeat");
-    const hookReadout = document.querySelector("#hookReadout");
-    const statA = document.querySelector("#statA");
-    const statB = document.querySelector("#statB");
-    const statC = document.querySelector("#statC");
-    const statALabel = document.querySelector("#statALabel");
-    const statBLabel = document.querySelector("#statBLabel");
-    const statCLabel = document.querySelector("#statCLabel");
-    const motionButton = document.querySelector("#motion");
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    let stepIndex = 0;
-    let hookIndex = -1;
-    let autoTimer = null;
-    let lastTime = 0;
-    let motionRunning = !prefersReducedMotion;
-    let seed = 7;
-    const movers = [];
-    const pulses = [];
+    const spec = {"id":"atomic-structure-sodium-cation-electron-loss","source_ref":"page 6","subject":"O Level Chemistry","topic":"Positive ion formation","medium":"interactive_html","mechanism":"When a sodium atom loses one outer electron, its 11 protons outnumber its 10 electrons, so the particle becomes Na+.","transferable_principle":"A positive ion forms when electron loss leaves more protons than electrons.","steps":[{"name":"Start neutral","beat":"Show a sodium atom with 11 protons and 11 electrons arranged 2,8,1."},{"name":"Lose the outer electron","beat":"Animate the single valence electron leaving while the nucleus stays unchanged."},{"name":"Compare counts","beat":"Update the counter to 11 protons and 10 electrons."},{"name":"Write Na+","beat":"Show the +1 charge and the symbol Na+ after electron loss."}],"key_symbols":[{"symbol":"Na atom","role":"neutral","meaning":"Neutral sodium before electron loss."},{"symbol":"outer electron","role":"problem","meaning":"The valence electron removed from sodium."},{"symbol":"loss arrow","role":"agent","meaning":"The process that decreases electron count by one."},{"symbol":"Na+","role":"resolution","meaning":"Sodium cation with one more proton than electron."},{"symbol":"+1 charge","role":"highlight","meaning":"The charge caused by the proton-electron imbalance."}],"interactivity_hooks":["Drag the valence electron away from sodium and watch the charge meter turn +1.","Toggle neutral atom versus cation to compare 2,8,1 and 2,8.","Switch the attempted change between electron loss and proton loss to catch the common trap."],"output_filename":"atomic-structure-sodium-cation-electron-loss.html","artifact_metadata":{"title":"Sodium Cation Electron Loss","subject":"O Level Chemistry","level":"O Level Chemistry","syllabus_reference":"MOE 6092 Chemistry: Atomic Structure","estimated_interaction_time_minutes":6,"prerequisite_concepts":["Protons are positive","Electrons are negative","Sodium has electronic configuration 2,8,1"]},"learning_design":{"core_aha":"Na+ is positive because sodium lost an electron, not because it gained a proton.","learning_objectives":["Students explain positive ion formation using proton-electron imbalance and electronic configuration.","Given electron loss from an atom, students determine ion charge, ion symbol, and remaining electron arrangement.","A positive ion forms when electron loss leaves more protons than electrons."],"target_misconceptions":[{"misconception":"Positive ions form when atoms gain protons.","correction":"The nucleus and proton number stay unchanged; sodium still has 11 protons.","addressed_in_scenario_id":"not_proton_gain"},{"misconception":"The nucleus changes when sodium becomes Na+.","correction":"The nucleus and proton number stay unchanged; sodium still has 11 protons.","addressed_in_scenario_id":"not_proton_gain"},{"misconception":"Na+ has 12 protons instead of 11 protons.","correction":"The nucleus and proton number stay unchanged; sodium still has 11 protons.","addressed_in_scenario_id":"not_proton_gain"},{"misconception":"The plus sign means an electron was added.","correction":"The nucleus and proton number stay unchanged; sodium still has 11 protons.","addressed_in_scenario_id":"not_proton_gain"}]},"representations":{"description":"All views are linked: changing a control updates the particle/subatomic view, the observable outcome, and the symbolic notation or table.","views":[{"id":"microscopic_sodium_shell_view","type":"microscopic","description":"Sodium nucleus with 11 protons and electrons arranged 2,8,1 before loss, then 2,8 after loss."},{"id":"charge_balance_meter","type":"macroscopic","description":"11 protons versus 10 electrons producing +1 charge."},{"id":"symbolic_na_notation","type":"symbolic","description":"Na atom, Na+, and electronic configuration 2,8,1 to 2,8."}]},"controls":[{"id":"electron_loss_count","label":"Electrons lost","type":"slider","min":0,"max":1,"default":0,"step":1,"affects":["microscopic_sodium_shell_view","charge_balance_meter","symbolic_na_notation"]},{"id":"show_configuration","label":"Show configuration","type":"toggle","default":true,"affects":["symbolic_na_notation","microscopic_sodium_shell_view"]},{"id":"change_type_probe","label":"Change type","type":"discrete","default":"electron_loss","options":["electron_loss","proton_loss"],"affects":["microscopic_sodium_shell_view","charge_balance_meter","checkpoint_proton_loss_trap"]},{"id":"animate_transfer","label":"Animate transfer","type":"toggle","default":true,"affects":["microscopic_sodium_shell_view"]}],"scenarios":[{"id":"neutral_sodium","title":"Neutral sodium","guiding_question":"Why does the sodium atom have no overall charge at the start?","locked_controls":["electron_loss_count","change_type_probe","show_configuration"],"active_controls":[],"success_criterion":"Student states that 11 protons and 11 electrons balance to zero charge."},{"id":"make_na_plus","title":"Make Na+","guiding_question":"What exact count changes when sodium becomes Na+?","locked_controls":["change_type_probe","show_configuration"],"active_controls":["electron_loss_count"],"success_criterion":"Student explains that electrons decrease from 11 to 10 while protons remain 11."},{"id":"not_proton_gain","title":"No proton gain","guiding_question":"Why is gaining protons the wrong explanation for Na+?","locked_controls":["electron_loss_count","change_type_probe"],"active_controls":["change_type_probe"],"success_criterion":"Student rejects nucleus changes and says ion formation changes electron count.","misconception_buster":true},{"id":"free_cation_compare","title":"Free compare","guiding_question":"Can you connect electron loss, charge, and symbol without help?","locked_controls":[],"active_controls":["electron_loss_count","show_configuration","change_type_probe","animate_transfer"],"success_criterion":"Student predicts Na+ and 2,8 after one electron is lost."}],"checkpoints":[{"id":"checkpoint_proton_loss_trap","after_scenario":"neutral_sodium","prompt":"Someone says Na+ has 12 protons. What stays unchanged during ion formation?","type":"fill_in_blank","answers":["The nucleus and proton number stay unchanged"]},{"id":"checkpoint_cation_summary","after_scenario":"make_na_plus","prompt":"Explain Na+ in one sentence using protons and electrons.","type":"fill_in_blank","answers":["Na+ has 11 protons and 10 electrons because sodium lost one electron"]}],"ui_requirements":{"always_visible":["reset_button","current_scenario_title","rate_readout"],"syllabus_vocabulary_to_surface":["charge","proton number","nucleon number","isotopes","relative atomic mass","ions","electronic configuration","shells","electrons"],"tone":"Clear, direct, no childish language. Treat students as capable.","accessibility":["colourblind-safe palette","labels not just colours","keyboard-navigable controls","Use + and - labels plus count text so charge is not colour-only."]}};
+    const roleNames = {"problem":"Problem","agent":"Cause","resolution":"Outcome","neutral":"Structure","highlight":"Focus"};
+    const roleColors = {
+      problem: "#c84a36",
+      agent: "#087a8a",
+      resolution: "#247c6f",
+      neutral: "#151913",
+      highlight: "#d79d1f",
+      good: "#207857",
+      paper: "#fff8ea",
+      paperStrong: "#fffdf6",
+      surfaceCool: "#e2eee8",
+      rule: "#cabf9e",
+      inkSoft: "#626b5f"
+    };
 
-    if (prefersReducedMotion) {
-      motionButton.textContent = "Resume motion";
-      motionButton.setAttribute("aria-current", "true");
+    const predictionChoices = [
+      "It increases",
+      "It decreases",
+      "It stays about the same",
+      "A different mechanism changes"
+    ];
+
+    let scenarioIndex = 0;
+    let predictionMade = false;
+    let selectedPrediction = "";
+    let motionRunning = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let animationId = null;
+    let lastTime = 0;
+    let seed = 31 + spec.id.length * 19;
+    const values = {};
+    const particles = [];
+    const pulses = [];
+    const checkpointState = {};
+
+    const canvas = document.getElementById("scene");
+    const ctx = canvas.getContext("2d");
+    const scenarioList = document.getElementById("scenario-list");
+    const controlsEl = document.getElementById("controls");
+    const predictionButtons = document.getElementById("prediction-buttons");
+    const checkpointEl = document.getElementById("checkpoint");
+    const motionButton = document.getElementById("motion");
+
+    function rand() {
+      seed = (seed * 1664525 + 1013904223) % 4294967296;
+      return seed / 4294967296;
     }
 
     function clamp(value, min, max) {
       return Math.max(min, Math.min(max, value));
     }
 
-    function seeded() {
-      seed = (seed * 1664525 + 1013904223) >>> 0;
-      return seed / 4294967296;
+    function compact(value, max) {
+      const text = String(value || "");
+      return text.length <= max ? text : text.slice(0, max - 3).trim() + "...";
     }
 
-    function rand(min, max) {
-      return min + seeded() * (max - min);
+    function keywordText() {
+      return [
+        spec.id,
+        spec.topic,
+        spec.mechanism,
+        spec.transferable_principle,
+        spec.learning_design.core_aha,
+        spec.controls.map(function(control) {
+          return control.id + " " + control.label + " " + control.affects.join(" ");
+        }).join(" ")
+      ].join(" ").toLowerCase();
     }
 
-    function sceneMode() {
-      if (/relative atomic mass|weighted|abundance|average mass|35\.5/.test(textIndex)) return "weighted";
-      if (/isotope/.test(textIndex)) return "isotope";
-      if (/atom|ion|electron|proton|neutron|shell|notation|2,8,8|oganesson|sodium|chlorine|chloride/.test(textIndex)) return "atomic";
-      if (/graph|gradient|curve|plateau|volume|mass loss|gas/.test(textIndex)) return "graph";
-      if (/collision|rate|concentration|pressure|temperature|catalyst|activation energy|particle/.test(textIndex)) return "rate";
-      return "flow";
+    function currentScenario() {
+      return spec.scenarios[scenarioIndex] || spec.scenarios[0];
     }
 
-    const mode = sceneMode();
+    function controlById(id) {
+      return spec.controls.find(function(control) { return control.id === id; });
+    }
+
+    function defaultValue(control) {
+      if (control.default !== undefined) return control.default;
+      if (control.type === "toggle") return false;
+      if (control.type === "slider" || control.type === "stepper") return control.min || 0;
+      return (control.options && control.options[0]) || "";
+    }
+
+    function resetValues() {
+      spec.controls.forEach(function(control) {
+        values[control.id] = defaultValue(control);
+      });
+    }
+
+    function controlNorm(control) {
+      const value = values[control.id];
+      if (control.type === "toggle") return value ? 1 : 0;
+      if (control.type === "slider" || control.type === "stepper") {
+        const min = Number(control.min || 0);
+        const max = Number(control.max || 100);
+        return clamp((Number(value) - min) / Math.max(1, max - min), 0, 1);
+      }
+      const options = control.options || [];
+      const index = Math.max(0, options.indexOf(String(value)));
+      return options.length <= 1 ? 0 : index / (options.length - 1);
+    }
+
+    function activeControlIds() {
+      const scenario = currentScenario();
+      if (!scenario) return new Set();
+      if (!scenario.active_controls.length) {
+        return new Set(spec.controls.map(function(control) { return control.id; }));
+      }
+      return new Set(scenario.active_controls);
+    }
+
+    function isControlLocked(control) {
+      const scenario = currentScenario();
+      if (!scenario) return true;
+      return !predictionMade ||
+        scenario.locked_controls.indexOf(control.id) >= 0 ||
+        !activeControlIds().has(control.id);
+    }
+
+    function computeMetrics() {
+      let collisionFrequency = 1;
+      let successfulFraction = 0.34;
+      let activationEnergy = 1;
+      let particleSpeed = 1;
+      let density = 0.45;
+      let symbolicLabel = "linked";
+      const words = keywordText();
+
+      spec.controls.forEach(function(control) {
+        const norm = controlNorm(control);
+        const effect = (control.id + " " + control.label + " " + control.affects.join(" ")).toLowerCase();
+        const active = activeControlIds().has(control.id);
+        const weight = active || predictionMade ? 1 : 0.55;
+
+        if (/temperature|kinetic|speed|thermal|heat/.test(effect)) {
+          particleSpeed += norm * 1.35 * weight;
+          collisionFrequency += norm * 0.35 * weight;
+          successfulFraction += norm * 0.42 * weight;
+          symbolicLabel = "energy";
+        }
+
+        if (/concentration|pressure|density|surface|area|particle_count|frequency|volume|contact/.test(effect)) {
+          collisionFrequency += norm * 1.08 * weight;
+          density += norm * 0.42 * weight;
+          symbolicLabel = "frequency";
+        }
+
+        if (/catalyst|activation|barrier|alternative/.test(effect)) {
+          const activeCatalyst = control.type === "toggle" ? Boolean(values[control.id]) : norm > 0.45;
+          if (activeCatalyst) {
+            activationEnergy -= 0.36 * weight;
+            successfulFraction += 0.34 * weight;
+            symbolicLabel = "lower Ea";
+          }
+        }
+
+        if (/electron|charge|ion|shell|proton|nucleon|isotope|mass/.test(effect)) {
+          collisionFrequency += norm * 0.18 * weight;
+          successfulFraction += norm * 0.16 * weight;
+          density += norm * 0.16 * weight;
+          symbolicLabel = /isotope|mass|nucleon/.test(effect) ? "mass number" : "charge";
+        }
+      });
+
+      if (/rate|collision|activation|catalyst|temperature|concentration|pressure|surface/.test(words)) {
+        symbolicLabel = symbolicLabel === "linked" ? "Ea" : symbolicLabel;
+      }
+
+      activationEnergy = clamp(activationEnergy, 0.48, 1.35);
+      successfulFraction = clamp(successfulFraction / activationEnergy, 0.08, 0.94);
+      collisionFrequency = clamp(collisionFrequency, 0.42, 3.8);
+      density = clamp(density, 0.18, 1.2);
+      particleSpeed = clamp(particleSpeed, 0.55, 3.2);
+      const rate = clamp(collisionFrequency * successfulFraction, 0.1, 3.9);
+
+      return {
+        collisionFrequency: collisionFrequency,
+        successfulFraction: successfulFraction,
+        activationEnergy: activationEnergy,
+        particleSpeed: particleSpeed,
+        density: density,
+        rate: rate,
+        symbolicLabel: symbolicLabel
+      };
+    }
+
+    function resizeCanvas() {
+      const rect = canvas.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = Math.max(1, Math.round(rect.width * dpr));
+      canvas.height = Math.max(1, Math.round(rect.height * dpr));
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      resetParticles();
+    }
+
+    function resetParticles() {
+      particles.length = 0;
+      const width = canvas.clientWidth || 900;
+      const height = canvas.clientHeight || 500;
+      const count = 72;
+      for (let i = 0; i < count; i += 1) {
+        const symbol = spec.key_symbols[i % spec.key_symbols.length] || { role: "neutral", symbol: "particle" };
+        const angle = rand() * Math.PI * 2;
+        particles.push({
+          x: 34 + rand() * Math.max(1, width * 0.56 - 68),
+          y: 66 + rand() * Math.max(1, height - 150),
+          vx: Math.cos(angle) * (18 + rand() * 42),
+          vy: Math.sin(angle) * (18 + rand() * 42),
+          r: 4.5 + rand() * 4.5,
+          role: symbol.role,
+          phase: rand() * Math.PI * 2
+        });
+      }
+    }
+
+    function renderStaticText() {
+      document.getElementById("eyebrow").textContent = spec.artifact_metadata.level + " / " + spec.subject;
+      document.getElementById("source").textContent = spec.source_ref;
+      document.getElementById("title").textContent = spec.artifact_metadata.title || spec.topic;
+      document.getElementById("aha").textContent = spec.learning_design.core_aha;
+      document.getElementById("representations-intro").textContent = spec.representations.description;
+      document.getElementById("footer").textContent = "Sandboxed self-contained teaching artifact. Predict first, then test with the unlocked controls. Use Left/Right to change scenario, R to reset.";
+      renderRepresentations();
+      renderVocabulary();
+    }
+
+    function renderRepresentations() {
+      const root = document.getElementById("representations");
+      root.replaceChildren();
+      spec.representations.views.forEach(function(view) {
+        const item = document.createElement("div");
+        item.className = "representation";
+        item.dataset.type = view.type;
+        const strong = document.createElement("strong");
+        strong.textContent = view.type.charAt(0).toUpperCase() + view.type.slice(1);
+        const small = document.createElement("small");
+        small.textContent = view.description;
+        item.append(strong, small);
+        root.append(item);
+      });
+    }
+
+    function renderVocabulary() {
+      const root = document.getElementById("vocabulary");
+      root.replaceChildren();
+      spec.ui_requirements.syllabus_vocabulary_to_surface.forEach(function(term) {
+        const item = document.createElement("div");
+        item.className = "vocab-chip";
+        item.textContent = term;
+        root.append(item);
+      });
+    }
+
+    function renderScenarioList() {
+      scenarioList.replaceChildren();
+      spec.scenarios.forEach(function(scenario, index) {
+        const button = document.createElement("button");
+        button.className = "scenario-button";
+        button.type = "button";
+        button.setAttribute("aria-current", index === scenarioIndex ? "true" : "false");
+        button.addEventListener("click", function() {
+          setScenario(index);
+        });
+
+        const count = document.createElement("span");
+        count.className = "mono";
+        count.textContent = String(index + 1).padStart(2, "0");
+        const copy = document.createElement("span");
+        const label = document.createElement("strong");
+        label.textContent = scenario.title;
+        const detail = document.createElement("small");
+        detail.textContent = compact(scenario.guiding_question, 108);
+        copy.append(label, detail);
+        button.append(count, copy);
+        scenarioList.append(button);
+      });
+    }
+
+    function renderPrediction() {
+      const scenario = currentScenario();
+      document.getElementById("scenario-count").textContent = "Scenario " + (scenarioIndex + 1) + " / " + spec.scenarios.length;
+      document.getElementById("scenario-title").textContent = scenario.title;
+      document.getElementById("prediction-heading").textContent = predictionMade ? "Test the prediction" : "Predict first";
+      document.getElementById("prediction-copy").textContent = predictionMade
+        ? "Prediction logged: " + selectedPrediction + ". Now use the unlocked control(s) and watch all three representations move together."
+        : scenario.guiding_question;
+
+      predictionButtons.replaceChildren();
+      if (!predictionMade) {
+        predictionChoices.forEach(function(choice) {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.textContent = choice;
+          button.addEventListener("click", function() {
+            predictionMade = true;
+            selectedPrediction = choice;
+            pulses.push({ x: canvas.clientWidth * 0.33, y: canvas.clientHeight * 0.42, age: 0 });
+            renderAll();
+          });
+          predictionButtons.append(button);
+        });
+      } else {
+        const criterion = document.createElement("p");
+        criterion.textContent = scenario.prompt_after || scenario.success_criterion || "Compare what changed in the particles, the graph, and the symbols.";
+        predictionButtons.append(criterion);
+      }
+    }
+
+    function renderControls() {
+      controlsEl.replaceChildren();
+      const scenario = currentScenario();
+      document.getElementById("control-hint").textContent = predictionMade
+        ? "Only the scenario controls are active. Locked controls stay fixed so the chemistry stays traceable."
+        : "Choose a prediction to unlock this scenario's controls.";
+
+      spec.controls.forEach(function(control) {
+        const locked = isControlLocked(control);
+        const item = document.createElement("div");
+        item.className = "control-card";
+        item.setAttribute("aria-disabled", locked ? "true" : "false");
+
+        const label = document.createElement("div");
+        label.className = "control-label";
+        const name = document.createElement("span");
+        name.textContent = control.label;
+        const value = document.createElement("span");
+        value.textContent = formatControlValue(control);
+        label.append(name, value);
+        item.append(label);
+
+        if (scenario.locked_controls.indexOf(control.id) >= 0) {
+          const note = document.createElement("small");
+          note.textContent = "Fixed in this scenario";
+          item.append(note);
+        }
+
+        if (control.type === "slider" || control.type === "stepper") {
+          const input = document.createElement("input");
+          input.type = "range";
+          input.min = String(control.min || 0);
+          input.max = String(control.max || 100);
+          input.step = String(control.step || 1);
+          input.value = String(values[control.id]);
+          input.disabled = locked;
+          input.addEventListener("input", function(event) {
+            values[control.id] = Number(event.target.value);
+            renderControls();
+          });
+          item.append(input);
+        } else if (control.type === "toggle") {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.disabled = locked;
+          button.setAttribute("aria-pressed", values[control.id] ? "true" : "false");
+          button.textContent = values[control.id] ? "On" : "Off";
+          button.addEventListener("click", function() {
+            values[control.id] = !values[control.id];
+            renderControls();
+          });
+          item.append(button);
+        } else if (control.type === "discrete") {
+          const group = document.createElement("div");
+          group.className = "discrete-options";
+          (control.options || []).forEach(function(option) {
+            const button = document.createElement("button");
+            button.type = "button";
+            button.disabled = locked;
+            button.setAttribute("aria-current", values[control.id] === option ? "true" : "false");
+            button.textContent = option;
+            button.addEventListener("click", function() {
+              values[control.id] = option;
+              renderControls();
+            });
+            group.append(button);
+          });
+          item.append(group);
+        } else {
+          const select = document.createElement("select");
+          select.disabled = locked;
+          (control.options || []).forEach(function(option) {
+            const choice = document.createElement("option");
+            choice.value = option;
+            choice.textContent = option;
+            select.append(choice);
+          });
+          select.value = String(values[control.id]);
+          select.addEventListener("change", function(event) {
+            values[control.id] = event.target.value;
+            renderControls();
+          });
+          item.append(select);
+        }
+
+        controlsEl.append(item);
+      });
+    }
+
+    function formatControlValue(control) {
+      const value = values[control.id];
+      if (control.type === "toggle") return value ? "On" : "Off";
+      return String(value);
+    }
+
+    function renderMisconceptions() {
+      const root = document.getElementById("misconceptions");
+      root.replaceChildren();
+      const scenario = currentScenario();
+      const items = spec.learning_design.target_misconceptions.filter(function(item) {
+        return item.addressed_in_scenario_id === scenario.id;
+      });
+
+      if (!items.length) {
+        const empty = document.createElement("p");
+        empty.textContent = "No named misconception for this scenario. Focus on linking the three views.";
+        root.append(empty);
+        return;
+      }
+
+      items.forEach(function(item) {
+        const block = document.createElement("div");
+        block.className = "misconception";
+        const role = document.createElement("span");
+        role.className = "role-label";
+        role.style.setProperty("--role-color", roleColors.problem);
+        const dot = document.createElement("span");
+        dot.className = "dot";
+        const roleText = document.createElement("span");
+        roleText.textContent = "Watch for";
+        role.append(dot, roleText);
+        const wrong = document.createElement("strong");
+        wrong.textContent = item.misconception;
+        const correction = document.createElement("small");
+        correction.textContent = item.correction;
+        block.append(role, wrong, correction);
+        root.append(block);
+      });
+    }
+
+    function renderCheckpoint() {
+      checkpointEl.replaceChildren();
+      const scenario = currentScenario();
+      const checkpoint = spec.checkpoints.find(function(item) {
+        return item.after_scenario === scenario.id;
+      });
+
+      if (!checkpoint) {
+        const empty = document.createElement("p");
+        empty.textContent = predictionMade
+          ? "No checkpoint here. Move to the next scenario when you can explain what changed."
+          : "A checkpoint appears after the relevant scenario.";
+        checkpointEl.append(empty);
+        return;
+      }
+
+      const block = document.createElement("div");
+      block.className = "checkpoint";
+      const prompt = document.createElement("strong");
+      prompt.textContent = checkpoint.prompt;
+      block.append(prompt);
+
+      if (checkpoint.type === "fill_in_blank") {
+        const input = document.createElement("input");
+        input.placeholder = "Type the missing term(s)";
+        input.value = checkpointState[checkpoint.id] || "";
+        input.addEventListener("input", function(event) {
+          checkpointState[checkpoint.id] = event.target.value;
+        });
+        block.append(input);
+      } else if (checkpoint.type === "matching") {
+        checkpoint.pairs.forEach(function(pair, index) {
+          const select = document.createElement("select");
+          select.dataset.answer = pair.mechanism;
+          const placeholder = document.createElement("option");
+          placeholder.value = "";
+          placeholder.textContent = pair.factor + ": choose mechanism";
+          select.append(placeholder);
+          checkpoint.pairs.forEach(function(option) {
+            const choice = document.createElement("option");
+            choice.value = option.mechanism;
+            choice.textContent = option.mechanism;
+            select.append(choice);
+          });
+          select.value = checkpointState[checkpoint.id + "-" + index] || "";
+          select.addEventListener("change", function(event) {
+            checkpointState[checkpoint.id + "-" + index] = event.target.value;
+          });
+          block.append(select);
+        });
+      } else {
+        const group = document.createElement("div");
+        group.className = "discrete-options";
+        checkpoint.options.forEach(function(option) {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.textContent = option;
+          button.setAttribute("aria-current", checkpointState[checkpoint.id] === option ? "true" : "false");
+          button.addEventListener("click", function() {
+            checkpointState[checkpoint.id] = option;
+            renderCheckpoint();
+          });
+          group.append(button);
+        });
+        block.append(group);
+      }
+
+      const actions = document.createElement("div");
+      actions.className = "checkpoint-actions";
+      const check = document.createElement("button");
+      check.type = "button";
+      check.textContent = "Check";
+      const feedback = document.createElement("p");
+      feedback.className = "checkpoint-feedback";
+      check.addEventListener("click", function() {
+        feedback.textContent = checkpointIsCorrect(checkpoint, block)
+          ? "Good. You linked the observation to the mechanism."
+          : "Not quite yet. Use the linked views to name the mechanism precisely.";
+        feedback.style.color = checkpointIsCorrect(checkpoint, block) ? roleColors.good : roleColors.problem;
+      });
+      actions.append(check);
+      block.append(actions, feedback);
+      checkpointEl.append(block);
+    }
+
+    function checkpointIsCorrect(checkpoint, block) {
+      if (checkpoint.type === "fill_in_blank") {
+        const answer = String(checkpointState[checkpoint.id] || "").toLowerCase();
+        return checkpoint.answers.every(function(expected) {
+          return answer.indexOf(String(expected).toLowerCase()) >= 0;
+        });
+      }
+
+      if (checkpoint.type === "matching") {
+        const selects = Array.from(block.querySelectorAll("select"));
+        return selects.every(function(select) {
+          return select.value && select.value === select.dataset.answer;
+        });
+      }
+
+      return checkpointState[checkpoint.id] === checkpoint.answer;
+    }
+
+    function renderAll() {
+      renderScenarioList();
+      renderPrediction();
+      renderControls();
+      renderMisconceptions();
+      renderCheckpoint();
+      syncMotionButton();
+    }
+
+    function setScenario(next) {
+      scenarioIndex = clamp(next, 0, spec.scenarios.length - 1);
+      predictionMade = false;
+      selectedPrediction = "";
+      pulses.push({ x: canvas.clientWidth * 0.5, y: canvas.clientHeight * 0.42, age: 0 });
+      renderAll();
+    }
+
+    function resetArtifact() {
+      resetValues();
+      predictionMade = false;
+      selectedPrediction = "";
+      checkpointEl.replaceChildren();
+      resetParticles();
+      renderAll();
+    }
 
     function syncMotionButton() {
       motionButton.textContent = motionRunning ? "Pause motion" : "Resume motion";
       motionButton.setAttribute("aria-current", motionRunning ? "false" : "true");
     }
 
-    function currentRole() {
-      if (stepIndex === 0) return "problem";
-      if (stepIndex === spec.steps.length - 1) return "resolution";
-      return "agent";
-    }
-
-    function currentColor() {
-      return colors[currentRole()] || colors.neutral;
-    }
-
-    function resizeCanvas() {
-      const dpr = window.devicePixelRatio || 1;
-      const rect = canvas.getBoundingClientRect();
-      canvas.width = Math.max(1, Math.round(rect.width * dpr));
-      canvas.height = Math.max(1, Math.round(rect.height * dpr));
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      resetMovers();
-    }
-
-    function resetMovers() {
-      seed = 11 + spec.id.length * 17;
-      movers.length = 0;
-      const width = canvas.clientWidth || 900;
-      const height = canvas.clientHeight || 430;
-      const count = mode === "atomic" ? 24 : mode === "weighted" ? 30 : mode === "graph" ? 22 : 28;
-      for (let i = 0; i < count; i += 1) {
-        const angle = rand(0, Math.PI * 2);
-        const speed = rand(20, 62);
-        movers.push({
-          x: rand(width * 0.08, width * 0.92),
-          y: rand(height * 0.16, height * 0.72),
-          vx: Math.cos(angle) * speed,
-          vy: Math.sin(angle) * speed,
-          orbit: rand(0, Math.PI * 2),
-          role: (spec.key_symbols[i % spec.key_symbols.length] || { role: "neutral" }).role,
+    function panel(x, y, w, h, title, subtitle) {
+      ctx.fillStyle = "rgba(255, 253, 246, 0.94)";
+      ctx.strokeStyle = "rgba(21, 25, 19, 0.18)";
+      ctx.lineWidth = 1;
+      ctx.fillRect(x, y, w, h);
+      ctx.strokeRect(x, y, w, h);
+      drawText(title, x + 14, y + 24, {
+        color: roleColors.neutral,
+        font: "800 12px Andale Mono, Courier New, monospace"
+      });
+      if (subtitle) {
+        drawText(compact(subtitle, 48), x + 14, y + 43, {
+          color: roleColors.inkSoft,
+          font: "12px Avenir Next, Trebuchet MS, sans-serif"
         });
       }
     }
@@ -471,501 +1246,402 @@
     function drawText(text, x, y, options) {
       const opts = options || {};
       ctx.save();
-      ctx.fillStyle = opts.color || colors.neutral;
-      ctx.font = opts.font || "700 13px ui-monospace, SFMono-Regular, Menlo, monospace";
+      ctx.fillStyle = opts.color || roleColors.neutral;
+      ctx.font = opts.font || "800 12px Andale Mono, Courier New, monospace";
       ctx.textAlign = opts.align || "left";
       ctx.textBaseline = opts.baseline || "alphabetic";
-      ctx.fillText(text, x, y);
-      ctx.restore();
-    }
-
-    function wrapText(text, x, y, maxWidth, lineHeight, options) {
-      const words = String(text).split(/\s+/);
+      const maxWidth = opts.maxWidth || 999;
+      const words = String(text).split(" ");
       let line = "";
-      let lineY = y;
-      ctx.save();
-      ctx.font = options && options.font ? options.font : "600 13px ui-sans-serif, system-ui, sans-serif";
-      ctx.fillStyle = options && options.color ? options.color : colors.inkSoft || "#4a4a4a";
-      ctx.textAlign = options && options.align ? options.align : "left";
-      for (const word of words) {
-        const test = line ? line + " " + word : word;
+      let yy = y;
+      for (let i = 0; i < words.length; i += 1) {
+        const test = line ? line + " " + words[i] : words[i];
         if (ctx.measureText(test).width > maxWidth && line) {
-          ctx.fillText(line, x, lineY);
-          line = word;
-          lineY += lineHeight;
+          ctx.fillText(line, x, yy);
+          line = words[i];
+          yy += opts.lineHeight || 16;
         } else {
           line = test;
         }
       }
-      if (line) ctx.fillText(line, x, lineY);
+      if (line) ctx.fillText(line, x, yy);
       ctx.restore();
     }
 
-    function roundedRect(x, y, w, h, radius) {
-      const r = Math.min(radius, w / 2, h / 2);
-      ctx.beginPath();
-      ctx.moveTo(x + r, y);
-      ctx.arcTo(x + w, y, x + w, y + h, r);
-      ctx.arcTo(x + w, y + h, x, y + h, r);
-      ctx.arcTo(x, y + h, x, y, r);
-      ctx.arcTo(x, y, x + w, y, r);
-      ctx.closePath();
-    }
-
-    function drawPanel(x, y, w, h, title) {
-      ctx.save();
-      ctx.fillStyle = "#fffdf8";
-      ctx.strokeStyle = colors.rule || "#d8d2c2";
-      ctx.lineWidth = 1;
-      ctx.fillRect(x, y, w, h);
-      ctx.strokeRect(x, y, w, h);
-      if (title) drawText(title, x + 14, y + 26, { color: colors.neutral });
-      ctx.restore();
-    }
-
-    function drawArrow(x1, y1, x2, y2, color) {
+    function drawArrow(x1, y1, x2, y2, color, width) {
       const angle = Math.atan2(y2 - y1, x2 - x1);
       ctx.save();
       ctx.strokeStyle = color;
       ctx.fillStyle = color;
-      ctx.lineWidth = 3;
+      ctx.lineWidth = width || 2;
       ctx.beginPath();
       ctx.moveTo(x1, y1);
       ctx.lineTo(x2, y2);
       ctx.stroke();
+      ctx.translate(x2, y2);
+      ctx.rotate(angle);
       ctx.beginPath();
-      ctx.moveTo(x2, y2);
-      ctx.lineTo(x2 - Math.cos(angle - 0.55) * 12, y2 - Math.sin(angle - 0.55) * 12);
-      ctx.lineTo(x2 - Math.cos(angle + 0.55) * 12, y2 - Math.sin(angle + 0.55) * 12);
+      ctx.moveTo(0, 0);
+      ctx.lineTo(-10, -5);
+      ctx.lineTo(-10, 5);
       ctx.closePath();
       ctx.fill();
       ctx.restore();
     }
 
-    function drawMovingParticle(p, radius, alpha) {
-      const color = colors[p.role] || colors.agent;
-      ctx.save();
-      ctx.globalAlpha = alpha == null ? 1 : alpha;
-      ctx.fillStyle = p.role === "problem" ? "#fffdf8" : color;
-      ctx.strokeStyle = color;
-      ctx.lineWidth = p.role === currentRole() ? 4 : 2;
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, radius, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.stroke();
-      ctx.restore();
-    }
+    function drawMicroscopic(delta, time, x, y, w, h, metrics) {
+      const micro = spec.representations.views.find(function(view) { return view.type === "microscopic"; });
+      panel(x, y, w, h, "Microscopic", micro ? micro.description : "");
 
-    function updateMovers(delta, speedScale) {
-      const width = canvas.clientWidth;
-      const height = canvas.clientHeight;
-      if (!motionRunning) return;
-      movers.forEach(function(p) {
-        p.x += p.vx * delta * speedScale;
-        p.y += p.vy * delta * speedScale;
-        if (p.x < 34 || p.x > width - 34) p.vx *= -1;
-        if (p.y < 58 || p.y > height - 94) p.vy *= -1;
-        p.x = clamp(p.x, 34, width - 34);
-        p.y = clamp(p.y, 58, height - 94);
-        p.orbit += delta * speedScale;
+      const box = { x: x + 18, y: y + 58, w: w - 36, h: h - 90 };
+      ctx.fillStyle = "rgba(226, 238, 232, 0.62)";
+      ctx.strokeStyle = "rgba(21, 25, 19, 0.22)";
+      ctx.lineWidth = 2;
+      ctx.fillRect(box.x, box.y, box.w, box.h);
+      ctx.strokeRect(box.x, box.y, box.w, box.h);
+
+      const activeCount = Math.round(clamp(24 + metrics.density * 38, 18, particles.length));
+      for (let i = 0; i < activeCount; i += 1) {
+        const particle = particles[i];
+        if (motionRunning) {
+          particle.x += particle.vx * delta * metrics.particleSpeed;
+          particle.y += particle.vy * delta * metrics.particleSpeed;
+        }
+
+        if (particle.x < box.x + particle.r || particle.x > box.x + box.w - particle.r) particle.vx *= -1;
+        if (particle.y < box.y + particle.r || particle.y > box.y + box.h - particle.r) particle.vy *= -1;
+        particle.x = clamp(particle.x, box.x + particle.r, box.x + box.w - particle.r);
+        particle.y = clamp(particle.y, box.y + particle.r, box.y + box.h - particle.r);
+
+        const successful = i % Math.max(2, Math.round(8 - metrics.rate)) === 0;
+        ctx.globalAlpha = predictionMade ? 0.88 : 0.42;
+        ctx.fillStyle = roleColors[particle.role] || roleColors.neutral;
+        ctx.strokeStyle = successful ? roleColors.highlight : "rgba(21, 25, 19, 0.34)";
+        ctx.lineWidth = successful ? 2.2 : 1;
+        ctx.beginPath();
+        ctx.arc(
+          particle.x,
+          particle.y,
+          particle.r + Math.sin(time * 0.004 + particle.phase) * (motionRunning ? 0.9 : 0.2),
+          0,
+          Math.PI * 2
+        );
+        ctx.fill();
+        ctx.stroke();
+      }
+      ctx.globalAlpha = 1;
+
+      if (predictionMade && motionRunning && rand() < metrics.rate * 0.025) {
+        pulses.push({
+          x: box.x + rand() * box.w,
+          y: box.y + rand() * box.h,
+          age: 0
+        });
+      }
+
+      drawText("successful collisions flash", box.x + 12, box.y + box.h - 14, {
+        color: roleColors.inkSoft,
+        font: "800 11px Andale Mono, Courier New, monospace"
       });
     }
 
-    function drawRateScene(delta, time, width, height) {
-      const progress = (stepIndex + 1) / spec.steps.length;
-      const boxX = width * 0.06;
-      const boxY = height * 0.15;
-      const boxW = width * 0.38;
-      const boxH = height * 0.53;
-      drawPanel(boxX, boxY, boxW, boxH, /pressure/.test(textIndex) ? "compressed gas particles" : "reacting particles");
-      updateMovers(delta, 0.85 + progress);
-      movers.forEach(function(p, index) {
-        if (p.x < boxX || p.x > boxX + boxW || p.y < boxY || p.y > boxY + boxH) {
-          p.x = boxX + 22 + (index * 37) % Math.max(40, boxW - 44);
-          p.y = boxY + 38 + (index * 53) % Math.max(60, boxH - 76);
-        }
-        drawMovingParticle(p, 8 + progress * 3, 0.9);
-        if (motionRunning && index % 7 === stepIndex % 7) {
-          pulses.push({ x: p.x, y: p.y, age: 0, color: colors.highlight });
-        }
-      });
+    function drawMacroscopic(x, y, w, h, metrics) {
+      const macro = spec.representations.views.find(function(view) { return view.type === "macroscopic"; });
+      panel(x, y, w, h, "Macroscopic", macro ? macro.description : "");
 
-      const graphX = width * 0.52;
-      const graphY = height * 0.18;
-      const graphW = width * 0.38;
-      const graphH = height * 0.43;
-      drawPanel(graphX, graphY, graphW, graphH, /catalyst|temperature|activation/.test(textIndex) ? "energy barrier" : "product-time graph");
-
-      ctx.save();
-      ctx.strokeStyle = colors.neutral;
+      const gx = x + 42;
+      const gy = y + h - 42;
+      const gw = w - 76;
+      const gh = h - 92;
+      ctx.strokeStyle = roleColors.neutral;
       ctx.lineWidth = 2;
       ctx.beginPath();
-      ctx.moveTo(graphX + 34, graphY + graphH - 34);
-      ctx.lineTo(graphX + graphW - 24, graphY + graphH - 34);
-      ctx.moveTo(graphX + 34, graphY + graphH - 34);
-      ctx.lineTo(graphX + 34, graphY + 48);
+      ctx.moveTo(gx, gy - gh);
+      ctx.lineTo(gx, gy);
+      ctx.lineTo(gx + gw, gy);
       ctx.stroke();
 
-      if (/catalyst|temperature|activation/.test(textIndex)) {
-        const baseY = graphY + graphH - 54;
-        const high = graphY + 68;
-        const low = graphY + 128;
-        ctx.lineWidth = 5;
-        ctx.strokeStyle = colors.problem;
-        ctx.beginPath();
-        ctx.moveTo(graphX + 46, baseY);
-        ctx.bezierCurveTo(graphX + graphW * 0.35, baseY, graphX + graphW * 0.38, high, graphX + graphW * 0.52, high);
-        ctx.bezierCurveTo(graphX + graphW * 0.68, high, graphX + graphW * 0.72, baseY, graphX + graphW - 42, baseY);
-        ctx.stroke();
-        ctx.globalAlpha = stepIndex >= 1 ? 1 : 0.25;
-        ctx.strokeStyle = colors.agent;
-        ctx.beginPath();
-        ctx.moveTo(graphX + 46, baseY);
-        ctx.bezierCurveTo(graphX + graphW * 0.35, baseY, graphX + graphW * 0.41, low, graphX + graphW * 0.52, low);
-        ctx.bezierCurveTo(graphX + graphW * 0.65, low, graphX + graphW * 0.72, baseY, graphX + graphW - 42, baseY);
-        ctx.stroke();
-        ctx.globalAlpha = 1;
-        drawText("lower barrier = more successful particles", graphX + graphW / 2, graphY + graphH - 12, { align: "center", color: colors.agent });
+      const decreasing = /reactant|mass loss|mass decreases|used up/i.test(spec.topic + " " + spec.mechanism);
+      ctx.strokeStyle = roleColors.resolution;
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      for (let i = 0; i <= 80; i += 1) {
+        const t = i / 80;
+        const curve = decreasing
+          ? Math.exp(-metrics.rate * t * 1.2)
+          : 1 - Math.exp(-metrics.rate * t * 1.2);
+        const px = gx + t * gw;
+        const py = decreasing
+          ? gy - curve * gh * 0.86
+          : gy - curve * gh * 0.86;
+        if (i === 0) ctx.moveTo(px, py);
+        else ctx.lineTo(px, py);
+      }
+      ctx.stroke();
+
+      const slopeX = gx + gw * 0.16;
+      const slopeY = decreasing
+        ? gy - Math.exp(-metrics.rate * 0.16 * 1.2) * gh * 0.86
+        : gy - (1 - Math.exp(-metrics.rate * 0.16 * 1.2)) * gh * 0.86;
+      drawArrow(slopeX - 26, slopeY + 28, slopeX + 34, slopeY - 28, roleColors.highlight, 3);
+      drawText("initial gradient = rate", slopeX + 8, slopeY - 38, {
+        color: roleColors.highlight,
+        font: "800 11px Andale Mono, Courier New, monospace",
+        maxWidth: 120
+      });
+      drawText(decreasing ? "[reactant] / mass" : "product amount", gx - 28, gy - gh - 8, {
+        color: roleColors.inkSoft,
+        font: "800 10px Andale Mono, Courier New, monospace"
+      });
+      drawText("time", gx + gw - 22, gy + 24, {
+        color: roleColors.inkSoft,
+        font: "800 10px Andale Mono, Courier New, monospace"
+      });
+    }
+
+    function drawSymbolic(x, y, w, h, metrics) {
+      const symbolic = spec.representations.views.find(function(view) { return view.type === "symbolic"; });
+      panel(x, y, w, h, "Symbolic", symbolic ? symbolic.description : "");
+      const words = keywordText();
+
+      if (/electron|charge|ion|shell|proton|nucleon|isotope|relative atomic mass/.test(words)) {
+        drawAtomicSymbolic(x, y, w, h, metrics);
       } else {
-        ctx.strokeStyle = colors.agent;
-        ctx.lineWidth = 5;
+        drawEnergySymbolic(x, y, w, h, metrics);
+      }
+    }
+
+    function drawEnergySymbolic(x, y, w, h, metrics) {
+      const baseY = y + h - 48;
+      const startX = x + 34;
+      const endX = x + w - 32;
+      const peakX = x + w * 0.48;
+      const peakY = y + 74 + metrics.activationEnergy * 48;
+      ctx.strokeStyle = roleColors.agent;
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      ctx.moveTo(startX, baseY - 20);
+      ctx.bezierCurveTo(x + w * 0.28, y + 74, peakX, peakY - 92, peakX, peakY - 48);
+      ctx.bezierCurveTo(x + w * 0.66, peakY + 16, x + w * 0.72, baseY - 76, endX, baseY - 76);
+      ctx.stroke();
+
+      if (metrics.activationEnergy < 0.78) {
+        ctx.strokeStyle = roleColors.good;
+        ctx.setLineDash([7, 8]);
         ctx.beginPath();
-        ctx.moveTo(graphX + 36, graphY + graphH - 38);
-        ctx.bezierCurveTo(graphX + 80, graphY + graphH - 118 - progress * 46, graphX + graphW * 0.5, graphY + 72, graphX + graphW - 34, graphY + 72);
-        ctx.stroke();
-        ctx.strokeStyle = colors.highlight;
-        ctx.lineWidth = 3;
-        ctx.setLineDash([8, 6]);
-        ctx.beginPath();
-        ctx.moveTo(graphX + 36, graphY + 72);
-        ctx.lineTo(graphX + graphW - 28, graphY + 72);
+        ctx.moveTo(startX, baseY - 20);
+        ctx.bezierCurveTo(x + w * 0.32, y + 112, peakX, peakY - 58, peakX, peakY - 24);
+        ctx.bezierCurveTo(x + w * 0.66, peakY + 28, x + w * 0.72, baseY - 76, endX, baseY - 76);
         ctx.stroke();
         ctx.setLineDash([]);
-        drawText(/same final|plateau|excess/.test(textIndex) ? "same plateau" : "rate = gradient", graphX + graphW - 34, graphY + 58, { align: "right", color: colors.highlight });
+        drawText("catalyst lowers Ea", peakX - 58, peakY + 8, {
+          color: roleColors.good,
+          font: "800 11px Andale Mono, Courier New, monospace"
+        });
       }
-      ctx.restore();
 
-      statA.textContent = Math.round(progress * 100) + "%";
-      statALabel.textContent = "mechanism revealed";
-      statB.textContent = (1 + progress * 2.4).toFixed(1) + "x";
-      statBLabel.textContent = "collision motion";
-      statC.textContent = stepIndex === spec.steps.length - 1 ? "linked" : "watch";
-      statCLabel.textContent = "rate clue";
-    }
-
-    function drawAtomicScene(delta, time, width, height) {
-      const cx = width * 0.36;
-      const cy = height * 0.42;
-      const progress = (stepIndex + 1) / spec.steps.length;
-      const shells = /2,8,8|two-minus|2-/.test(textIndex) ? [2, 8, 8] : /chlor/.test(textIndex) ? [2, 8, stepIndex >= 1 ? 8 : 7] : [2, 8, stepIndex >= 1 && /sodium|positive|cation|loss/.test(textIndex) ? 0 : 1];
-      drawPanel(width * 0.06, height * 0.12, width * 0.58, height * 0.62, /notation|oganesson/.test(textIndex) ? "particle-count rules" : "electron shell simulation");
-
-      ctx.save();
-      ctx.fillStyle = colors.problem;
-      ctx.strokeStyle = colors.neutral;
-      ctx.lineWidth = 2;
+      ctx.strokeStyle = roleColors.highlight;
+      ctx.lineWidth = 3;
       ctx.beginPath();
-      ctx.arc(cx, cy, 38, 0, Math.PI * 2);
-      ctx.fill();
+      ctx.moveTo(startX + 22, baseY - 20);
+      ctx.lineTo(startX + 22, peakY - 48);
       ctx.stroke();
-      drawText(/oganesson/.test(textIndex) ? "118p" : /chlor/.test(textIndex) ? "17p" : "11p", cx, cy + 4, { align: "center", color: "#fffdf8" });
-
-      shells.forEach(function(count, shellIndex) {
-        const radius = 78 + shellIndex * 54;
-        ctx.strokeStyle = colors.rule || "#d8d2c2";
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.arc(cx, cy, radius, 0, Math.PI * 2);
-        ctx.stroke();
-        for (let i = 0; i < count; i += 1) {
-          const angle = (i / Math.max(1, count)) * Math.PI * 2 + time * 0.00035 * (shellIndex + 1) * (motionRunning ? 1 : 0);
-          const ex = cx + Math.cos(angle) * radius;
-          const ey = cy + Math.sin(angle) * radius;
-          ctx.fillStyle = colors.agent;
-          ctx.strokeStyle = colors.agent;
-          ctx.beginPath();
-          ctx.arc(ex, ey, 6, 0, Math.PI * 2);
-          ctx.fill();
-        }
+      drawText("Ea", startX + 30, (baseY + peakY) / 2 - 34, {
+        color: roleColors.highlight,
+        font: "800 16px Georgia, serif"
       });
 
-      const electronChange = /gain|anion|negative|2-/.test(textIndex) ? 1 : /loss|cation|positive|sodium/.test(textIndex) ? -1 : 0;
-      if (electronChange !== 0) {
-        const fromX = electronChange > 0 ? width * 0.08 : cx + 78 + Math.sin(time * 0.004) * 18;
-        const toX = electronChange > 0 ? cx + 78 + Math.sin(time * 0.004) * 18 : width * 0.68;
-        const y = cy - 118 + Math.cos(time * 0.004) * 20;
-        drawArrow(fromX, y, toX, y, colors.highlight);
-        ctx.fillStyle = colors.highlight;
-        ctx.beginPath();
-        ctx.arc(fromX + (toX - fromX) * clamp(progress, 0.15, 0.9), y, 8, 0, Math.PI * 2);
-        ctx.fill();
-        drawText(electronChange > 0 ? "electron gained" : "electron lost", (fromX + toX) / 2, y - 16, { align: "center", color: colors.highlight });
+      const distX = x + w - 138;
+      const distY = y + 76;
+      const distW = 106;
+      const distH = 54;
+      ctx.strokeStyle = roleColors.rule;
+      ctx.strokeRect(distX, distY, distW, distH);
+      ctx.fillStyle = "rgba(8, 122, 138, 0.18)";
+      ctx.beginPath();
+      for (let i = 0; i <= 36; i += 1) {
+        const t = i / 36;
+        const px = distX + t * distW;
+        const py = distY + distH - Math.sin(t * Math.PI) * distH * (0.35 + metrics.successfulFraction * 0.62);
+        if (i === 0) ctx.moveTo(px, py);
+        else ctx.lineTo(px, py);
       }
-
-      const cardX = width * 0.69;
-      const cardY = height * 0.15;
-      drawPanel(cardX, cardY, width * 0.25, height * 0.5, "counts");
-      const protons = /oganesson/.test(textIndex) ? 118 : /chlor/.test(textIndex) ? 17 : /two-minus|2-/.test(textIndex) ? 16 : 11;
-      const electrons = /chloride|anion|negative/.test(textIndex) ? 18 : /sodium|cation|positive/.test(textIndex) && stepIndex >= 1 ? 10 : /two-minus|2-/.test(textIndex) ? 18 : protons;
-      const neutrons = /oganesson/.test(textIndex) ? 176 : /isotope/.test(textIndex) ? "varies" : "same nucleus";
-      drawText("protons: " + protons, cardX + 18, cardY + 74, { color: colors.problem });
-      drawText("electrons: " + electrons, cardX + 18, cardY + 112, { color: colors.agent });
-      drawText("neutrons: " + neutrons, cardX + 18, cardY + 150, { color: colors.neutral });
-      drawText("charge: " + (electrons > protons ? "-" + (electrons - protons) : protons > electrons ? "+" + (protons - electrons) : "0"), cardX + 18, cardY + 198, { color: colors.highlight });
-      ctx.restore();
-
-      statA.textContent = String(protons);
-      statALabel.textContent = "protons";
-      statB.textContent = String(electrons);
-      statBLabel.textContent = "electrons";
-      statC.textContent = electrons > protons ? "-" + (electrons - protons) : protons > electrons ? "+" + (protons - electrons) : "0";
-      statCLabel.textContent = "charge";
-    }
-
-    function drawIsotopeScene(delta, time, width, height) {
-      const progress = (stepIndex + 1) / spec.steps.length;
-      drawPanel(width * 0.06, height * 0.13, width * 0.4, height * 0.55, "isotope A");
-      drawPanel(width * 0.54, height * 0.13, width * 0.4, height * 0.55, "isotope B");
-      [0, 1].forEach(function(side) {
-        const cx = side === 0 ? width * 0.26 : width * 0.74;
-        const cy = height * 0.38;
-        const neutronExtra = side === 0 ? 0 : 6;
-        for (let i = 0; i < 12 + neutronExtra; i += 1) {
-          const angle = (i / (12 + neutronExtra)) * Math.PI * 2 + time * 0.0002;
-          const r = 18 + (i % 3) * 10;
-          ctx.fillStyle = i % 2 === 0 ? colors.problem : colors.neutral;
-          ctx.beginPath();
-          ctx.arc(cx + Math.cos(angle) * r, cy + Math.sin(angle) * r, 7, 0, Math.PI * 2);
-          ctx.fill();
-        }
-        ctx.strokeStyle = colors.agent;
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.arc(cx, cy, 98, 0, Math.PI * 2);
-        ctx.stroke();
-        for (let i = 0; i < 8; i += 1) {
-          const angle = i / 8 * Math.PI * 2 + time * 0.00055 * (motionRunning ? 1 : 0);
-          ctx.fillStyle = colors.agent;
-          ctx.beginPath();
-          ctx.arc(cx + Math.cos(angle) * 98, cy + Math.sin(angle) * 98, 6, 0, Math.PI * 2);
-          ctx.fill();
-        }
-        drawText(side === 0 ? "same electrons" : "extra neutrons", cx, height * 0.62, { align: "center", color: side === 0 ? colors.agent : colors.highlight });
+      ctx.lineTo(distX + distW, distY + distH);
+      ctx.lineTo(distX, distY + distH);
+      ctx.closePath();
+      ctx.fill();
+      drawText("fraction >= Ea", distX + 8, distY + distH + 16, {
+        color: roleColors.inkSoft,
+        font: "800 10px Andale Mono, Courier New, monospace"
       });
-      drawArrow(width * 0.45, height * 0.38, width * 0.54, height * 0.38, colors.highlight);
-      statA.textContent = "same";
-      statALabel.textContent = "chemical properties";
-      statB.textContent = "different";
-      statBLabel.textContent = "mass";
-      statC.textContent = Math.round(progress * 100) + "%";
-      statCLabel.textContent = "comparison";
     }
 
-    function drawWeightedScene(delta, time, width, height) {
-      const progress = (stepIndex + 1) / spec.steps.length;
-      drawPanel(width * 0.06, height * 0.14, width * 0.88, height * 0.5, "weighted abundance simulation");
-      const baseX = width * 0.12;
-      const baseY = height * 0.46;
-      const total = 24;
-      for (let i = 0; i < total; i += 1) {
-        const isLight = i < 18;
-        const x = baseX + (i % 12) * (width * 0.06);
-        const y = baseY - Math.floor(i / 12) * 72 + Math.sin(time * 0.004 + i) * (motionRunning ? 5 : 0);
-        ctx.fillStyle = isLight ? colors.agent : colors.problem;
-        ctx.strokeStyle = colors.neutral;
-        ctx.lineWidth = 1;
+    function drawAtomicSymbolic(x, y, w, h, metrics) {
+      const cx = x + w * 0.36;
+      const cy = y + h * 0.56;
+      const shellCount = 2 + Math.round(metrics.density);
+      ctx.strokeStyle = roleColors.rule;
+      ctx.lineWidth = 2;
+      for (let shell = 1; shell <= shellCount; shell += 1) {
         ctx.beginPath();
-        ctx.arc(x, y, isLight ? 15 : 18, 0, Math.PI * 2);
-        ctx.fill();
+        ctx.arc(cx, cy, 28 + shell * 24, 0, Math.PI * 2);
         ctx.stroke();
-        drawText(isLight ? "35" : "37", x, y + 4, { align: "center", color: "#fffdf8", font: "700 12px ui-monospace, SFMono-Regular, Menlo, monospace" });
       }
-      const barX = width * 0.2;
-      const barY = height * 0.68;
-      const barW = width * 0.6;
-      ctx.fillStyle = "#efe7d4";
-      ctx.fillRect(barX, barY, barW, 28);
-      ctx.fillStyle = colors.agent;
-      ctx.fillRect(barX, barY, barW * 0.75, 28);
-      ctx.fillStyle = colors.problem;
-      ctx.fillRect(barX + barW * 0.75, barY, barW * 0.25, 28);
-      ctx.strokeStyle = colors.neutral;
-      ctx.strokeRect(barX, barY, barW, 28);
-      drawText("75% x 35", barX + barW * 0.375, barY + 48, { align: "center", color: colors.agent });
-      drawText("25% x 37", barX + barW * 0.875, barY + 48, { align: "center", color: colors.problem });
-      drawText("relative atomic mass = 35.5", width * 0.5, barY + 88, { align: "center", color: colors.good, font: "800 18px ui-monospace, SFMono-Regular, Menlo, monospace" });
-      statA.textContent = "75%";
-      statALabel.textContent = "chlorine-35";
-      statB.textContent = "25%";
-      statBLabel.textContent = "chlorine-37";
-      statC.textContent = "35.5";
-      statCLabel.textContent = "weighted average";
-    }
-
-    function drawFlowScene(delta, time, width, height) {
-      const active = stepIndex % Math.max(1, spec.key_symbols.length);
-      drawPanel(width * 0.06, height * 0.16, width * 0.88, height * 0.48, "mechanism map");
-      spec.key_symbols.forEach(function(symbol, index) {
-        const x = width * (0.16 + index * (0.68 / Math.max(1, spec.key_symbols.length - 1)));
-        const y = height * 0.39 + Math.sin(time * 0.003 + index) * (motionRunning ? 12 : 0);
-        const color = colors[symbol.role] || colors.neutral;
-        ctx.fillStyle = index === active ? color : "#fffdf8";
-        ctx.strokeStyle = color;
-        ctx.lineWidth = index === active ? 5 : 3;
-        ctx.beginPath();
-        ctx.arc(x, y, index === active ? 42 : 34, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.stroke();
-        drawText(symbol.symbol.slice(0, 14), x, y + 4, { align: "center", color: index === active ? "#fffdf8" : colors.neutral });
-        if (index < spec.key_symbols.length - 1) drawArrow(x + 48, y, width * (0.16 + (index + 1) * (0.68 / Math.max(1, spec.key_symbols.length - 1))) - 48, y, colors.rule || "#d8d2c2");
+      ctx.fillStyle = roleColors.problem;
+      ctx.beginPath();
+      ctx.arc(cx, cy, 18, 0, Math.PI * 2);
+      ctx.fill();
+      drawText("nucleus", cx, cy + 4, {
+        align: "center",
+        color: roleColors.paper,
+        font: "800 10px Andale Mono, Courier New, monospace"
       });
-      statA.textContent = String(stepIndex + 1);
-      statALabel.textContent = "active step";
-      statB.textContent = String(spec.key_symbols.length);
-      statBLabel.textContent = "symbols";
-      statC.textContent = hookIndex >= 0 ? "hook" : "auto";
-      statCLabel.textContent = "scene mode";
+
+      const electrons = 6 + Math.round(metrics.successfulFraction * 8);
+      for (let i = 0; i < electrons; i += 1) {
+        const shell = 1 + (i % shellCount);
+        const angle = (i / electrons) * Math.PI * 2;
+        const radius = 28 + shell * 24;
+        const ex = cx + Math.cos(angle) * radius;
+        const ey = cy + Math.sin(angle) * radius;
+        ctx.fillStyle = roleColors.agent;
+        ctx.beginPath();
+        ctx.arc(ex, ey, 5, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      const notationX = x + w * 0.66;
+      drawText("proton no.", notationX, y + 88, {
+        color: roleColors.inkSoft,
+        font: "800 11px Andale Mono, Courier New, monospace"
+      });
+      drawText("X", notationX + 34, y + 148, {
+        color: roleColors.neutral,
+        font: "700 48px Georgia, serif"
+      });
+      drawText("nucleon no.", notationX, y + 190, {
+        color: roleColors.inkSoft,
+        font: "800 11px Andale Mono, Courier New, monospace"
+      });
+      drawText(metrics.symbolicLabel, notationX, y + h - 34, {
+        color: roleColors.highlight,
+        font: "800 13px Andale Mono, Courier New, monospace"
+      });
     }
 
-    function drawPulses(delta) {
-      for (let i = pulses.length - 1; i >= 0; i -= 1) {
-        const pulse = pulses[i];
-        pulse.age += delta;
-        const alpha = 1 - pulse.age / 0.7;
-        if (alpha <= 0 || pulses.length > 36) {
-          pulses.splice(i, 1);
-          continue;
-        }
-        ctx.save();
-        ctx.globalAlpha = alpha;
-        ctx.strokeStyle = pulse.color || colors.highlight;
-        ctx.lineWidth = 3;
-        ctx.beginPath();
-        ctx.arc(pulse.x, pulse.y, 8 + pulse.age * 72, 0, Math.PI * 2);
-        ctx.stroke();
-        ctx.restore();
-      }
+    function updateMetricReadouts(metrics) {
+      document.getElementById("rate-readout").textContent = metrics.rate.toFixed(1) + "x";
+      document.getElementById("metric-frequency").textContent = metrics.collisionFrequency.toFixed(1) + "x";
+      document.getElementById("metric-success").textContent = Math.round(metrics.successfulFraction * 100) + "%";
+      document.getElementById("metric-symbolic").textContent = metrics.symbolicLabel;
     }
 
     function draw(time) {
-      const width = canvas.clientWidth;
-      const height = canvas.clientHeight;
+      animationId = null;
+      const width = canvas.clientWidth || 900;
+      const height = canvas.clientHeight || 500;
       const delta = Math.min(0.04, Math.max(0.001, (time - lastTime) / 1000 || 0.016));
       lastTime = time;
+      const metrics = computeMetrics();
+      updateMetricReadouts(metrics);
+
       ctx.clearRect(0, 0, width, height);
-      ctx.fillStyle = "#fffdf8";
+      ctx.fillStyle = roleColors.paperStrong;
       ctx.fillRect(0, 0, width, height);
-      drawText("canvas simulation: " + mode, 18, 28, { color: colors.inkSoft || "#4a4a4a" });
-      if (mode === "atomic") drawAtomicScene(delta, time, width, height);
-      else if (mode === "isotope") drawIsotopeScene(delta, time, width, height);
-      else if (mode === "weighted") drawWeightedScene(delta, time, width, height);
-      else if (mode === "rate" || mode === "graph") drawRateScene(delta, time, width, height);
-      else drawFlowScene(delta, time, width, height);
-      drawPulses(delta);
-      requestAnimationFrame(draw);
-    }
 
-    function renderSteps() {
-      const stepsList = document.querySelector("#stepsList");
-      stepsList.replaceChildren();
-      spec.steps.forEach(function(step, index) {
-        const btn = document.createElement("button");
-        btn.type = "button";
-        btn.className = "step-btn";
-        btn.setAttribute("aria-current", index === stepIndex ? "true" : "false");
-        btn.innerHTML = "<span>" + String(index + 1).padStart(2, "0") + "</span><strong></strong>";
-        btn.querySelector("strong").textContent = step.name;
-        btn.addEventListener("click", function() {
-          stopAuto();
-          stepIndex = index;
-          renderText();
-        });
-        stepsList.append(btn);
-      });
-    }
-
-    function renderText() {
-      const step = spec.steps[stepIndex];
-      counter.textContent = String(stepIndex + 1).padStart(2, "0") + " / " + String(spec.steps.length).padStart(2, "0");
-      stageTitle.textContent = step.name;
-      captionName.textContent = step.name;
-      captionBeat.textContent = step.beat;
-      caption.style.borderLeftColor = currentColor();
-      hookReadout.textContent = hookIndex >= 0 ? "Exploring: " + spec.interactivity_hooks[hookIndex] : "";
-      renderSteps();
-    }
-
-    function nextStep() {
-      stepIndex = (stepIndex + 1) % spec.steps.length;
-      renderText();
-    }
-
-    function previousStep() {
-      stepIndex = (stepIndex - 1 + spec.steps.length) % spec.steps.length;
-      renderText();
-    }
-
-    function stopAuto() {
-      if (autoTimer) {
-        clearInterval(autoTimer);
-        autoTimer = null;
-        document.querySelector("#auto").setAttribute("aria-current", "false");
+      ctx.strokeStyle = "rgba(202, 191, 158, 0.44)";
+      ctx.lineWidth = 1;
+      for (let x = 0; x < width; x += 32) {
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, height);
+        ctx.stroke();
       }
-    }
+      for (let y = 0; y < height; y += 32) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(width, y);
+        ctx.stroke();
+      }
 
-    document.querySelector("#back").addEventListener("click", function() { stopAuto(); previousStep(); });
-    document.querySelector("#next").addEventListener("click", function() { stopAuto(); nextStep(); });
-    document.querySelector("#restart").addEventListener("click", function() {
-      stopAuto();
-      stepIndex = 0;
-      hookIndex = -1;
-      resetMovers();
-      renderText();
-    });
-    document.querySelector("#auto").addEventListener("click", function() {
-      if (autoTimer) {
-        stopAuto();
+      const gap = 12;
+      if (width < 720) {
+        const panelH = Math.max(150, (height - 48) / 3);
+        drawMicroscopic(delta, time, 12, 12, width - 24, panelH, metrics);
+        drawMacroscopic(12, 24 + panelH, width - 24, panelH, metrics);
+        drawSymbolic(12, 36 + panelH * 2, width - 24, height - panelH * 2 - 48, metrics);
       } else {
-        this.setAttribute("aria-current", "true");
-        autoTimer = setInterval(nextStep, 2300);
+        const leftW = Math.max(320, width * 0.58);
+        const rightW = width - leftW - gap - 24;
+        const topH = Math.max(190, (height - 36 - gap) * 0.5);
+        drawMicroscopic(delta, time, 12, 12, leftW, height - 24, metrics);
+        drawMacroscopic(leftW + gap + 12, 12, rightW, topH, metrics);
+        drawSymbolic(leftW + gap + 12, topH + gap + 12, rightW, height - topH - gap - 24, metrics);
       }
+
+      for (let i = pulses.length - 1; i >= 0; i -= 1) {
+        const pulse = pulses[i];
+        pulse.age += delta;
+        const alpha = 1 - pulse.age / 0.72;
+        if (alpha <= 0) {
+          pulses.splice(i, 1);
+          continue;
+        }
+        ctx.globalAlpha = alpha;
+        ctx.strokeStyle = roleColors.highlight;
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        ctx.arc(pulse.x, pulse.y, 10 + pulse.age * 90, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.globalAlpha = 1;
+      }
+
+      if (!document.hidden) scheduleDraw();
+    }
+
+    function scheduleDraw() {
+      if (animationId === null) {
+        animationId = requestAnimationFrame(draw);
+      }
+    }
+
+    document.getElementById("prev-scenario").addEventListener("click", function() {
+      setScenario(scenarioIndex - 1);
     });
+    document.getElementById("next-scenario").addEventListener("click", function() {
+      setScenario(scenarioIndex + 1);
+    });
+    document.getElementById("reset").addEventListener("click", resetArtifact);
     motionButton.addEventListener("click", function() {
       motionRunning = !motionRunning;
       syncMotionButton();
     });
-    document.querySelectorAll(".hook-btn").forEach(function(btn) {
-      btn.addEventListener("click", function() {
-        hookIndex = Number(btn.dataset.hook);
-        document.querySelectorAll(".hook-btn").forEach(function(button) {
-          button.setAttribute("aria-current", button === btn ? "true" : "false");
-        });
-        pulses.push({ x: canvas.clientWidth * 0.5, y: canvas.clientHeight * 0.38, age: 0, color: colors.highlight });
-        renderText();
-      });
-    });
+
     window.addEventListener("resize", resizeCanvas);
     document.addEventListener("visibilitychange", function() {
       if (document.hidden) {
         motionRunning = false;
         syncMotionButton();
-        stopAuto();
+        if (animationId !== null) {
+          cancelAnimationFrame(animationId);
+          animationId = null;
+        }
+      } else {
+        lastTime = performance.now();
+        scheduleDraw();
       }
     });
-    window.addEventListener("keydown", function(event) {
-      if (event.key === "ArrowRight") { stopAuto(); nextStep(); }
-      if (event.key === "ArrowLeft") { stopAuto(); previousStep(); }
-      if (event.key.toLowerCase() === "r") { stopAuto(); stepIndex = 0; hookIndex = -1; resetMovers(); renderText(); }
-      if (event.code === "Space") {
-        event.preventDefault();
-        document.querySelector("#auto").click();
-      }
+    document.addEventListener("keydown", function(event) {
+      if (event.key === "ArrowLeft") setScenario(scenarioIndex - 1);
+      if (event.key === "ArrowRight") setScenario(scenarioIndex + 1);
+      if (event.key === "r" || event.key === "R") resetArtifact();
     });
 
+    resetValues();
+    renderStaticText();
+    renderAll();
     resizeCanvas();
-    syncMotionButton();
-    renderText();
-    requestAnimationFrame(draw);
+    scheduleDraw();
   </script>
 </body>
 </html>

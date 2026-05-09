@@ -1,39 +1,9 @@
-import type { ArtifactSpec, BuiltArtifact } from "./schema";
-
-const roleLabels: Record<string, string> = {
-  problem: "Problem",
-  agent: "Cause",
-  resolution: "Outcome",
-  neutral: "Structure",
-  highlight: "Focus",
-};
-
-function escapeHtml(value: string) {
-  return value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
-
-function artifactJson(spec: ArtifactSpec) {
-  return JSON.stringify(spec)
-    .replace(/</g, "\\u003c")
-    .replace(/\u2028/g, "\\u2028")
-    .replace(/\u2029/g, "\\u2029");
-}
-
-export function buildArtifactHtml(spec: ArtifactSpec) {
-  const title = escapeHtml(spec.artifact_metadata.title || spec.topic);
-  const data = artifactJson(spec);
-
-  return `<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>${title}</title>
+  <title>More Concentrated, Steeper Start</title>
   <style>
     :root {
       --problem: #c84a36;
@@ -620,7 +590,7 @@ export function buildArtifactHtml(spec: ArtifactSpec) {
         </div>
 
         <div class="canvas-wrap">
-          <canvas id="scene" role="img" aria-label="${title} linked animated representations"></canvas>
+          <canvas id="scene" role="img" aria-label="More Concentrated, Steeper Start linked animated representations"></canvas>
           <div class="metric-row">
             <div class="metric"><strong id="metric-frequency">1.0x</strong>Collision / event frequency</div>
             <div class="metric"><strong id="metric-success">35%</strong>Successful fraction</div>
@@ -681,8 +651,8 @@ export function buildArtifactHtml(spec: ArtifactSpec) {
   </main>
 
   <script>
-    const spec = ${data};
-    const roleNames = ${JSON.stringify(roleLabels)};
+    const spec = {"id":"rate-concentration-graph-plateau","source_ref":"pages 10 and 16","subject":"O Level Chemistry","topic":"Concentration, initial gradient, and final volume","medium":"interactive_html","mechanism":"Higher concentration puts more reacting particles in the same volume, increasing collision frequency and initial rate while final gas volume stays the same if the limiting reagent amount is unchanged.","transferable_principle":"Changing concentration changes rate through particles per unit volume; changing the limiting reagent amount changes the final amount of product.","steps":[{"name":"Pack more particles","beat":"A higher concentration means more reacting particles in the same volume."},{"name":"Collide more often","beat":"More particles per unit volume gives a higher collision frequency."},{"name":"Start steeper","beat":"The graph has a steeper initial gradient because the initial rate is higher."},{"name":"Check the plateau","beat":"If the limiting reagent amount is the same, the final gas volume stays the same."},{"name":"Choose the curve","beat":"For the TYS graph, pick the curve with a steeper initial gradient but the same plateau."}],"key_symbols":[{"symbol":"1.0 mol/dm3 beaker","role":"neutral","meaning":"The lower concentration comparison from the graph question."},{"symbol":"2.0 mol/dm3 beaker","role":"agent","meaning":"The higher concentration with more particles per unit volume."},{"symbol":"steeper curve B","role":"resolution","meaning":"The TYS curve with faster initial rate and same final volume."},{"symbol":"same plateau line","role":"highlight","meaning":"Shows unchanged final gas volume when magnesium amount is unchanged and acid is in excess."},{"symbol":"wrong plateau curves","role":"problem","meaning":"Distractors that change final volume instead of only rate."}],"interactivity_hooks":["Change acid concentration and watch particle density, collision frequency, and initial gradient respond together.","Lock magnesium at 0.5 g to show why final hydrogen volume stays the same when acid is in excess.","Try TYS curve choices A to D and receive feedback on gradient and plateau."],"output_filename":"rate-concentration-graph-plateau.html","artifact_metadata":{"title":"More Concentrated, Steeper Start","subject":"O Level Chemistry","level":"O-Level","syllabus_reference":"Factors affecting rate: concentration of reactants and interpretation of gas-volume graphs","estimated_interaction_time_minutes":10,"prerequisite_concepts":["Concentration","Excess reactant","Limiting reagent","Initial gradient","Volume of gas"]},"learning_design":{"core_aha":"A higher concentration makes the graph start steeper, but it does not change the final gas volume when the limiting reagent is unchanged.","learning_objectives":["Explain higher concentration as more particles per unit volume.","Link higher collision frequency to a steeper initial gradient.","Use limiting reagent reasoning to predict the same final gas volume.","Choose the correct TYS graph for 2.0 mol/dm3 acid under the same conditions."],"target_misconceptions":[{"misconception":"A higher concentration always produces more gas.","correction":"It produces gas faster, but the final volume stays the same if the same limiting reagent amount is used.","addressed_in_scenario_id":"same-plateau"},{"misconception":"The correct graph is the one with the highest plateau.","correction":"For the TYS question, the correct graph has the same plateau and a steeper initial gradient.","addressed_in_scenario_id":"tys-curve-choice"},{"misconception":"Concentration changes activation energy.","correction":"Concentration changes collision frequency, not the activation energy barrier.","addressed_in_scenario_id":"particle-density"}]},"representations":{"description":"Students compare concentration through particle density, live gas production, and TYS-style curve selection.","views":[{"id":"concentration-particle-box","type":"microscopic","description":"Animated particles crowd into the same volume as concentration increases, causing more collisions per second."},{"id":"magnesium-acid-setup","type":"macroscopic","description":"A 0.5 g magnesium ribbon reacts with excess hydrochloric acid while hydrogen volume is collected."},{"id":"tys-curve-panel","type":"symbolic","description":"A gas-volume graph overlays curves A to D with initial gradient and final plateau checks."}]},"controls":[{"id":"acid_concentration","label":"Acid concentration / mol/dm3","type":"slider","min":1,"max":2,"default":1,"step":0.5,"affects":["particle_density","collision_frequency","initial_gradient"]},{"id":"acid_excess","label":"Acid is in excess","type":"toggle","default":true,"affects":["limiting_reagent_label","plateau_height","feedback"]},{"id":"magnesium_mass","label":"Magnesium mass / g","type":"slider","min":0.25,"max":1,"default":0.5,"step":0.25,"affects":["final_hydrogen_volume","plateau_height","limiting_reagent"]},{"id":"curve_choice","label":"TYS curve choice","type":"discrete","default":"B","options":["A","B","C","D"],"affects":["choice_feedback","gradient_check","plateau_check"]},{"id":"show_gradient","label":"Show initial gradient","type":"toggle","default":true,"affects":["gradient_marker","initial_rate_label"]}],"scenarios":[{"id":"particle-density","title":"More Particles in Same Volume","guiding_question":"What changes inside the same volume when concentration increases from 1.0 to 2.0 mol/dm3?","locked_controls":["acid_excess","magnesium_mass","curve_choice","show_gradient"],"active_controls":["acid_concentration"],"success_criterion":"You explain higher concentration as more particles per unit volume and higher collision frequency.","misconception_buster":true},{"id":"same-plateau","title":"Keep Magnesium Fixed","guiding_question":"Why does the final hydrogen volume stay the same when 0.5 g magnesium reacts with excess acid?","locked_controls":["acid_concentration","acid_excess","magnesium_mass","curve_choice"],"active_controls":["show_gradient"],"success_criterion":"You state that magnesium is the limiting reagent, so changing excess acid concentration changes rate but not final volume.","misconception_buster":true},{"id":"tys-curve-choice","title":"Pick the TYS Curve","guiding_question":"Which curve shows 2.0 mol/dm3 acid with the same 0.5 g magnesium under the same conditions?","locked_controls":["acid_concentration","acid_excess","magnesium_mass","show_gradient"],"active_controls":["curve_choice"],"success_criterion":"You choose B because it has a steeper initial gradient but the same final gas volume as graph 1.","misconception_buster":true},{"id":"free-play","title":"Rate or Amount","guiding_question":"Can you change rate without changing final amount, then change final amount deliberately?","locked_controls":[],"active_controls":["acid_concentration","acid_excess","magnesium_mass","curve_choice","show_gradient"],"success_criterion":"You use concentration for initial rate and magnesium mass for final hydrogen volume."}],"checkpoints":[{"id":"concentration-summary","after_scenario":"same-plateau","prompt":"Higher concentration increases collision ______ and gives a steeper initial ______, while the final volume stays the same if the limiting reagent is unchanged.","type":"fill_in_blank","answers":["frequency","gradient"]},{"id":"tys-graph-answer","after_scenario":"tys-curve-choice","prompt":"In the TYS graph question, why is B correct?","type":"multiple_choice","options":["It has a higher final plateau","It has a lower final plateau","It is steeper at the start but reaches the same final volume","It is less steep but eventually catches up"],"answer":"It is steeper at the start but reaches the same final volume"}],"ui_requirements":{"always_visible":["particle density","collision counter","initial gradient","final plateau check"],"syllabus_vocabulary_to_surface":["concentration","particles per unit volume","collision frequency","initial rate","gradient","limiting reagent","rate of reaction"],"tone":"Exam-strategy focused: every graph choice must pass both gradient and plateau checks.","accessibility":["Use dashed and solid curve styles plus labels A to D.","Provide text feedback for each wrong curve choice.","Keep units visible as mol/dm3 and g."]}};
+    const roleNames = {"problem":"Problem","agent":"Cause","resolution":"Outcome","neutral":"Structure","highlight":"Focus"};
     const roleColors = {
       problem: "#c84a36",
       agent: "#087a8a",
@@ -1674,12 +1644,4 @@ export function buildArtifactHtml(spec: ArtifactSpec) {
     scheduleDraw();
   </script>
 </body>
-</html>`;
-}
-
-export function buildArtifact(spec: ArtifactSpec): BuiltArtifact {
-  return {
-    ...spec,
-    html: buildArtifactHtml(spec),
-  };
-}
+</html>

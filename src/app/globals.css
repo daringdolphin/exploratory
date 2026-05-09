@@ -556,7 +556,7 @@ svg {
 
 .artifact-brief {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1px;
   border-top: 1px solid rgba(21, 25, 19, 0.12);
   background: rgba(21, 25, 19, 0.12);
@@ -1062,5 +1062,416 @@ svg {
 
   .source-dock iframe {
     height: 520px;
+  }
+}
+
+.test-artifact-page {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 14px;
+  width: min(1280px, calc(100vw - 32px));
+  height: 100vh;
+  margin: 0 auto;
+  padding: 16px 0;
+  overflow: hidden;
+}
+
+.test-artifact-topbar {
+  display: grid;
+  grid-template-columns: minmax(280px, 1fr) minmax(260px, 420px);
+  gap: 18px;
+  align-items: center;
+  min-height: 76px;
+}
+
+.test-artifact-topbar p,
+.test-artifact-note,
+.test-artifact-copy span,
+.option-card-header span,
+.clean-metric span,
+.clean-slider span,
+.prompt,
+.feedback,
+.mini-graph span {
+  font-family: var(--font-jetbrains-mono), monospace;
+  letter-spacing: 0;
+}
+
+.test-artifact-topbar p {
+  margin: 0 0 4px;
+  color: var(--agent);
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.test-artifact-topbar h1 {
+  margin: 0;
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-size: 38px;
+  line-height: 0.95;
+  letter-spacing: 0;
+}
+
+.test-artifact-note {
+  justify-self: end;
+  max-width: 380px;
+  margin: 0;
+  color: var(--muted) !important;
+  font-size: 13px !important;
+  font-weight: 700;
+  line-height: 1.4;
+  text-align: right;
+  text-transform: none !important;
+}
+
+.test-artifact-topbar button,
+.choice-row button {
+  min-height: 36px;
+  border: 1px solid rgba(21, 25, 19, 0.18);
+  background: rgba(255, 253, 246, 0.78);
+  color: var(--ink);
+  cursor: pointer;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 0 10px;
+  text-transform: uppercase;
+}
+
+.test-artifact-topbar button[aria-current="true"],
+.choice-row button[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.test-options-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  min-height: 0;
+}
+
+.option-card {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  grid-column: span 2;
+  min-height: 0;
+  border: 1px solid rgba(21, 25, 19, 0.14);
+  background: rgba(255, 248, 234, 0.8);
+  box-shadow: 0 18px 52px rgba(16, 32, 29, 0.08);
+  overflow: hidden;
+}
+
+.option-card:nth-child(4),
+.option-card:nth-child(5) {
+  grid-column: span 3;
+}
+
+.option-card-header {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  min-height: 68px;
+  border-bottom: 1px solid rgba(21, 25, 19, 0.12);
+  padding: 12px 14px 10px;
+}
+
+.option-card-header span {
+  color: var(--agent);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.option-card-header h2 {
+  margin: 0;
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-size: clamp(22px, 2vw, 30px);
+  line-height: 0.98;
+  letter-spacing: 0;
+}
+
+.option-card-header p {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.option-card-body {
+  min-height: 0;
+}
+
+.option-card .simple-artifact {
+  height: 100%;
+}
+
+.option-card .clean-graph {
+  min-height: 0;
+}
+
+.option-card .simple-panel {
+  gap: 10px;
+  padding: 14px;
+}
+
+.option-card .simple-panel p {
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.option-card .clean-metric strong {
+  font-size: 38px;
+}
+
+.option-card .clean-metric span,
+.option-card .clean-slider span,
+.option-card .prompt {
+  font-size: 10px;
+}
+
+.option-card .choice-row button {
+  min-height: 30px;
+  font-size: 10px;
+  padding: 0 8px;
+}
+
+.option-card .feedback {
+  min-height: 28px;
+}
+
+.option-card .split-graphs {
+  gap: 8px;
+  padding: 10px;
+}
+
+.option-card .bottom-controls {
+  grid-template-columns: 130px minmax(0, 1fr);
+  gap: 12px;
+  padding: 10px 12px;
+}
+
+.option-card .bottom-controls .clean-metric strong {
+  font-size: 30px;
+}
+
+.test-artifact-shell {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  min-height: 0;
+  border: 1px solid rgba(21, 25, 19, 0.14);
+  background: rgba(255, 248, 234, 0.78);
+  box-shadow: 0 24px 70px rgba(16, 32, 29, 0.12);
+  overflow: hidden;
+}
+
+.test-artifact-copy {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr) minmax(220px, 0.46fr);
+  gap: 16px;
+  align-items: center;
+  min-height: 94px;
+  border-bottom: 1px solid rgba(21, 25, 19, 0.12);
+  padding: 18px 22px;
+}
+
+.test-artifact-copy span {
+  color: var(--agent);
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.test-artifact-copy h2 {
+  margin: 0;
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-size: clamp(30px, 4vw, 54px);
+  line-height: 0.96;
+  letter-spacing: 0;
+}
+
+.test-artifact-copy p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+.simple-artifact {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 290px;
+  gap: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.option-scrub {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr) auto;
+}
+
+.option-compare {
+  grid-template-columns: minmax(0, 1fr) 280px;
+}
+
+.clean-graph {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 360px;
+  background: var(--paper-strong);
+}
+
+.simple-panel {
+  display: grid;
+  align-content: center;
+  gap: 18px;
+  border-left: 1px solid rgba(21, 25, 19, 0.12);
+  background: rgba(255, 253, 246, 0.72);
+  padding: 24px;
+}
+
+.simple-panel p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+.clean-metric {
+  display: grid;
+  gap: 5px;
+}
+
+.clean-metric span,
+.clean-slider span,
+.prompt {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.clean-metric strong {
+  color: var(--ink);
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-size: 68px;
+  line-height: 0.88;
+}
+
+.clean-slider {
+  display: grid;
+  gap: 10px;
+}
+
+.clean-slider input {
+  width: 100%;
+  accent-color: var(--agent);
+}
+
+.choice-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.choice-row.stacked {
+  grid-template-columns: 1fr;
+}
+
+.feedback {
+  min-height: 44px;
+  font-size: 13px !important;
+}
+
+.feedback.good {
+  color: var(--good) !important;
+}
+
+.split-graphs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  min-height: 0;
+  padding: 20px;
+}
+
+.mini-graph {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  min-height: 0;
+  border: 1px solid rgba(21, 25, 19, 0.12);
+  background: var(--paper-strong);
+}
+
+.mini-graph.selected {
+  border-color: var(--agent);
+  box-shadow: inset 0 0 0 3px rgba(8, 122, 138, 0.16);
+}
+
+.mini-graph span {
+  padding: 14px 16px 0;
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.bottom-controls {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 22px;
+  align-items: center;
+  border-top: 1px solid rgba(21, 25, 19, 0.12);
+  background: rgba(255, 253, 246, 0.78);
+  padding: 18px 22px;
+}
+
+.bottom-controls .clean-metric strong {
+  font-size: 46px;
+}
+
+@media (max-width: 900px) {
+  .test-artifact-page {
+    width: min(100% - 18px, 760px);
+    height: auto;
+    min-height: 100vh;
+    overflow: visible;
+  }
+
+  .test-artifact-topbar,
+  .test-options-grid,
+  .test-artifact-copy,
+  .simple-artifact,
+  .option-compare,
+  .bottom-controls {
+    grid-template-columns: 1fr;
+  }
+
+  .test-options-grid {
+    grid-template-rows: none;
+  }
+
+  .option-card,
+  .option-card:nth-child(4),
+  .option-card:nth-child(5) {
+    grid-column: auto;
+    min-height: 420px;
+  }
+
+  .test-artifact-note {
+    justify-self: start;
+    text-align: left;
+  }
+
+  .simple-panel {
+    border-top: 1px solid rgba(21, 25, 19, 0.12);
+    border-left: 0;
+  }
+
+  .split-graphs {
+    grid-template-columns: 1fr;
   }
 }

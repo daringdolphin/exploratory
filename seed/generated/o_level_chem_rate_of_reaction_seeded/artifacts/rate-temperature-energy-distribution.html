@@ -1,39 +1,9 @@
-import type { ArtifactSpec, BuiltArtifact } from "./schema";
-
-const roleLabels: Record<string, string> = {
-  problem: "Problem",
-  agent: "Cause",
-  resolution: "Outcome",
-  neutral: "Structure",
-  highlight: "Focus",
-};
-
-function escapeHtml(value: string) {
-  return value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
-
-function artifactJson(spec: ArtifactSpec) {
-  return JSON.stringify(spec)
-    .replace(/</g, "\\u003c")
-    .replace(/\u2028/g, "\\u2028")
-    .replace(/\u2029/g, "\\u2029");
-}
-
-export function buildArtifactHtml(spec: ArtifactSpec) {
-  const title = escapeHtml(spec.artifact_metadata.title || spec.topic);
-  const data = artifactJson(spec);
-
-  return `<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>${title}</title>
+  <title>Temperature Gives Two Rate Boosts</title>
   <style>
     :root {
       --problem: #c84a36;
@@ -620,7 +590,7 @@ export function buildArtifactHtml(spec: ArtifactSpec) {
         </div>
 
         <div class="canvas-wrap">
-          <canvas id="scene" role="img" aria-label="${title} linked animated representations"></canvas>
+          <canvas id="scene" role="img" aria-label="Temperature Gives Two Rate Boosts linked animated representations"></canvas>
           <div class="metric-row">
             <div class="metric"><strong id="metric-frequency">1.0x</strong>Collision / event frequency</div>
             <div class="metric"><strong id="metric-success">35%</strong>Successful fraction</div>
@@ -681,8 +651,8 @@ export function buildArtifactHtml(spec: ArtifactSpec) {
   </main>
 
   <script>
-    const spec = ${data};
-    const roleNames = ${JSON.stringify(roleLabels)};
+    const spec = {"id":"rate-temperature-energy-distribution","source_ref":"page 12","subject":"O Level Chemistry","topic":"Temperature and activation energy","medium":"interactive_html","mechanism":"Increasing temperature raises average kinetic energy, so particles move faster and a larger fraction have energy greater than or equal to activation energy, increasing effective collision frequency.","transferable_principle":"Temperature affects rate in two linked ways: faster particle motion and a larger enough-energy fraction.","steps":[{"name":"Heat the system","beat":"The average kinetic energy of particles increases."},{"name":"Move faster","beat":"Particles travel faster and collide more often."},{"name":"Clear the barrier","beat":"A larger fraction of particles has energy at least equal to activation energy."},{"name":"Rate increases","beat":"More frequent effective collisions make the reaction faster."}],"key_symbols":[{"symbol":"temperature slider","role":"agent","meaning":"Raises average kinetic energy in the system."},{"symbol":"fast particles","role":"highlight","meaning":"Shows particles moving faster at higher temperature."},{"symbol":"activation energy line","role":"problem","meaning":"The energy threshold particles must meet or exceed."},{"symbol":"shaded enough-energy fraction","role":"resolution","meaning":"The larger fraction of particles able to react at higher temperature."}],"interactivity_hooks":["Raise temperature to speed up particles in the collision box.","Watch the shaded fraction above activation energy grow on the energy view.","Compare collision frequency with effective collision frequency."],"output_filename":"rate-temperature-energy-distribution.html","artifact_metadata":{"title":"Temperature Gives Two Rate Boosts","subject":"O Level Chemistry","level":"O-Level","syllabus_reference":"Factors affecting rate: temperature of system and activation energy","estimated_interaction_time_minutes":9,"prerequisite_concepts":["Kinetic energy","Activation energy","Effective collision","Fraction of particles"]},"learning_design":{"core_aha":"Heating does not lower activation energy; it gives more particles enough kinetic energy to overcome the same barrier.","learning_objectives":["Describe how higher temperature increases average kinetic energy.","Explain why faster particles collide more frequently.","Use an activation energy line to compare the fraction of particles able to react.","Avoid confusing temperature increase with catalyst action."],"target_misconceptions":[{"misconception":"Increasing temperature lowers activation energy.","correction":"The activation energy stays the same; more particles have enough energy to overcome it.","addressed_in_scenario_id":"barrier-stays"},{"misconception":"Temperature only makes particles collide more often.","correction":"Higher temperature also increases the fraction of particles with energy at least activation energy.","addressed_in_scenario_id":"fraction-above-ea"}]},"representations":{"description":"Students see the two temperature effects in particle motion and in an energy distribution with an activation energy line.","views":[{"id":"heated-particle-animation","type":"microscopic","description":"Particles move faster at higher temperature, producing more collisions and more effective collisions."},{"id":"thermometer-reaction-vessel","type":"macroscopic","description":"A reaction vessel with a thermometer shows the system being heated and product forming faster."},{"id":"energy-distribution-view","type":"symbolic","description":"A live energy distribution keeps the activation energy line fixed while the enough-energy fraction changes."}]},"controls":[{"id":"temperature","label":"Temperature","type":"slider","min":20,"max":80,"default":30,"step":10,"affects":["average_kinetic_energy","particle_speed","enough_energy_fraction"]},{"id":"activation_energy","label":"Activation energy","type":"slider","min":40,"max":80,"default":60,"step":5,"affects":["energy_threshold","enough_energy_fraction","effective_collision_frequency"]},{"id":"show_energy_distribution","label":"Show energy distribution","type":"toggle","default":true,"affects":["energy_graph","fraction_shading"]},{"id":"compare_temperatures","label":"Compare temperatures","type":"toggle","default":true,"affects":["split_motion_view","rate_graph_overlay"]}],"scenarios":[{"id":"faster-particles","title":"Heat and Watch Motion","guiding_question":"What happens to particle speed and collision frequency when temperature increases?","locked_controls":["activation_energy","show_energy_distribution","compare_temperatures"],"active_controls":["temperature"],"success_criterion":"You state that higher temperature gives particles more kinetic energy, so they move faster and collide more often."},{"id":"fraction-above-ea","title":"Count Particles Above Ea","guiding_question":"How does heating change the fraction of particles with energy greater than or equal to activation energy?","locked_controls":["activation_energy","compare_temperatures"],"active_controls":["temperature","show_energy_distribution"],"success_criterion":"You identify the shaded enough-energy fraction as larger at higher temperature.","misconception_buster":true},{"id":"barrier-stays","title":"Does Ea Move?","guiding_question":"When temperature increases, does the activation energy barrier itself become lower?","locked_controls":["activation_energy","show_energy_distribution","compare_temperatures"],"active_controls":["temperature"],"success_criterion":"You explain that activation energy stays fixed while more particles have enough energy.","misconception_buster":true},{"id":"free-play","title":"Temperature Lab","guiding_question":"Can you predict the fastest setting using both particle speed and enough-energy fraction?","locked_controls":[],"active_controls":["temperature","activation_energy","show_energy_distribution","compare_temperatures"],"success_criterion":"You justify the rate using both collision frequency and the fraction above activation energy."}],"checkpoints":[{"id":"temperature-two-effects","after_scenario":"fraction-above-ea","prompt":"Match each temperature effect to its rate consequence.","type":"matching","pairs":[{"factor":"Higher kinetic energy","mechanism":"Particles move faster"},{"factor":"Faster particles","mechanism":"More frequent collisions"},{"factor":"Larger fraction above activation energy","mechanism":"More effective collisions"}]},{"id":"temperature-ea-trap","after_scenario":"barrier-stays","prompt":"What happens to activation energy when temperature is increased?","type":"multiple_choice","options":["It decreases","It increases","It stays the same","It disappears"],"answer":"It stays the same"}],"ui_requirements":{"always_visible":["temperature readout","particle speed","activation energy line","enough-energy fraction"],"syllabus_vocabulary_to_surface":["temperature","average kinetic energy","activation energy","effective collision","collision frequency","rate of reaction"],"tone":"Precise and misconception-aware, especially about temperature versus catalyst effects.","accessibility":["Use numeric percentage labels for the enough-energy fraction.","Allow reduced-motion mode with stepped particle positions.","Keep the activation energy line labelled at all times."]}};
+    const roleNames = {"problem":"Problem","agent":"Cause","resolution":"Outcome","neutral":"Structure","highlight":"Focus"};
     const roleColors = {
       problem: "#c84a36",
       agent: "#087a8a",
@@ -1674,12 +1644,4 @@ export function buildArtifactHtml(spec: ArtifactSpec) {
     scheduleDraw();
   </script>
 </body>
-</html>`;
-}
-
-export function buildArtifact(spec: ArtifactSpec): BuiltArtifact {
-  return {
-    ...spec,
-    html: buildArtifactHtml(spec),
-  };
-}
+</html>
